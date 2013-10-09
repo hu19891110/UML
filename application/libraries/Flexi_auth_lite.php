@@ -47,13 +47,13 @@ class Flexi_auth_lite
 		###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 		
 		// Validate login credentials on every page load if set via config file.
-		if ($this->is_logged_in() && $this->CI->auth->auth_security['validate_login_onload'] && !isset($this->CI->flexi_auth_lite_model->auth_verified))
+		if ($this->is_logged_in() && $this->CI->login->auth_security['validate_login_onload'] && !isset($this->CI->flexi_auth_lite_model->auth_verified))
 		{
 			$this->CI->flexi_auth_lite_model->validate_database_login_session();
 		}
 		// Auto log in the user if they have 'Remember me' cookies.
-		else if (!$this->is_logged_in() && get_cookie($this->CI->auth->cookie_name['user_id']) && 
-			get_cookie($this->CI->auth->cookie_name['remember_series']) && get_cookie($this->CI->auth->cookie_name['remember_token']))
+		else if (!$this->is_logged_in() && get_cookie($this->CI->login->cookie_name['user_id']) && 
+			get_cookie($this->CI->login->cookie_name['remember_series']) && get_cookie($this->CI->login->cookie_name['remember_token']))
 		{
 			$this->CI->load->model('flexi_auth_model');
 			$this->CI->flexi_auth_model->login_remembered_user();
@@ -176,7 +176,7 @@ class Flexi_auth_lite
 	 */
 	public function is_logged_in()
 	{
-		return (bool) $this->CI->auth->session_data[$this->CI->auth->session_name['user_identifier']];
+		return (bool) $this->CI->login->session_data[$this->CI->login->session_name['user_identifier']];
 	}
 
 	/**
@@ -188,7 +188,7 @@ class Flexi_auth_lite
 	 */
 	public function is_logged_in_via_password()
 	{
-		return (bool) $this->CI->auth->session_data[$this->CI->auth->session_name['logged_in_via_password']];
+		return (bool) $this->CI->login->session_data[$this->CI->login->session_name['logged_in_via_password']];
 	}
 
 	/**
@@ -200,7 +200,7 @@ class Flexi_auth_lite
 	 */
 	public function is_admin()
 	{
-		return (bool) $this->CI->auth->session_data[$this->CI->auth->session_name['is_admin']];
+		return (bool) $this->CI->login->session_data[$this->CI->login->session_name['is_admin']];
 	}
 
 	/**
@@ -214,9 +214,9 @@ class Flexi_auth_lite
 	{
 		// Get users group and convert group name to lowercase for comparison.
 		$user_group = array();
-		if (! empty($this->CI->auth->session_data[$this->CI->auth->session_name['group']]))
+		if (! empty($this->CI->login->session_data[$this->CI->login->session_name['group']]))
 		{
-			$session_group = $this->CI->auth->session_data[$this->CI->auth->session_name['group']];
+			$session_group = $this->CI->login->session_data[$this->CI->login->session_name['group']];
 			$user_group[key($session_group)] = strtolower(current($session_group));
 		}
 		
@@ -247,9 +247,9 @@ class Flexi_auth_lite
 	{
 		// Get users privileges and convert names to lowercase for comparison.
 		$user_privileges = array();
-		if (! empty($this->CI->auth->session_data[$this->CI->auth->session_name['privileges']]))
+		if (! empty($this->CI->login->session_data[$this->CI->login->session_name['privileges']]))
 		{
-			foreach($this->CI->auth->session_data[$this->CI->auth->session_name['privileges']] as $id => $name)
+			foreach($this->CI->login->session_data[$this->CI->login->session_name['privileges']] as $id => $name)
 			{
 				$user_privileges[$id] = strtolower($name);
 			}
@@ -285,8 +285,8 @@ class Flexi_auth_lite
 	 */
 	public function get_user_id()
 	{
-		return ($this->CI->auth->session_data[$this->CI->auth->session_name['user_id']] !== FALSE) ? 
-			$this->CI->auth->session_data[$this->CI->auth->session_name['user_id']] : FALSE;
+		return ($this->CI->login->session_data[$this->CI->login->session_name['user_id']] !== FALSE) ? 
+			$this->CI->login->session_data[$this->CI->login->session_name['user_id']] : FALSE;
 	}
 	
 	/**
@@ -298,8 +298,8 @@ class Flexi_auth_lite
 	 */
 	public function get_user_identity()
 	{			
-		return ($this->CI->auth->session_data[$this->CI->auth->session_name['user_identifier']] !== FALSE) ? 
-			$this->CI->auth->session_data[$this->CI->auth->session_name['user_identifier']] : FALSE;
+		return ($this->CI->login->session_data[$this->CI->login->session_name['user_identifier']] !== FALSE) ? 
+			$this->CI->login->session_data[$this->CI->login->session_name['user_identifier']] : FALSE;
 	}
 	
 	/**
@@ -311,8 +311,8 @@ class Flexi_auth_lite
 	 */
 	public function get_user_group_id()
 	{
-		return ($this->CI->auth->session_data[$this->CI->auth->session_name['group']] !== FALSE) ? 
-			key($this->CI->auth->session_data[$this->CI->auth->session_name['group']]) : FALSE;
+		return ($this->CI->login->session_data[$this->CI->login->session_name['group']] !== FALSE) ? 
+			key($this->CI->login->session_data[$this->CI->login->session_name['group']]) : FALSE;
 	}
 	
 	/**
@@ -324,8 +324,8 @@ class Flexi_auth_lite
 	 */
 	public function get_user_group()
 	{
-		return ($this->CI->auth->session_data[$this->CI->auth->session_name['group']] !== FALSE) ? 
-			current($this->CI->auth->session_data[$this->CI->auth->session_name['group']]) : FALSE;
+		return ($this->CI->login->session_data[$this->CI->login->session_name['group']] !== FALSE) ? 
+			current($this->CI->login->session_data[$this->CI->login->session_name['group']]) : FALSE;
 	}
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
@@ -344,7 +344,7 @@ class Flexi_auth_lite
 			$user_id = ($this->get_user_id()) ? $this->get_user_id() : NULL;
 		}
 
-		$sql_where = array($this->CI->auth->tbl_col_user_account['id'] => $user_id);
+		$sql_where = array($this->CI->login->tbl_col_user_account['id'] => $user_id);
 		
 		return $this->CI->flexi_auth_lite_model->get_users($sql_select, $sql_where);
 	}
@@ -365,7 +365,7 @@ class Flexi_auth_lite
 			$identity = ($this->get_user_identity()) ? $this->get_user_identity() : NULL;
 		}
 
-		$sql_where = array($this->CI->auth->primary_identity_col => $identity);
+		$sql_where = array($this->CI->login->primary_identity_col => $identity);
 		
 		return $this->CI->flexi_auth_lite_model->get_users($sql_select, $sql_where);
 	}
@@ -414,12 +414,12 @@ class Flexi_auth_lite
 	function db_table($table = FALSE)
 	{
 		// Check the table exists in the config file and that a table name is set.
-		if (! isset($this->CI->auth->database_config[$table]['table']) || ! $this->CI->auth->database_config[$table]['table'])
+		if (! isset($this->CI->login->database_config[$table]['table']) || ! $this->CI->login->database_config[$table]['table'])
 		{
 			return FALSE;
 		}
 		
-		return $this->CI->auth->database_config[$table]['table'];
+		return $this->CI->login->database_config[$table]['table'];
 	}
 	
 	/**
@@ -431,12 +431,12 @@ class Flexi_auth_lite
 	function db_column($table = FALSE, $column = FALSE)
 	{
 		// Check the table and column exist in the config file and that a table/column name is set.
-		if (! isset($this->CI->auth->database_config[$table]['columns'][$column]) || ! $this->CI->auth->database_config[$table]['columns'][$column])
+		if (! isset($this->CI->login->database_config[$table]['columns'][$column]) || ! $this->CI->login->database_config[$table]['columns'][$column])
 		{
 			return FALSE;
 		}
 		
-		return $this->CI->auth->database_config[$table]['columns'][$column];
+		return $this->CI->login->database_config[$table]['columns'][$column];
 	}
 	
 	
@@ -565,7 +565,7 @@ class Flexi_auth_lite
 	 */	
 	public function clear_status_messages()
 	{
-		$this->CI->auth->status_messages = array('public' => array(), 'admin' => array());
+		$this->CI->login->status_messages = array('public' => array(), 'admin' => array());
 		return TRUE;
 	}
 
@@ -605,7 +605,7 @@ class Flexi_auth_lite
 	 */	
 	public function clear_error_messages()
 	{
-		$this->CI->auth->error_messages = array('public' => array(), 'admin' => array());
+		$this->CI->login->error_messages = array('public' => array(), 'admin' => array());
 		return TRUE;
 	}
 
@@ -630,8 +630,8 @@ class Flexi_auth_lite
 	 */	
 	public function clear_messages()
 	{
-		$this->CI->auth->status_messages = array('public' => array(), 'admin' => array());
-		$this->CI->auth->error_messages = array('public' => array(), 'admin' => array());
+		$this->CI->login->status_messages = array('public' => array(), 'admin' => array());
+		$this->CI->login->error_messages = array('public' => array(), 'admin' => array());
 		return TRUE;
 	}	
 	

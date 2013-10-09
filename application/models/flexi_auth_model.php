@@ -78,7 +78,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	    }
 		
 		// Get static salt if set via config file.
-		$static_salt = $this->auth->auth_security['static_salt'];
+		$static_salt = $this->login->auth_security['static_salt'];
 		
 		if ($is_password)
 		{
@@ -109,7 +109,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		// Check that an email address and password have been set.
 		// If a username is defined as an identity column, ensure it is also set.
 		if (empty($email) || empty($password) || 
-			(empty($username) && in_array($this->auth->tbl_col_user_account['username'], $this->auth->db_settings['identity_cols'])))
+			(empty($username) && in_array($this->login->tbl_col_user_account['username'], $this->login->db_settings['identity_cols'])))
 		{
 			$this->set_error_message('account_creation_insufficient_data', 'config');
 			return FALSE;
@@ -124,7 +124,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 		// If username is the primary identity column, check it is unique.
 		// If it isn't unique, auto incrementing the username (See next 'if' condition) cannot be used, as user must know their new username to login.
-		if ($this->auth->primary_identity_col == $this->auth->tbl_col_user_account['username'] && !$this->identity_available($username)) 
+		if ($this->login->primary_identity_col == $this->login->tbl_col_user_account['username'] && !$this->identity_available($username)) 
 		{
 			$this->set_error_message('account_creation_duplicate_username', 'config');
 			return FALSE;
@@ -132,7 +132,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		// Auto increment duplicate usernames (username1, username2...) if defined by config file.
 		else if (!empty($username) && !$this->username_available($username))
 		{
-			if ($this->auth->auth_settings['auto_increment_username'])
+			if ($this->login->auth_settings['auto_increment_username'])
 			{
 				$check_username = $username;
 				for($i = 0; !$this->username_available($check_username); $i++)
@@ -152,25 +152,25 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		###+++++++++++++++++++++++++++++++++###
 		
 		// Get group ID if it was passed in additional data array.
-	    if (isset($custom_data[$this->auth->database_config['user_group']['columns']['id']]) && is_numeric($custom_data[$this->auth->database_config['user_group']['columns']['id']]))
+	    if (isset($custom_data[$this->login->database_config['user_group']['columns']['id']]) && is_numeric($custom_data[$this->login->database_config['user_group']['columns']['id']]))
 	    {
-			$group_id = $custom_data[$this->auth->database_config['user_group']['columns']['id']];
-			unset($custom_data[$this->auth->database_config['user_group']['columns']['id']]);
+			$group_id = $custom_data[$this->login->database_config['user_group']['columns']['id']];
+			unset($custom_data[$this->login->database_config['user_group']['columns']['id']]);
 	    }
 		// Else, if a $group_id was not passed to the function, use the default group id defined via the config file.
 	    else if (!is_numeric($group_id))
 	    {
-			$group_id = $this->auth->auth_settings['default_group_id'];
+			$group_id = $this->login->auth_settings['default_group_id'];
 	    }
 
 	    $ip_address = $this->input->ip_address();
 		
-		$store_database_salt = $this->auth->auth_security['store_database_salt'];
-	    $database_salt = $store_database_salt ? $this->generate_token($this->auth->auth_security['database_salt_length']) : FALSE;
+		$store_database_salt = $this->login->auth_security['store_database_salt'];
+	    $database_salt = $store_database_salt ? $this->generate_token($this->login->auth_security['database_salt_length']) : FALSE;
 		
 		$hash_password = $this->generate_hash_token($password, $database_salt, TRUE);
 		$activation_token = sha1($this->generate_token(20));
-		$suspend_account = ($this->auth->auth_settings['suspend_new_accounts']) ? 1 : 0;
+		$suspend_account = ($this->login->auth_settings['suspend_new_accounts']) ? 1 : 0;
 		
 		###+++++++++++++++++++++++++++++++++###
 
@@ -179,25 +179,25 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 		// Main user account table.	
 	    $sql_insert = array(
-			$this->auth->tbl_col_user_account['group_id'] => $group_id,
-			$this->auth->tbl_col_user_account['email'] => $email,
-			$this->auth->tbl_col_user_account['username'] => ($username) ? $username : '',
-			$this->auth->tbl_col_user_account['password'] => $hash_password,
-			$this->auth->tbl_col_user_account['ip_address'] => $ip_address,
-			$this->auth->tbl_col_user_account['last_login_date'] => $this->database_date_time(),
-			$this->auth->tbl_col_user_account['date_added'] => $this->database_date_time(),
-			$this->auth->tbl_col_user_account['activation_token'] => $activation_token,
-			$this->auth->tbl_col_user_account['active'] => 0,		
-			$this->auth->tbl_col_user_account['suspend'] => $suspend_account		
+			$this->login->tbl_col_user_account['group_id'] => $group_id,
+			$this->login->tbl_col_user_account['email'] => $email,
+			$this->login->tbl_col_user_account['username'] => ($username) ? $username : '',
+			$this->login->tbl_col_user_account['password'] => $hash_password,
+			$this->login->tbl_col_user_account['ip_address'] => $ip_address,
+			$this->login->tbl_col_user_account['last_login_date'] => $this->database_date_time(),
+			$this->login->tbl_col_user_account['date_added'] => $this->database_date_time(),
+			$this->login->tbl_col_user_account['activation_token'] => $activation_token,
+			$this->login->tbl_col_user_account['active'] => 0,		
+			$this->login->tbl_col_user_account['suspend'] => $suspend_account		
 		);
 
 	    if ($store_database_salt)
 	    {
-			$sql_insert[$this->auth->tbl_col_user_account['salt']] = $database_salt;
+			$sql_insert[$this->login->tbl_col_user_account['salt']] = $database_salt;
 	    }
 
 		// Loop through custom data columns for the main user table set via config file.
-		foreach($this->auth->database_config['user_acc']['custom_columns'] as $column)
+		foreach($this->login->database_config['user_acc']['custom_columns'] as $column)
 		{			
 			if (array_key_exists($column, $custom_data))
 			{
@@ -207,7 +207,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		}
 
 	    // Create main user account.
-		$this->db->insert($this->auth->tbl_user_account, $sql_insert);
+		$this->db->insert($this->login->tbl_user_account, $sql_insert);
 		
 		###+++++++++++++++++++++++++++++++++###
 
@@ -244,17 +244,17 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	
 		// Get user information.
 		$sql_select = array(
-			$this->auth->primary_identity_col,
-			$this->auth->tbl_col_user_account['salt']
+			$this->login->primary_identity_col,
+			$this->login->tbl_col_user_account['salt']
 		);
 		
-		$sql_where[$this->auth->tbl_col_user_account['id']] = $user_id;	
+		$sql_where[$this->login->tbl_col_user_account['id']] = $user_id;	
 	
 		$user = $this->get_users($sql_select, $sql_where)->row();
 		
 		// Check if users identity is being updated.
 		// Loop through database identity columns to validate new identity is available.
-		$identity_cols = $this->auth->db_settings['identity_cols'];
+		$identity_cols = $this->login->db_settings['identity_cols'];
 		for ($i = 0; count($identity_cols) > $i; $i++) 
 		{
 			// Check if identity column exists within $user_data keys.
@@ -277,11 +277,11 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$this->db->trans_start();
 
 		// Create an array of updatable columns.
-		// Note: The global var $this->auth->tbl_col_user_account is not used as it prepend column names with the table name. 
-		$user_account_cols = $this->auth->database_config['user_acc']['columns'];
+		// Note: The global var $this->login->tbl_col_user_account is not used as it prepend column names with the table name. 
+		$user_account_cols = $this->login->database_config['user_acc']['columns'];
 		
 		// Add any additional custom data columns from the main user account table to the array.
-		foreach($this->auth->database_config['user_acc']['custom_columns'] as $column)
+		foreach($this->login->database_config['user_acc']['custom_columns'] as $column)
 		{
 			$user_account_cols[$column] = $column;
 		}
@@ -292,23 +292,23 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			if (isset($user_data[$column]))
 			{
 				// If data is a new password, hash it.
-				if ($column == $this->auth->database_config['user_acc']['columns']['password'])
+				if ($column == $this->login->database_config['user_acc']['columns']['password'])
 				{
 					$password = $user_data[$column];
-					$database_salt = $user->{$this->auth->database_config['user_acc']['columns']['salt']};
+					$database_salt = $user->{$this->login->database_config['user_acc']['columns']['salt']};
 					$hash_password = $this->generate_hash_token($password, $database_salt, TRUE);
 					
-					$sql_update[$this->auth->tbl_col_user_account[$key]] = $hash_password;
+					$sql_update[$this->login->tbl_col_user_account[$key]] = $hash_password;
 				}
 				else
 				{
 					// Update users current session identifier (email / username etc) if being updated.
-					if ($column == $this->auth->db_settings['primary_identity_col'])
+					if ($column == $this->login->db_settings['primary_identity_col'])
 					{
 						$this->update_session_identifier($user_id, $user_data[$column]);
 					}
 					
-					$sql_update[$this->auth->tbl_col_user_account[$key]] = $user_data[$column];
+					$sql_update[$this->login->tbl_col_user_account[$key]] = $user_data[$column];
 				}
 				unset($user_data[$column]);
 			}
@@ -316,9 +316,9 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 		if (count($sql_update) > 0)
 		{
-			$sql_where = array($this->auth->tbl_col_user_account['id'] => $user_id);
+			$sql_where = array($this->login->tbl_col_user_account['id'] => $user_id);
 			
-			$this->db->update($this->auth->tbl_user_account, $sql_update, $sql_where);
+			$this->db->update($this->login->tbl_user_account, $sql_update, $sql_where);
 		}
 		
 		###+++++++++++++++++++++++++++++++++###
@@ -354,16 +354,16 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$this->delete_database_login_session($user_id);
 
 		// Delete user data.
-		$this->db->delete($this->auth->tbl_user_account, array($this->auth->tbl_col_user_account['id'] => $user_id));
+		$this->db->delete($this->login->tbl_user_account, array($this->login->tbl_col_user_account['id'] => $user_id));
 		
 		// Loop through custom user data table(s).
-		foreach ($this->auth->tbl_custom_data as $table)
+		foreach ($this->login->tbl_custom_data as $table)
 		{
 			$this->db->delete($table['table'], array($table['join'] => $user_id));
 		}
 
 		// Delete user privilege data.
-		$this->db->delete($this->auth->tbl_user_privilege_users, array($this->auth->tbl_col_user_privilege_users['user_id'] => $user_id));
+		$this->db->delete($this->login->tbl_user_privilege_users, array($this->login->tbl_col_user_privilege_users['user_id'] => $user_id));
 
 		// Complete SQL transaction
 		$this->db->trans_complete();
@@ -382,7 +382,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	 */
 	public function insert_custom_user_data($user_id = FALSE, $custom_data = FALSE)
 	{
-		if (! is_numeric($user_id) || ! is_array($custom_data) || empty($this->auth->database_config['custom']))
+		if (! is_numeric($user_id) || ! is_array($custom_data) || empty($this->login->database_config['custom']))
 		{
 			return FALSE;
 		}
@@ -391,7 +391,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$row_data = array();
 
 		// Loop through custom data table(s) set via config file.
-		foreach ($this->auth->database_config['custom'] as $custom_table => $table_data)
+		foreach ($this->login->database_config['custom'] as $custom_table => $table_data)
 		{
 			$sql_insert = array();
 			
@@ -402,11 +402,11 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 				{
 					if (is_array($custom_data) && isset($custom_data[$column]))
 					{
-						$sql_insert[$this->auth->tbl_custom_data[$custom_table]['custom_columns'][$key]] = $custom_data[$column];
+						$sql_insert[$this->login->tbl_custom_data[$custom_table]['custom_columns'][$key]] = $custom_data[$column];
 					}
 					else if ($this->input->post($column))
 					{
-						$sql_insert[$this->auth->tbl_custom_data[$custom_table]['custom_columns'][$key]] = $this->input->post($column);
+						$sql_insert[$this->login->tbl_custom_data[$custom_table]['custom_columns'][$key]] = $this->input->post($column);
 					}
 				}
 			}
@@ -441,13 +441,13 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	 */
 	public function update_custom_user_data($table = FALSE, $row_id = FALSE, $custom_data = FALSE)
 	{
-		if (! is_array($custom_data) || empty($this->auth->database_config['custom']))
+		if (! is_array($custom_data) || empty($this->login->database_config['custom']))
 		{
 			return FALSE;
 		}
 
 		// Loop through user custom data table(s)
-		foreach ($this->auth->database_config['custom'] as $custom_table => $table_data)
+		foreach ($this->login->database_config['custom'] as $custom_table => $table_data)
 		{
 			$identifier_id = FALSE;
 
@@ -480,7 +480,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 				{
 					if (isset($custom_data[$column]))
 					{					
-						$sql_update[$this->auth->tbl_custom_data[$custom_table]['custom_columns'][$key]] = $custom_data[$column];
+						$sql_update[$this->login->tbl_custom_data[$custom_table]['custom_columns'][$key]] = $custom_data[$column];
 						unset($custom_data[$column]);
 					}
 				}
@@ -519,7 +519,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		}
 		
 		$delete_status = false;
-		foreach ($this->auth->tbl_custom_data as $table_data)
+		foreach ($this->login->tbl_custom_data as $table_data)
 		{
 			if ($table == $table_data['table'])
 			{
@@ -552,11 +552,11 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$sql_insert = (is_array($custom_data)) ? $custom_data : array();
 		
 		// Set standard group data.
-		$sql_insert[$this->auth->tbl_col_user_group['name']] = $name;
-		$sql_insert[$this->auth->tbl_col_user_group['description']] = $description;
-		$sql_insert[$this->auth->tbl_col_user_group['admin']] = (int)$is_admin;
+		$sql_insert[$this->login->tbl_col_user_group['name']] = $name;
+		$sql_insert[$this->login->tbl_col_user_group['description']] = $description;
+		$sql_insert[$this->login->tbl_col_user_group['admin']] = (int)$is_admin;
 
-		$this->db->insert($this->auth->tbl_user_group, $sql_insert);
+		$this->db->insert($this->login->tbl_user_group, $sql_insert);
 		
 		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
 	}
@@ -578,18 +578,18 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		}
 		
 		$sql_update = array();		
-		foreach ($this->auth->database_config['user_group']['columns'] as $key => $column)
+		foreach ($this->login->database_config['user_group']['columns'] as $key => $column)
 		{
 			if (isset($group_data[$column]))
 			{
-				$sql_update[$this->auth->tbl_col_user_group[$key]] = $group_data[$column];
+				$sql_update[$this->login->tbl_col_user_group[$key]] = $group_data[$column];
 				unset($group_data[$column]);
 			}
 		}
 
-		$sql_where = array($this->auth->tbl_col_user_group['id'] => $group_id);
+		$sql_where = array($this->login->tbl_col_user_group['id'] => $group_id);
 		
-		$this->db->update($this->auth->tbl_user_group, $sql_update, $sql_where);
+		$this->db->update($this->login->tbl_user_group, $sql_update, $sql_where);
 		
 		return $this->db->affected_rows() == 1;	
 	}
@@ -607,10 +607,10 @@ class Flexi_auth_model extends Flexi_auth_lite_model
   	{
 		if (is_numeric($sql_where))
 		{
-			$sql_where = array($this->auth->tbl_col_user_group['id'] => $sql_where);
+			$sql_where = array($this->login->tbl_col_user_group['id'] => $sql_where);
 		}
 				
-		$this->db->delete($this->auth->tbl_user_group, $sql_where);
+		$this->db->delete($this->login->tbl_user_group, $sql_where);
 		
 		return $this->db->affected_rows() == 1;	
 	}
@@ -635,10 +635,10 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$sql_insert = (is_array($custom_data)) ? $custom_data : array();
 		
 		// Set standard privilege data.
-		$sql_insert[$this->auth->tbl_col_user_privilege['name']] = $name;
-		$sql_insert[$this->auth->tbl_col_user_privilege['description']] = $description;
+		$sql_insert[$this->login->tbl_col_user_privilege['name']] = $name;
+		$sql_insert[$this->login->tbl_col_user_privilege['description']] = $description;
 
-		$this->db->insert($this->auth->tbl_user_privilege, $sql_insert);
+		$this->db->insert($this->login->tbl_user_privilege, $sql_insert);
 		
 		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
 	}
@@ -660,18 +660,18 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		}
 		
 		$sql_update = array();		
-		foreach ($this->auth->database_config['user_privileges']['columns'] as $key => $column)
+		foreach ($this->login->database_config['user_privileges']['columns'] as $key => $column)
 		{
 			if (isset($privilege_data[$column]))
 			{
-				$sql_update[$this->auth->tbl_col_user_privilege[$key]] = $privilege_data[$column];
+				$sql_update[$this->login->tbl_col_user_privilege[$key]] = $privilege_data[$column];
 				unset($privilege_data[$column]);
 			}
 		}
 		
-		$sql_where = array($this->auth->tbl_col_user_privilege['id'] => $privilege_id);
+		$sql_where = array($this->login->tbl_col_user_privilege['id'] => $privilege_id);
 		
-		$this->db->update($this->auth->tbl_user_privilege, $sql_update, $sql_where);
+		$this->db->update($this->login->tbl_user_privilege, $sql_update, $sql_where);
 		
 		return $this->db->affected_rows() == 1;	
 	}
@@ -689,23 +689,23 @@ class Flexi_auth_model extends Flexi_auth_lite_model
   	{
 		if (is_numeric($sql_where))
 		{
-			$sql_where = array($this->auth->tbl_col_user_privilege['id'] => $sql_where);
+			$sql_where = array($this->login->tbl_col_user_privilege['id'] => $sql_where);
 		}
 		
 		// Get a the ids of all rows that are to be deleted.
-		$query = $this->db->get_where($this->auth->tbl_user_privilege, $sql_where);
+		$query = $this->db->get_where($this->login->tbl_user_privilege, $sql_where);
 
 		if ($query->num_rows() > 0)
 		{
 			// Delete privileges.
-			$this->db->delete($this->auth->tbl_user_privilege, $sql_where);
+			$this->db->delete($this->login->tbl_user_privilege, $sql_where);
 			
 			// Loop through deleted privilege ids and then deleted related user privileges.
 			foreach($query->result_array() as $row)
 			{
-				$sql_where = array($this->auth->tbl_col_user_privilege_users['privilege_id'] => $row[$this->auth->database_config['user_privileges']['columns']['id']]);
+				$sql_where = array($this->login->tbl_col_user_privilege_users['privilege_id'] => $row[$this->login->database_config['user_privileges']['columns']['id']]);
 				
-				$this->db->delete($this->auth->tbl_user_privilege_users, $sql_where);
+				$this->db->delete($this->login->tbl_user_privilege_users, $sql_where);
 			}
 			
 			return TRUE;	
@@ -732,11 +732,11 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 		// Set standard privilege data.
 		$sql_insert = array(
-			$this->auth->tbl_col_user_privilege_users['user_id'] => $user_id,
-			$this->auth->tbl_col_user_privilege_users['privilege_id'] => $privilege_id
+			$this->login->tbl_col_user_privilege_users['user_id'] => $user_id,
+			$this->login->tbl_col_user_privilege_users['privilege_id'] => $privilege_id
 		);
 
-		$this->db->insert($this->auth->tbl_user_privilege_users, $sql_insert);
+		$this->db->insert($this->login->tbl_user_privilege_users, $sql_insert);
 		
 		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
 	}
@@ -755,10 +755,10 @@ class Flexi_auth_model extends Flexi_auth_lite_model
   	{
 		if (is_numeric($sql_where))
 		{
-			$sql_where = array($this->auth->tbl_col_user_privilege_users['id'] => $sql_where);
+			$sql_where = array($this->login->tbl_col_user_privilege_users['id'] => $sql_where);
 		}
 		
-		$this->db->delete($this->auth->tbl_user_privilege_users, $sql_where);
+		$this->db->delete($this->login->tbl_user_privilege_users, $sql_where);
 
 		return $this->db->affected_rows() == 1;	
 	}
@@ -782,11 +782,11 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 		// Set standard privilege data.
 		$sql_insert = array(
-			$this->auth->tbl_col_user_privilege_groups['group_id'] => $group_id,
-			$this->auth->tbl_col_user_privilege_groups['privilege_id'] => $privilege_id
+			$this->login->tbl_col_user_privilege_groups['group_id'] => $group_id,
+			$this->login->tbl_col_user_privilege_groups['privilege_id'] => $privilege_id
 		);
 
-		$this->db->insert($this->auth->tbl_user_privilege_groups, $sql_insert);
+		$this->db->insert($this->login->tbl_user_privilege_groups, $sql_insert);
 		
 		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
 	}
@@ -804,10 +804,10 @@ class Flexi_auth_model extends Flexi_auth_lite_model
   	{
 		if (is_numeric($sql_where))
 		{
-			$sql_where = array($this->auth->tbl_col_user_privilege_groups['id'] => $sql_where);
+			$sql_where = array($this->login->tbl_col_user_privilege_groups['id'] => $sql_where);
 		}
 		
-		$this->db->delete($this->auth->tbl_user_privilege_groups, $sql_where);
+		$this->db->delete($this->login->tbl_user_privilege_groups, $sql_where);
 
 		return $this->db->affected_rows() == 1;	
 	}
@@ -834,19 +834,19 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	    }
 
 		// Try and get the $user_id from the users current session if not passed to function.
-		if (!is_numeric($user_id) && $this->auth->session_data[$this->auth->session_name['user_id']])
+		if (!is_numeric($user_id) && $this->login->session_data[$this->login->session_name['user_id']])
 		{
-			$user_id = $this->auth->session_data[$this->auth->session_name['user_id']];
+			$user_id = $this->login->session_data[$this->login->session_name['user_id']];
 		}
 
 		// If $user_id is set, remove user from query so their current identity values are not found during the duplicate identity check.
 		if (is_numeric($user_id))
 		{
-			$this->db->where($this->auth->tbl_col_user_account['id'].' != ',$user_id);
+			$this->db->where($this->login->tbl_col_user_account['id'].' != ',$user_id);
 		}
 		
 		// Get identity columns.
-		$identity_cols = $this->auth->db_settings['identity_cols'];
+		$identity_cols = $this->login->db_settings['identity_cols'];
 				
 		// Loop through identity columns to try and find any duplicates in any of the columns.
 		$sql_where = '(';
@@ -858,7 +858,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 
 		$this->db->where($sql_where, NULL, FALSE);
 			
-		return $this->db->count_all_results($this->auth->tbl_user_account) == 0;
+		return $this->db->count_all_results($this->login->tbl_user_account) == 0;
 	}
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
@@ -880,19 +880,19 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	    }
 
 		// Try and get the $user_id from the users current session if not passed to function.
-		if (!is_numeric($user_id) && $this->auth->session_data[$this->auth->session_name['user_id']])
+		if (!is_numeric($user_id) && $this->login->session_data[$this->login->session_name['user_id']])
 		{
-			$user_id = $this->auth->session_data[$this->auth->session_name['user_id']];
+			$user_id = $this->login->session_data[$this->login->session_name['user_id']];
 		}
 
 		// If $user_id is set, remove user from query so their current email is not found during the duplicate email check.
 		if (is_numeric($user_id))
 		{
-			$this->db->where($this->auth->tbl_col_user_account['id'].' != ',$user_id);
+			$this->db->where($this->login->tbl_col_user_account['id'].' != ',$user_id);
 		}
 		
-	    return $this->db->where($this->auth->tbl_col_user_account['email'], $email)
-			->count_all_results($this->auth->tbl_user_account) == 0;
+	    return $this->db->where($this->login->tbl_col_user_account['email'], $email)
+			->count_all_results($this->login->tbl_user_account) == 0;
 	}
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
@@ -914,19 +914,19 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	    }
 		
 		// Try and get the $user_id from the users current session if not passed to function.
-		if (!is_numeric($user_id) && $this->auth->session_data[$this->auth->session_name['user_id']])
+		if (!is_numeric($user_id) && $this->login->session_data[$this->login->session_name['user_id']])
 		{
-			$user_id = $this->auth->session_data[$this->auth->session_name['user_id']];
+			$user_id = $this->login->session_data[$this->login->session_name['user_id']];
 		}
 
 		// If $user_id is set, remove user from query so their current username is not found during the duplicate username check.
 		if (is_numeric($user_id))
 		{
-			$this->db->where($this->auth->tbl_col_user_account['id'].' != ',$user_id);
+			$this->db->where($this->login->tbl_col_user_account['id'].' != ',$user_id);
 		}
 
-		return $this->db->where($this->auth->tbl_col_user_account['username'], $username)
-			->count_all_results($this->auth->tbl_user_account) == 0;
+		return $this->db->where($this->login->tbl_col_user_account['username'], $username)
+			->count_all_results($this->login->tbl_user_account) == 0;
 	}
 
 
@@ -956,12 +956,12 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			else if ($verify_token && strlen($activation_token) == 40)
 			{
 				$sql_where = array(
-					$this->auth->tbl_col_user_account['id'] => $user_id,
-					$this->auth->tbl_col_user_account['activation_token'] => $activation_token
+					$this->login->tbl_col_user_account['id'] => $user_id,
+					$this->login->tbl_col_user_account['activation_token'] => $activation_token
 				);
 
 				$query = $this->db->where($sql_where)
-					->get($this->auth->tbl_user_account);
+					->get($this->login->tbl_user_account);
 
 				if ($query->num_rows() !== 1)
 				{
@@ -972,11 +972,11 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 		if ($clear_token)
 		{
-			$sql_update[$this->auth->tbl_col_user_account['activation_token']] = '';
+			$sql_update[$this->login->tbl_col_user_account['activation_token']] = '';
 		}
-		$sql_update[$this->auth->tbl_col_user_account['active']] = 1;
+		$sql_update[$this->login->tbl_col_user_account['active']] = 1;
 
-		$this->db->update($this->auth->tbl_user_account, $sql_update, array($this->auth->tbl_col_user_account['id'] => $user_id));
+		$this->db->update($this->login->tbl_user_account, $sql_update, array($this->login->tbl_col_user_account['id'] => $user_id));
 							
 	    return $this->db->affected_rows() == 1;
 	}
@@ -1001,11 +1001,11 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	    $activation_token = sha1($this->generate_token(20));
 
 	    $sql_update = array(
-			$this->auth->tbl_col_user_account['activation_token'] => $activation_token,
-			$this->auth->tbl_col_user_account['active'] => 0
+			$this->login->tbl_col_user_account['activation_token'] => $activation_token,
+			$this->login->tbl_col_user_account['active'] => 0
 	    );
 
-		$this->db->update($this->auth->tbl_user_account, $sql_update, array($this->auth->tbl_col_user_account['id'] => $user_id));
+		$this->db->update($this->login->tbl_user_account, $sql_update, array($this->login->tbl_col_user_account['id'] => $user_id));
 
 	    return $this->db->affected_rows() == 1;
 	}
@@ -1027,14 +1027,14 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		}
 				
 		$sql_select = array(
-			$this->auth->tbl_col_user_account['password'],
-			$this->auth->tbl_col_user_account['salt']
+			$this->login->tbl_col_user_account['password'],
+			$this->login->tbl_col_user_account['salt']
 		);
 		
 		$query = $this->db->select($sql_select)
-			->where($this->auth->primary_identity_col, $identity)
+			->where($this->login->primary_identity_col, $identity)
 			->limit(1)
-			->get($this->auth->tbl_user_account);
+			->get($this->login->tbl_user_account);
 				 
 	    $result = $query->row();
 
@@ -1043,9 +1043,9 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			return FALSE;
 	    }
 				
-		$database_password = $result->{$this->auth->database_config['user_acc']['columns']['password']};
-		$database_salt = $result->{$this->auth->database_config['user_acc']['columns']['salt']};
-		$static_salt = $this->auth->auth_security['static_salt'];
+		$database_password = $result->{$this->login->database_config['user_acc']['columns']['password']};
+		$database_salt = $result->{$this->login->database_config['user_acc']['columns']['salt']};
+		$static_salt = $this->login->auth_security['static_salt'];
 		
 		require_once(APPPATH.'libraries/phpass/PasswordHash.php');				
 		$hash_token = new PasswordHash(8, FALSE);
@@ -1068,32 +1068,32 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	    if ($this->verify_password($identity, $current_password))
 	    {
 			// Remove 'Remember me' database sessions so all remembered instances have to re-login, whilst maintaining current login session
-			$user_id = $this->auth->session_data[$this->auth->session_name['user_id']];
+			$user_id = $this->login->session_data[$this->login->session_name['user_id']];
 			
-			if ($session_token = $this->auth->session_data[$this->auth->session_name['login_session_token']])
+			if ($session_token = $this->login->session_data[$this->login->session_name['login_session_token']])
 			{
-				$this->db->where($this->auth->tbl_col_user_session['token'].' != ', $session_token);
+				$this->db->where($this->login->tbl_col_user_session['token'].' != ', $session_token);
 			}
-			$this->db->where($this->auth->tbl_col_user_session['user_id'],$user_id);			
-			$this->db->delete($this->auth->tbl_user_session);
+			$this->db->where($this->login->tbl_col_user_session['user_id'],$user_id);			
+			$this->db->delete($this->login->tbl_user_session);
 			
 			// Get users salt.
-			$sql_select = $this->auth->tbl_col_user_account['salt'];
+			$sql_select = $this->login->tbl_col_user_account['salt'];
 
 			$sql_where = array(
-				$this->auth->primary_identity_col => $identity
+				$this->login->primary_identity_col => $identity
 			);
 		
 			$user = $this->get_users($sql_select, $sql_where)->row();
 			
 			// Create hash of password and store.
-			$hash_new_password = $this->generate_hash_token($new_password, $user->{$this->auth->database_config['user_acc']['columns']['salt']}, TRUE);
+			$hash_new_password = $this->generate_hash_token($new_password, $user->{$this->login->database_config['user_acc']['columns']['salt']}, TRUE);
 			
-			$sql_update[$this->auth->tbl_col_user_account['password']] = $hash_new_password;
+			$sql_update[$this->login->tbl_col_user_account['password']] = $hash_new_password;
 
-			$sql_where[$this->auth->primary_identity_col] = $identity;
+			$sql_where[$this->login->primary_identity_col] = $identity;
 
-			$this->db->update($this->auth->tbl_user_account, $sql_update, $sql_where);
+			$this->db->update($this->login->tbl_user_account, $sql_update, $sql_where);
 
 			return $this->db->affected_rows() == 1;
 	    }
@@ -1121,16 +1121,16 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$hash_token = $this->generate_hash_token($this->generate_token());
 		
 		// Set forgotten password token expiry time if defined by config file.
-		if ($this->auth->auth_security['expire_forgotten_password'] > 0)
+		if ($this->login->auth_security['expire_forgotten_password'] > 0)
 		{
-			$expire_time = (60 * $this->auth->auth_security['expire_forgotten_password']); // 60 Secs * expire minutes.
-			$this->db->set($this->auth->tbl_col_user_account['forgot_password_expire'], 
+			$expire_time = (60 * $this->login->auth_security['expire_forgotten_password']); // 60 Secs * expire minutes.
+			$this->db->set($this->login->tbl_col_user_account['forgot_password_expire'], 
 				$this->database_date_time($expire_time));
 		}
 
-		$this->db->set($this->auth->tbl_col_user_account['forgot_password_token'], $hash_token)
-			->where($this->auth->primary_identity_col, $identity)
-			->update($this->auth->tbl_user_account);
+		$this->db->set($this->login->tbl_col_user_account['forgot_password_token'], $hash_token)
+			->where($this->login->primary_identity_col, $identity)
+			->update($this->login->tbl_user_account);
 	
 	    return $this->db->affected_rows() == 1;
 	}
@@ -1153,19 +1153,19 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	    }
 	
 		$sql_where = array(
-			$this->auth->tbl_col_user_account['id'] => $user_id,
-			$this->auth->tbl_col_user_account['forgot_password_token'] => $token
+			$this->login->tbl_col_user_account['id'] => $user_id,
+			$this->login->tbl_col_user_account['forgot_password_token'] => $token
 		);
 		
 		// Check Forgotten Password Token hasn't expired, defined via config file.
-		if ($this->auth->auth_security['expire_forgotten_password'] > 0)
+		if ($this->login->auth_security['expire_forgotten_password'] > 0)
 		{
-			$sql_where[$this->auth->tbl_col_user_account['forgot_password_expire'].' > '] = $this->database_date_time();
+			$sql_where[$this->login->tbl_col_user_account['forgot_password_expire'].' > '] = $this->database_date_time();
 		}
 		
 	    $this->db->where($sql_where);
 		
-		return $this->db->count_all_results($this->auth->tbl_user_account) > 0;
+		return $this->db->count_all_results($this->login->tbl_user_account) > 0;
 	}
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
@@ -1200,17 +1200,17 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			$hashed_new_password = $this->generate_hash_token($new_password, $database_salt, TRUE);
 			
 			$sql_update = array(
-				$this->auth->tbl_col_user_account['password'] => $hashed_new_password,
-				$this->auth->tbl_col_user_account['forgot_password_token'] => '',
-				$this->auth->tbl_col_user_account['forgot_password_expire'] => 0
+				$this->login->tbl_col_user_account['password'] => $hashed_new_password,
+				$this->login->tbl_col_user_account['forgot_password_token'] => '',
+				$this->login->tbl_col_user_account['forgot_password_expire'] => 0
 			);
 			
 			$sql_where = array(
-				$this->auth->tbl_col_user_account['id'] => $user_id,
-				$this->auth->tbl_col_user_account['forgot_password_token'] => $token
+				$this->login->tbl_col_user_account['id'] => $user_id,
+				$this->login->tbl_col_user_account['forgot_password_token'] => $token
 			);
 			
-			$this->db->update($this->auth->tbl_user_account, $sql_update, $sql_where);
+			$this->db->update($this->login->tbl_user_account, $sql_update, $sql_where);
 
 			if ($this->db->affected_rows() == 1)
 			{
@@ -1238,13 +1238,13 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	    }
 		
 		$sql_update = array(
-			$this->auth->tbl_col_user_account['update_email_token'] => $this->generate_hash_token($this->generate_token()),
-			$this->auth->tbl_col_user_account['update_email'] => $new_email	
+			$this->login->tbl_col_user_account['update_email_token'] => $this->generate_hash_token($this->generate_token()),
+			$this->login->tbl_col_user_account['update_email'] => $new_email	
 		);
 		
-		$sql_where[$this->auth->tbl_col_user_account['id']] = $user_id;
+		$sql_where[$this->login->tbl_col_user_account['id']] = $user_id;
 
-		$this->db->update($this->auth->tbl_user_account, $sql_update, $sql_where);
+		$this->db->update($this->login->tbl_user_account, $sql_update, $sql_where);
 	
 	    return $this->db->affected_rows() == 1;
 	}
@@ -1266,11 +1266,11 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 		// Get user information.
 		$sql_select = array(
-			$this->auth->tbl_col_user_account['update_email_token'],
-			$this->auth->tbl_col_user_account['update_email']
+			$this->login->tbl_col_user_account['update_email_token'],
+			$this->login->tbl_col_user_account['update_email']
 		);
 		
-		$sql_where[$this->auth->tbl_col_user_account['id']] = $user_id;
+		$sql_where[$this->login->tbl_col_user_account['id']] = $user_id;
 		
 		$user = $this->flexi_auth_model->get_users($sql_select, $sql_where)->row();
 
@@ -1280,24 +1280,24 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			return FALSE;
 		}
 		
-		$database_email_token = $user->{$this->auth->database_config['user_acc']['columns']['update_email_token']};
-		$new_email = $user->{$this->auth->database_config['user_acc']['columns']['update_email']};
+		$database_email_token = $user->{$this->login->database_config['user_acc']['columns']['update_email_token']};
+		$new_email = $user->{$this->login->database_config['user_acc']['columns']['update_email']};
 		
 		// Check if token in database matches the submitted token.
 		if ($database_email_token == $update_email_token)
 		{
 			$sql_update = array(
-				$this->auth->tbl_col_user_account['email'] => $new_email,
-				$this->auth->tbl_col_user_account['update_email_token'] => '',
-				$this->auth->tbl_col_user_account['update_email'] => ''
+				$this->login->tbl_col_user_account['email'] => $new_email,
+				$this->login->tbl_col_user_account['update_email_token'] => '',
+				$this->login->tbl_col_user_account['update_email'] => ''
 			);
 			
-			$this->db->update($this->auth->tbl_user_account, $sql_update, $sql_where);
+			$this->db->update($this->login->tbl_user_account, $sql_update, $sql_where);
 
 			if ($this->db->affected_rows() == 1)
 			{
 				// Update users current session identifier if the primary identity column is the users email.
-				if ($this->auth->primary_identity_col == $this->auth->tbl_col_user_account['email'])
+				if ($this->login->primary_identity_col == $this->login->tbl_col_user_account['email'])
 				{
 					$this->flexi_auth_model->update_session_identifier($user_id, $new_email);
 				}
@@ -1328,7 +1328,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			return FALSE;
 		}
 			
-		$identity_cols = $this->auth->db_settings['identity_cols'];
+		$identity_cols = $this->login->db_settings['identity_cols'];
 
 		// Loop through database identity columns.
 		for ($i = 0; count($identity_cols) > $i; $i++) 
@@ -1336,13 +1336,13 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			$this->db->or_where($identity_cols[$i], $identity);
 		}
 		
-		$query = $this->db->select($this->auth->primary_identity_col)
-			->get($this->auth->tbl_user_account);
+		$query = $this->db->select($this->login->primary_identity_col)
+			->get($this->login->tbl_user_account);
 		
 		// Return users primary identity.
 		if ($query->num_rows() == 1)
 		{
-			return $query->row()->{$this->auth->db_settings['primary_identity_col']};
+			return $query->row()->{$this->login->db_settings['primary_identity_col']};
 		}
 		return FALSE;
 	}
@@ -1361,7 +1361,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		if (!empty($search_query))
 		{
 			// Get user table columns to be searched, set via config file.
-			$user_cols = $this->auth->db_settings['search_user_cols'];
+			$user_cols = $this->login->db_settings['search_user_cols'];
 
 			// Create a concatenated string of user columns to search against.
 			$concat_cols = "(CONCAT_WS(' '";
@@ -1426,8 +1426,8 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$expire_date = $this->database_date_time(-$inactive_days);
 		
 		$sql_where = array(
-			$this->auth->tbl_col_user_account['active'] => 0,
-			$this->auth->tbl_col_user_account['date_added'].' < ' => $expire_date
+			$this->login->tbl_col_user_account['active'] => 0,
+			$this->login->tbl_col_user_account['date_added'].' < ' => $expire_date
 		);
 				
 		$this->db->where($sql_where);
@@ -1449,7 +1449,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		// Set any custom defined SQL statements.
 		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
 		
-	    return $this->db->get($this->auth->tbl_user_group);
+	    return $this->db->get($this->login->tbl_user_group);
   	}
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
@@ -1466,7 +1466,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		// Set any custom defined SQL statements.
 		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
 
-		return $this->db->get($this->auth->tbl_user_privilege);       
+		return $this->db->get($this->login->tbl_user_privilege);       
 	}
 
 	/**
@@ -1481,8 +1481,8 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		// Set any custom defined SQL statements.
 		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
 		
-		return $this->db->from($this->auth->tbl_user_privilege)
-			->join($this->auth->tbl_user_privilege_users, $this->auth->tbl_col_user_privilege['id'].' = '.$this->auth->tbl_col_user_privilege_users['privilege_id'])
+		return $this->db->from($this->login->tbl_user_privilege)
+			->join($this->login->tbl_user_privilege_users, $this->login->tbl_col_user_privilege['id'].' = '.$this->login->tbl_col_user_privilege_users['privilege_id'])
 			->get();
 	}
        
@@ -1498,8 +1498,8 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		// Set any custom defined SQL statements.
 		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
 		
-		return $this->db->from($this->auth->tbl_user_privilege)
-			->join($this->auth->tbl_user_privilege_groups, $this->auth->tbl_col_user_privilege['id'].' = '.$this->auth->tbl_col_user_privilege_groups['privilege_id'])
+		return $this->db->from($this->login->tbl_user_privilege)
+			->join($this->login->tbl_user_privilege_groups, $this->login->tbl_col_user_privilege['id'].' = '.$this->login->tbl_col_user_privilege_groups['privilege_id'])
 			->get();
 	}
 
@@ -1523,7 +1523,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	    }
 		
 		// Check if login attempts are being counted.
-		if ($this->auth->auth_security['login_attempt_limit'] > 0)
+		if ($this->login->auth_security['login_attempt_limit'] > 0)
 		{
 			// Check user has not exceeded login attempts.
 			if ($this->login_attempts_exceeded($identity))
@@ -1534,25 +1534,25 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		}
 		
 		$sql_select = array(
-			$this->auth->primary_identity_col, 
-			$this->auth->tbl_col_user_account['id'], 
-			$this->auth->tbl_col_user_account['password'], 
-			$this->auth->tbl_col_user_account['group_id'], 
-			$this->auth->tbl_col_user_account['activation_token'], 
-			$this->auth->tbl_col_user_account['active'], 
-			$this->auth->tbl_col_user_account['suspend'], 
-			$this->auth->tbl_col_user_account['last_login_date'], 
-			$this->auth->tbl_col_user_account['failed_logins']
+			$this->login->primary_identity_col, 
+			$this->login->tbl_col_user_account['id'], 
+			$this->login->tbl_col_user_account['password'], 
+			$this->login->tbl_col_user_account['group_id'], 
+			$this->login->tbl_col_user_account['activation_token'], 
+			$this->login->tbl_col_user_account['active'], 
+			$this->login->tbl_col_user_account['suspend'], 
+			$this->login->tbl_col_user_account['last_login_date'], 
+			$this->login->tbl_col_user_account['failed_logins']
 		);
 		
-		$sql_where = array($this->auth->primary_identity_col => $identity);
+		$sql_where = array($this->login->primary_identity_col => $identity);
 		
 		// Set any custom defined SQL statements.
 		$this->flexi_auth_lite_model->set_custom_sql_to_db();
 
 		$query = $this->db->select($sql_select)
 			->where($sql_where)
-			->get($this->auth->tbl_user_account);
+			->get($this->login->tbl_user_account);
 		
 		###+++++++++++++++++++++++++++++++++###
 		
@@ -1562,10 +1562,10 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			$user = $query->row();
 			
 			// If an activation time limit is defined by config file and account hasn't been activated by email.
-			if ($this->auth->auth_settings['account_activation_time_limit'] > 0 && 
-				!empty($user->{$this->auth->database_config['user_acc']['columns']['activation_token']}))
+			if ($this->login->auth_settings['account_activation_time_limit'] > 0 && 
+				!empty($user->{$this->login->database_config['user_acc']['columns']['activation_token']}))
 			{
-				if (!$this->validate_activation_time_limit($user->{$this->auth->database_config['user_acc']['columns']['last_login_date']}))
+				if (!$this->validate_activation_time_limit($user->{$this->login->database_config['user_acc']['columns']['last_login_date']}))
 				{
 					$this->set_error_message('account_requires_activation', 'config');
 					return FALSE;
@@ -1573,14 +1573,14 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			}
 
 			// Check whether account has been activated.
-			if ($user->{$this->auth->database_config['user_acc']['columns']['active']} == 0)
+			if ($user->{$this->login->database_config['user_acc']['columns']['active']} == 0)
 			{
 				$this->set_error_message('account_requires_activation', 'config');
 				return FALSE;
 			}
 			
 			// Check if account has been suspended.
-			if ($user->{$this->auth->database_config['user_acc']['columns']['suspend']} == 1)
+			if ($user->{$this->login->database_config['user_acc']['columns']['suspend']} == 1)
 			{
 				$this->set_error_message('account_suspended', 'config');
 				return FALSE;
@@ -1590,7 +1590,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			if ($this->verify_password($identity, $password))
 			{
 				// Reset failed login attempts.
-				if ($user->{$this->auth->database_config['user_acc']['columns']['failed_logins']} > 0)
+				if ($user->{$this->login->database_config['user_acc']['columns']['failed_logins']} > 0)
 				{
 					$this->reset_login_attempts($identity);
 				}
@@ -1601,7 +1601,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 					// Set 'Remember me' cookie and database record if checked by user.
 					if ($remember_user)
 					{
-						$this->remember_user($user->{$this->auth->database_config['user_acc']['columns']['id']});
+						$this->remember_user($user->{$this->login->database_config['user_acc']['columns']['id']});
 					}
 					// Else, ensure any existing 'Remember me' cookies are deleted.
 					// This can occur if the user logs in via password, whilst already logged in via a "Remember me" cookie. 
@@ -1613,9 +1613,9 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 				}
 			}
 			// Password does not match, log the failed login attempt if defined via the config file.
-			else if ($this->auth->auth_security['login_attempt_limit'] > 0)
+			else if ($this->login->auth_security['login_attempt_limit'] > 0)
 			{				
-				$attempts = $user->{$this->auth->database_config['user_acc']['columns']['failed_logins']};
+				$attempts = $user->{$this->login->database_config['user_acc']['columns']['failed_logins']};
 
 				// Increment failed login attempts.
 				$this->increment_login_attempts($identity, $attempts);
@@ -1634,37 +1634,37 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	 */
 	public function login_remembered_user()
 	{
-	    if (!get_cookie($this->auth->cookie_name['user_id']) || !get_cookie($this->auth->cookie_name['remember_series']) || 
-			!get_cookie($this->auth->cookie_name['remember_token']))
+	    if (!get_cookie($this->login->cookie_name['user_id']) || !get_cookie($this->login->cookie_name['remember_series']) || 
+			!get_cookie($this->login->cookie_name['remember_token']))
 	    {
 		    return FALSE;
 	    }
 
-		$user_id = get_cookie($this->auth->cookie_name['user_id']);
-		$remember_series = get_cookie($this->auth->cookie_name['remember_series']);
-		$remember_token = get_cookie($this->auth->cookie_name['remember_token']);
+		$user_id = get_cookie($this->login->cookie_name['user_id']);
+		$remember_series = get_cookie($this->login->cookie_name['remember_series']);
+		$remember_token = get_cookie($this->login->cookie_name['remember_token']);
 		
 		$sql_select = array(
-			$this->auth->primary_identity_col,
-			$this->auth->tbl_col_user_account['id'], 
-			$this->auth->tbl_col_user_account['group_id'], 
-			$this->auth->tbl_col_user_account['activation_token'], 
-			$this->auth->tbl_col_user_account['last_login_date']
+			$this->login->primary_identity_col,
+			$this->login->tbl_col_user_account['id'], 
+			$this->login->tbl_col_user_account['group_id'], 
+			$this->login->tbl_col_user_account['activation_token'], 
+			$this->login->tbl_col_user_account['last_login_date']
 		);
 
 		// Database session tokens are hashed with user-agent to 'help' invalidate hijacked cookies used from different browser.
 		$sql_where = array(
-			$this->auth->tbl_col_user_account['id'] => $user_id,
-			$this->auth->tbl_col_user_account['active'] => 1,
-			$this->auth->tbl_col_user_account['suspend'] => 0,
-			$this->auth->tbl_col_user_session['series'] => $this->hash_cookie_token($remember_series),
-			$this->auth->tbl_col_user_session['token'] => $this->hash_cookie_token($remember_token),
-			$this->auth->tbl_col_user_session['date'].' > ' => $this->database_date_time(-$this->auth->auth_security['user_cookie_expire'])
+			$this->login->tbl_col_user_account['id'] => $user_id,
+			$this->login->tbl_col_user_account['active'] => 1,
+			$this->login->tbl_col_user_account['suspend'] => 0,
+			$this->login->tbl_col_user_session['series'] => $this->hash_cookie_token($remember_series),
+			$this->login->tbl_col_user_session['token'] => $this->hash_cookie_token($remember_token),
+			$this->login->tbl_col_user_session['date'].' > ' => $this->database_date_time(-$this->login->auth_security['user_cookie_expire'])
 		);
 
 		$query = $this->db->select($sql_select)
-			->from($this->auth->tbl_user_account)
-			->join($this->auth->tbl_user_session, $this->auth->tbl_join_user_account.' = '.$this->auth->tbl_join_user_session)
+			->from($this->login->tbl_user_account)
+			->join($this->login->tbl_user_session, $this->login->tbl_join_user_account.' = '.$this->login->tbl_join_user_session)
 			->where($sql_where)
 			->get();
 			
@@ -1676,10 +1676,10 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			$user = $query->row();
 		
 			// If an activation time limit is defined by config file and account hasn't been activated by email.
-			if ($this->auth->auth_settings['account_activation_time_limit'] > 0 && 
-				!empty($user->{$this->auth->database_config['user_acc']['columns']['activation_token']}))
+			if ($this->login->auth_settings['account_activation_time_limit'] > 0 && 
+				!empty($user->{$this->login->database_config['user_acc']['columns']['activation_token']}))
 			{
-				if (!$this->validate_activation_time_limit($user->{$this->auth->database_config['user_acc']['columns']['last_login_date']}))
+				if (!$this->validate_activation_time_limit($user->{$this->login->database_config['user_acc']['columns']['last_login_date']}))
 				{
 					$this->set_error_message('account_requires_activation', 'config');
 					return FALSE;
@@ -1690,9 +1690,9 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			if ($this->set_login_sessions($user))
 			{
 				// Extend 'Remember me' if defined by config file.
-				if ($this->auth->auth_security['extend_cookies_on_login'])
+				if ($this->login->auth_security['extend_cookies_on_login'])
 				{
-					$this->remember_user($user->{$this->auth->database_config['user_acc']['columns']['id']});
+					$this->remember_user($user->{$this->login->database_config['user_acc']['columns']['id']});
 				}
 				return TRUE;
 			}
@@ -1717,11 +1717,11 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	{
 		// Update user IP address and last login date.
 		$login_data = array(
-			$this->auth->tbl_col_user_account['ip_address'] => $this->input->ip_address(),
-			$this->auth->tbl_col_user_account['last_login_date'] => $this->database_date_time()
+			$this->login->tbl_col_user_account['ip_address'] => $this->input->ip_address(),
+			$this->login->tbl_col_user_account['last_login_date'] => $this->database_date_time()
 		);
 		
-		$this->db->update($this->auth->tbl_user_account, $login_data, array($this->auth->tbl_col_user_account['id'] => $user_id));
+		$this->db->update($this->login->tbl_user_account, $login_data, array($this->login->tbl_col_user_account['id'] => $user_id));
 
 	    return $this->db->affected_rows() == 1;
 	}
@@ -1740,7 +1740,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			return FALSE;
 		}
 		
-		$user_id = $user->{$this->auth->database_config['user_acc']['columns']['id']};
+		$user_id = $user->{$this->login->database_config['user_acc']['columns']['id']};
 		
 		// Regenerate CI session_id on successful login.
 		$this->regenerate_ci_session_id();
@@ -1749,32 +1749,32 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$this->update_last_login($user_id);
 		
 		// Set database and login session token if defined by config file.
-		if ($this->auth->auth_security['validate_login_onload'] && ! $this->insert_database_login_session($user_id))
+		if ($this->login->auth_security['validate_login_onload'] && ! $this->insert_database_login_session($user_id))
 		{
 			return FALSE;
 		}
 		
 		// Set verified login session if user logged in via Password rather than 'Remember me'.
-		$this->auth->session_data[$this->auth->session_name['logged_in_via_password']] = $logged_in_via_password;
+		$this->login->session_data[$this->login->session_name['logged_in_via_password']] = $logged_in_via_password;
 		
 		// Set user id and identifier data to session.
-		$this->auth->session_data[$this->auth->session_name['user_id']] = $user_id;
-		$this->auth->session_data[$this->auth->session_name['user_identifier']] = $user->{$this->auth->db_settings['primary_identity_col']};
+		$this->login->session_data[$this->login->session_name['user_id']] = $user_id;
+		$this->login->session_data[$this->login->session_name['user_identifier']] = $user->{$this->login->db_settings['primary_identity_col']};
 
 		// Get group data.
-		$sql_where[$this->auth->tbl_col_user_group['id']] = $user->{$this->auth->database_config['user_acc']['columns']['group_id']};
+		$sql_where[$this->login->tbl_col_user_group['id']] = $user->{$this->login->database_config['user_acc']['columns']['group_id']};
 		
 		$group = $this->get_groups(FALSE, $sql_where)->row();
 		
 		// Set admin status to session.
-		$this->auth->session_data[$this->auth->session_name['is_admin']] = ($group->{$this->auth->database_config['user_group']['columns']['admin']} == 1);
+		$this->login->session_data[$this->login->session_name['is_admin']] = ($group->{$this->login->database_config['user_group']['columns']['admin']} == 1);
 		
-		$this->auth->session_data[$this->auth->session_name['group']] = 
-			array($group->{$this->auth->database_config['user_group']['columns']['id']} => $group->{$this->auth->database_config['user_group']['columns']['name']});
+		$this->login->session_data[$this->login->session_name['group']] = 
+			array($group->{$this->login->database_config['user_group']['columns']['id']} => $group->{$this->login->database_config['user_group']['columns']['name']});
 		
 		###+++++++++++++++++++++++++++++++++###
 
-		$privilege_sources = $this->auth->auth_settings['privilege_sources'];
+		$privilege_sources = $this->login->auth_settings['privilege_sources'];
 		$privileges = array();
 
 		// If 'user' privileges have been defined within the config 'privilege_sources'.
@@ -1782,11 +1782,11 @@ class Flexi_auth_model extends Flexi_auth_lite_model
         {
             // Get user privileges.
             $sql_select = array(
-                $this->auth->tbl_col_user_privilege['id'],
-                $this->auth->tbl_col_user_privilege['name']
+                $this->login->tbl_col_user_privilege['id'],
+                $this->login->tbl_col_user_privilege['name']
             );
 
-            $sql_where = array($this->auth->tbl_col_user_privilege_users['user_id'] => $user_id);
+            $sql_where = array($this->login->tbl_col_user_privilege_users['user_id'] => $user_id);
 
             $query = $this->get_user_privileges($sql_select, $sql_where);
 
@@ -1795,7 +1795,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
             {
                 foreach($query->result_array() as $data)
                 {
-                    $privileges[$data[$this->auth->database_config['user_privileges']['columns']['id']]] = $data[$this->auth->database_config['user_privileges']['columns']['name']];
+                    $privileges[$data[$this->login->database_config['user_privileges']['columns']['id']]] = $data[$this->login->database_config['user_privileges']['columns']['name']];
                 }
             }
         }
@@ -1805,11 +1805,11 @@ class Flexi_auth_model extends Flexi_auth_lite_model
         {
             // Get group privileges.
             $sql_select = array(
-                $this->auth->tbl_col_user_privilege['id'],
-                $this->auth->tbl_col_user_privilege['name']
+                $this->login->tbl_col_user_privilege['id'],
+                $this->login->tbl_col_user_privilege['name']
             );
 
-            $sql_where = array($this->auth->tbl_col_user_privilege_groups['group_id'] => $user->{$this->auth->database_config['user_acc']['columns']['group_id']});
+            $sql_where = array($this->login->tbl_col_user_privilege_groups['group_id'] => $user->{$this->login->database_config['user_acc']['columns']['group_id']});
 
             $query = $this->get_user_group_privileges($sql_select, $sql_where);
 
@@ -1818,17 +1818,17 @@ class Flexi_auth_model extends Flexi_auth_lite_model
             {
                 foreach($query->result_array() as $data)
                 {
-                    $privileges[$data[$this->auth->database_config['user_privileges']['columns']['id']]] = $data[$this->auth->database_config['user_privileges']['columns']['name']];
+                    $privileges[$data[$this->login->database_config['user_privileges']['columns']['id']]] = $data[$this->login->database_config['user_privileges']['columns']['name']];
                 }
             }
         }
 
 		// Set user privileges to session.
-		$this->auth->session_data[$this->auth->session_name['privileges']] = $privileges;
+		$this->login->session_data[$this->login->session_name['privileges']] = $privileges;
 		
 		###+++++++++++++++++++++++++++++++++###
 				
-		$this->session->set_userdata(array($this->auth->session_name['name'] => $this->auth->session_data));
+		$this->session->set_userdata(array($this->login->session_name['name'] => $this->login->session_data));
 
 		return TRUE;
 	}	
@@ -1842,10 +1842,10 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	 */
 	public function update_session_identifier($user_id, $identity)
 	{
-		if ($user_id == $this->auth->session_data[$this->auth->session_name['user_id']])
+		if ($user_id == $this->login->session_data[$this->login->session_name['user_id']])
 		{
-			$this->auth->session_data[$this->auth->session_name['user_identifier']] = $identity;
-			$this->session->set_userdata(array($this->auth->session_name['name'] => $this->auth->session_data));
+			$this->login->session_data[$this->login->session_name['user_identifier']] = $identity;
+			$this->session->set_userdata(array($this->login->session_name['name'] => $this->login->session_data));
 			
 			return TRUE;
 		}
@@ -1876,37 +1876,37 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$session_token = sha1($this->generate_token(20));
 		
 		$sql_insert = array(
-			$this->auth->tbl_col_user_session['user_id'] => $user_id,
-			$this->auth->tbl_col_user_session['token'] => $session_token,
-			$this->auth->tbl_col_user_session['date'] => $this->database_date_time()
+			$this->login->tbl_col_user_session['user_id'] => $user_id,
+			$this->login->tbl_col_user_session['token'] => $session_token,
+			$this->login->tbl_col_user_session['date'] => $this->database_date_time()
 		);
 
-		$this->db->insert($this->auth->tbl_user_session, $sql_insert);
+		$this->db->insert($this->login->tbl_user_session, $sql_insert);
 		
 	    if ($this->db->affected_rows() > 0)
 	    {
 			// Create session.
-			$this->auth->session_data[$this->auth->session_name['login_session_token']] = $session_token;
-			$this->session->set_userdata(array($this->auth->session_name['name'] => $this->auth->session_data));
+			$this->login->session_data[$this->login->session_name['login_session_token']] = $session_token;
+			$this->session->set_userdata(array($this->login->session_name['name'] => $this->login->session_data));
 
 			// Hash database session token as it will be visible via cookie.
 			$hash_session_token = $this->hash_cookie_token($session_token);
 							
 			// Create cookies to detect if user closes their browser (Defined by config file).
-			if ($this->auth->auth_security['logout_user_onclose'])
+			if ($this->login->auth_security['logout_user_onclose'])
 			{
 				set_cookie(array(
-					'name' => $this->auth->cookie_name['login_session_token'],
+					'name' => $this->login->cookie_name['login_session_token'],
 					'value' => $hash_session_token,
 					'expire' => 0 // Set to 0 so it expires on browser close.
 				));
 			}
 			// Create a cookie to detect when a user has closed their browser since logging in via password (Defined by config file).
 			// If the cookie is not set/valid, a users 'logged in via password' status will be unset.
-			else if ($this->auth->auth_security['unset_password_status_onclose'])
+			else if ($this->login->auth_security['unset_password_status_onclose'])
 			{
 				set_cookie(array(
-					'name' => $this->auth->cookie_name['login_via_password_token'],
+					'name' => $this->login->cookie_name['login_via_password_token'],
 					'value' => $hash_session_token,
 					'expire' => 0 // Set to 0 so it expires on browser close.
 				));
@@ -1933,9 +1933,9 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	    }
 
 		// Use existing 'Remember me' series token if it exists.
-	    if (get_cookie($this->auth->cookie_name['remember_series']))
+	    if (get_cookie($this->login->cookie_name['remember_series']))
 		{
-			$remember_series = get_cookie($this->auth->cookie_name['remember_series']);
+			$remember_series = get_cookie($this->login->cookie_name['remember_series']);
 		}
 		else
 		{
@@ -1947,28 +1947,28 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 		// Hash the database session tokens with user-agent to help invalidate hijacked cookies used from different browser.
 		$sql_insert = array(
-			$this->auth->tbl_col_user_session['user_id'] => $user_id,
-			$this->auth->tbl_col_user_session['series'] => $this->hash_cookie_token($remember_series),
-			$this->auth->tbl_col_user_session['token'] => $this->hash_cookie_token($remember_token),
-			$this->auth->tbl_col_user_session['date'] => $this->database_date_time()
+			$this->login->tbl_col_user_session['user_id'] => $user_id,
+			$this->login->tbl_col_user_session['series'] => $this->hash_cookie_token($remember_series),
+			$this->login->tbl_col_user_session['token'] => $this->hash_cookie_token($remember_token),
+			$this->login->tbl_col_user_session['date'] => $this->database_date_time()
 		);
 
-		$this->db->insert($this->auth->tbl_user_session, $sql_insert);
+		$this->db->insert($this->login->tbl_user_session, $sql_insert);
 		
 		###+++++++++++++++++++++++++++++++++###
 		
 		// Cleanup and remove the now used 'Remember me' database session if they exist.
-		if (get_cookie($this->auth->cookie_name['remember_series']) && get_cookie($this->auth->cookie_name['remember_token']))
+		if (get_cookie($this->login->cookie_name['remember_series']) && get_cookie($this->login->cookie_name['remember_token']))
 		{
 			$sql_where = array(
-				$this->auth->tbl_col_user_session['user_id'] => $user_id,
-				$this->auth->tbl_col_user_session['series'] => 
-					$this->hash_cookie_token(get_cookie($this->auth->cookie_name['remember_series'])),
-				$this->auth->tbl_col_user_session['token'] => 
-					$this->hash_cookie_token(get_cookie($this->auth->cookie_name['remember_token']))
+				$this->login->tbl_col_user_session['user_id'] => $user_id,
+				$this->login->tbl_col_user_session['series'] => 
+					$this->hash_cookie_token(get_cookie($this->login->cookie_name['remember_series'])),
+				$this->login->tbl_col_user_session['token'] => 
+					$this->hash_cookie_token(get_cookie($this->login->cookie_name['remember_token']))
 			);
 
-			$this->db->delete($this->auth->tbl_user_session, $sql_where);
+			$this->db->delete($this->login->tbl_user_session, $sql_where);
 		}
 
 		###+++++++++++++++++++++++++++++++++###
@@ -1977,21 +1977,21 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	    if ($this->db->affected_rows() > 0)
 	    {
 			set_cookie(array(
-				'name' => $this->auth->cookie_name['user_id'],
+				'name' => $this->login->cookie_name['user_id'],
 				'value' => $user_id,
-				'expire' => $this->auth->auth_security['user_cookie_expire'],
+				'expire' => $this->login->auth_security['user_cookie_expire'],
 			));
 
 			set_cookie(array(
-				'name' => $this->auth->cookie_name['remember_series'],
+				'name' => $this->login->cookie_name['remember_series'],
 				'value' => $remember_series,
-				'expire' => $this->auth->auth_security['user_cookie_expire'],
+				'expire' => $this->login->auth_security['user_cookie_expire'],
 			));			
 
 			set_cookie(array(
-				'name' => $this->auth->cookie_name['remember_token'],
+				'name' => $this->login->cookie_name['remember_token'],
 				'value' => $remember_token,
-				'expire' => $this->auth->auth_security['user_cookie_expire'],
+				'expire' => $this->login->auth_security['user_cookie_expire'],
 			));			
 			
 			return TRUE;
@@ -2018,7 +2018,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		}
 	
 		// Set account activation expiry time.
-		$expire_time = (60 * $this->auth->auth_settings['account_activation_time_limit']); // 60 Secs * expire minutes.		
+		$expire_time = (60 * $this->login->auth_settings['account_activation_time_limit']); // 60 Secs * expire minutes.		
 		
 		// Convert if using MySQL time.
 		if (strtotime($last_login)) 
@@ -2047,12 +2047,12 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	{
 		// Compare users IP address against any failed login IP addresses.
 		$sql_where = array(
-			$this->auth->tbl_col_user_account['failed_login_ip'] => $this->input->ip_address(),
-			$this->auth->tbl_col_user_account['failed_logins'].' >= ' => $this->auth->auth_security['login_attempt_limit']
+			$this->login->tbl_col_user_account['failed_login_ip'] => $this->input->ip_address(),
+			$this->login->tbl_col_user_account['failed_logins'].' >= ' => $this->login->auth_security['login_attempt_limit']
 		);	
 	
 	    $query = $this->db->where($sql_where)
-			->get($this->auth->tbl_user_account);
+			->get($this->login->tbl_user_account);
 		
 		return $query->num_rows() > 0;
 	}
@@ -2072,28 +2072,28 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		}
 
 		$sql_select = array(
-			$this->auth->tbl_col_user_account['failed_logins'], 
-			$this->auth->tbl_col_user_account['failed_login_ban_date']
+			$this->login->tbl_col_user_account['failed_logins'], 
+			$this->login->tbl_col_user_account['failed_login_ban_date']
 		);
 		
 	    $query = $this->db->select($sql_select)
-			->where($this->auth->primary_identity_col, $identity)
-			->get($this->auth->tbl_user_account);
+			->where($this->login->primary_identity_col, $identity)
+			->get($this->login->tbl_user_account);
 
 		if ($query->num_rows() == 1)
 		{
 			$user = $query->row();
 			
-			$attempts = $user->{$this->auth->database_config['user_acc']['columns']['failed_logins']};
-			$failed_login_date = $user->{$this->auth->database_config['user_acc']['columns']['failed_login_ban_date']};
+			$attempts = $user->{$this->login->database_config['user_acc']['columns']['failed_logins']};
+			$failed_login_date = $user->{$this->login->database_config['user_acc']['columns']['failed_login_ban_date']};
 			
 			// Check if login attempts are acceptable.
-			if ($attempts < $this->auth->auth_security['login_attempt_limit'])
+			if ($attempts < $this->login->auth_security['login_attempt_limit'])
 			{
 				return FALSE;
 			}
 			// Login attempts exceed limit, now check if user has waited beyond time ban limit to attempt another login.
-			else if ($this->database_date_time($this->auth->auth_security['login_attempt_time_ban'], $failed_login_date, TRUE) 
+			else if ($this->database_date_time($this->login->auth_security['login_attempt_time_ban'], $failed_login_date, TRUE) 
 				< $this->database_date_time(FALSE, FALSE, TRUE))
 			{
 				return FALSE;
@@ -2121,15 +2121,15 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$time_ban = 0;
 		
 		// Length of time ban in seconds.
-		if ($attempts >= $this->auth->auth_security['login_attempt_limit'])
+		if ($attempts >= $this->login->auth_security['login_attempt_limit'])
 		{
 			// Set time ban message.
 			$this->set_error_message('login_attempts_exceeded', 'config');
 			
-			$time_ban = $this->auth->auth_security['login_attempt_time_ban'];
+			$time_ban = $this->login->auth_security['login_attempt_time_ban'];
 		
 			// If failed attempts continue for more than 3 times the limit, increase the time ban by a factor of 2.
-			if ($attempts >= ($this->auth->auth_security['login_attempt_limit'] * 3))
+			if ($attempts >= ($this->login->auth_security['login_attempt_limit'] * 3))
 			{
 				$time_ban = ($time_ban * 2);
 			}
@@ -2140,12 +2140,12 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 		// Record users ip address to compare future login attempts.
 		$login_data = array(
-			$this->auth->tbl_col_user_account['failed_login_ip'] => $this->input->ip_address(),
-			$this->auth->tbl_col_user_account['failed_logins'] => $attempts,
-			$this->auth->tbl_col_user_account['failed_login_ban_date'] => $time_ban
+			$this->login->tbl_col_user_account['failed_login_ip'] => $this->input->ip_address(),
+			$this->login->tbl_col_user_account['failed_logins'] => $attempts,
+			$this->login->tbl_col_user_account['failed_login_ban_date'] => $time_ban
 		);
 		
-		$this->db->update($this->auth->tbl_user_account, $login_data, array($this->auth->primary_identity_col => $identity));
+		$this->db->update($this->login->tbl_user_account, $login_data, array($this->login->primary_identity_col => $identity));
 		
 	    return $this->db->affected_rows() == 1;
 	}
@@ -2166,12 +2166,12 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		}
 		
 		$login_data = array(
-			$this->auth->tbl_col_user_account['failed_login_ip'] => '',
-			$this->auth->tbl_col_user_account['failed_logins'] => 0,
-			$this->auth->tbl_col_user_account['failed_login_ban_date'] => 0
+			$this->login->tbl_col_user_account['failed_login_ip'] => '',
+			$this->login->tbl_col_user_account['failed_logins'] => 0,
+			$this->login->tbl_col_user_account['failed_login_ban_date'] => 0
 		);
 		
-		$this->db->update($this->auth->tbl_user_account, $login_data, array($this->auth->primary_identity_col => $identity));
+		$this->db->update($this->login->tbl_user_account, $login_data, array($this->login->primary_identity_col => $identity));
 				
 	    return $this->db->affected_rows() == 1;
 	}
@@ -2189,8 +2189,8 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$this->load->helper('recaptcha');
 
 		// Get config settings.
-		$captcha_theme = $this->auth->auth_security['recaptcha_theme'];
-		$captcha_lang = $this->auth->auth_security['recaptcha_language'];
+		$captcha_theme = $this->login->auth_security['recaptcha_theme'];
+		$captcha_lang = $this->login->auth_security['recaptcha_language'];
 		
 		// Set defaults.
 		$theme = "theme:'clean',";
@@ -2216,7 +2216,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		}
 		
 		$theme_html = "<script>var RecaptchaOptions = { $theme $language };</script>\n";
-		$captcha_html = recaptcha_get_html($this->auth->auth_security['recaptcha_public_key'], NULL, $ssl);
+		$captcha_html = recaptcha_get_html($this->login->auth_security['recaptcha_public_key'], NULL, $ssl);
 
 		return $theme_html.$captcha_html;
 	}
@@ -2233,7 +2233,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$this->load->helper('recaptcha');
 
 		$response = recaptcha_check_answer(
-			$this->auth->auth_security['recaptcha_private_key'],
+			$this->login->auth_security['recaptcha_private_key'],
 			$this->input->ip_address(),
 			$this->input->post('recaptcha_challenge_field'),
 			$this->input->post('recaptcha_response_field')
@@ -2292,26 +2292,26 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		}
 		
 		// Merge any additional template data that has been set via the template_data() function, (Must be called prior to parent function).
-		if (!empty($this->auth->template_data['template_data']))
+		if (!empty($this->login->template_data['template_data']))
 		{
-			$data = array_merge($data, (array)$this->auth->template_data['template_data']);
+			$data = array_merge($data, (array)$this->login->template_data['template_data']);
 		}
 		
 		// Overwrite default template file to send email via template_data() function (Must be called prior to parent function).
-		if (!empty($this->auth->template_data['template']))
+		if (!empty($this->login->template_data['template']))
 		{
-			$template = $this->auth->template_data['template'];
+			$template = $this->login->template_data['template'];
 		}
 		
 		$message = $this->load->view($template, $data, TRUE);
 		
 		$this->load->library('email');
 		$this->email->clear();
-		$this->email->initialize(array('mailtype' => $this->auth->email_settings['email_type']));
+		$this->email->initialize(array('mailtype' => $this->login->email_settings['email_type']));
 		$this->email->set_newline("\r\n");
-		$this->email->from($this->auth->email_settings['reply_email'], $this->auth->email_settings['site_title']);
+		$this->email->from($this->login->email_settings['reply_email'], $this->login->email_settings['site_title']);
 		$this->email->to($email_to);
-		$this->email->subject($this->auth->email_settings['site_title'] ." ". $email_title);
+		$this->email->subject($this->login->email_settings['site_title'] ." ". $email_title);
 		$this->email->message($message);
 			
 		return $this->email->send();
@@ -2335,6 +2335,83 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		set_cookie($ci_session);	
 	}
 }
+
+
+function register_account()
+	{
+		$this->load->library('form_validation');
+
+		// Set validation rules.
+		// The custom rules 'identity_available' and 'validate_password' can be found in '../libaries/MY_Form_validation.php'.
+		$validation_rules = array(
+			array('field' => 'register_first_name', 'label' => 'First Name', 'rules' => 'required'),
+			array('field' => 'register_last_name', 'label' => 'Last Name', 'rules' => 'required'),
+			array('field' => 'register_email_address', 'label' => 'Email Address', 'rules' => 'required|valid_email|identity_available'),
+			array('field' => 'register_username', 'label' => 'Username', 'rules' => 'required|min_length[4]|identity_available'),
+			array('field' => 'register_password', 'label' => 'Password', 'rules' => 'required|validate_password'),
+			array('field' => 'register_confirm_password', 'label' => 'Confirm Password', 'rules' => 'required|matches[register_password]')
+		);
+
+		$this->form_validation->set_rules($validation_rules);
+
+		// Run the validation.
+		if ($this->form_validation->run())
+		{
+			// Get user login details from input.
+			$email = $this->input->post('register_email_address');
+			$username = $this->input->post('register_username');
+			$password = $this->input->post('register_password');
+			
+			// Get user profile data from input.
+			// You can add whatever columns you need to customise user tables.
+			$profile_data = array(
+				'upro_first_name' => $this->input->post('register_first_name'),
+				'upro_last_name' => $this->input->post('register_last_name'),
+			);
+			
+			// Set whether to instantly activate account.
+			// This var will be used twice, once for registration, then to check if to log the user in after registration.
+			$instant_activate = FALSE;
+	
+			// The last 2 variables on the register function are optional, these variables allow you to:
+			// #1. Specify the group ID for the user to be added to (i.e. 'Moderator' / 'Public'), the default is set via the config file.
+			// #2. Set whether to automatically activate the account upon registration, default is FALSE. 
+			// Note: An account activation email will be automatically sent if auto activate is FALSE, or if an activation time limit is set by the config file.
+			$response = $this->flexi_auth->insert_user($email, $username, $password, $profile_data, 1, $instant_activate);
+
+			if ($response)
+			{
+				// This is an example 'Welcome' email that could be sent to a new user upon registration.
+				// Bear in mind, if registration has been set to require the user activates their account, they will already be receiving an activation email.
+				// Therefore sending an additional email welcoming the user may be deemed unnecessary.
+				$email_data = array('identity' => $email, 'name' => $this->input->post('register_first_name'));
+				$this->flexi_auth->send_email($email, 'You\'ve been registered at UMLchecker', 'registration_welcome.tpl.php', $email_data);
+				// Note: The 'registration_welcome.tpl.php' template file is located in the '../views/includes/email/' directory defined by the config file.
+				
+				###+++++++++++++++++###
+				
+				// Save any public status or error messages (Whilst suppressing any admin messages) to CI's flash session data.
+				$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+				
+				// This is an example of how to log the user into their account immeadiately after registering.
+				// This example would only be used if users do not have to authenticate their account via email upon registration.
+				if ($instant_activate && $this->flexi_auth->login($email, $password))
+				{
+					// Redirect user to public dashboard.
+					redirect('auth_public/dashboard');
+				}
+				
+				// Redirect user to login page
+				redirect('login');
+			}
+		}
+
+		// Set validation errors.
+		$this->data['message'] = validation_errors('<p class="error_msg">', '</p>');
+
+		return FALSE;
+	}
+
 
 /* End of file flexi_auth_model.php */
 /* Location: ./application/controllers/flexi_auth_model.php */

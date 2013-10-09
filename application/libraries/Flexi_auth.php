@@ -125,7 +125,7 @@ class Flexi_auth extends Flexi_auth_lite
 	{
 		$captcha = $this->CI->flexi_auth_model->math_captcha();
 		
-		$this->CI->session->set_flashdata($this->CI->auth->session_name['math_captcha'], $captcha['answer']);
+		$this->CI->session->set_flashdata($this->CI->login->session_name['math_captcha'], $captcha['answer']);
 		
 		return $captcha['equation'];
 	}
@@ -139,7 +139,7 @@ class Flexi_auth extends Flexi_auth_lite
 	 */
 	public function validate_math_captcha($answer = FALSE)
 	{
-		return ($answer == $this->CI->session->flashdata($this->CI->auth->session_name['math_captcha']));
+		return ($answer == $this->CI->session->flashdata($this->CI->login->session_name['math_captcha']));
 	}
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
@@ -153,7 +153,7 @@ class Flexi_auth extends Flexi_auth_lite
 	 */
 	public function min_password_length()
 	{
-		return $this->CI->auth->auth_security['min_password_length'];
+		return $this->CI->login->auth_security['min_password_length'];
 	}
 	
 	/**
@@ -165,7 +165,7 @@ class Flexi_auth extends Flexi_auth_lite
 	 */
 	public function valid_password_chars($password = FALSE)
 	{
-		return (bool) preg_match("/^[".$this->CI->auth->auth_security['valid_password_chars']."]+$/i", $password);
+		return (bool) preg_match("/^[".$this->CI->login->auth_security['valid_password_chars']."]+$/i", $password);
 	}
 	
 
@@ -232,16 +232,16 @@ class Flexi_auth extends Flexi_auth_lite
 		
 		// Get user information.
 		$sql_select = array(
-			$this->CI->auth->tbl_col_user_account['id'],
-			$this->CI->auth->tbl_col_user_account['active']
+			$this->CI->login->tbl_col_user_account['id'],
+			$this->CI->login->tbl_col_user_account['active']
 		);
 		
-		$sql_where[$this->CI->auth->primary_identity_col] = $identity;
+		$sql_where[$this->CI->login->primary_identity_col] = $identity;
 		
 		$user = $this->CI->flexi_auth_model->get_users($sql_select, $sql_where)->row();
 
-		$user_id = $user->{$this->CI->auth->database_config['user_acc']['columns']['id']};
-		$active_status = $user->{$this->CI->auth->database_config['user_acc']['columns']['active']};		
+		$user_id = $user->{$this->CI->login->database_config['user_acc']['columns']['id']};
+		$active_status = $user->{$this->CI->login->database_config['user_acc']['columns']['active']};		
 		
 		// If account is already activated.
 		if ($active_status == 1)
@@ -254,15 +254,15 @@ class Flexi_auth extends Flexi_auth_lite
 		{
 			// Get user information.
 			$sql_select = array(
-				$this->CI->auth->primary_identity_col,
-				$this->CI->auth->tbl_col_user_account['activation_token'],
-				$this->CI->auth->tbl_col_user_account['email']
+				$this->CI->login->primary_identity_col,
+				$this->CI->login->tbl_col_user_account['activation_token'],
+				$this->CI->login->tbl_col_user_account['email']
 			);
-			$sql_where[$this->CI->auth->primary_identity_col] = $identity;
+			$sql_where[$this->CI->login->primary_identity_col] = $identity;
 			$user = $this->CI->flexi_auth_model->get_users($sql_select, $sql_where)->row();
 			
-			$email = $user->{$this->CI->auth->database_config['user_acc']['columns']['email']}; 
-			$activation_token = $user->{$this->CI->auth->database_config['user_acc']['columns']['activation_token']};
+			$email = $user->{$this->CI->login->database_config['user_acc']['columns']['email']}; 
+			$activation_token = $user->{$this->CI->login->database_config['user_acc']['columns']['activation_token']};
 			
 			// Set email data.
 			$email_to = $email;
@@ -273,7 +273,7 @@ class Flexi_auth extends Flexi_auth_lite
 				'identity' => $identity,
 				'activation_token' => $activation_token
 			);
-			$template = $this->CI->auth->email_settings['email_template_directory'].$this->CI->auth->email_settings['email_template_activate'];
+			$template = $this->CI->login->email_settings['email_template_directory'].$this->CI->login->email_settings['email_template_activate'];
 
 			if ($this->CI->flexi_auth_model->send_email($email_to, $email_title, $user_data, $template))
 			{
@@ -339,18 +339,18 @@ class Flexi_auth extends Flexi_auth_lite
 		{
 			// Get user information.
 			$sql_select = array(
-				$this->CI->auth->tbl_col_user_account['id'],
-				$this->CI->auth->tbl_col_user_account['email'],
-				$this->CI->auth->tbl_col_user_account['forgot_password_token']
+				$this->CI->login->tbl_col_user_account['id'],
+				$this->CI->login->tbl_col_user_account['email'],
+				$this->CI->login->tbl_col_user_account['forgot_password_token']
 			);			
-			$sql_where[$this->CI->auth->primary_identity_col] = $identity;
+			$sql_where[$this->CI->login->primary_identity_col] = $identity;
 			
 			$user = $this->CI->flexi_auth_model->get_users($sql_select, $sql_where)->row();
-			$user_id = $user->{$this->CI->auth->database_config['user_acc']['columns']['id']};
-			$forgotten_password_token = $user->{$this->CI->auth->database_config['user_acc']['columns']['forgot_password_token']}; 
+			$user_id = $user->{$this->CI->login->database_config['user_acc']['columns']['id']};
+			$forgotten_password_token = $user->{$this->CI->login->database_config['user_acc']['columns']['forgot_password_token']}; 
 
 			// Set email data.
-			$email_to = $user->{$this->CI->auth->database_config['user_acc']['columns']['email']};
+			$email_to = $user->{$this->CI->login->database_config['user_acc']['columns']['email']};
 			$email_title = ' - Forgotten Password Verification';
 			
 			$user_data = array(
@@ -358,7 +358,7 @@ class Flexi_auth extends Flexi_auth_lite
 				'identity' => $identity,
 				'forgotten_password_token' => $forgotten_password_token
 			);
-			$template = $this->CI->auth->email_settings['email_template_directory'].$this->CI->auth->email_settings['email_template_forgot_password'];
+			$template = $this->CI->login->email_settings['email_template_directory'].$this->CI->login->email_settings['email_template_forgot_password'];
 			
 			if ($this->CI->flexi_auth_model->send_email($email_to, $email_title, $user_data, $template))
 			{
@@ -396,12 +396,12 @@ class Flexi_auth extends Flexi_auth_lite
 		if ($this->CI->flexi_auth_model->validate_forgotten_password_token($user_id, $forgot_password_token))
 		{
 			$sql_select = array(
-				$this->CI->auth->primary_identity_col,
-				$this->CI->auth->tbl_col_user_account['salt'],
-				$this->CI->auth->tbl_col_user_account['email']
+				$this->CI->login->primary_identity_col,
+				$this->CI->login->tbl_col_user_account['salt'],
+				$this->CI->login->tbl_col_user_account['email']
 			);
 			
-			$sql_where[$this->CI->auth->tbl_col_user_account['id']] = $user_id;
+			$sql_where[$this->CI->login->tbl_col_user_account['id']] = $user_id;
 			
 			$user = $this->CI->flexi_auth_model->get_users($sql_select, $sql_where)->row();
 
@@ -411,8 +411,8 @@ class Flexi_auth extends Flexi_auth_lite
 				return FALSE;
 			}
 
-			$identity = $user->{$this->CI->auth->db_settings['primary_identity_col']};
-			$database_salt = $user->{$this->CI->auth->database_config['user_acc']['columns']['salt']};
+			$identity = $user->{$this->CI->login->db_settings['primary_identity_col']};
+			$database_salt = $user->{$this->CI->login->database_config['user_acc']['columns']['salt']};
 
 			// If no new password is set via $new_password, the function will generate a new one.
 			$new_password = $this->CI->flexi_auth_model->change_forgotten_password($user_id, $forgot_password_token, $new_password, $database_salt);
@@ -421,15 +421,15 @@ class Flexi_auth extends Flexi_auth_lite
 			if ($send_email)
 			{
 				// Set email data
-				$email_to = $user->{$this->CI->auth->database_config['user_acc']['columns']['email']};
+				$email_to = $user->{$this->CI->login->database_config['user_acc']['columns']['email']};
 				$email_title = ' - New Password';
 			
 				$user_data = array(
 					'identity' => $identity,
 					'new_password' => $new_password
 				);
-				$template = $this->CI->auth->email_settings['email_template_directory'].
-					$this->CI->auth->email_settings['email_template_forgot_password_complete'];
+				$template = $this->CI->login->email_settings['email_template_directory'].
+					$this->CI->login->email_settings['email_template_forgot_password_complete'];
 
 				if ($this->CI->flexi_auth_model->send_email($email_to, $email_title, $user_data, $template))
 				{
@@ -466,10 +466,10 @@ class Flexi_auth extends Flexi_auth_lite
 		{
 			// Get user information.
 			$sql_select = array(
-				$this->CI->auth->tbl_col_user_account['email'],
-				$this->CI->auth->tbl_col_user_account['update_email_token']
+				$this->CI->login->tbl_col_user_account['email'],
+				$this->CI->login->tbl_col_user_account['update_email_token']
 			);
-			$sql_where[$this->CI->auth->tbl_col_user_account['id']] = $user_id;
+			$sql_where[$this->CI->login->tbl_col_user_account['id']] = $user_id;
 			
 			$user = $this->CI->flexi_auth_model->get_users($sql_select, $sql_where)->row();
 
@@ -479,8 +479,8 @@ class Flexi_auth extends Flexi_auth_lite
 				return FALSE;
 			}
 			
-			$current_email = $user->{$this->CI->auth->database_config['user_acc']['columns']['email']};
-			$update_email_token = $user->{$this->CI->auth->database_config['user_acc']['columns']['update_email_token']};
+			$current_email = $user->{$this->CI->login->database_config['user_acc']['columns']['email']};
+			$update_email_token = $user->{$this->CI->login->database_config['user_acc']['columns']['update_email_token']};
 			
 			// Send email activation email.
 			$email_to = $new_email;
@@ -493,7 +493,7 @@ class Flexi_auth extends Flexi_auth_lite
 				'update_email_token' => $update_email_token
 			);
 			
-			$template = $this->CI->auth->email_settings['email_template_directory'].$this->CI->auth->email_settings['email_template_update_email'];
+			$template = $this->CI->login->email_settings['email_template_directory'].$this->CI->login->email_settings['email_template_update_email'];
 			
 			if ($this->CI->flexi_auth_model->send_email($email_to, $email_title, $user_data, $template))
 			{
@@ -552,17 +552,17 @@ class Flexi_auth extends Flexi_auth_lite
 			if ($activate)
 			{
 				// If an account activation time limit is set by the config file, retain activation token.
-				$clear_token = ($this->CI->auth->auth_settings['account_activation_time_limit'] > 0) ? FALSE : TRUE;
+				$clear_token = ($this->CI->login->auth_settings['account_activation_time_limit'] > 0) ? FALSE : TRUE;
 				
 				$this->CI->flexi_auth_model->activate_user($user_id, FALSE, FALSE, $clear_token);		
 			}
 			
 			$sql_select = array(
-				$this->CI->auth->primary_identity_col,
-				$this->CI->auth->tbl_col_user_account['activation_token']
+				$this->CI->login->primary_identity_col,
+				$this->CI->login->tbl_col_user_account['activation_token']
 			);
 			
-			$sql_where[$this->CI->auth->tbl_col_user_account['id']] = $user_id;
+			$sql_where[$this->CI->login->tbl_col_user_account['id']] = $user_id;
 			
 			$user = $this->CI->flexi_auth_model->get_users($sql_select, $sql_where)->row(); 
 
@@ -572,8 +572,8 @@ class Flexi_auth extends Flexi_auth_lite
 				return FALSE;
 			}
 			
-			$identity = $user->{$this->CI->auth->db_settings['primary_identity_col']};
-			$activation_token = $user->{$this->CI->auth->database_config['user_acc']['columns']['activation_token']};
+			$identity = $user->{$this->CI->login->db_settings['primary_identity_col']};
+			$activation_token = $user->{$this->CI->login->database_config['user_acc']['columns']['activation_token']};
 			
 			// Prepare account activation email.
 			// If the $activation_token is not empty, the account must be activated via email before the user can login.
@@ -588,7 +588,7 @@ class Flexi_auth extends Flexi_auth_lite
 					'identity' => $identity,
 					'activation_token' => $activation_token
 				);
-				$template = $this->CI->auth->email_settings['email_template_directory'].$this->CI->auth->email_settings['email_template_activate'];
+				$template = $this->CI->login->email_settings['email_template_directory'].$this->CI->login->email_settings['email_template_activate'];
 
 				if ($this->CI->flexi_auth_model->send_email($email_to, $email_title, $user_data, $template))
 				{
@@ -658,7 +658,7 @@ class Flexi_auth extends Flexi_auth_lite
 	public function delete_unactivated_users($inactive_days = 28, $sql_where = FALSE)
 	{
 		$users = $this->CI->flexi_auth_model
-			->get_unactivated_users($inactive_days, $this->CI->auth->tbl_col_user_account['id'], $sql_where);
+			->get_unactivated_users($inactive_days, $this->CI->login->tbl_col_user_account['id'], $sql_where);
 				
 		if ($users->num_rows() > 0)
 		{
@@ -666,7 +666,7 @@ class Flexi_auth extends Flexi_auth_lite
 		
 			foreach ($users as $user)
 			{
-				$user_id = $user[$this->CI->auth->database_config['user_acc']['columns']['id']];
+				$user_id = $user[$this->CI->login->database_config['user_acc']['columns']['id']];
 				$this->CI->flexi_auth_model->delete_user($user_id);
 			}
 			$this->CI->flexi_auth_model->set_status_message('delete_successful', 'config');
@@ -1004,11 +1004,11 @@ class Flexi_auth extends Flexi_auth_lite
 	 */
 	public function get_users_group_query($sql_select = FALSE, $sql_where = FALSE)
 	{
-		$sql_select = ($sql_select) ? $sql_select : $this->CI->auth->tbl_user_group.'.*';
+		$sql_select = ($sql_select) ? $sql_select : $this->CI->login->tbl_user_group.'.*';
 
 		if (! $sql_where)
 		{
-			$sql_where = array($this->CI->auth->tbl_col_user_account['id'] => $this->CI->auth->session_data[$this->CI->auth->session_name['user_id']]);
+			$sql_where = array($this->CI->login->tbl_col_user_account['id'] => $this->CI->login->session_data[$this->CI->login->session_name['user_id']]);
 		}
 	
 		return $this->CI->flexi_auth_model->get_users($sql_select, $sql_where);
@@ -1069,8 +1069,8 @@ class Flexi_auth extends Flexi_auth_lite
 	{
 		if (! $sql_where)
 		{
-			$sql_where = array($this->CI->auth->tbl_col_user_privilege_users['user_id'] => 
-				$this->CI->auth->session_data[$this->CI->auth->session_name['user_id']]);
+			$sql_where = array($this->CI->login->tbl_col_user_privilege_users['user_id'] => 
+				$this->CI->login->session_data[$this->CI->login->session_name['user_id']]);
 		}
 	
 		return $this->CI->flexi_auth_model->get_user_privileges($sql_select, $sql_where);
@@ -1088,8 +1088,8 @@ class Flexi_auth extends Flexi_auth_lite
 	{
 		if (! $sql_where)
 		{
-			$sql_where = array($this->CI->auth->tbl_col_user_privilege_groups['group_id'] => 
-				key($this->CI->auth->session_data[$this->CI->auth->session_name['group']]));
+			$sql_where = array($this->CI->login->tbl_col_user_privilege_groups['group_id'] => 
+				key($this->CI->login->session_data[$this->CI->login->session_name['group']]));
 		}
 	
 		return $this->CI->flexi_auth_model->get_user_group_privileges($sql_select, $sql_where);
@@ -1114,7 +1114,7 @@ class Flexi_auth extends Flexi_auth_lite
 			return FALSE;
 		}
 	
-		$template = $this->CI->auth->email_settings['email_template_directory'].$template;
+		$template = $this->CI->login->email_settings['email_template_directory'].$template;
 
 		return $this->CI->flexi_auth_model->send_email($email_to, $email_title, $email_data, $template);
 	}
@@ -1134,7 +1134,7 @@ class Flexi_auth extends Flexi_auth_lite
 		}
 
 		// Set template data placeholder.
-		$data = $this->CI->auth->template_data;
+		$data = $this->CI->login->template_data;
 
 		// Change default template if set
 		if (!empty($template))
@@ -1148,7 +1148,7 @@ class Flexi_auth extends Flexi_auth_lite
 			$data['template_data'] = $template_data;
 		}
 		
-		$this->CI->auth->template_data = $data;
+		$this->CI->login->template_data = $data;
 	}
 }
 

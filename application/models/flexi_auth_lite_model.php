@@ -44,21 +44,21 @@ class Flexi_auth_lite_model extends CI_Model
 		###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 		
 		// Sessions and cookies
-		$this->auth->session_name = $this->config->item('sessions','flexi_auth');
-		$this->auth->cookie_name = $this->config->item('cookies','flexi_auth');
+		$this->login->session_name = $this->config->item('sessions','flexi_auth');
+		$this->login->cookie_name = $this->config->item('cookies','flexi_auth');
 	
 		// Get the current auth session, else get the default values
-		if ($this->session->userdata($this->auth->session_name['name']) !== FALSE)
+		if ($this->session->userdata($this->login->session_name['name']) !== FALSE)
 		{
-			$this->auth->session_data = $this->session->userdata($this->auth->session_name['name']);
+			$this->login->session_data = $this->session->userdata($this->login->session_name['name']);
 		}
 		else
 		{
-			$this->auth->session_data = $this->set_auth_defaults();
+			$this->login->session_data = $this->set_auth_defaults();
 		}
 		
 		// Database tables and settings
-		$this->auth->database_config = $database_config = $this->config->item('database','flexi_auth');
+		$this->login->database_config = $database_config = $this->config->item('database','flexi_auth');
 
 		// Prefix each table column with the name of the parent table. 
 		foreach($database_config as $table_key => $table_data)
@@ -105,62 +105,62 @@ class Flexi_auth_lite_model extends CI_Model
 		}
 
 		// User session table
-		$this->auth->tbl_user_session = $database_config['user_sess']['table'];
-		$this->auth->tbl_join_user_session = $database_config['user_sess']['join'];
-		$this->auth->tbl_col_user_session = $database_config['user_sess']['columns'];
+		$this->login->tbl_user_session = $database_config['user_sess']['table'];
+		$this->login->tbl_join_user_session = $database_config['user_sess']['join'];
+		$this->login->tbl_col_user_session = $database_config['user_sess']['columns'];
 		
 		// User group table
-		$this->auth->tbl_user_group = $database_config['user_group']['table'];
-		$this->auth->tbl_join_user_group = $database_config['user_group']['join'];
-		$this->auth->tbl_col_user_group = $database_config['user_group']['columns'];
+		$this->login->tbl_user_group = $database_config['user_group']['table'];
+		$this->login->tbl_join_user_group = $database_config['user_group']['join'];
+		$this->login->tbl_col_user_group = $database_config['user_group']['columns'];
 		
 		// User privilege tables
-		$this->auth->tbl_user_privilege = $database_config['user_privileges']['table'];
-		$this->auth->tbl_col_user_privilege = $database_config['user_privileges']['columns'];
-		$this->auth->tbl_user_privilege_users = $database_config['user_privilege_users']['table'];
-		$this->auth->tbl_col_user_privilege_users = $database_config['user_privilege_users']['columns'];
+		$this->login->tbl_user_privilege = $database_config['user_privileges']['table'];
+		$this->login->tbl_col_user_privilege = $database_config['user_privileges']['columns'];
+		$this->login->tbl_user_privilege_users = $database_config['user_privilege_users']['table'];
+		$this->login->tbl_col_user_privilege_users = $database_config['user_privilege_users']['columns'];
 		
 		// User group privilege tables
-		$this->auth->tbl_user_privilege_groups = $database_config['user_privilege_groups']['table'];
-		$this->auth->tbl_col_user_privilege_groups = $database_config['user_privilege_groups']['columns'];
+		$this->login->tbl_user_privilege_groups = $database_config['user_privilege_groups']['table'];
+		$this->login->tbl_col_user_privilege_groups = $database_config['user_privilege_groups']['columns'];
 		
 		// User main account table
-		$this->auth->tbl_user_account = $database_config['user_acc']['table'];
-		$this->auth->tbl_join_user_account = $database_config['user_acc']['join'];
-		$this->auth->tbl_col_user_account = array_merge($database_config['user_acc']['columns'], $database_config['user_acc']['custom_columns']);
-		#$this->auth->tbl_custom_col_user_account = $database_config['user_acc']['custom_columns']; // Currently unused.
+		$this->login->tbl_user_account = $database_config['user_acc']['table'];
+		$this->login->tbl_join_user_account = $database_config['user_acc']['join'];
+		$this->login->tbl_col_user_account = array_merge($database_config['user_acc']['columns'], $database_config['user_acc']['custom_columns']);
+		#$this->login->tbl_custom_col_user_account = $database_config['user_acc']['custom_columns']; // Currently unused.
 
 		// User custom data table(s)
-		$this->auth->tbl_custom_data = (! empty($database_config['custom'])) ? $database_config['custom'] : array();
+		$this->login->tbl_custom_data = (! empty($database_config['custom'])) ? $database_config['custom'] : array();
 		
 		// Database settings
-		$this->auth->db_settings = $database_config['settings'];
+		$this->login->db_settings = $database_config['settings'];
 
 		// Primary user identity column
-		$this->auth->primary_identity_col = $database_config['user_acc']['table'].'.'.$database_config['settings']['primary_identity_col'];
+		$this->login->primary_identity_col = $database_config['user_acc']['table'].'.'.$database_config['settings']['primary_identity_col'];
 		
 		// Security settings
-		$this->auth->auth_security = $this->config->item('security','flexi_auth');
+		$this->login->auth_security = $this->config->item('security','flexi_auth');
 		
 		// General settings
-		$this->auth->auth_settings = $this->config->item('settings','flexi_auth');
+		$this->login->auth_settings = $this->config->item('settings','flexi_auth');
 		
 		// Email settings
-		$this->auth->email_settings = $this->config->item('email','flexi_auth');
+		$this->login->email_settings = $this->config->item('email','flexi_auth');
 		
 		// Set flexi auth SQL clauses
-		$this->auth->select = $this->auth->join = $this->auth->order_by = $this->auth->group_by = $this->auth->limit = array();
-		$this->auth->where = $this->auth->or_where = $this->auth->where_in = array();
-		$this->auth->or_where_in = $this->auth->where_not_in = $this->auth->or_where_not_in = array();
-		$this->auth->like = $this->auth->or_like = $this->auth->not_like = $this->auth->or_not_like = array();
+		$this->login->select = $this->login->join = $this->login->order_by = $this->login->group_by = $this->login->limit = array();
+		$this->login->where = $this->login->or_where = $this->login->where_in = array();
+		$this->login->or_where_in = $this->login->where_not_in = $this->login->or_where_not_in = array();
+		$this->login->like = $this->login->or_like = $this->login->not_like = $this->login->or_not_like = array();
 
 		// Status and error messages.
-		$this->auth->message_settings = $this->config->item('messages', 'flexi_auth');
-		$this->auth->status_messages = array('public' => array(), 'admin' => array());
-		$this->auth->error_messages = array('public' => array(), 'admin' => array());
+		$this->login->message_settings = $this->config->item('messages', 'flexi_auth');
+		$this->login->status_messages = array('public' => array(), 'admin' => array());
+		$this->login->error_messages = array('public' => array(), 'admin' => array());
 		
 		// Global template data.
-		$this->auth->template_data = array();
+		$this->login->template_data = array();
 	}
 	
 	public function &__get($key)
@@ -184,20 +184,20 @@ class Flexi_auth_lite_model extends CI_Model
 	{
 	    // Left Join user group table to user account table.
 	    $this->db->join(
-			$this->auth->tbl_user_group, 
-			$this->auth->tbl_col_user_account['group_id'].' = '.$this->auth->tbl_join_user_group, 'left'
+			$this->login->tbl_user_group, 
+			$this->login->tbl_col_user_account['group_id'].' = '.$this->login->tbl_join_user_group, 'left'
 		);
 
 		// Left Join user custom data table(s) to user account table.
-		foreach ($this->auth->tbl_custom_data as $table)
+		foreach ($this->login->tbl_custom_data as $table)
 		{
-			$this->db->join($table['table'], $this->auth->tbl_join_user_account.' = '.$table['join'], 'left');
+			$this->db->join($table['table'], $this->login->tbl_join_user_account.' = '.$table['join'], 'left');
 		}
 
 		// Group by users id to prevent multiple custom data rows to be listed per user.
 		if ($sql_group_by === TRUE)
 		{
-			$this->db->group_by($this->auth->tbl_col_user_account['id']);
+			$this->db->group_by($this->login->tbl_col_user_account['id']);
 		}
 		// Else, if a specific column is defined, group by that column.
 		else if ($sql_group_by)
@@ -208,7 +208,7 @@ class Flexi_auth_lite_model extends CI_Model
 		// Set any custom defined SQL statements.
 		$this->set_custom_sql_to_db($sql_select, $sql_where);
 
-		return $this->db->get($this->auth->tbl_user_account);
+		return $this->db->get($this->login->tbl_user_account);
 	}
 	
 
@@ -226,14 +226,14 @@ class Flexi_auth_lite_model extends CI_Model
 	 */
 	public function logout($all_sessions = TRUE)
 	{
-		$user_id = $this->auth->session_data[$this->auth->session_name['user_id']];
+		$user_id = $this->login->session_data[$this->login->session_name['user_id']];
 				
 		// Delete database login sessions and 'Remember me' cookies.
 		$this->delete_database_login_session($user_id, $all_sessions);
 
 		// Delete session login data.
-		$this->auth->session_data = $this->set_auth_defaults();
-		$this->session->unset_userdata($this->auth->session_name['name']);
+		$this->login->session_data = $this->set_auth_defaults();
+		$this->session->unset_userdata($this->login->session_name['name']);
 
 		// Run database maintenance function to clean up any expired login sessions.
 		$this->delete_expired_remember_users();
@@ -273,17 +273,17 @@ class Flexi_auth_lite_model extends CI_Model
 	 */
 	public function delete_remember_me_cookies()
 	{
-		if (get_cookie($this->auth->cookie_name['user_id']))
+		if (get_cookie($this->login->cookie_name['user_id']))
 		{
-			delete_cookie($this->auth->cookie_name['user_id']);
+			delete_cookie($this->login->cookie_name['user_id']);
 		}
-		if ($remember_series = get_cookie($this->auth->cookie_name['remember_series']))
+		if ($remember_series = get_cookie($this->login->cookie_name['remember_series']))
 		{
-			delete_cookie($this->auth->cookie_name['remember_series']);
+			delete_cookie($this->login->cookie_name['remember_series']);
 		}
-		if ($remember_token = get_cookie($this->auth->cookie_name['remember_token']))
+		if ($remember_token = get_cookie($this->login->cookie_name['remember_token']))
 		{
-			delete_cookie($this->auth->cookie_name['remember_token']);
+			delete_cookie($this->login->cookie_name['remember_token']);
 		}
 
 		return TRUE;
@@ -306,8 +306,8 @@ class Flexi_auth_lite_model extends CI_Model
 		}
 
 		// Get 'Remember me' cookie values before they are deleted.
-		$remember_token = get_cookie($this->auth->cookie_name['remember_token']);
-		$remember_series = get_cookie($this->auth->cookie_name['remember_series']);
+		$remember_token = get_cookie($this->login->cookie_name['remember_token']);
+		$remember_series = get_cookie($this->login->cookie_name['remember_series']);
 
 		// Delete 'Remember me' cookies if they exist.
 		$this->delete_remember_me_cookies();
@@ -324,29 +324,29 @@ class Flexi_auth_lite_model extends CI_Model
 			}
 					
 			$sql_where = '('.
-				$this->auth->tbl_col_user_session['user_id'].' = '.$this->db->escape($user_id).' AND '.
-				$this->auth->tbl_col_user_session['series'].' = '.$this->db->escape($this->hash_cookie_token($remember_series)).' AND '.
-				$this->auth->tbl_col_user_session['token'].' = '.$this->db->escape($this->hash_cookie_token($remember_token)).
+				$this->login->tbl_col_user_session['user_id'].' = '.$this->db->escape($user_id).' AND '.
+				$this->login->tbl_col_user_session['series'].' = '.$this->db->escape($this->hash_cookie_token($remember_series)).' AND '.
+				$this->login->tbl_col_user_session['token'].' = '.$this->db->escape($this->hash_cookie_token($remember_token)).
 			')';
 			$this->db->where($sql_where, NULL, FALSE); 
 			
 			// Delete the login session token if it is set.
-			if ($session_token = $this->auth->session_data[$this->auth->session_name['login_session_token']])
+			if ($session_token = $this->login->session_data[$this->login->session_name['login_session_token']])
 			{
 				$sql_where = '('.
-					$this->auth->tbl_col_user_session['user_id'].' = '.$this->db->escape($user_id).' AND '.
-					$this->auth->tbl_col_user_session['token'].' = '.$this->db->escape($session_token).
+					$this->login->tbl_col_user_session['user_id'].' = '.$this->db->escape($user_id).' AND '.
+					$this->login->tbl_col_user_session['token'].' = '.$this->db->escape($session_token).
 				')';
 				$this->db->or_where($sql_where, NULL, FALSE);
 			}
 		}
 		else
 		{
-			$this->db->where($this->auth->tbl_col_user_session['user_id'], $user_id);
+			$this->db->where($this->login->tbl_col_user_session['user_id'], $user_id);
 		}
 
 		// Delete database session records.
-		$this->db->delete($this->auth->tbl_user_session);
+		$this->db->delete($this->login->tbl_user_session);
 
 	    return $this->db->affected_rows() > 0;
 	}
@@ -363,24 +363,24 @@ class Flexi_auth_lite_model extends CI_Model
 	 */
 	public function validate_database_login_session()
 	{
-		$user_id = $this->auth->session_data[$this->auth->session_name['user_id']];
-		$session_token = $this->auth->session_data[$this->auth->session_name['login_session_token']];
+		$user_id = $this->login->session_data[$this->login->session_name['user_id']];
+		$session_token = $this->login->session_data[$this->login->session_name['login_session_token']];
 		
 		$sql_where = array(
-			$this->auth->tbl_col_user_account['id'] => $user_id,
-			$this->auth->tbl_col_user_account['active'] => 1,
-			$this->auth->tbl_col_user_account['suspend'] => 0,
-			$this->auth->tbl_col_user_session['token'] => $session_token
+			$this->login->tbl_col_user_account['id'] => $user_id,
+			$this->login->tbl_col_user_account['active'] => 1,
+			$this->login->tbl_col_user_account['suspend'] => 0,
+			$this->login->tbl_col_user_session['token'] => $session_token
 		);
 
 		// If a session expire time is defined, check its valid. 
-		if ($this->auth->auth_security['login_session_expire'] > 0)
+		if ($this->login->auth_security['login_session_expire'] > 0)
 		{
-			$sql_where[$this->auth->tbl_col_user_session['date'].' > '] = $this->database_date_time(-$this->auth->auth_security['login_session_expire']);
+			$sql_where[$this->login->tbl_col_user_session['date'].' > '] = $this->database_date_time(-$this->login->auth_security['login_session_expire']);
 		}
 
-	    $query = $this->db->from($this->auth->tbl_user_account)
-			->join($this->auth->tbl_user_session, $this->auth->tbl_join_user_account.' = '.$this->auth->tbl_join_user_session)
+	    $query = $this->db->from($this->login->tbl_user_account)
+			->join($this->login->tbl_user_session, $this->login->tbl_join_user_account.' = '.$this->login->tbl_join_user_session)
 			->where($sql_where)
 			->get();
 		
@@ -390,13 +390,13 @@ class Flexi_auth_lite_model extends CI_Model
 	    if ($query->num_rows() == 1)
 	    {
 			// Get database session token and hash it to try and match hashed cookie token if required for the 'logout_user_onclose' or 'login_via_password_token' features.
-			$session_token = $query->row()->{$this->auth->database_config['user_sess']['columns']['token']};
+			$session_token = $query->row()->{$this->login->database_config['user_sess']['columns']['token']};
 			$hash_session_token = $this->hash_cookie_token($session_token);
 
 			// Validate if user has closed their browser since login (Defined by config file).
-			if ($this->auth->auth_security['logout_user_onclose'])
+			if ($this->login->auth_security['logout_user_onclose'])
 			{
-				if (get_cookie($this->auth->cookie_name['login_session_token']) != $hash_session_token)
+				if (get_cookie($this->login->cookie_name['login_session_token']) != $hash_session_token)
 				{
 					$this->set_error_message('login_session_expired', 'config');
 					$this->logout(FALSE);
@@ -404,9 +404,9 @@ class Flexi_auth_lite_model extends CI_Model
 				}
 			}
 			// Check whether to unset the users 'Logged in via password' status if they closed their browser since login (Defined by config file). 
-			else if ($this->auth->auth_security['unset_password_status_onclose'])
+			else if ($this->login->auth_security['unset_password_status_onclose'])
 			{
-				if (get_cookie($this->auth->cookie_name['login_via_password_token']) != $hash_session_token)
+				if (get_cookie($this->login->cookie_name['login_via_password_token']) != $hash_session_token)
 				{
 					$this->delete_logged_in_via_password_session();
 					return FALSE;
@@ -414,17 +414,17 @@ class Flexi_auth_lite_model extends CI_Model
 			}
 		
 			// Extend users login time if defined by config file.
-			if ($this->auth->auth_security['extend_login_session'])
+			if ($this->login->auth_security['extend_login_session'])
 			{
 				// Set extension time.
-				$sql_update[$this->auth->tbl_col_user_session['date']] = $this->database_date_time();
+				$sql_update[$this->login->tbl_col_user_session['date']] = $this->database_date_time();
 				
 				$sql_where = array(
-					$this->auth->tbl_col_user_session['user_id'] => $user_id,
-					$this->auth->tbl_col_user_session['token'] => $session_token
+					$this->login->tbl_col_user_session['user_id'] => $user_id,
+					$this->login->tbl_col_user_session['token'] => $session_token
 				);
 				
-				$this->db->update($this->auth->tbl_user_session, $sql_update, $sql_where);
+				$this->db->update($this->login->tbl_user_session, $sql_update, $sql_where);
 			}
 			
 			// If loading the 'complete' library, it extends the 'lite' library with additional functions, 
@@ -460,7 +460,7 @@ class Flexi_auth_lite_model extends CI_Model
 		if (! $this->flexi_auth_model->login_remembered_user())
 		{
 			$this->set_error_message('login_session_expired', 'config');
-			$this->session->set_userdata(array($this->auth->session_name['name'] => $this->set_auth_defaults()));
+			$this->session->set_userdata(array($this->login->session_name['name'] => $this->set_auth_defaults()));
 		}
 		
 		return TRUE;
@@ -479,13 +479,13 @@ class Flexi_auth_lite_model extends CI_Model
 	{
 		if (!$expire_time)
 		{
-			$expire_time = $this->auth->auth_security['user_cookie_expire'];
+			$expire_time = $this->login->auth_security['user_cookie_expire'];
 		}
 		
 		// Create expire date.
 		$expire_date = $this->database_date_time(-$expire_time);
 
-	    $this->db->delete($this->auth->tbl_user_session, array($this->auth->tbl_col_user_session['date'].' < ' => $expire_date));
+	    $this->db->delete($this->login->tbl_user_session, array($this->login->tbl_col_user_session['date'].' < ' => $expire_date));
 		
 	    return $this->db->affected_rows() > 0;
 	}
@@ -507,7 +507,7 @@ class Flexi_auth_lite_model extends CI_Model
 			return FALSE;
 		}
 		
-		$browser = $this->auth->auth_security['static_salt'].$this->input->server('HTTP_USER_AGENT');
+		$browser = $this->login->auth_security['static_salt'].$this->input->server('HTTP_USER_AGENT');
 		
 		return sha1($data.$browser);
 	}
@@ -532,9 +532,9 @@ class Flexi_auth_lite_model extends CI_Model
 			$target_user = strtolower($target_user);
 
 			// Check whether to use the target user set via the config file.
-			if ($target_user === 'config' && isset($this->auth->message_settings['target_user'][$message]))
+			if ($target_user === 'config' && isset($this->login->message_settings['target_user'][$message]))
 			{
-				$target_user = $this->auth->message_settings['target_user'][$message];
+				$target_user = $this->login->message_settings['target_user'][$message];
 			}
 
 			// If $target_user exactly equals TRUE, set the target user as public.
@@ -548,13 +548,13 @@ class Flexi_auth_lite_model extends CI_Model
 				// Check whether to overwrite existing messages.
 				if ($overwrite_existing)
 				{
-					$this->auth->{$message_alias} = array('public' => array(), 'admin' => array());
+					$this->login->{$message_alias} = array('public' => array(), 'admin' => array());
 				}
 
 				// Check message is not already in array to avoid displaying duplicates.
-				if (! in_array($message, $this->auth->{$message_alias}[$target_user]))
+				if (! in_array($message, $this->login->{$message_alias}[$target_user]))
 				{
-					$this->auth->{$message_alias}[$target_user][] = $message;
+					$this->login->{$message_alias}[$target_user][] = $message;
 				}
 			}
 		}
@@ -606,12 +606,12 @@ class Flexi_auth_lite_model extends CI_Model
 			if (! $prefix_delimiter)
 			{
 				$prefix_delimiter = ($message_type == 'status') ? 
-					$this->auth->message_settings['delimiters']['status_prefix'] : $this->auth->message_settings['delimiters']['error_prefix'];
+					$this->login->message_settings['delimiters']['status_prefix'] : $this->login->message_settings['delimiters']['error_prefix'];
 			}
 			if (! $suffix_delimiter)
 			{
 				$suffix_delimiter = ($message_type == 'status') ? 
-					$this->auth->message_settings['delimiters']['status_suffix'] : $this->auth->message_settings['delimiters']['error_suffix'];
+					$this->login->message_settings['delimiters']['status_suffix'] : $this->login->message_settings['delimiters']['error_suffix'];
 			}
 			
 			$message_alias = ($message_type == 'status') ? 'status_messages' : 'error_messages';
@@ -619,11 +619,11 @@ class Flexi_auth_lite_model extends CI_Model
 			// Get all messages for public users, or both public AND admin users.
 			if ($target_user === 'public')
 			{
-				$messages = $this->auth->{$message_alias}['public'];
+				$messages = $this->login->{$message_alias}['public'];
 			}
 			else
 			{
-				$messages = array_merge($this->auth->{$message_alias}['public'], $this->auth->{$message_alias}['admin']);
+				$messages = array_merge($this->login->{$message_alias}['public'], $this->login->{$message_alias}['admin']);
 			}
 			
 			$statuses = FALSE;
@@ -691,17 +691,17 @@ class Flexi_auth_lite_model extends CI_Model
 		$time += $apply_time;
 	
 		// If database time is set as UNIX via config file, or if a unix time has been requested.
-		if ((is_numeric($this->auth->db_settings['date_time']) && strlen($this->auth->db_settings['date_time']) == 10) || $force_unix)
+		if ((is_numeric($this->login->db_settings['date_time']) && strlen($this->login->db_settings['date_time']) == 10) || $force_unix)
 		{
 			return $time; 
 		}
-		else if (is_string($this->auth->db_settings['date_time']) && strtotime($this->auth->db_settings['date_time'])) // MySQL datetime.
+		else if (is_string($this->login->db_settings['date_time']) && strtotime($this->login->db_settings['date_time'])) // MySQL datetime.
 		{
 			return date('Y-m-d H:i:s', $time);
 		}
 		else // Return time set via config file.
 		{
-			return $this->auth->db_settings['date_time'];
+			return $this->login->db_settings['date_time'];
 		}
 	}
 
@@ -716,15 +716,15 @@ class Flexi_auth_lite_model extends CI_Model
 	 */
 	public function set_auth_defaults()
 	{
-		foreach($this->auth->session_name as $session_name => $session_alias)
+		foreach($this->login->session_name as $session_name => $session_alias)
 		{
 			if (!in_array($session_name,array('name','math_captcha')))
 			{
-				$this->auth->session_data[$session_alias] = FALSE;
+				$this->login->session_data[$session_alias] = FALSE;
 			}
 		}
 
-		$this->session->set_userdata(array($this->auth->session_name['name'] => $this->auth->session_data));
+		$this->session->set_userdata(array($this->login->session_name['name'] => $this->login->session_data));
 	}
 
 	
@@ -753,31 +753,31 @@ class Flexi_auth_lite_model extends CI_Model
 			// If '$key' is an SQL WHERE clause of some kind, then remove all SQL WHERE statements.
 			if (! in_array($key, array('select', 'join', 'order_by', 'group_by', 'limit')))
 			{
-				$this->auth->where = $this->auth->or_where = $this->auth->where_in = array();
-				$this->auth->or_where_in = $this->auth->where_not_in = $this->auth->or_where_not_in = array();
-				$this->auth->like = $this->auth->or_like = $this->auth->not_like = $this->auth->or_not_like = array();
+				$this->login->where = $this->login->or_where = $this->login->where_in = array();
+				$this->login->or_where_in = $this->login->where_not_in = $this->login->or_where_not_in = array();
+				$this->login->like = $this->login->or_like = $this->login->not_like = $this->login->or_not_like = array();
 			}
 			// Else, just remove the specific '$key' SQL statement.
 			else
 			{
-				$this->auth->$key = array();
+				$this->login->$key = array();
 			}
 		}
 		
 		// Key, value and parameter method, used for LIKE and JOIN clauses.
 		if (! is_array($key) && $value && $param) 
 		{
-			array_push($this->auth->$sql_clause, array('key_value_param_method' => array('key' => $key, 'value' => $value, 'param' => $param)));
+			array_push($this->login->$sql_clause, array('key_value_param_method' => array('key' => $key, 'value' => $value, 'param' => $param)));
 		}
 		// Key and value method.
 		else if (! is_array($key) && $value) 
 		{
-			array_push($this->auth->$sql_clause, array('key_value_method' => array('key' => $key, 'value' => $value)));
+			array_push($this->login->$sql_clause, array('key_value_method' => array('key' => $key, 'value' => $value)));
 		}
 		// String or associative array method.
 		else 
 		{
-			array_push($this->auth->$sql_clause, $key);
+			array_push($this->login->$sql_clause, $key);
 		}
 	}
 
@@ -817,10 +817,10 @@ class Flexi_auth_lite_model extends CI_Model
 		foreach($clause_types as $sql_clause)
 		{
 			// If a clause is set.
-			if (! empty($this->auth->$sql_clause))
+			if (! empty($this->login->$sql_clause))
 			{
 				// Loop through the clause array setting values using active record.
-				foreach($this->auth->$sql_clause as $value)
+				foreach($this->login->$sql_clause as $value)
 				{
 					// Key, value and parameter method.
 					if (is_array($value) && key($value) === 'key_value_param_method') 
@@ -855,10 +855,10 @@ class Flexi_auth_lite_model extends CI_Model
 	 */
 	public function clear_arg_sql() 
 	{
-		$this->auth->select = $this->auth->join = $this->auth->order_by = $this->auth->group_by = $this->auth->limit = array();
-		$this->auth->where = $this->auth->or_where = $this->auth->where_in = array();
-		$this->auth->or_where_in = $this->auth->where_not_in = $this->auth->or_where_not_in = array();
-		$this->auth->like = $this->auth->or_like = $this->auth->not_like = $this->auth->or_not_like = array();
+		$this->login->select = $this->login->join = $this->login->order_by = $this->login->group_by = $this->login->limit = array();
+		$this->login->where = $this->login->or_where = $this->login->where_in = array();
+		$this->login->or_where_in = $this->login->where_not_in = $this->login->or_where_not_in = array();
+		$this->login->like = $this->login->or_like = $this->login->not_like = $this->login->or_not_like = array();
 	}	
 }
 
