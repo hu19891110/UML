@@ -34,7 +34,7 @@
 
 class Flexi_auth_model extends Flexi_auth_lite_model
 {
-	public function __construct() {}
+	public function __construct() {parent::__construct();}
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	// TOKEN GENERATION
@@ -2339,8 +2339,9 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 
 function register_account()
 	{
+	echo 'test1';
 		$this->load->library('form_validation');
-
+		
 		// Set validation rules.
 		// The custom rules 'identity_available' and 'validate_password' can be found in '../libaries/MY_Form_validation.php'.
 		$validation_rules = array(
@@ -2353,10 +2354,11 @@ function register_account()
 		);
 
 		$this->form_validation->set_rules($validation_rules);
-
+		echo 'jo';
 		// Run the validation.
 		if ($this->form_validation->run())
 		{
+
 			// Get user login details from input.
 			$email = $this->input->post('register_email_address');
 			$username = $this->input->post('register_username');
@@ -2381,6 +2383,7 @@ function register_account()
 
 			if ($response)
 			{
+			
 				// This is an example 'Welcome' email that could be sent to a new user upon registration.
 				// Bear in mind, if registration has been set to require the user activates their account, they will already be receiving an activation email.
 				// Therefore sending an additional email welcoming the user may be deemed unnecessary.

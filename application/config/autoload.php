@@ -109,7 +109,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array();
+$autoload['model'] = array('flexi_auth_lite_model','flexi_auth_model');
 
 
 /* End of file autoload.php */

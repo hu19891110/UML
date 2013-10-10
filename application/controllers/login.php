@@ -171,6 +171,7 @@ class Login extends CI_Controller {
 		// If 'Registration' form has been submitted, attempt to register their details as a new account.
 		else if ($this->input->post('register_user'))
 		{			
+		echo 'hello';
 			$this->load->model('flexi_auth_model');
 			$this->flexi_auth_model->register_account();
 		}
