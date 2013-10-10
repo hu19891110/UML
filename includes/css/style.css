@@ -1,27 +1,92 @@
 @charset "UTF-8";
 /* CSS Document */
 
-body {
-width : 1024px;
-margin-left : auto;
-margin-right : auto;
-padding : 0;
-color : black;
-font-family : verdana;
-font-size : 12px;
-background-color : #333;
-text-align : center;
+body{
+	width: 1024px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0;
+	color: black;
+	font-family: verdana;
+	font-size: 12px;
+	background-color: #5b5b5b; /* 333 */
+	text-align: center;
 }
 
-#loginbox
-{
-background: #fff;
-margin:auto;
-width:400px
--webkit-border-bottom-right-radius: 4px;
--webkit-border-bottom-left-radius: 4px;
--webkit-border-top-right-radius: 4px;
--webkit-border-top-left-radius: 4px;
--moz-border-radius: 4px 4px 4px 4px;
+#loginbox ul{
+	list-style-type: none;
 }
 
+#loginbox{
+	font-family: Franklin Gothic Medium; 
+	box-shadow: 5px 5px 5px #333;
+	background: #fff;
+	margin:0 auto;
+	width:350px;
+	height: 250px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -125px; /* half the height of the div */
+	margin-left: -175px; /* half the width of the div */
+	/* -webkit-border-bottom-right-radius: 4px;
+	-webkit-border-bottom-left-radius: 4px;
+	-webkit-border-top-right-radius: 4px;
+	-webkit-border-top-left-radius: 4px;
+	-moz-border-radius: 4px 4px 4px 4px; */
+}
+
+#loginbox li label{ /* titels van de velden */ 
+	color: #4f4f4f;
+}	
+
+#loginbox li input[type='text'], #loginbox li input[type='password']{ /* invoervelden login */
+	background: #ccc;
+	border: 1px solid #888;
+	padding: 5px;
+	min-width: 200px;
+}
+
+#loginbox .register{ /* register new student tekst */ 
+	position: absolute;
+	left: 5px;
+	bottom: 5px;
+}
+
+#loginbox .loginform{ /* inhoud van login formulier */ 
+	text-align: left;
+}
+
+#loginbox .loginform li{
+	padding-bottom: 20px;
+}
+
+#loginbox .link_button.large{ /* login button */ 
+	cursor: pointer;
+	background: black;
+	color: #fff;
+	width: 80px;
+	height: 25px;
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	border: none;
+	box-shadow: 2px 2px 2px #333;
+}
+
+#loginbox .link_button.large:hover{
+	background: #302F2F;
+}
+
+#loginbox a{ /* register new student link */ 
+	color: black;
+}
+
+#loginbox a:hover{ /* register new student link */ 
+	color: #1D65F6;
+}
+
+#loginbox h2{ /* login box titel */ 
+	font-size: 17pt;
+	color: #4f4f4f;
+}
