@@ -47,6 +47,20 @@ body{
 	min-width: 200px;
 }
 
+#loginbox li input[type='text']{
+	background-image:url('../images/user.png');
+	background-repeat: no-repeat;
+	background-position: right;
+	background-size: 20px 20px;
+}	
+
+#loginbox li input[type='password']{
+	background-image:url('../images/password.png');
+	background-repeat: no-repeat;
+	background-position: right;
+	background-size: 20px 20px;
+}	
+
 #loginbox .register{ /* register new student tekst */ 
 	position: absolute;
 	left: 5px;
