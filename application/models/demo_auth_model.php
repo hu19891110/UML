@@ -39,7 +39,7 @@ class Demo_auth_model extends CI_Model {
 			 * 
 			 * Note: To use this example, you will also need to enable the recaptcha examples in 'controllers/auth.php', and 'views/demo/login_view.php'.
 			*/
-			$this->form_validation->set_rules('recaptcha_response_field', 'Captcha Answer', 'required|validate_recaptcha');				
+			/* $this->form_validation->set_rules('recaptcha_response_field', 'Captcha Answer', 'required|validate_recaptcha'); */				
 			
 			/**
 			 * flexi auths math CAPTCHA
