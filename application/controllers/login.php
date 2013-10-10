@@ -43,8 +43,8 @@ class Login extends CI_Controller {
 		}
 		
 		// Note: This is only included to create base urls for purposes of this demo only and are not necessarily considered as 'Best practice'.
-		$this->load->vars('base_url', 'http://localhost/flexi_auth/');
-		$this->load->vars('includes_dir', 'http://localhost/flexi_auth/includes/');
+		$this->load->vars('base_url', 'http://localhost:8888/');
+		$this->load->vars('includes_dir', 'http://localhost:8888/includes/');
 		$this->load->vars('current_url', $this->uri->uri_to_assoc(1));
 		
 		// Define a global variable to store data that is then used by the end view page.
@@ -132,8 +132,10 @@ class Login extends CI_Controller {
 		// Get any status message that may have been set.
 		// $this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
 
-		$data['login_view_partial'] = $this->load->view('login_view', $this->data,true);
-		$this->load->view('template', $data);
+		//$data['login_view_partial'] = 
+		
+		$this->load->view('login_view', $this->data);
+		//$this->load->view('template', $data);
     }
 
 	/**
@@ -163,6 +165,7 @@ class Login extends CI_Controller {
 	 * User registration page used by all new users wishing to create an account.
 	 * Note: This page is only accessible to users who are not currently logged in, else they will be redirected.
 	 */ 
+	/*
 	function register_account()
 	{
 		// Redirect user away from registration page if already logged in.
@@ -182,6 +185,7 @@ class Login extends CI_Controller {
 
 		$this->load->view('register_view', $this->data);
 	}
+	*/
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	// Account Activation
@@ -294,41 +298,6 @@ class Login extends CI_Controller {
 		redirect('login');
 	}
 		
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
-	// Logout
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
-
-	/**
-	 * logout
-	 * This example logs the user out of all sessions on all computers they may be logged into.
-	 * In this demo, this page is accessed via a link on the demo header once a user is logged in.
-	 */
-	function logout() 
-	{
-		// By setting the logout functions argument as 'TRUE', all browser sessions are logged out.
-		$this->flexi_auth->logout(TRUE);
-		
-		// Set a message to the CI flashdata so that it is available after the page redirect.
-		$this->session->set_flashdata('message', $this->flexi_auth->get_messages());		
- 
-		redirect('login');
-    }
-	
-	/**
-	 * logout_session
-	 * This example logs the user only out of their CURRENT browser session (e.g. Internet Cafe), but no other logged in sessions (e.g. Home and Work).
-	 * In this demo, this controller method is actually not linked to. It is included here as an example of logging a user out of only their current session.
-	 */
-	function logout_session() 
-	{
-		// By setting the logout functions argument as 'FALSE', only the current browser session is logged out.
-		$this->flexi_auth->logout(FALSE);
-
-		// Set a message to the CI flashdata so that it is available after the page redirect.
-		$this->session->set_flashdata('message', $this->flexi_auth->get_messages());		
-        
-		redirect('login');
-    }	
 }
 
 /* End of file login.php */
