@@ -1,0 +1,27 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body {
+width : 1024px;
+margin-left : auto;
+margin-right : auto;
+padding : 0;
+color : black;
+font-family : verdana;
+font-size : 12px;
+background-color : #333;
+text-align : center;
+}
+
+#loginbox
+{
+background: #fff;
+margin:auto;
+width:400px
+-webkit-border-bottom-right-radius: 4px;
+-webkit-border-bottom-left-radius: 4px;
+-webkit-border-top-right-radius: 4px;
+-webkit-border-top-left-radius: 4px;
+-moz-border-radius: 4px 4px 4px 4px;
+}
+

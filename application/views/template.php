@@ -1,7 +1,14 @@
 <html>
 <body>
-
-<h1>Test</h1>
-<div class="login"><? echo $login_view_partial ?></div>
+	<!-- Include head -->
+	<?php $this->load->view('includes/head'); ?>
+	<!-- Include header -->
+	<?php $this->load->view('includes/header'); ?>
+	
+	<!-- Main content komt hier -->
+	
+	
+	<!-- Include footer -->
+	<?php $this->load->view('includes/footer'); ?>
 </body>
 </html>
