@@ -61,6 +61,10 @@ body{
 	background-size: 20px 20px;
 }	
 
+#loginbox li input:focus{
+	outline-color: #1D65F6;
+}
+
 #loginbox .register{ /* register new student tekst */ 
 	position: absolute;
 	left: 5px;
