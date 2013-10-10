@@ -119,7 +119,7 @@ class Auth extends CI_Controller {
 			 * 
 			 * Note: To use this example, you will also need to enable the recaptcha examples in 'models/flexi_auth_model.php', and 'views/demo/login_view.php'.
 			*/
-			$this->data['captcha'] = $this->flexi_auth->recaptcha(FALSE);
+			/* $this->data['captcha'] = $this->flexi_auth->recaptcha(FALSE); */
 						
 			/**
 			 * flexi auths math CAPTCHA
