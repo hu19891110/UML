@@ -91,8 +91,8 @@ class Login extends CI_Controller {
 		// If 'Login' form has been submited, attempt to log the user in.
 		if ($this->input->post('login_user'))
 		{
-			$this->load->model('flexi_auth_model');
-			$this->flexi_auth_model->login();
+			$this->load->model('demo_auth_model');
+			$this->demo_auth_model->login();
 		}
 			
 		// CAPTCHA Example
@@ -163,6 +163,7 @@ class Login extends CI_Controller {
 	 */ 
 	function register_account()
 	{
+		$this->output->enable_profiler(TRUE);
 		// Redirect user away from registration page if already logged in.
 		if ($this->flexi_auth->is_logged_in()) 
 		{
@@ -170,10 +171,12 @@ class Login extends CI_Controller {
 		}
 		// If 'Registration' form has been submitted, attempt to register their details as a new account.
 		else if ($this->input->post('register_user'))
-		{			
-		echo 'hello';
-			$this->load->model('flexi_auth_model');
-			$this->flexi_auth_model->register_account();
+		{		
+			echo 'test1';	
+			$this->load->model('demo_auth_model');
+			echo 'test11';
+			$this->demo_auth_model->register_account();
+			echo 'testtest';
 		}
 		
 		// Get any status message that may have been set.
