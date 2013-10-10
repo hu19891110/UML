@@ -1,9 +1,9 @@
 	<!-- Main Content -->
 	<div class="content_wrap main_content_bg">
 		<div class="content clearfix">
-			<div class="col100">
+			<div class="loginbox">
 				<h2>User Login</h2>
-
+	
 			<?php if (! empty($message)) { ?>
 				<div id="message">
 					<?php echo $message; ?>
@@ -59,6 +59,8 @@
 							</li>
 						</ul>
 				<?php echo form_close();?>
+				
+				<a href="<?php echo site_url('login/register_account') ?>">Register new student</a>
 			</div>
 		</div>
 	</div>

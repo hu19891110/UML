@@ -2345,7 +2345,6 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 
 function register_account()
 	{
-	echo 'test2';
 		$this->load->library('form_validation');
 		
 		// Set validation rules.
