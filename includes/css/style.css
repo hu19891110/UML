@@ -65,7 +65,7 @@ body{
 	outline-color: #1D65F6;
 }
 
-#loginbox .register{ /* register new student tekst */ 
+#loginbox .forgotpassword{ /* register new student tekst */ 
 	position: absolute;
 	left: 5px;
 	bottom: 5px;
@@ -75,7 +75,7 @@ body{
 	text-align: left;
 }
 
-#loginbox .loginform li{
+#loginbox .loginform li:first-child{
 	padding-bottom: 20px;
 }
 

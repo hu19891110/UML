@@ -65,6 +65,7 @@
 							</li>
 						</ul>
 				<?php echo form_close();?>
+				<div class="forgotpassword"><a href="<?php echo site_url('') ?>">Lost your password?</a></div>
 			</div>
 		</div>
 	</div>
