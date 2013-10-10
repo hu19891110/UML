@@ -98,8 +98,9 @@ class Login extends CI_Controller {
 		// CAPTCHA Example
 		// Check whether there are any existing failed login attempts from the users ip address and whether those attempts have exceeded the defined threshold limit.
 		// If the user has exceeded the limit, generate a 'CAPTCHA' that the user must additionally complete when next attempting to login.
-		if ($this->flexi_auth->ip_login_attempts_exceeded())
-		{
+		
+		//if ($this->flexi_auth->ip_login_attempts_exceeded())
+		//{
 			/**
 			 * reCAPTCHA
 			 * http://www.google.com/recaptcha
@@ -113,7 +114,7 @@ class Login extends CI_Controller {
 			 * 
 			 * Note: To use this example, you will also need to enable the recaptcha examples in 'models/flexi_auth_model.php', and 'views/demo/login_view.php'.
 			*/
-			$this->data['captcha'] = $this->flexi_auth->recaptcha(FALSE);
+			//$this->data['captcha'] = $this->flexi_auth->recaptcha(FALSE);
 						
 			/**
 			 * flexi auths math CAPTCHA
@@ -125,10 +126,11 @@ class Login extends CI_Controller {
 			 * Note: To use this example, you will also need to enable the math_captcha examples in 'models/flexi_auth_model.php', and 'views/demo/login_view.php'.
 			*/
 			# $this->data['captcha'] = $this->flexi_auth->math_captcha(FALSE);
-		}
+		//}
+		
 				
 		// Get any status message that may have been set.
-		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
+		// $this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
 
 		$data['login_view_partial'] = $this->load->view('login_view', $this->data,true);
 		$this->load->view('template', $data);
@@ -163,7 +165,6 @@ class Login extends CI_Controller {
 	 */ 
 	function register_account()
 	{
-		$this->output->enable_profiler(TRUE);
 		// Redirect user away from registration page if already logged in.
 		if ($this->flexi_auth->is_logged_in()) 
 		{
@@ -172,11 +173,8 @@ class Login extends CI_Controller {
 		// If 'Registration' form has been submitted, attempt to register their details as a new account.
 		else if ($this->input->post('register_user'))
 		{		
-			echo 'test1';	
 			$this->load->model('demo_auth_model');
-			echo 'test11';
 			$this->demo_auth_model->register_account();
-			echo 'testtest';
 		}
 		
 		// Get any status message that may have been set.

@@ -162,11 +162,11 @@ class Demo_auth_model extends CI_Model {
 				if ($instant_activate && $this->flexi_auth->login($email, $password))
 				{
 					// Redirect user to public dashboard.
-					redirect('auth_public/dashboard');
+					redirect('dashboard');
 				}
 				
 				// Redirect user to login page
-				redirect('auth');
+				redirect('login');
 			}
 		}
 

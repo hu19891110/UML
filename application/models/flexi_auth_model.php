@@ -1532,7 +1532,6 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 				return FALSE;
 			}
 		}
-		
 		$sql_select = array(
 			$this->login->primary_identity_col, 
 			$this->login->tbl_col_user_account['id'], 
@@ -1544,7 +1543,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			$this->login->tbl_col_user_account['last_login_date'], 
 			$this->login->tbl_col_user_account['failed_logins']
 		);
-		
+
 		$sql_where = array($this->login->primary_identity_col => $identity);
 		
 		// Set any custom defined SQL statements.
@@ -1557,8 +1556,10 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		###+++++++++++++++++++++++++++++++++###
 		
 	    // User exists, now validate credentials.
+
 		if ($query->num_rows() == 1)
 	    {	
+
 			$user = $query->row();
 			
 			// If an activation time limit is defined by config file and account hasn't been activated by email.
@@ -1578,26 +1579,28 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 				$this->set_error_message('account_requires_activation', 'config');
 				return FALSE;
 			}
-			
+
 			// Check if account has been suspended.
 			if ($user->{$this->login->database_config['user_acc']['columns']['suspend']} == 1)
 			{
 				$this->set_error_message('account_suspended', 'config');
 				return FALSE;
 			}
-			
+
 			// Verify submitted password matches database.
 			if ($this->verify_password($identity, $password))
 			{
+
 				// Reset failed login attempts.
 				if ($user->{$this->login->database_config['user_acc']['columns']['failed_logins']} > 0)
 				{
 					$this->reset_login_attempts($identity);
 				}
-				
+
 				// Set user login sessions.
 				if ($this->set_login_sessions($user, TRUE))
 				{
+
 					// Set 'Remember me' cookie and database record if checked by user.
 					if ($remember_user)
 					{
@@ -1612,6 +1615,8 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 					return TRUE;
 				}
 			}
+			
+			
 			// Password does not match, log the failed login attempt if defined via the config file.
 			else if ($this->login->auth_security['login_attempt_limit'] > 0)
 			{				
@@ -1620,6 +1625,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 				// Increment failed login attempts.
 				$this->increment_login_attempts($identity, $attempts);
 			}
+			
 	    }
 		
 	    return FALSE;
@@ -1736,34 +1742,34 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	private function set_login_sessions($user, $logged_in_via_password = FALSE)
 	{
 		if (!$user)
-		{
+		{	
 			return FALSE;
 		}
-		
+
 		$user_id = $user->{$this->login->database_config['user_acc']['columns']['id']};
-		
+
 		// Regenerate CI session_id on successful login.
 		$this->regenerate_ci_session_id();
-		
+
 		// Update users last login date.
 		$this->update_last_login($user_id);
-		
+
 		// Set database and login session token if defined by config file.
 		if ($this->login->auth_security['validate_login_onload'] && ! $this->insert_database_login_session($user_id))
 		{
 			return FALSE;
 		}
-		
+
 		// Set verified login session if user logged in via Password rather than 'Remember me'.
 		$this->login->session_data[$this->login->session_name['logged_in_via_password']] = $logged_in_via_password;
-		
+
 		// Set user id and identifier data to session.
 		$this->login->session_data[$this->login->session_name['user_id']] = $user_id;
 		$this->login->session_data[$this->login->session_name['user_identifier']] = $user->{$this->login->db_settings['primary_identity_col']};
 
 		// Get group data.
 		$sql_where[$this->login->tbl_col_user_group['id']] = $user->{$this->login->database_config['user_acc']['columns']['group_id']};
-		
+
 		$group = $this->get_groups(FALSE, $sql_where)->row();
 		
 		// Set admin status to session.
