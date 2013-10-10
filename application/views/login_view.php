@@ -1,7 +1,12 @@
+	<!-- Include head -->
+	<?php $this->load->view('includes/head'); ?>
+	<!-- Include header -->
+	<?php $this->load->view('includes/header'); ?>
+	
 	<!-- Main Content -->
 	<div class="content_wrap main_content_bg">
 		<div class="content clearfix">
-			<div class="loginbox">
+			<div id="loginbox">
 				<h2>User Login</h2>
 	
 			<?php if (! empty($message)) { ?>
@@ -11,13 +16,13 @@
 			<?php } ?>
 				
 				<?php echo form_open(current_url(), 'class="parallel"');?>  	
-						<ul>
+						<ul class="loginform">
 							<li>
-								<label for="identity">Email or Username:</label>
+								<label for="identity">Username:</label><br>
 								<input type="text" id="identity" name="login_identity" value="<?php echo set_value('login_identity', 'admin@admin.com');?>" class="tooltip_parent"/>
 							</li>
 							<li>
-								<label for="password">Password:</label>
+								<label for="password">Password:</label><br>
 								<input type="password" id="password" name="login_password" value="<?php echo set_value('login_password', 'password123');?>"/>
 							</li>
 						<?php 
@@ -50,17 +55,20 @@
 							#*/
 						?>
 							<li>
-								<label for="remember_me">Remember Me:</label>
 								<input type="checkbox" id="remember_me" name="remember_me" value="1" <?php echo set_checkbox('remember_me', 1); ?>/>
+								<label for="remember_me">Remember Me</label>
 							</li>
 							<li>
-								<label for="submit">Login:</label>
-								<input type="submit" name="login_user" id="submit" value="Submit" class="link_button large"/>
+								<!-- <label for="submit">Login:</label> -->
+								<input type="submit" name="login_user" id="submit" value="Login" class="link_button large"/>
 							</li>
 						</ul>
 				<?php echo form_close();?>
 				
-				<a href="<?php echo site_url('login/register_account') ?>">Register new student</a>
+				<div class="register"><a href="<?php echo site_url('login/register_account') ?>">Register new student</a></div>
 			</div>
 		</div>
 	</div>
+	
+	<!-- Include footer -->
+	<?php $this->load->view('includes/footer'); ?>
