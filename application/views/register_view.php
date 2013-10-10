@@ -8,7 +8,7 @@
 					<?php echo $message; ?>
 				</div>
 			<?php } ?>
-				
+			
 				<?php echo form_open(current_url()); ?>  	
 					<fieldset>
 						<legend>Personal Details</legend>
