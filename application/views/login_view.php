@@ -64,8 +64,6 @@
 							</li>
 						</ul>
 				<?php echo form_close();?>
-				
-				<div class="register"><a href="<?php echo site_url('login/register_account') ?>">Register new student</a></div>
 			</div>
 		</div>
 	</div>
