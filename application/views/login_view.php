@@ -26,6 +26,7 @@
 								<input type="password" id="password" name="login_password" value="<?php echo set_value('login_password', 'password123');?>"/>
 							</li>
 						<?php 
+							/*
 							# Below are 2 examples, the first shows how to implement 'reCaptcha' (By Google - http://www.google.com/recaptcha),
 							# the second shows 'math_captcha' - a simple math question based captcha that is native to the flexi auth library. 
 							# This example is setup to use reCaptcha by default, if using math_captcha, ensure the 'auth' controller and 'demo_auth_model' are updated.
@@ -33,7 +34,7 @@
 							# reCAPTCHA Example
 							# To activate reCAPTCHA, ensure the 'if' statement immediately below is uncommented and then comment out the math captcha 'if' statement further below.
 			 				# You will also need to enable the recaptcha examples in 'controllers/auth.php', and 'models/demo_auth_model.php'.
-							#/*
+							#
 							if (isset($captcha)) 
 							{ 
 								echo "<li>\n";
