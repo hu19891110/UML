@@ -12,6 +12,7 @@
 
 <a href="<?php echo site_url('register') ?>">Register new student</a>
 <a href="<?php echo site_url('logout') ?>">Logout</a>
+<a href="<?php echo site_url('dashboard/manage_user_accounts') ?>">View all users</a>
 
 </body>
 </html>	

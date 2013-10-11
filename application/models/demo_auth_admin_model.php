@@ -49,7 +49,7 @@ class Demo_auth_admin_model extends CI_Model {
 		if (array_key_exists('search', $uri))
 		{
 			// Set pagination url to include search query.
-			$pagination_url = 'auth_admin/manage_user_accounts/search/'.$uri['search'].'/';
+			$pagination_url = 'dashboard/manage_user_accounts/search/'.$uri['search'].'/';
 			$config['uri_segment'] = 6; // Changing to 6 will select the 6th segment, example 'controller/function/search/query/page/10'.
 
 			// Convert uri '-' back to ' ' spacing.
@@ -66,7 +66,7 @@ class Demo_auth_admin_model extends CI_Model {
 		else
 		{
 			// Set some defaults.
-			$pagination_url = 'auth_admin/manage_user_accounts/';
+			$pagination_url = 'dashboard/manage_user_accounts/';
 			$search_query = FALSE;
 			$config['uri_segment'] = 4; // Changing to 4 will select the 4th segment, example 'controller/function/page/10'.
 			
@@ -139,7 +139,7 @@ class Demo_auth_admin_model extends CI_Model {
 		$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 		
 		// Redirect user.
-		redirect('auth_admin/manage_user_accounts');			
+		redirect('dashboard/manage_user_accounts');			
 	}
 
  	/**
@@ -155,8 +155,6 @@ class Demo_auth_admin_model extends CI_Model {
 		$validation_rules = array(
 			array('field' => 'update_first_name', 'label' => 'First Name', 'rules' => 'required'),
 			array('field' => 'update_last_name', 'label' => 'Last Name', 'rules' => 'required'),
-			array('field' => 'update_phone_number', 'label' => 'Phone Number', 'rules' => 'required'),
-			array('field' => 'update_newsletter', 'label' => 'Newsletter', 'rules' => 'integer'),
 			array('field' => 'update_email_address', 'label' => 'Email Address', 'rules' => 'required|valid_email|identity_available['.$user_id.']'),
 			array('field' => 'update_username', 'label' => 'Username', 'rules' => 'min_length[4]|identity_available['.$user_id.']'),
 			array('field' => 'update_group', 'label' => 'User Group', 'rules' => 'required|integer')
@@ -175,8 +173,6 @@ class Demo_auth_admin_model extends CI_Model {
 				'upro_id' => $user_id,
 				'upro_first_name' => $this->input->post('update_first_name'),
 				'upro_last_name' => $this->input->post('update_last_name'),
-				'upro_phone' => $this->input->post('update_phone_number'),
-				'upro_newsletter' => $this->input->post('update_newsletter'),
 				$this->flexi_auth->db_column('user_acc', 'email') => $this->input->post('update_email_address'),
 				$this->flexi_auth->db_column('user_acc', 'username') => $this->input->post('update_username'),
 				$this->flexi_auth->db_column('user_acc', 'group_id') => $this->input->post('update_group')
@@ -189,7 +185,7 @@ class Demo_auth_admin_model extends CI_Model {
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			
 			// Redirect user.
-			redirect('auth_admin/manage_user_accounts');			
+			redirect('dashboard/manage_user_accounts');			
 		}
 		
 		return FALSE;
@@ -208,7 +204,7 @@ class Demo_auth_admin_model extends CI_Model {
 		$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 		
 		// Redirect user.
-		redirect('auth_admin/manage_user_accounts');			
+		redirect('dashboard/manage_user_accounts');			
 	}
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
@@ -236,7 +232,7 @@ class Demo_auth_admin_model extends CI_Model {
 		$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 		
 		// Redirect user.
-		redirect('auth_admin/manage_user_groups');			
+		redirect('dashboard/manage_user_groups');			
 	}
 	
   	/**
@@ -268,7 +264,7 @@ class Demo_auth_admin_model extends CI_Model {
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			
 			// Redirect user.
-			redirect('auth_admin/manage_user_groups');			
+			redirect('dashboard/manage_user_groups');			
 		}
 	}
 	
@@ -303,7 +299,7 @@ class Demo_auth_admin_model extends CI_Model {
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			
 			// Redirect user.
-			redirect('auth_admin/manage_user_groups');			
+			redirect('dashboard/manage_user_groups');			
 		}
 	}
 
@@ -332,7 +328,7 @@ class Demo_auth_admin_model extends CI_Model {
 		$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 		
 		// Redirect user.
-		redirect('auth_admin/manage_privileges');			
+		redirect('dashboard/manage_privileges');			
 	}
 
   	/**
@@ -362,7 +358,7 @@ class Demo_auth_admin_model extends CI_Model {
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			
 			// Redirect user.
-			redirect('auth_admin/manage_privileges');			
+			redirect('dashboard/manage_privileges');			
 		}
 	}
 	
@@ -395,7 +391,7 @@ class Demo_auth_admin_model extends CI_Model {
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			
 			// Redirect user.
-			redirect('auth_admin/manage_privileges');			
+			redirect('dashboard/manage_privileges');			
 		}
 	}
 	
@@ -432,7 +428,7 @@ class Demo_auth_admin_model extends CI_Model {
 		$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 		
 		// Redirect user.
-		redirect('auth_admin/manage_user_accounts');			
+		redirect('dashboard/manage_user_accounts');			
 	}
 
    	/**
@@ -468,7 +464,7 @@ class Demo_auth_admin_model extends CI_Model {
 		$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 		
 		// Redirect user.
-		redirect('auth_admin/manage_user_groups');			
+		redirect('dashboard/manage_user_groups');			
     }
 }
 
