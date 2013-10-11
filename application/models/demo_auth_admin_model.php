@@ -145,7 +145,7 @@ class Demo_auth_admin_model extends CI_Model {
  	/**
 	 * update_user_account
 	 * Updates the account and profile data of a specific user.
-	 * Note: The user profile table ('demo_user_profiles') is used in this demo as an example of relating additional user data to the auth libraries account tables. 
+	 * Note: The user profile table ('user_profiles') is used in this demo as an example of relating additional user data to the auth libraries account tables. 
 	 */
 	function update_user_account($user_id)
 	{

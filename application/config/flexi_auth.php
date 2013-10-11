@@ -180,10 +180,10 @@
 	 *
 	 * Note: This table and all included fields can be expanded upon or removed completely.
 	*/ 
-	$config['database']['custom']['user_profile']['table'] = 'demo_user_profiles';
+	$config['database']['custom']['user_profile']['table'] = 'user_profiles';
 	$config['database']['custom']['user_profile']['primary_key'] = 'upro_id';
 	$config['database']['custom']['user_profile']['foreign_key'] = 'upro_uacc_fk';
-	$config['database']['custom']['user_profile']['join'] = 'demo_user_profiles.upro_uacc_fk';
+	$config['database']['custom']['user_profile']['join'] = 'user_profiles.upro_uacc_fk';
 	$config['database']['custom']['user_profile']['custom_columns'] = array(
 		'upro_first_name','upro_last_name'
 	);
