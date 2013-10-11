@@ -23,7 +23,7 @@ class Demo_auth_model extends CI_Model {
 		$this->load->library('form_validation');
 
 		// Set validation rules.
-		$this->form_validation->set_rules('login_identity', 'Identity (Email / Login)', 'required');
+		$this->form_validation->set_rules('login_identity', 'Username', 'required');
 		$this->form_validation->set_rules('login_password', 'Password', 'required');
 
 		// If failed login attempts from users IP exceeds limit defined by config file, validate captcha.

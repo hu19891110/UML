@@ -19,11 +19,11 @@
 						<ul class="loginform">
 							<li>
 								<label for="identity">Username:</label><br>
-								<input type="text" id="identity" name="login_identity" value="<?php echo set_value('login_identity', 'admin@admin.com');?>" class="tooltip_parent"/>
+								<input type="text" id="identity" name="login_identity" value="<?php echo set_value('login_identity', '');?>" class="tooltip_parent"/>
 							</li>
 							<li>
 								<label for="password">Password:</label><br>
-								<input type="password" id="password" name="login_password" value="<?php echo set_value('login_password', 'password123');?>"/>
+								<input type="password" id="password" name="login_password" value="<?php echo set_value('login_password', '');?>"/>
 							</li>
 						<?php 
 							/*

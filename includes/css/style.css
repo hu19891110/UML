@@ -106,5 +106,20 @@ body{
 
 #loginbox h2{ /* login box titel */ 
 	font-size: 17pt;
-	color: #4f4f4f;
+	color: #4f4f4f;	
+}
+
+::selection{ /* tekst selecteren en dan wordt het blauw niceee */ 
+	background:#083986;
+	color:#fff;
+}
+
+::-moz-selection{
+	background:#083986;
+	color:#fff;
+}
+
+::-webkit-selection{
+	background:#083986;
+	color:#fff;
 }
