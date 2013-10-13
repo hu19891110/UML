@@ -9,27 +9,8 @@ body{
 	color: black;
 	font-family: verdana;
 	font-size: 12px;
-	background-color:#EDEEF0;  /* 333 */
+	background-color:#5b5b5b;  /* 333 */
 	text-align: center;
-}
-
-#titlebox {
-	background: #435B77;
-	margin: 0;
-	padding-top: 1px;
-	padding-bottom: 1px;
-	border-bottom: 4px solid #2F4763;
-	-webkit-border-top-left-radius: 10px;
-	-webkit-border-top-right-radius: 10px;
-	-moz-border-radius: 4px 4px 4px 4px; 
-	margin-bottom: 30px;
-}
-
-#loginbox h2{ /* login box titel */ 
-	font-size: 18px;
-	font-weight: normal;
-	padding-left: 10px;
-	color: #fff;	
 }
 
 #loginbox ul{
@@ -37,19 +18,22 @@ body{
 }
 
 #loginbox{
-	border:1px solid #D4D4D4;
-	font-family: 'Helvetica Neue' ; 
+	font-family: Franklin Gothic Medium; 
+	box-shadow: 5px 5px 5px #333;
 	background: #fff;
 	margin:0 auto;
-	width:300px;
-	height: 300px;
+	width:350px;
+	height: 250px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	margin-top: -150px; /* half the height of the div */
-	margin-left: -150px; /* half the width of the div */
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 4px 4px 4px 4px; 
+	margin-top: -125px; /* half the height of the div */
+	margin-left: -175px; /* half the width of the div */
+	/* -webkit-border-bottom-right-radius: 4px;
+	-webkit-border-bottom-left-radius: 4px;
+	-webkit-border-top-right-radius: 4px;
+	-webkit-border-top-left-radius: 4px;
+	-moz-border-radius: 4px 4px 4px 4px; */
 }
 
 #loginbox li label{ /* titels van de velden */ 
@@ -57,16 +41,10 @@ body{
 }	
 
 #loginbox li input[type='text'], #loginbox li input[type='password']{ /* invoervelden login */
-	background:#F9F9F9;
-	border:1px solid #D4D4D4;
+	background: #ccc;
+	border: 1px solid #888;
 	padding: 5px;
 	min-width: 200px;
-	min-height: 30px;
-	-webkit-border-bottom-right-radius: 4px;
-	-webkit-border-bottom-left-radius: 4px;
-	-webkit-border-top-right-radius: 4px;
-	-webkit-border-top-left-radius: 4px;
-	-moz-border-radius: 4px 4px 4px 4px; 
 }
 
 #loginbox li input[type='text']{
@@ -87,7 +65,7 @@ body{
 	outline-color: #1D65F6;
 }
 
-#loginbox .forgotpassword{ /* lost your password tekst */ 
+#loginbox .forgotpassword{ /* register new student tekst */ 
 	position: absolute;
 	left: 5px;
 	bottom: 5px;
@@ -103,24 +81,19 @@ body{
 
 #loginbox .link_button.large{ /* login button */ 
 	cursor: pointer;
-	font-size: 14px;
 	background: black;
 	color: #fff;
-	width: 120px;
-	height:30px;
+	width: 80px;
+	height: 25px;
 	position: absolute;
 	bottom: 10px;
 	right: 10px;
-	border: 1px solid black;
-	-webkit-border-bottom-right-radius: 4px;
-	-webkit-border-bottom-left-radius: 4px;
-	-webkit-border-top-right-radius: 4px;
-	-webkit-border-top-left-radius: 4px;
-	-moz-border-radius: 4px 4px 4px 4px; 
+	border: none;
+	box-shadow: 2px 2px 2px #333;
 }
 
 #loginbox .link_button.large:hover{
-	background: #435B77;
+	background: #302F2F;
 }
 
 #loginbox a{ /* register new student link */ 
@@ -128,20 +101,25 @@ body{
 }
 
 #loginbox a:hover{ /* register new student link */ 
-	color: #435B77;
+	color: #1D65F6;
+}
+
+#loginbox h2{ /* login box titel */ 
+	font-size: 17pt;
+	color: #4f4f4f;	
 }
 
 ::selection{ /* tekst selecteren en dan wordt het blauw niceee */ 
-	background:#f2f2f2;
-	color: black;
+	background:#083986;
+	color:#fff;
 }
 
 ::-moz-selection{
-	background:#f8f8f8;
-	color: black;
+	background:#083986;
+	color:#fff;
 }
 
 ::-webkit-selection{
-	background:#f8f8f8;
-	color:black;
+	background:#083986;
+	color:#fff;
 }

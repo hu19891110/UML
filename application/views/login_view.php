@@ -7,7 +7,7 @@
 	<div class="content_wrap main_content_bg">
 		<div class="content clearfix">
 			<div id="loginbox">
-				<h2>User Login</h2>
+				<div id="titlebox"><h2>Login</h2></div>
 	
 			<?php if (! empty($message)) { ?>
 				<div id="message">
@@ -61,7 +61,7 @@
 							</li>
 							<li>
 								<!-- <label for="submit">Login:</label> -->
-								<input type="submit" name="login_user" id="submit" value="Login" class="link_button large"/>
+								<input type="submit" name="login_user" id="submit" value="Sign in" class="link_button large"/>
 							</li>
 						</ul>
 				<?php echo form_close();?>
