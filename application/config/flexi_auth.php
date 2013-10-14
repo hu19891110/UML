@@ -532,8 +532,8 @@
 	 * Set your unique reCAPTCHA api keys.
 	 * !IMPORTANT: Obtain YOUR OWN reCAPTCHA keys from http://www.google.com/recaptcha.
 	*/
-	$config['security']['recaptcha_public_key']	= 'ENTER_RECAPTCHA_PUBLIC_KEY_HERE';
-	$config['security']['recaptcha_private_key'] = 'ENTER_RECAPTCHA_PRIVATE_KEY_HERE'; 
+	$config['security']['recaptcha_public_key']	= '6LdxwOgSAAAAAKv3IaVTRzLFmQT_FVSOVftNYx3K';
+	$config['security']['recaptcha_private_key'] = '6LdxwOgSAAAAAF0swGmTr0OcBAAKRT-ZOeoEqX8D'; 
 
 	/**
 	 * Set the theme of the reCAPTCHA. For custom theming, see https://developers.google.com/recaptcha/docs/customization

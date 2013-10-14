@@ -14,7 +14,7 @@
 					<?php echo $message; ?>
 				</div>
 			<?php } ?>
-				
+				<div class="loginform">
 				<?php echo form_open(current_url(), 'class="parallel"');?>  	
 						<ul class="loginform">
 							<li>
@@ -35,13 +35,14 @@
 							# To activate reCAPTCHA, ensure the 'if' statement immediately below is uncommented and then comment out the math captcha 'if' statement further below.
 			 				# You will also need to enable the recaptcha examples in 'controllers/auth.php', and 'models/demo_auth_model.php'.
 							#
+							*/
+							
 							if (isset($captcha)) 
 							{ 
 								echo "<li>\n";
 								echo $captcha;
 								echo "</li>\n";
 							}
-							#*/
 							
 							/* math_captcha Example
 							# To activate math_captcha, ensure the 'if' statement immediately below is uncommented and then comment out the reCAPTCHA 'if' statement just above.
@@ -66,6 +67,8 @@
 						</ul>
 				<?php echo form_close();?>
 				<div class="forgotpassword"><a href="<?php echo site_url('') ?>">Lost your password?</a></div>
+			
+			
 			</div>
 		</div>
 	</div>

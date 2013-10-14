@@ -99,8 +99,8 @@ class Login extends CI_Controller {
 		// Check whether there are any existing failed login attempts from the users ip address and whether those attempts have exceeded the defined threshold limit.
 		// If the user has exceeded the limit, generate a 'CAPTCHA' that the user must additionally complete when next attempting to login.
 		
-		//if ($this->flexi_auth->ip_login_attempts_exceeded())
-		//{
+		if ($this->flexi_auth->ip_login_attempts_exceeded())
+		{
 			/**
 			 * reCAPTCHA
 			 * http://www.google.com/recaptcha
@@ -114,7 +114,7 @@ class Login extends CI_Controller {
 			 * 
 			 * Note: To use this example, you will also need to enable the recaptcha examples in 'models/flexi_auth_model.php', and 'views/demo/login_view.php'.
 			*/
-			//$this->data['captcha'] = $this->flexi_auth->recaptcha(FALSE);
+			$this->data['captcha'] = $this->flexi_auth->recaptcha(FALSE);
 						
 			/**
 			 * flexi auths math CAPTCHA
@@ -126,7 +126,7 @@ class Login extends CI_Controller {
 			 * Note: To use this example, you will also need to enable the math_captcha examples in 'models/flexi_auth_model.php', and 'views/demo/login_view.php'.
 			*/
 			# $this->data['captcha'] = $this->flexi_auth->math_captcha(FALSE);
-		//}
+		}
 		
 				
 		// Get any status message that may have been set.

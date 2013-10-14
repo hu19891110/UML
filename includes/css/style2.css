@@ -34,6 +34,7 @@ body{
 	-webkit-border-top-right-radius: 4px;
 	-webkit-border-top-left-radius: 4px;
 	-moz-border-radius: 4px 4px 4px 4px; */
+	padding-left: 0px;
 }
 
 #loginbox li label{ /* titels van de velden */ 

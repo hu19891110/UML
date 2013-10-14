@@ -28,7 +28,6 @@ body{
 #loginbox h2{ /* login box titel */ 
 	font-size: 18px;
 	font-weight: normal;
-	padding-left: 10px;
 	color: #fff;	
 }
 
@@ -41,8 +40,8 @@ body{
 	font-family: 'Helvetica Neue' ; 
 	background: #fff;
 	margin:0 auto;
-	width:300px;
-	height: 300px;
+	width:318px;
+	height:auto;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -50,6 +49,7 @@ body{
 	margin-left: -150px; /* half the width of the div */
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 4px 4px 4px 4px; 
+	padding-left: 0px;
 }
 
 #loginbox li label{ /* titels van de velden */ 
@@ -131,6 +131,10 @@ body{
 	color: #435B77;
 }
 
+.loginform {
+	display: inline-block;
+	overflow: hidden;
+}
 ::selection{ /* tekst selecteren en dan wordt het blauw niceee */ 
 	background:#f2f2f2;
 	color: black;
@@ -145,3 +149,15 @@ body{
 	background:#f8f8f8;
 	color:black;
 }
+
+
+.captcha {
+	display: block;
+	overflow: hidden;
+	clear: both;
+	padding-bottom: 50px;
+}
+#recaptcha {
+	list-style-type: none;
+}
+
