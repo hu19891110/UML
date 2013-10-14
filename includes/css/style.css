@@ -13,7 +13,7 @@ body{
 	text-align: center;
 }
 
-#titlebox {
+#titlebox{ /* login box titel div */ 
 	background: #435B77;
 	margin: 0;
 	padding-top: 1px;
@@ -21,7 +21,7 @@ body{
 	border-bottom: 4px solid #2F4763;
 	-webkit-border-top-left-radius: 10px;
 	-webkit-border-top-right-radius: 10px;
-	-moz-border-radius: 4px 4px 4px 4px; 
+	-moz-border-radius: 10px 10px 10px 10px; 
 	margin-bottom: 30px;
 }
 
@@ -40,15 +40,16 @@ body{
 	font-family: 'Helvetica Neue' ; 
 	background: #fff;
 	margin:0 auto;
-	width:318px;
+	width:360px;
 	height:auto;
+	min-height: 300px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	margin-top: -150px; /* half the height of the div */
-	margin-left: -150px; /* half the width of the div */
+	margin-left: -180px; /* half the width of the div */
 	-webkit-border-radius: 10px;
-	-moz-border-radius: 4px 4px 4px 4px; 
+	-moz-border-radius: 10px 10px 10px 10px; 
 	padding-left: 0px;
 }
 
@@ -56,8 +57,7 @@ body{
 	color: #4f4f4f;
 }	
 
-#loginbox li input[type='text'], #loginbox li input[type='password']{ /* invoervelden login */
-	background:#F9F9F9;
+#loginbox .username, #loginbox .password{
 	border:1px solid #D4D4D4;
 	padding: 5px;
 	min-width: 200px;
@@ -69,14 +69,14 @@ body{
 	-moz-border-radius: 4px 4px 4px 4px; 
 }
 
-#loginbox li input[type='text']{
+#loginbox .username{
 	background-image:url('../images/user.png');
 	background-repeat: no-repeat;
 	background-position: right;
 	background-size: 20px 20px;
 }	
 
-#loginbox li input[type='password']{
+#loginbox .password{
 	background-image:url('../images/password.png');
 	background-repeat: no-repeat;
 	background-position: right;
@@ -95,6 +95,8 @@ body{
 
 #loginbox .loginform{ /* inhoud van login formulier */ 
 	text-align: left;
+	display: inline-block;
+	overflow: hidden;
 }
 
 #loginbox .loginform li:first-child{
@@ -131,10 +133,6 @@ body{
 	color: #435B77;
 }
 
-.loginform {
-	display: inline-block;
-	overflow: hidden;
-}
 ::selection{ /* tekst selecteren en dan wordt het blauw niceee */ 
 	background:#f2f2f2;
 	color: black;
