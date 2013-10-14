@@ -9,7 +9,7 @@
  			 	<h2>check your UML files</h2>
  			 </div>
  			 <div class="large-3 columns koptekst">
- 			 	<span> Welcome 'username' </span> <br/> <br/>
+ 			 	<span> Welcome 'username'</span> <br/> <br/>
  			 	<a href="<?php echo site_url('logout') ?>">Logout</a> 
 
  			 </div>

@@ -1,7 +1,7 @@
 <!-- Include head -->
 <?php $this->load->view('includes/head'); ?>
 <!-- Include header -->
-<?php $this->load->view('includes/header'); ?>
+<?php $this->load->view('includes/header-teacher'); ?>
 
 <!-- main content -->
 
@@ -12,10 +12,6 @@
 	<?php } ?>
 	
 			<div class="large-12 columns">
-				<p> 
-				Inhoud hier.
-				</p>
-				
 				
 				<table>
   				<thead>
