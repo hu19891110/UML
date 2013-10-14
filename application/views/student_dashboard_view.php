@@ -11,7 +11,7 @@
 		</div>
 	<?php } ?>
 	
-			<div class="large-12 columns">
+			<div class="large-12 columns padding">
 				
 				<table>
   				<thead>

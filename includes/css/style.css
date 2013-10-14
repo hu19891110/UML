@@ -36,6 +36,15 @@ h2{
 	text-shadow:2px 2px 2px black;
 }
 
+@media only screen and (max-width: 510px){
+	h2{
+		letter-spacing: 0.28em; 
+	}
+	h1{
+		font-size: 30pt; 
+	}
+}
+
 nav.top-bar{ /* navigatie */	
 	margin-top: -110px;
 }
@@ -72,6 +81,11 @@ nav.top-bar{ /* navigatie */
 }
 
 .row  { /* breedte container */ 
-	max-width: 75em;
+	max-width: 70em;
 }
+
+.padding{
+	padding-top: 10px;
+}
+
 
