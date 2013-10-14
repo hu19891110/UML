@@ -2,8 +2,10 @@
 <div class="footer_wrapper">
 	<div class="footer">
 
-		<!-- footer code komt hier -->
+		<p>   </p>
 
 	</div>
 </div>
 <!-- end footer -->
+</body>
+</html>

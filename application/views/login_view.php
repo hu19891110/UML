@@ -1,8 +1,16 @@
-	<!-- Include head -->
-	<?php $this->load->view('includes/head'); ?>
-	<!-- Include header -->
-	<?php $this->load->view('includes/header'); ?>
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="robots" content="index, follow"/>
+	<meta name="designer" content="Five-IT"/> 
+	<meta name="copyright" content="Copyright <?php echo date('Y');?> Five-IT, All rights Reserved"/>
+	<meta http-equiv="imagetoolbar" content="no"/>	
 	
+	<link rel="stylesheet" href="<?php echo $includes_dir;?>css/login.css?v=1.0">
+</head>
+	
+<body>	
 	<!-- Main Content -->
 	<div class="content_wrap main_content_bg">
 		<div class="content clearfix">
@@ -72,6 +80,5 @@
 			</div>
 		</div>
 	</div>
-	
-	<!-- Include footer -->
-	<?php $this->load->view('includes/footer'); ?>
+<body>
+</html>	
