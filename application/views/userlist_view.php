@@ -109,6 +109,6 @@
 				<?php } ?>
 					
 				<?php echo form_close();?>
-</div>
+	</div><!-- end studentlist -->
 
-<div class="large-12 columns padding">
+</div> <!-- end large 12 columns -->

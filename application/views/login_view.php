@@ -12,8 +12,6 @@
 	
 <body>	
 	<!-- Main Content -->
-	<div class="content_wrap main_content_bg">
-		<div class="content clearfix">
 			<div id="loginbox">
 				<div id="titlebox"><h2>Login</h2></div>
 	
@@ -75,10 +73,6 @@
 						</ul>
 				<?php echo form_close();?>
 				<div class="forgotpassword"><a href="<?php echo site_url('') ?>">Lost your password?</a></div>
-			
-			
-			</div>
-		</div>
-	</div>
+	</div> <!-- einde loginbox --> 
 <body>
 </html>	

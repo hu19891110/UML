@@ -32,18 +32,18 @@
    		 <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
   			</ul>
 
-  <section class="top-bar-section">
-    <!-- Left Nav Section -->
-    <ul class="left">
-      <li class="divider"></li>
-      <li><a href="<?php echo $base_url; ?>">Dashboard</a></li>
-      <li class="divider"></li>
-      <li><a href="#">Assignments</a></li>
-      <li class="divider"></li>
-      <li><a href="#">Deadlines</a></li>
-      <li class="divider"></li>
-      <li><a href="#">Archive</a></li>
-      <li class="divider"></li>
+  		<section class="top-bar-section">
+    		<!-- Left Nav Section -->
+    		<ul class="left">
+			<li class="divider"></li>
+      	<li><a href="<?php echo $base_url; ?>">Dashboard</a></li>
+      	<li class="divider"></li>
+      	<li><a href="#">Assignments</a></li>
+      	<li class="divider"></li>
+      	<li><a href="#">Deadlines</a></li>
+      	<li class="divider"></li>
+      	<li><a href="#">Archive</a></li>
+      	<li class="divider"></li>
       
       <!-- 
       <li class="has-dropdown"><a href="#">Main Item 3</a>

@@ -7,12 +7,12 @@
  			 <div class="large-9 columns">
  			 	<h1> <span class="UML">UML</span> CHECKER</h1>
  			 	<h2>check your UML files</h2>
- 			 </div>
+ 			 </div> <!-- end large 9 columns -->
  			 <div class="large-3 columns koptekst">
  			 	<span> Welcome 'username'</span> <br/> <br/>
  			 	<a href="<?php echo site_url('logout') ?>">Logout</a> 
 
- 			 </div>
+ 			 </div> <!-- end large 3 columns --> 
 		</div> <!-- end row -->
 
 	</div> <!-- end header --> 
@@ -32,18 +32,18 @@
    		 <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
   			</ul>
 
-  <section class="top-bar-section">
-    <!-- Left Nav Section -->
-    <ul class="left">
-      <li class="divider"></li>
-      <li><a href="<?php echo $base_url; ?>">Dashboard</a></li>
-      <li class="divider"></li>
-      <li><a href="#">Assignments</a></li>
-      <li class="divider"></li>
-      <li><a href="#">Deadlines</a></li>
-      <li class="divider"></li>
-      <li><a href="#">Archive</a></li>
-      <li class="divider"></li>
+  			<section class="top-bar-section">
+    		<!-- Left Nav Section -->
+    		<ul class="left">
+      		<li class="divider"></li>
+      		<li><a href="<?php echo $base_url; ?>">Dashboard</a></li>
+      		<li class="divider"></li>
+      		<li><a href="#">Assignments</a></li>
+      		<li class="divider"></li>
+      		<li><a href="#">Deadlines</a></li>
+      		<li class="divider"></li>
+      		<li><a href="#">Archive</a></li>
+      		<li class="divider"></li>
       
       <!-- 
       <li class="has-dropdown"><a href="#">Main Item 3</a>

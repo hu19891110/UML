@@ -1,7 +1,5 @@
-<div class="large-12 columns padding">
+	<div class="large-12 columns padding">
 
-<div class="content_wrap main_content_bg">
-		<div class="content clearfix">
 			<div class="col100">
 				<h2>Register Account</h2>
 
@@ -55,7 +53,5 @@
 					
 
 				<?php echo form_close();?>
-			</div>
-		</div>
-	</div>	
-</div>	
+			</div>	
+	</div> <!-- end large 12 columns -->	

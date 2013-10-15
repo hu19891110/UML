@@ -11,7 +11,7 @@
 		</div>
 	<?php } ?>
 	
-			<div class="large-12 columns padding">
+	<div class="large-12 columns padding">
 				
 				<table>
   				<thead>
@@ -110,20 +110,15 @@
   				</tbody>
 				</table>
 				
-			</div> <!-- end 12 columns --> 
-			
-			
-  		</div> <!-- end row -->
+		</div> <!-- end 12 columns --> 
+	</div> <!-- end row (uit header)-->
+</div> <!-- end main content/container (uit header) -->
 
 
-</div>
-<!-- end main content/container -->
-
-
-<footer class="row"?
+	<footer class="row"?
 		<!-- Include footer -->
 		<?php $this->load->view('includes/footer'); ?>	
-	</footer> <!-- end row --> 
+	</footer> <!-- end footer row --> 
 
 
  <script>
