@@ -25,6 +25,10 @@ class Register extends CI_Controller {
 			redirect('login');
 
 		}
+		
+		$this->load->vars('base_url', 'http://localhost:8888/');
+		$this->load->vars('includes_dir', 'http://localhost:8888/includes/');
+		$this->load->vars('current_url', $this->uri->uri_to_assoc(1));
 
 		$this->data = null;
 	}
@@ -45,6 +49,7 @@ class Register extends CI_Controller {
 		
 		// Get any status message that may have been set.
 		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
+
 
 		$data['maincontent'] = $this->load->view('register_view', $this->data, TRUE);
 		$this->load->view('template-teacher', $data);	
