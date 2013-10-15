@@ -1,3 +1,5 @@
+<div class="large-12 columns padding">
+
 <div class="studentlist">
 	<?php echo form_open(current_url());	?>
 					<table>
@@ -107,3 +109,5 @@
 					
 				<?php echo form_close();?>
 </div>
+
+<div class="large-12 columns padding">
