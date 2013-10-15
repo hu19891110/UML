@@ -11,7 +11,9 @@
 	
 	<link rel="stylesheet" href="<?php echo $includes_dir;?>Foundation/css/foundation.css">
 	<link rel="stylesheet" href="<?php echo $includes_dir;?>Foundation/css/normalize.css">
+	<link type="text/css" media="screen" rel="stylesheet" href="<?php echo $includes_dir;?>Foundation/tables/responsive-tables.css" />
 	<link rel="stylesheet" href="<?php echo $includes_dir;?>css/style.css">
 	
+	<script type="text/javascript" src="<?php echo $includes_dir;?>Foundation/tables/responsive-tables.js"></script>
 	<script src="<?php echo $includes_dir;?>Foundation/js/vendor/custom.modernizr.js"></script>
 </head>	

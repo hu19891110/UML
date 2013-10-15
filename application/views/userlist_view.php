@@ -1,10 +1,10 @@
 <div class="large-12 columns padding">
 
-	<div class="studentlist">
+	
 		<h2> Overview of all users </h2>
 	
 		<?php echo form_open(current_url());	?>
-					<table>
+					<table class="responsive">
 						<thead>
 							<tr>
 								<th class="spacer_200">Email</th>
@@ -111,6 +111,6 @@
 					
 				<?php echo form_close();?>
 	
-	</div><!-- end studentlist -->
+	
 	
 </div> <!-- end large 12 columns -->

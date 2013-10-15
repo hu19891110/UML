@@ -114,14 +114,7 @@
 <?php $this->load->view('includes/footer'); ?>	
 
 
- <script>
-  document.write('<script src=' +
-  ('__proto__' in {} ? '<?php echo $includes_dir;?>Foundation/js/vendor/zepto' : '<?php echo $includes_dir;?>Foundation/js/vendor/jquery') +
-  '.js><\/script>')
-  </script>
-  
-  <script src="<?php echo $includes_dir;?>Foundation/js/foundation.min.js"></script>
-  <script src="<?php echo $includes_dir;?>Foundation/js/foundation/foundation.topbar.js"></script>
+ 
   <!--
   
   <script src="<?php echo $includes_dir;?>Foundation/js/foundation/foundation.js"></script>
@@ -157,7 +150,3 @@
   <script src="<?php echo $includes_dir;?>Foundation/js/foundation/foundation.topbar.js"></script>
   
   -->
-  
-  <script>
-    $(document).foundation();
-  </script>
