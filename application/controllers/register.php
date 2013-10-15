@@ -29,8 +29,12 @@ class Register extends CI_Controller {
 		$this->load->vars('base_url', 'http://localhost:8888/');
 		$this->load->vars('includes_dir', 'http://localhost:8888/includes/');
 		$this->load->vars('current_url', $this->uri->uri_to_assoc(1));
-
-		$this->data = null;
+		
+		$this->data = null;		
+		
+		$user_id = $this->flexi_auth->get_user_id();
+		$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
+		$this->data['user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
 	}
 	
 	function index()
