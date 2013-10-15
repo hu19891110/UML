@@ -93,7 +93,8 @@ class Dashboard extends CI_Controller {
 		// Set any returned status/error messages.
 		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
 
-		$this->load->view('userlist_view', $this->data);		
+		$data['maincontent'] =  $this->load->view('userlist_view', $this->data , TRUE);
+		$this->load->view('template-teacher', $data);		
     }
 
 
@@ -128,7 +129,8 @@ class Dashboard extends CI_Controller {
 		// Set any returned status/error messages.
 		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
 
-		$this->load->view('user_account_update_view', $this->data);
+		$data['maincontent'] = $this->load->view('user_account_update_view', $this->data, TRUE);
+		$this->load->view('template-teacher', $data);	
 	}
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
@@ -170,7 +172,8 @@ class Dashboard extends CI_Controller {
 		// Set any returned status/error messages.
 		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
 
-		$this->load->view('user_groups_view', $this->data);		
+		$data['maincontent'] = $this->load->view('user_groups_view', $this->data, TRUE);	
+		$this->load->view('template-teacher', $data);		
     }
 	
  	/**
@@ -196,7 +199,8 @@ class Dashboard extends CI_Controller {
 		// Set any returned status/error messages.
 		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
 
-		$this->load->view('user_group_insert_view', $this->data);
+		$data['maincontent'] = $this->load->view('user_group_insert_view', $this->data, TRUE);
+		$this->load->view('template-teacher', $data);
 	}
 	
  	/**
@@ -226,7 +230,8 @@ class Dashboard extends CI_Controller {
 		// Set any returned status/error messages.
 		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
 
-		$this->load->view('user_group_update_view', $this->data);
+		$data['maincontent'] = $this->load->view('user_group_update_view', $this->data, TRUE);
+		$this->load->view('template-teacher', $data);	
 	}
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
@@ -267,7 +272,8 @@ class Dashboard extends CI_Controller {
 		// Set any returned status/error messages.
 		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
 
-		$this->load->view('privileges_view', $this->data);
+		$data['maincontent'] = $this->load->view('privileges_view', $this->data, TRUE);
+		$this->load->view('template-teacher', $data);	
 	}
 	
  	/**
@@ -293,7 +299,8 @@ class Dashboard extends CI_Controller {
 		// Set any returned status/error messages.
 		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
 
-		$this->load->view('privilege_insert_view', $this->data);
+		$data['maincontent'] = $this->load->view('privilege_insert_view', $this->data, TRUE);
+		$this->load->view('template-teacher', $data);	
 	}
 	
  	/**
@@ -323,7 +330,8 @@ class Dashboard extends CI_Controller {
 		// Set any returned status/error messages.
 		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
 
-		$this->load->view('privilege_update_view', $this->data);
+		$data['maincontent'] = $this->load->view('privilege_update_view', $this->data, TRUE);
+		$this->load->view('template-teacher', $data);	
 	}
 	
  	/**
@@ -396,7 +404,8 @@ class Dashboard extends CI_Controller {
         // privileges or user group privileges, load the settings array containing the current privilege sources. 
 		$this->data['privilege_sources'] = $this->login->auth_settings['privilege_sources'];
                 
-		$this->load->view('user_privileges_update_view', $this->data);		
+		$data['maincontent'] = $this->load->view('user_privileges_update_view', $this->data, TRUE);	
+		$this->load->view('template-teacher', $data);		
     }
     
  	/**
@@ -451,7 +460,8 @@ class Dashboard extends CI_Controller {
         // privileges or user group privileges, load the settings array containing the current privilege sources. 
         $this->data['privilege_sources'] = $this->login->auth_settings['privilege_sources'];
                 
-		$this->load->view('user_group_privileges_update_view', $this->data);		
+		$data['maincontent'] = $this->load->view('user_group_privileges_update_view', $this->data, TRUE);
+		$this->load->view('template-teacher', $data);			
     }
 
 }

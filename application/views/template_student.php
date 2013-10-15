@@ -3,8 +3,7 @@
 	<!-- Include head -->
 	<?php $this->load->view('includes/head'); ?>
 	<!-- Include header -->
-	
-	<?php $this->load->view('includes/header-teacher'); ?>
+	<?php $this->load->view('includes/header-student'); ?>
 	
 	<!-- Main content komt hier -->
 	<?php echo $maincontent ?>
