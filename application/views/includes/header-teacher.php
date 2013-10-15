@@ -9,7 +9,7 @@
  			 	<h2>check your UML files</h2>
  			 </div>
  			 <div class="large-3 columns koptekst">
- 			 	<span> Welcome <a href="<?php echo $base_url;?>/dashboard/update_user_account/<?php echo $user['uacc_id']; ?>"><?php echo $user['upro_first_name'].' '.$user['upro_last_name']; ?></a></span> <br/> <br/>
+ 			 	<span> Welcome <a href="<?php echo $base_url;?>dashboard/update_user_account/<?php echo $user['uacc_id']; ?>"><?php echo $user['upro_first_name'].' '.$user['upro_last_name']; ?></a></span> <br/> <br/>
  			 	<a href="<?php echo site_url('logout') ?>">Logout</a> 
 
  			 </div>
