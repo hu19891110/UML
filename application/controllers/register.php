@@ -46,7 +46,8 @@ class Register extends CI_Controller {
 		// Get any status message that may have been set.
 		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
 
-		$this->load->view('register_view', $this->data);
+		$data['maincontent'] = $this->load->view('register_view', $this->data, TRUE);
+		$this->load->view('template-teacher', $data);	
 	}
 	
 }
