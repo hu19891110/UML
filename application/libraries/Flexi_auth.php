@@ -797,6 +797,68 @@ class Flexi_auth extends Flexi_auth_lite
 		return FALSE;
 	}
 	
+	
+	
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
+	
+	/**
+	 * insert_class
+	 * Inserts a new user group to the database. If the group has admin privileges this can be set using $is_admin = TRUE.
+	 *
+	 * @return void
+	 * @author Rob Hussey
+	 */
+	public function insert_class($name, $description = NULL, $custom_data = array())
+	{
+		if ($class_id = $this->CI->flexi_auth_model->insert_class($name, $description, $custom_data));
+		{
+			$this->CI->flexi_auth_model->set_status_message('update_successful','config');
+			return $class_id;
+		}
+
+		$this->CI->flexi_auth_model->set_error_message('update_unsuccessful', 'config');
+		return FALSE;
+	}
+	
+	/**
+	 * update_class
+	 * Updates a user group with any submitted data.
+	 *
+	 * @return bool
+	 * @author Rob Hussey
+	 */
+	public function update_class($class_id, $class_data)
+	{
+		if ($this->CI->flexi_auth_model->update_class($class_id, $class_data))
+		{
+			$this->CI->flexi_auth_model->set_status_message('update_successful', 'config');
+			return TRUE;
+		}
+
+		$this->CI->flexi_auth_model->set_error_message('update_unsuccessful', 'config');
+		return FALSE;
+	}
+
+	/**
+	 * delete_class
+	 * Deletes a group from the user group table.
+	 *
+	 * @return bool
+	 * @author Rob Hussey
+	 */
+	public function delete_class($sql_where)
+	{
+		if ($this->CI->flexi_auth_model->delete_class($sql_where))
+		{
+			$this->CI->flexi_auth_model->set_status_message('delete_successful', 'config');
+			return TRUE;
+		}
+
+		$this->CI->flexi_auth_model->set_error_message('delete_unsuccessful', 'config');
+		return FALSE;
+	}
+	
+	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 	
 	/**
@@ -1040,6 +1102,21 @@ class Flexi_auth extends Flexi_auth_lite
 	public function get_groups_query($sql_select = FALSE, $sql_where = FALSE)
 	{
 		return $this->CI->flexi_auth_model->get_groups($sql_select, $sql_where);
+	}
+	
+		
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
+		
+	/**
+	 * get_classes_query
+	 * Returns a list of user groups matching the $sql_where condition.
+	 *
+	 * @return object
+	 * @author Rob Hussey
+	 */
+	public function get_classes_query($sql_select = FALSE, $sql_where = FALSE)
+	{
+		return $this->CI->flexi_auth_model->get_classes($sql_select, $sql_where);
 	}
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###

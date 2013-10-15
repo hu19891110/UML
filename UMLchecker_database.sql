@@ -123,12 +123,31 @@ CREATE TABLE `user_groups` (
   UNIQUE KEY `ugrp_id` (`ugrp_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
+
+
 -- ----------------------------
 -- Records of user_groups
 -- ----------------------------
 INSERT INTO `user_groups` VALUES ('1', 'Student', 'Student : has no admin access rights.', '0');
 INSERT INTO `user_groups` VALUES ('2', 'Student Assistant', 'Student assistant : has partial admin access rights.', '1');
 INSERT INTO `user_groups` VALUES ('3', 'Teacher', 'Teacher : has full admin access rights.', '1');
+
+-- ----------------------------
+-- Table structure for `student_class`
+-- ----------------------------
+DROP TABLE IF EXISTS `student_classes`;
+CREATE TABLE `student_classes` (
+  `studentclass_id` smallint(5) NOT NULL AUTO_INCREMENT,
+  `studentclass_name` varchar(20) NOT NULL DEFAULT '',
+  `studentclass_desc` varchar(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`studentclass_id`),
+  UNIQUE KEY `studentclass_id` (`studentclass_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of user_groups
+-- ----------------------------
+INSERT INTO `student_classes` VALUES ('1', 'Class 1', 'Class 1 description. ');
 
 -- ----------------------------
 -- Table structure for `user_login_sessions`
@@ -173,7 +192,10 @@ INSERT INTO `user_privileges` VALUES ('8', 'Update Privileges', 'User can update
 INSERT INTO `user_privileges` VALUES ('9', 'Delete Users', 'User can delete user accounts.');
 INSERT INTO `user_privileges` VALUES ('10', 'Delete User Groups', 'User can delete user groups.');
 INSERT INTO `user_privileges` VALUES ('11', 'Delete Privileges', 'User can delete user privileges.');
-
+INSERT INTO `user_privileges` VALUES ('12', 'View Student Classes', 'User can view student classes.');
+INSERT INTO `user_privileges` VALUES ('13', 'Update Student Classes', 'User can update student classes.');
+INSERT INTO `user_privileges` VALUES ('14', 'Insert Student Classes', 'User can insert student classes.');
+INSERT INTO `user_privileges` VALUES ('15', 'Delete Student Classes', 'User can delete student classes.');
 -- ----------------------------
 -- Table structure for `user_privilege_users`
 -- ----------------------------
@@ -206,6 +228,10 @@ INSERT INTO `user_privilege_users` VALUES ('12', '2', '1');
 INSERT INTO `user_privilege_users` VALUES ('13', '2', '2');
 INSERT INTO `user_privilege_users` VALUES ('14', '2', '3');
 INSERT INTO `user_privilege_users` VALUES ('15', '2', '6');
+INSERT INTO `user_privilege_users` VALUES ('16', '1', '12');
+INSERT INTO `user_privilege_users` VALUES ('17', '1', '13');
+INSERT INTO `user_privilege_users` VALUES ('18', '1', '14');
+INSERT INTO `user_privilege_users` VALUES ('19', '1', '15');
 
 
 -- ----------------------------

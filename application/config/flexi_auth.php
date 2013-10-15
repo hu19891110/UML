@@ -96,6 +96,23 @@
 	$config['database']['user_group']['columns']['admin'] = 'ugrp_admin';
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
+
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
+	
+	/**
+	 * Student Class Table
+	 * The user group table is used to allocate a group classification to users, typically this is used to group users as either admins or public users.
+	 * The grouped users can then be delivered content specific to their group, or restricted access to set areas - i.e. an admin only area.
+	 * 
+	 * All columns are required.
+	*/ 
+	$config['database']['student_class']['table'] = 'student_classes';
+	$config['database']['student_class']['join'] = 'student_classes.studentclass_id';
+	$config['database']['student_class']['columns']['id'] = 'studentclass_id';
+	$config['database']['student_class']['columns']['name'] = 'studentclass_name';
+	$config['database']['student_class']['columns']['description'] = 'studentclass_desc';
+	
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 	
 	/**
 	 * User Privilege Table

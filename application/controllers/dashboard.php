@@ -143,7 +143,6 @@ class Dashboard extends CI_Controller {
  	/**
  	 * manage_user_groups
  	 * View and manage a table of all user groups.
- 	 * This example allows user groups to be deleted via checkoxes within the page.
  	 */
     function manage_user_groups()
     {
@@ -228,7 +227,7 @@ class Dashboard extends CI_Controller {
 
 		// Get user groups current data.
 		$sql_where = array($this->flexi_auth->db_column('user_group', 'id') => $group_id);
-		$this->data['group'] = $this->flexi_auth->get_groups_row_array(FALSE, $sql_where);
+		$this->data['class'] = $this->flexi_auth->get_groups_row_array(FALSE, $sql_where);
 		
 		// Set any returned status/error messages.
 		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
@@ -236,6 +235,103 @@ class Dashboard extends CI_Controller {
 		$data['maincontent'] = $this->load->view('user_group_update_view', $this->data, TRUE);
 		$this->load->view('template-teacher', $data);	
 	}
+
+
+
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
+	// Student class
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
+	
+ 	/**
+ 	 * manage_student_classes
+ 	  	 * View and manage a table of all user groups.
+ 	 */
+ 	 
+    function manage_student_classes()
+    {
+		// Check user has privileges to view user groups, else display a message to notify the user they do not have valid privileges.
+		if (! $this->flexi_auth->is_privileged('View Student Classes'))
+		{
+			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to view student classes.</p>');
+			redirect('dashboard');		
+		}
+		
+		// Define the group data columns to use on the view page. 
+		// Note: The columns defined using the 'db_column()' functions are native table columns to the auth library. 
+		// Read more on 'db_column()' functions in the quick help section near the top of this controller. 
+		$sql_select = array(
+			$this->flexi_auth->db_column('student_class', 'id'),
+			$this->flexi_auth->db_column('student_class', 'name'),
+			$this->flexi_auth->db_column('student_class', 'description'),
+		);
+		$this->data['student_classes'] = $this->flexi_auth->get_classes_array($sql_select);
+				
+		// Set any returned status/error messages.
+		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
+
+		$data['maincontent'] = $this->load->view('student_classes_view', $this->data, TRUE);	
+		$this->load->view('template-teacher', $data);		
+    }
+	
+ 	/**
+ 	 * insert_student_class
+ 	 * Insert a new student class.
+ 	 */
+	function insert_student_class()
+	{
+		// Check user has privileges to insert user groups, else display a message to notify the user they do not have valid privileges.
+		if (! $this->flexi_auth->is_privileged('Insert Student Class'))
+		{
+			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to insert new student classes.</p>');
+			redirect('dashboard/manage_student_classes');		
+		}
+
+		// If 'Add Student Class' form has been submitted, insert the new user group.
+		if ($this->input->post('insert_student_class')) 
+		{
+			$this->load->model('demo_auth_admin_model');
+			$this->demo_auth_admin_model->insert_student_class();
+		}
+		
+		// Set any returned status/error messages.
+		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
+
+		$data['maincontent'] = $this->load->view('student_class_insert_view', $this->data, TRUE);
+		$this->load->view('template-teacher', $data);
+	}
+	
+ 	/**
+ 	 * update_student_class
+ 	 * Update the details of a specific student class.
+ 	 */
+	function update_student_class($class_id)
+	{
+		// Check user has privileges to update user groups, else display a message to notify the user they do not have valid privileges.
+		if (! $this->flexi_auth->is_privileged('Update Student Class'))
+		{
+			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to update student classes.</p>');
+			redirect('dashboard/manage_student_classes');		
+		}
+
+		// If 'Update student class' form has been submitted, update the user group details.
+		if ($this->input->post('update_student_class')) 
+		{
+			$this->load->model('demo_auth_admin_model');
+			$this->demo_auth_admin_model->update_student_class($class_id);
+		}
+
+		// Get user groups current data.
+		$sql_where = array($this->flexi_auth->db_column('student_class', 'id') => $class_id);
+		$this->data['class'] = $this->flexi_auth->get_classes_row_array(FALSE, $sql_where);
+		
+		// Set any returned status/error messages.
+		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
+
+		$data['maincontent'] = $this->load->view('student_class_update_view', $this->data, TRUE);
+		$this->load->view('template-teacher', $data);	
+	}
+
+
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	// Privileges

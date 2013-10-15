@@ -535,6 +535,86 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	
 	/**
+	 * insert_class
+	 * Inserts a new student class to the database. 
+	 *
+	 * @return bool
+	 */
+	public function insert_class($name, $description = NULL, $custom_data = array())
+  	{
+		if (empty($name))
+		{
+			return FALSE;
+		}
+		
+		// Set any custom data that may have been submitted.
+		$sql_insert = (is_array($custom_data)) ? $custom_data : array();
+		
+		// Set standard group data.
+		$sql_insert[$this->login->tbl_col_student_class['name']] = $name;
+		$sql_insert[$this->login->tbl_col_student_class['description']] = $description;
+
+		$this->db->insert($this->login->tbl_student_class, $sql_insert);
+		
+		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
+	}
+
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
+
+	/**
+	 * update_class
+	 * Updates a student class with any submitted data.
+	 *
+	 * @return bool
+	 */
+	public function update_class($class_id, $class_data)
+  	{
+		if (!is_numeric($class_id) || !is_array($class_data))
+		{
+			return FALSE;
+		}
+		
+		$sql_update = array();		
+		foreach ($this->login->database_config['student_class']['columns'] as $key => $column)
+		{
+			if (isset($class_data[$column]))
+			{
+				$sql_update[$this->login->tbl_col_student_class[$key]] = $class_data[$column];
+				unset($class_data[$column]);
+			}
+		}
+
+		$sql_where = array($this->login->tbl_col_student_class['id'] => $class_id);
+		
+		$this->db->update($this->login->tbl_student_class, $sql_update, $sql_where);
+		
+		return $this->db->affected_rows() == 1;	
+	}
+
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
+
+	/**
+	 * delete_class
+	 * Deletes a class from the student class table.
+	 *
+	 * @return bool
+	 */
+	public function delete_class($sql_where)
+  	{
+		if (is_numeric($sql_where))
+		{
+			$sql_where = array($this->login->tbl_col_student_class['id'] => $sql_where);
+		}
+				
+		$this->db->delete($this->login->tbl_student_class, $sql_where);
+		
+		return $this->db->affected_rows() == 1;	
+	}
+	
+	
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
+	
+	/**
 	 * insert_group
 	 * Inserts a new user group to the database. If the group has admin privileges this can be set using $is_admin = TRUE.
 	 *
@@ -1454,6 +1534,27 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 
+
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
+	
+	/**
+	 * get_classes
+	 * Returns a list of user groups matching the $sql_where condition.
+	 *
+	 * @return object
+	 * @author Rob Hussey
+	 */
+	public function get_classes($sql_select = FALSE, $sql_where = FALSE)
+  	{
+		// Set any custom defined SQL statements.
+		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
+		
+	    return $this->db->get($this->login->tbl_student_class);
+  	}
+
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
+	
+	
 	/**
 	 * get_privileges
 	 * Returns a list of all privileges matching the $sql_where condition.

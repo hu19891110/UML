@@ -304,6 +304,75 @@ class Demo_auth_admin_model extends CI_Model {
 	}
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
+	// Student Classes
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
+
+	
+  	/**
+	 * insert_student_class
+	 * Inserts a new student class.
+	 */
+	function insert_student_class()
+	{	
+		$this->load->library('form_validation');
+
+		// Set validation rules.
+		$validation_rules = array(
+			array('field' => 'insert_class_name', 'label' => 'Class Name', 'rules' => 'required'),
+		);
+		
+		$this->form_validation->set_rules($validation_rules);
+		
+		if ($this->form_validation->run())
+		{
+			// Get user group data from input.
+			$class_name = $this->input->post('insert_class_name');
+			$class_desc = $this->input->post('insert_class_description');
+
+			$this->flexi_auth->insert_class($class_name, $class_desc);
+				
+			// Save any public or admin status or error messages to CI's flash session data.
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+			
+			// Redirect user.
+			redirect('dashboard/manage_student_classes');			
+		}
+	}
+	
+  	/**
+	 * update_user_group
+	 * Updates a specific user group.
+	 */
+	function update_student_class($class_id)
+	{
+		$this->load->library('form_validation');
+
+		// Set validation rules.
+		$validation_rules = array(
+			array('field' => 'update_group_name', 'label' => 'Group Name', 'rules' => 'required'),
+		);
+		
+		$this->form_validation->set_rules($validation_rules);
+		
+		if ($this->form_validation->run())
+		{
+			// Get user group data from input.
+			$data = array(
+				$this->flexi_auth->db_column('student_class', 'name') => $this->input->post('update_class_name'),
+				$this->flexi_auth->db_column('student_class', 'description') => $this->input->post('update_class_description')
+			);			
+
+			$this->flexi_auth->update_group($group_id, $data);
+				
+			// Save any public or admin status or error messages to CI's flash session data.
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+			
+			// Redirect user.
+			redirect('dashboard/manage_student_classes');			
+		}
+	}
+
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	// Privileges
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 
