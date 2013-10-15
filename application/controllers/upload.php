@@ -58,15 +58,17 @@ class Upload extends CI_Controller {
 
 		if ( ! $this->upload->do_upload())
 		{
-			$error = array('error' => $this->upload->display_errors());
+			$this->data['error'] = array('error' => $this->upload->display_errors());
 			
-			$this->load->view('upload_form', $error);
+			$this->data['maincontent'] = $this->load->view('upload_form', $this->data, TRUE);
+			$this->load->view('template-teacher', $this->data);
 		}
 		else
 		{
 			$data = array('upload_data' => $this->upload->data());
 
-			$this->load->view('upload_success', $data);
+			$this->data['maincontent'] = $this->load->view('upload_success', $data, TRUE);
+			$this->load->view('template-teacher', $this->data);
 		}
 	}
 }
