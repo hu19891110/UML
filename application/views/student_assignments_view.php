@@ -1,7 +1,8 @@
 <div class="large-12 columns padding">
 
-	<h2>Upload Assignment</h2>
+	<h2>Assignments Overview</h2>
 	
+	<h3>Upload assignment</h3>
 	<?php if (! empty($message)) { ?>
 		<div id="message">
 			<?php echo $message; ?>
@@ -16,7 +17,7 @@
 
 	<br /><br />
 
-	<input type="submit" value="upload" />
+	<input type="submit" value="Upload" class = "small button"/>
 
 	</form>
 
