@@ -135,7 +135,7 @@ class Demo_auth_model extends CI_Model {
 			
 			// Set whether to instantly activate account.
 			// This var will be used twice, once for registration, then to check if to log the user in after registration.
-			$instant_activate = TRUE;
+			$instant_activate = FALSE;
 	
 			// The last 2 variables on the register function are optional, these variables allow you to:
 			// #1. Specify the group ID for the user to be added to (i.e. 'Moderator' / 'Public'), the default is set via the config file.
@@ -159,14 +159,8 @@ class Demo_auth_model extends CI_Model {
 				
 				// This is an example of how to log the user into their account immeadiately after registering.
 				// This example would only be used if users do not have to authenticate their account via email upon registration.
-				if ($instant_activate && $this->flexi_auth->login($email, $password))
-				{
-					// Redirect user to public dashboard.
-					redirect('dashboard');
-				}
 				
-				// Redirect user to login page
-				redirect('login');
+				redirect('dashboard');
 			}
 		}
 
