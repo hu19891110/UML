@@ -4,14 +4,12 @@
 <?php $this->load->view('includes/header-teacher'); ?>
 
 <!-- main content -->
-
+<div class="large-12 columns padding">
 	<?php if (! empty($message)) { ?>
 		<div id="message">
 			<?php echo $message; ?>
 		</div>
 	<?php } ?>
-	
-	<div class="large-12 columns padding">
 				
 				<table>
   				<thead>
