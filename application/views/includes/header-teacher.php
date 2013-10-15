@@ -26,7 +26,7 @@
   			<ul class="title-area">
    			 <!-- Title Area -->
     		<li class="name">
-      	<h1><a href="#">UML Checker </a></h1>
+      	<h1><a href="<?php echo $base_url; ?>">UML Checker </a></h1>
     		</li>
    		 <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
    		 <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
@@ -37,6 +37,7 @@
     <ul class="left">
       <li class="divider"></li>
       <li><a href="<?php echo site_url('dashboard') ?>">Dashboard</a></li>
+      <li><a href="<?php echo $base_url; ?>">Dashboard</a></li>
       <li class="divider"></li>
       <li><a href="#">Assignments</a></li>
       <li class="divider"></li>
