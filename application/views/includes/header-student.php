@@ -38,7 +38,7 @@
       		<li class="divider"></li>
       		<li><a href="<?php echo $base_url; ?>">Dashboard</a></li>
       		<li class="divider"></li>
-      		<li><a href="#">Assignments</a></li>
+      		<li><a href="<?php echo site_url('assignments') ?>">Assignments</a></li>
       		<li class="divider"></li>
       		<li><a href="#">Deadlines</a></li>
       		<li class="divider"></li>

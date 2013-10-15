@@ -36,7 +36,12 @@ class Assignments extends CI_Controller {
 	function index()
 	{
 		$this->data['error'] = ' ';
-		$data['maincontent'] = $this->load->view('assignments_view', $this->data, TRUE);
+		
+		if ($this->flexi_auth->is_admin()) {
+			$data['maincontent'] = $this->load->view('teacher_assignments_view', $this->data, TRUE);
+		} else {
+			$data['maincontent'] = $this->load->view('student_assignments_view', $this->data, TRUE);
+		}
 		
 		if ($this->flexi_auth->is_admin()) {
 			$this->load->view('template-teacher', $data);
@@ -60,7 +65,11 @@ class Assignments extends CI_Controller {
 		{
 			$error = array('error' => $this->upload->display_errors());
 			
-			$this->load->view('assigments_view', $error);
+			if ($this->flexi_auth->is_admin()) {
+				$this->load->view('teacher_assignments_view', $error);
+			} else {
+				$this->load->view('student_assignments_view', $data);
+			}
 		}
 		else
 		{
