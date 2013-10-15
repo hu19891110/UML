@@ -111,14 +111,11 @@
 				</table>
 				
 		</div> <!-- end 12 columns --> 
-	</div> <!-- end row (uit header)-->
-</div> <!-- end main content/container (uit header) -->
 
 
-	<footer class="row"?
-		<!-- Include footer -->
-		<?php $this->load->view('includes/footer'); ?>	
-	</footer> <!-- end footer row --> 
+<!-- Include footer -->
+<?php $this->load->view('includes/footer'); ?>	
+
 
 
  <script>

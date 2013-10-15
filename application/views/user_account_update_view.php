@@ -1,5 +1,4 @@
 	<div class="large-12 columns padding">
-			<div class="col100">
 				<h2>Update Account of <?php echo $user['upro_first_name'].' '.$user['upro_last_name']; ?></h2>
 				<a href="<?php echo $base_url;?>dashboard/manage_user_accounts">Manage User Accounts</a>
 
@@ -79,5 +78,4 @@
 						</ul>
 					</fieldset>
 				<?php echo form_close();?>
-			</div>	
 	</div> <!-- end large 12 columns -->

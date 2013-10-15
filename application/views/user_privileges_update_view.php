@@ -1,7 +1,6 @@
 <!-- Main Content -->
 <div class="large-12 columns padding">
 
-			<div class="col100">
 				<h2>Update User Privileges of '<?php echo $user['upro_first_name'].' '.$user['upro_last_name']; ?>', Member of Group '<?php echo $user['ugrp_name']; ?>'</h2>
 				<a href="<?php echo $base_url;?>dashboard/manage_user_accounts">Manage User Accounts</a> | 
 				<a href="<?php echo $base_url;?>dashboard/update_user_account/<?php echo $user['upro_uacc_fk']; ?>">Update Users Account</a>
@@ -67,5 +66,4 @@
 						</tfoot>
 					</table>					
 				<?php echo form_close();?>
-			</div>
 	</div> <!-- end large 12 columns -->	

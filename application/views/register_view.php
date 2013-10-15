@@ -1,6 +1,5 @@
 	<div class="large-12 columns padding">
 
-			<div class="col100">
 				<h2>Register Account</h2>
 
 			<?php if (! empty($message)) { ?>
@@ -53,5 +52,4 @@
 					
 
 				<?php echo form_close();?>
-			</div>	
 	</div> <!-- end large 12 columns -->	

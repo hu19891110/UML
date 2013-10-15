@@ -111,19 +111,9 @@
 				</table>
 				
 			</div> <!-- end 12 columns --> 
-			
-			
-  		</div> <!-- end row -->
 
-
-</div>
-<!-- end main content/container -->
-
-
-<footer class="row"?
-		<!-- Include footer -->
-		<?php $this->load->view('includes/footer'); ?>	
-	</footer> <!-- end row --> 
+<!-- Include footer -->
+<?php $this->load->view('includes/footer'); ?>	
 
 
  <script>
