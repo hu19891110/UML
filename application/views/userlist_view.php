@@ -1,6 +1,7 @@
 <div class="large-12 columns padding">
 
 <div class="studentlist">
+	<h2> Overview of all users </h2>
 	<?php echo form_open(current_url());	?>
 					<table>
 						<thead>

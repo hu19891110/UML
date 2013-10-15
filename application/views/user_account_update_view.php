@@ -1,3 +1,5 @@
+<div class="large-12 columns padding">
+
 <div class="content_wrap main_content_bg">
 		<div class="content clearfix">
 			<div class="col100">
@@ -66,7 +68,7 @@
 						<ul>
 							<li>
 								<label for="submit">Update Account:</label>
-								<input type="submit" name="update_users_account" id="submit" value="Submit" class="link_button large"/>
+								<input type="submit" name="update_users_account" id="submit" value="Submit" class="small button"/>
 							</li>
 						</ul>
 					</fieldset>
@@ -75,7 +77,7 @@
 						<ul>
 							<li>
 								<label for="submit">Delete Account:</label>
-								<input type="submit" name="delete_users_account" id="delete" value="Delete" class="link_button large"/>
+								<input type="submit" name="delete_users_account" id="delete" value="Delete" class="small button"/>
 							</li>
 						</ul>
 					</fieldset>
@@ -83,3 +85,4 @@
 			</div>
 		</div>
 	</div>	
+</div>

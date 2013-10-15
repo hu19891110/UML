@@ -1,3 +1,5 @@
+<div class="large-12 columns padding">
+
 <div class="content_wrap main_content_bg">
 		<div class="content clearfix">
 			<div class="col100">
@@ -48,7 +50,7 @@
 								<input type="password" id="confirm_password" name="register_confirm_password" value="<?php echo set_value('register_confirm_password');?>"/>
 							</li>				
 						</ul>
-						<input type="submit" name="register_user" id="submit" value="Submit" class="link_button large"/>
+						<input type="submit" name="register_user" id="submit" value="Submit" class="small button"/>
 					</fieldset>
 					
 
@@ -56,3 +58,4 @@
 			</div>
 		</div>
 	</div>	
+</div>	

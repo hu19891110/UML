@@ -1,4 +1,6 @@
 <!-- Main Content -->
+<div class="large-12 columns padding">
+
 	<div class="content_wrap main_content_bg">
 		<div class="content clearfix">
 			<div class="col100">
@@ -61,7 +63,7 @@
 						<tfoot>
 							<tr>
 								<td colspan="4">
-									<input type="submit" name="update_user_privilege" value="Update User Privileges" class="link_button large"/>
+									<input type="submit" name="update_user_privilege" value="Update User Privileges" class="small button"/>
 								</td>
 							</tr>
 						</tfoot>
@@ -70,3 +72,4 @@
 			</div>
 		</div>
 	</div>	
+</div>	
