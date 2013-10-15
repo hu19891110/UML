@@ -32,9 +32,9 @@ class Register extends CI_Controller {
 		
 		$this->data = null;		
 		
-		$user_id = $this->flexi_auth->get_user_id();
-		$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
-		$this->data['user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
+		$currentuser_id = $this->flexi_auth->get_user_id();
+		$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $currentuser_id);
+		$this->data['currentuser'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
 	}
 	
 	function index()
