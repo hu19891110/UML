@@ -36,7 +36,6 @@
     <!-- Left Nav Section -->
     <ul class="left">
       <li class="divider"></li>
-      <li><a href="<?php echo site_url('dashboard') ?>">Dashboard</a></li>
       <li><a href="<?php echo $base_url; ?>">Dashboard</a></li>
       <li class="divider"></li>
       <li><a href="#">Assignments</a></li>
