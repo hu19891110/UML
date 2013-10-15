@@ -9,7 +9,7 @@
  			 	<h2>check your UML files</h2>
  			 </div> <!-- end large 9 columns -->
  			 <div class="large-3 columns koptekst">
- 			 	<span> Welcome 'username'</span> <br/> <br/>
+ 			 	<span> Welcome <?php echo $user['upro_first_name'].' '.$user['upro_last_name']; ?></span> <br/> <br/>
  			 	<a href="<?php echo site_url('logout') ?>">Logout</a> 
 
  			 </div> <!-- end large 3 columns --> 
