@@ -539,6 +539,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	 * Inserts a new student class to the database. 
 	 *
 	 * @return bool
+	 *  customized by Thomas Prikkel
 	 */
 	public function insert_class($name, $description = NULL, $custom_data = array())
   	{
@@ -566,6 +567,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	 * Updates a student class with any submitted data.
 	 *
 	 * @return bool
+	 *  customized by Thomas Prikkel
 	 */
 	public function update_class($class_id, $class_data)
   	{
@@ -598,6 +600,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	 * Deletes a class from the student class table.
 	 *
 	 * @return bool
+	 *  customized by Thomas Prikkel
 	 */
 	public function delete_class($sql_where)
   	{

@@ -803,10 +803,10 @@ class Flexi_auth extends Flexi_auth_lite
 	
 	/**
 	 * insert_class
-	 * Inserts a new user group to the database. If the group has admin privileges this can be set using $is_admin = TRUE.
+	 * Inserts a new student class to the database. 
 	 *
 	 * @return void
-	 * @author Rob Hussey
+	 * @author Rob Hussey - customized by Thomas Prikkel
 	 */
 	public function insert_class($name, $description = NULL, $custom_data = array())
 	{
@@ -822,10 +822,10 @@ class Flexi_auth extends Flexi_auth_lite
 	
 	/**
 	 * update_class
-	 * Updates a user group with any submitted data.
+	 * Updates a student class with any submitted data.
 	 *
 	 * @return bool
-	 * @author Rob Hussey
+	 * @author Rob Hussey - customized by Thomas Prikkel
 	 */
 	public function update_class($class_id, $class_data)
 	{
@@ -841,10 +841,10 @@ class Flexi_auth extends Flexi_auth_lite
 
 	/**
 	 * delete_class
-	 * Deletes a group from the user group table.
+	 * Deletes a group from the student class table.
 	 *
 	 * @return bool
-	 * @author Rob Hussey
+	 * @author Rob Hussey - customized by Thomas Prikkel
 	 */
 	public function delete_class($sql_where)
 	{
