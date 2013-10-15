@@ -1,6 +1,6 @@
 <?php
 
-class Upload extends CI_Controller {
+class Assignments extends CI_Controller {
 
 	function __construct()
 	{
@@ -36,7 +36,7 @@ class Upload extends CI_Controller {
 	function index()
 	{
 		$this->data['error'] = ' ';
-		$data['maincontent'] = $this->load->view('upload_form', $this->data, TRUE);
+		$data['maincontent'] = $this->load->view('assignments_view', $this->data, TRUE);
 		
 		if ($this->flexi_auth->is_admin()) {
 			$this->load->view('template-teacher', $data);
@@ -60,7 +60,7 @@ class Upload extends CI_Controller {
 		{
 			$error = array('error' => $this->upload->display_errors());
 			
-			$this->load->view('upload_form', $error);
+			$this->load->view('assigments_view', $error);
 		}
 		else
 		{
