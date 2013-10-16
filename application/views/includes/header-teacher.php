@@ -9,7 +9,7 @@
  			 	<h2>check your UML files</h2>
  			 </div>
  			 <div class="large-3 columns koptekst">
- 			 	<span> Welcome <a href="<?php echo $base_url;?>dashboard/update_user_account/<?php echo $currentuser['uacc_id']; ?>"><?php echo $currentuser['upro_first_name'].' '.$currentuser['upro_last_name']; ?></a></span> <br/> <br/>
+ 			 	<span> Welcome <!-- <a href="<?php echo $base_url;?>dashboard/update_user_account/<?php echo $currentuser['uacc_id']; ?>"> --> <?php echo $currentuser['upro_first_name'].' '.$currentuser['upro_last_name']; ?></a></span> <br/> <br/>
  			 	<a href="<?php echo site_url('logout') ?>">Logout</a> 
 
  			 </div>
@@ -36,7 +36,7 @@
     		<!-- Left Nav Section -->
     		<ul class="left">
 			<li class="divider"></li>
-      	<li><a href="<?php echo $base_url; ?>">Dashboard</a></li>
+      	<li><a href="<?php echo site_url('dashboard') ?>">Dashboard</a></li>
       	<li class="divider"></li>
       	<li><a href="<?php echo site_url('assignments') ?>">Assignments</a></li>
       	<li class="divider"></li>
@@ -89,8 +89,8 @@
       <li class="divider hide-for-small"></li>
       <li><a href="<?php echo site_url('register') ?>">Register new student</a></li>
       <li class="divider"></li>
-      <li><a href="<?php echo site_url('dashboard/manage_user_accounts') ?>">View all users</a></li>
-      <li class="divider"></li>
+     <!-- <li><a href="<?php echo site_url('dashboard/manage_user_accounts') ?>">View all users</a></li>
+      <li class="divider"></li> -->
       <li><a href="#">User Details</a></li>
       <li class="divider"></li>
       
