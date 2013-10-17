@@ -8,8 +8,8 @@ body{
 }
 
 .header .row h1{
-	font-family: 'Myriad Pro';
-	font-size: 50pt;
+	font-family: 'Myriad Pro', 'PT Sans', Arial;
+	font-size: 4.3em;	
 	font-weight: normal;
 	color: #f9fafb;
 	padding: 0;
@@ -24,7 +24,7 @@ body{
 }
 
 .header .row h2{
-	font-size: 13pt;
+	font-size: 1.1em;
 	color: #a1a0a0;
 	font-weight: normal;
 	padding: 0;

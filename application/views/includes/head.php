@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="<?php echo $includes_dir;?>Foundation/css/normalize.css">
 	<link type="text/css" media="screen" rel="stylesheet" href="<?php echo $includes_dir;?>Foundation/tables/responsive-tables.css" />
 	<link rel="stylesheet" href="<?php echo $includes_dir;?>css/style.css">
+	<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
 	
 	<script type="text/javascript" src="<?php echo $includes_dir;?>Foundation/tables/responsive-tables.js"></script>
 	<script src="<?php echo $includes_dir;?>Foundation/js/vendor/custom.modernizr.js"></script>
