@@ -11,6 +11,54 @@
 		</div>
 	<?php } ?>
 				
+	<div id="mainwrapper">	
+		<!-- Image Caption 6 -->
+		<div id="box-6" class="box">
+		<img id="image-6" src="../includes/images/assignments.jpg"/>
+		<a href="<?php echo site_url('assignments') ?>"><span class="caption scale-caption">
+			<h3></h3>
+			<p> Upload test answers <br/>
+			Get an overview of uploaded assignments <br/>
+			Mark assignments as checked</p>
+		</span></a>
+		</div>
+		
+			<div id="box-6" class="box">
+		<img id="image-6" src="../includes/images/deadlines.jpg"/>
+		<span class="caption scale-caption">
+			<h3></h3>
+			<p> </p>
+		</span>
+		</div>
+		
+			<div id="box-6" class="box">
+		<img id="image-6" src="../includes/images/archive.jpg"/>
+		<span class="caption scale-caption">
+			<h3></h3>
+			<p> </p>
+		</span>
+		</div>
+		
+			<div id="box-6" class="box">
+		<img id="image-6" src="../includes/images/register.jpg"/>
+		<a href="<?php echo site_url('register') ?>"><span class="caption scale-caption">
+			<h3></h3>
+			<p> </p>
+		</span></a>
+		</div>
+		
+			<div id="box-6" class="box">
+		<img id="image-6" src="../includes/images/userdetails.jpg"/>
+		<span class="caption scale-caption">
+			<h3></h3>
+			<p> </p>
+		</span>
+		</div>
+		
+	</div> <!-- mainwrapper --> 	
+				
+				
+				<!-- 
 				<table>
   				<thead>
     				<tr>
@@ -107,7 +155,7 @@
     			</tr>
   				</tbody>
 				</table>
-				
+				--> 
 		</div> <!-- end 12 columns --> 
 
 
