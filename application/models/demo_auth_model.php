@@ -112,6 +112,7 @@ class Demo_auth_model extends CI_Model {
 			array('field' => 'register_last_name', 'label' => 'Last Name', 'rules' => 'required'),
 			array('field' => 'register_email_address', 'label' => 'Email Address', 'rules' => 'required|valid_email|identity_available'),
 			array('field' => 'register_username', 'label' => 'Username', 'rules' => 'required|min_length[4]|identity_available'),
+			array('field' => 'register_class', 'label' => 'Student Class', 'rules' => 'required|integer'),
 			array('field' => 'register_password', 'label' => 'Password', 'rules' => 'required|validate_password'),
 			array('field' => 'register_confirm_password', 'label' => 'Confirm Password', 'rules' => 'required|matches[register_password]')
 		);
@@ -125,6 +126,7 @@ class Demo_auth_model extends CI_Model {
 			$email = $this->input->post('register_email_address');
 			$username = $this->input->post('register_username');
 			$password = $this->input->post('register_password');
+			$class_id = $this->input->post('register_class');
 			
 			// Get user profile data from input.
 			// You can add whatever columns you need to customise user tables.
@@ -141,7 +143,7 @@ class Demo_auth_model extends CI_Model {
 			// #1. Specify the group ID for the user to be added to (i.e. 'Moderator' / 'Public'), the default is set via the config file.
 			// #2. Set whether to automatically activate the account upon registration, default is FALSE. 
 			// Note: An account activation email will be automatically sent if auto activate is FALSE, or if an activation time limit is set by the config file.
-			$response = $this->flexi_auth->insert_user($email, $username, $password, $profile_data, 1, $instant_activate);
+			$response = $this->flexi_auth->insert_user($email, $username, $password, $class_id,$profile_data, 1, $instant_activate);
 
 			if ($response)
 			{

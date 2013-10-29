@@ -542,9 +542,9 @@ class Flexi_auth extends Flexi_auth_lite
 	 * @return void
 	 * @author Rob Hussey
 	 */
-	public function insert_user($email, $username = FALSE, $password, $user_data, $group_id = FALSE, $activate = FALSE) 
+	public function insert_user($email, $username = FALSE, $password, /* $class_id,*/ $user_data, $group_id = FALSE, $activate = FALSE) 
 	{
-		$user_id = $this->CI->flexi_auth_model->insert_user($email, $username, $password, $user_data, $group_id);
+		$user_id = $this->CI->flexi_auth_model->insert_user($email, $username, $password, /* $class_id,*/ $user_data, $group_id);
 
 		if ($user_id)
 		{
@@ -857,6 +857,20 @@ class Flexi_auth extends Flexi_auth_lite
 		$this->CI->flexi_auth_model->set_error_message('delete_unsuccessful', 'config');
 		return FALSE;
 	}
+	
+	
+	function add_student_to_class($user_id,$class_id)
+	{
+		if ($this->CI->flexi_auth_model->add_student_to_class($user_id, $class_id))
+		{
+			$this->CI->flexi_auth_model->set_status_message('update_successful', 'config');
+			return TRUE;
+		}
+
+		$this->CI->flexi_auth_model->set_error_message('update_unsuccessful', 'config');
+		return FALSE;
+	}
+	
 	
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###

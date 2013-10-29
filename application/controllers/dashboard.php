@@ -129,6 +129,9 @@ class Dashboard extends CI_Controller {
 		// Get user groups.
 		$this->data['groups'] = $this->flexi_auth->get_groups_array();
 		
+		// Get user groups.
+		$this->data['classes'] = $this->flexi_auth->get_classes_array();
+		
 		// Set any returned status/error messages.
 		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
 
@@ -330,7 +333,50 @@ class Dashboard extends CI_Controller {
 		$data['maincontent'] = $this->load->view('student_class_update_view', $this->data, TRUE);
 		$this->load->view('template-teacher', $data);	
 	}
-
+	
+	
+	function add_student_to_class($class_id) 
+	{
+		// Check user has privileges to update user groups, else display a message to notify the user they do not have valid privileges.
+		if (! $this->flexi_auth->is_privileged('Update Student Class'))
+		{
+			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to update student classes.</p>');
+			redirect('dashboard/manage_student_classes');		
+		}
+		
+		if ($this->input->post('update_class_user') && $this->flexi_auth->is_privileged('Update Student Class')) 
+		{
+			$this->load->model('demo_auth_admin_model');
+			$this->demo_auth_admin_model->update_class_students($class_id);
+		}
+		
+		
+		// Get all privilege data. 
+		$sql_select = array(
+			$this->flexi_auth->db_column('user_acc', 'id'),
+			$this->flexi_auth->db_column('user_acc', 'username'),
+			$this->flexi_auth->db_column('user_acc', 'email')
+		);
+		$this->data['users'] = $this->flexi_auth->get_users_array($sql_select);
+		
+		// Get data for the current privilege group.
+		$sql_select = array($this->flexi_auth->db_column('user_acc', 'id'));
+		$sql_where = array($this->flexi_auth->db_column('user_acc', 'class_id') => $class_id);
+		$class_users = $this->flexi_auth->get_users_array($sql_select, $sql_where);
+                
+		// For the purposes of the example demo view, create an array of ids for all the privileges that have been assigned to a privilege group.
+		// The array can then be used within the view to check whether the group has a specific privilege, this data allows us to then format form input values accordingly. 
+		$this->data['class_users'] = array();
+		
+		foreach($class_users as $class_user)
+		{	
+			echo
+			$this->data['class_users'][] = $class_user[$this->flexi_auth->db_column('user_acc', 'id')];
+		}
+		
+		$data['maincontent'] = $this->load->view('add_student_to_class_view', $this->data, TRUE);
+		$this->load->view('template-teacher', $data);
+	}
 
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	

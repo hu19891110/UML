@@ -157,7 +157,8 @@ class Demo_auth_admin_model extends CI_Model {
 			array('field' => 'update_last_name', 'label' => 'Last Name', 'rules' => 'required'),
 			array('field' => 'update_email_address', 'label' => 'Email Address', 'rules' => 'required|valid_email|identity_available['.$user_id.']'),
 			array('field' => 'update_username', 'label' => 'Username', 'rules' => 'min_length[4]|identity_available['.$user_id.']'),
-			array('field' => 'update_group', 'label' => 'User Group', 'rules' => 'required|integer')
+			array('field' => 'update_group', 'label' => 'User Group', 'rules' => 'required|integer'),
+			array('field' => 'update_class', 'label' => 'Student Class', 'rules' => 'required|integer')
 		);
 
 		$this->form_validation->set_rules($validation_rules);
@@ -175,7 +176,8 @@ class Demo_auth_admin_model extends CI_Model {
 				'upro_last_name' => $this->input->post('update_last_name'),
 				$this->flexi_auth->db_column('user_acc', 'email') => $this->input->post('update_email_address'),
 				$this->flexi_auth->db_column('user_acc', 'username') => $this->input->post('update_username'),
-				$this->flexi_auth->db_column('user_acc', 'group_id') => $this->input->post('update_group')
+				$this->flexi_auth->db_column('user_acc', 'group_id') => $this->input->post('update_group'),
+				$this->flexi_auth->db_column('user_acc', 'class_id') => $this->input->post('update_class')
 			);			
 
 			// If we were only updating profile data (i.e. no email, username or group included), we could use the 'update_custom_user_data()' function instead.
@@ -371,6 +373,55 @@ class Demo_auth_admin_model extends CI_Model {
 			redirect('dashboard/manage_student_classes');			
 		}
 	}
+	
+	
+	
+	function update_class_students($class_id)
+    {
+		// If user has privileges, delete users.
+		if ($this->flexi_auth->is_privileged('Update Student Class')) 
+		{
+			/*
+			if ($add_class_student = $this->input->post('$add_class_student'))
+			{
+				foreach($add_class_student as $user_id => $add)
+				{
+					// Note: As the 'delete_user' input is a checkbox, it will only be present in the $_POST data if it has been checked,
+					// therefore we don't need to check the submitted value.
+					$this->flexi_auth->add_student_to_class($user_id,$class_id);
+				}
+			}
+			*/
+			
+			foreach($this->input->post('update') as $row)
+			{
+				if ($row['current_status'] != $row['new_status'])
+				{
+					// Insert new user privilege.
+					if ($row['new_status'] == 1)
+					{
+						$this->flexi_auth->add_student_to_class($row['id'], $class_id);	
+						echo 'toevoegen';
+					}
+					// Delete existing user privilege.
+					else
+					{
+						echo 'verwijderen';
+						$this->flexi_auth->add_student_to_class($row['id'], 1);
+					}
+				}
+			}
+			
+			
+		}
+			
+		// Save any public or admin status or error messages to CI's flash session data.
+		$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+		
+		// Redirect user.
+		redirect('dashboard/add_student_to_class/'. $class_id .'');			
+	}
+	
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	// Privileges

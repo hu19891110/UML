@@ -78,6 +78,7 @@ DROP TABLE IF EXISTS `user_accounts`;
 CREATE TABLE `user_accounts` (
   `uacc_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `uacc_group_fk` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `uacc_class_fk` smallint(5) unsigned NOT NULL DEFAULT '0',
   `uacc_email` varchar(100) NOT NULL DEFAULT '',
   `uacc_username` varchar(15) NOT NULL DEFAULT '',
   `uacc_password` varchar(60) NOT NULL DEFAULT '',
@@ -98,6 +99,7 @@ CREATE TABLE `user_accounts` (
   PRIMARY KEY (`uacc_id`),
   UNIQUE KEY `uacc_id` (`uacc_id`),
   KEY `uacc_group_fk` (`uacc_group_fk`),
+  KEY `uacc_class_fk` (`uacc_class_fk`),
   KEY `uacc_email` (`uacc_email`),
   KEY `uacc_username` (`uacc_username`),
   KEY `uacc_fail_login_ip_address` (`uacc_fail_login_ip_address`)
@@ -106,9 +108,9 @@ CREATE TABLE `user_accounts` (
 -- ----------------------------
 -- Records of user_accounts
 -- ----------------------------
-INSERT INTO `user_accounts` VALUES ('1', '3', 'admin@admin.com', 'admin', '$2a$08$lSOQGNqwBFUEDTxm2Y.hb.mfPEAt/iiGY9kJsZsd4ekLJXLD.tCrq', '0.0.0.0', 'XKVT29q2Jr', '', '', '0000-00-00 00:00:00', '', '', '1', '0', '0', '', '0000-00-00 00:00:00', '2012-04-12 21:15:05', '2011-01-01 00:00:00');
-INSERT INTO `user_accounts` VALUES ('2', '2', 'moderator@moderator.com', 'moderator', '$2a$08$q.0ZhovC5ZkVpkBLJ.Mz.O4VjWsKohYckJNx4KM40MXdP/zEZpwcm', '0.0.0.0', 'ZC38NNBPjF', '', '', '0000-00-00 00:00:00', '', '', '1', '0', '0', '', '0000-00-00 00:00:00', '2012-04-10 21:58:02', '2011-08-04 16:49:07');
-INSERT INTO `user_accounts` VALUES ('3', '1', 'public@public.com', 'public', '$2a$08$GlxQ00VKlev2t.CpvbTOlepTJljxF2RocJghON37r40mbDl4vJLv2', '0.0.0.0', 'CDNFV6dHmn', '', '', '0000-00-00 00:00:00', '', '', '1', '0', '0', '', '0000-00-00 00:00:00', '2012-04-10 22:01:41', '2011-09-15 12:24:45');
+INSERT INTO `user_accounts` VALUES ('1', '3', '1', 'admin@admin.com', 'admin', '$2a$08$lSOQGNqwBFUEDTxm2Y.hb.mfPEAt/iiGY9kJsZsd4ekLJXLD.tCrq', '0.0.0.0', 'XKVT29q2Jr', '', '', '0000-00-00 00:00:00', '', '', '1', '0', '0', '', '0000-00-00 00:00:00', '2012-04-12 21:15:05', '2011-01-01 00:00:00');
+INSERT INTO `user_accounts` VALUES ('2', '2', '1', 'moderator@moderator.com', 'moderator', '$2a$08$q.0ZhovC5ZkVpkBLJ.Mz.O4VjWsKohYckJNx4KM40MXdP/zEZpwcm', '0.0.0.0', 'ZC38NNBPjF', '', '', '0000-00-00 00:00:00', '', '', '1', '0', '0', '', '0000-00-00 00:00:00', '2012-04-10 21:58:02', '2011-08-04 16:49:07');
+INSERT INTO `user_accounts` VALUES ('3', '1', '1', 'public@public.com', 'public', '$2a$08$GlxQ00VKlev2t.CpvbTOlepTJljxF2RocJghON37r40mbDl4vJLv2', '0.0.0.0', 'CDNFV6dHmn', '', '', '0000-00-00 00:00:00', '', '', '1', '0', '0', '', '0000-00-00 00:00:00', '2012-04-10 22:01:41', '2011-09-15 12:24:45');
 
 -- ----------------------------
 -- Table structure for `user_groups`
@@ -147,7 +149,7 @@ CREATE TABLE `student_classes` (
 -- ----------------------------
 -- Records of user_groups
 -- ----------------------------
-INSERT INTO `student_classes` VALUES ('1', 'Class 1', 'Class 1 description. ');
+INSERT INTO `student_classes` VALUES ('1', 'None', 'Student is not in a class.');
 
 -- ----------------------------
 -- Table structure for `user_login_sessions`

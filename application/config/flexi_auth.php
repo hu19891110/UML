@@ -56,6 +56,7 @@
 	$config['database']['user_acc']['join'] = 'user_accounts.uacc_id';
 	$config['database']['user_acc']['columns']['id'] = 'uacc_id';
 	$config['database']['user_acc']['columns']['group_id'] = 'uacc_group_fk';
+	$config['database']['user_acc']['columns']['class_id'] = 'uacc_class_fk';
 	$config['database']['user_acc']['columns']['email'] = 'uacc_email';
 	$config['database']['user_acc']['columns']['username'] = 'uacc_username'; 
 	$config['database']['user_acc']['columns']['password'] = 'uacc_password';
