@@ -9,7 +9,7 @@
  			 	<h2>check your UML files</h2>
  			 </div>
  			 <div class="large-3 columns koptekst">
- 			 	<span> Welcome <!-- <a href="<?php echo $base_url;?>dashboard/update_user_account/<?php echo $currentuser['uacc_id']; ?>"> --> <?php echo $currentuser['upro_first_name'].' '.$currentuser['upro_last_name']; ?></a></span> <br/> <br/>
+ 			 	<span> Welcome <a href="<?php echo $base_url;?>dashboard/update_user_account/<?php echo $currentuser['uacc_id']; ?>"> <?php echo $currentuser['upro_first_name'].' '.$currentuser['upro_last_name']; ?></a></span> <br/> <br/>
  			 	<a href="<?php echo site_url('logout') ?>">Logout</a> 
 
  			 </div>
@@ -89,8 +89,8 @@
       <li class="divider hide-for-small"></li>
       <li><a href="<?php echo site_url('register') ?>">Register new student</a></li>
       <li class="divider"></li>
-     <!-- <li><a href="<?php echo site_url('dashboard/manage_user_accounts') ?>">View all users</a></li>
-      <li class="divider"></li> -->
+      <li><a href="<?php echo site_url('dashboard/manage_user_accounts') ?>">View all users</a></li>
+      <li class="divider"></li>
       <li><a href="#">User Details</a></li>
       <li class="divider"></li>
       
