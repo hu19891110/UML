@@ -20,6 +20,21 @@
   '.js><\/script>')
   </script>
   
+  <script type="text/javascript">
+$('#passwordcheckbox').change(function(){
+    if ($('#passwordcheckbox').is(':checked') == true){
+      $('#password').prop('disabled', true);
+      $('#confirm_password').prop('disabled', true);
+      console.log('checked');
+   } else {
+     $('#password').prop('disabled', false);
+     $('#confirm_password').prop('disabled', false);
+     console.log('unchecked');
+   }
+
+});
+</script>
+  
   <script src="<?php echo $includes_dir;?>Foundation/js/foundation.min.js"></script>
   <script src="<?php echo $includes_dir;?>Foundation/js/foundation/foundation.topbar.js"></script>
   <!--

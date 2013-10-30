@@ -172,6 +172,79 @@ class Demo_auth_model extends CI_Model {
 		return FALSE;
 	}
 	
+	register_account_random_password()
+	{
+		$this->load->library('form_validation');
+
+		// Set validation rules.
+		// The custom rules 'identity_available' and 'validate_password' can be found in '../libaries/MY_Form_validation.php'.
+		$validation_rules = array(
+			array('field' => 'register_first_name', 'label' => 'First Name', 'rules' => 'required'),
+			array('field' => 'register_last_name', 'label' => 'Last Name', 'rules' => 'required'),
+			array('field' => 'register_email_address', 'label' => 'Email Address', 'rules' => 'required|valid_email|identity_available'),
+			array('field' => 'register_username', 'label' => 'Username', 'rules' => 'required|min_length[4]|identity_available'),
+			array('field' => 'register_class', 'label' => 'Student Class', 'rules' => 'required|integer')
+		);
+
+		$this->form_validation->set_rules($validation_rules);
+
+		// Run the validation.
+		if ($this->form_validation->run())
+		{
+			// Get user login details from input.
+			$email = $this->input->post('register_email_address');
+			$username = $this->input->post('register_username');
+			$class_id = $this->input->post('register_class');
+			
+			
+			
+			// Get user profile data from input.
+			// You can add whatever columns you need to customise user tables.
+			$profile_data = array(
+				'upro_first_name' => $this->input->post('register_first_name'),
+				'upro_last_name' => $this->input->post('register_last_name'),
+			);
+			
+			$this->load->model('flexi_auth_model');
+			$password = $this->flexi_auth_model->generate_token(10);
+			
+			// Set whether to instantly activate account.
+			// This var will be used twice, once for registration, then to check if to log the user in after registration.
+			$instant_activate = FALSE;
+	
+			// The last 2 variables on the register function are optional, these variables allow you to:
+			// #1. Specify the group ID for the user to be added to (i.e. 'Moderator' / 'Public'), the default is set via the config file.
+			// #2. Set whether to automatically activate the account upon registration, default is FALSE. 
+			// Note: An account activation email will be automatically sent if auto activate is FALSE, or if an activation time limit is set by the config file.
+			$response = $this->flexi_auth->insert_user($email, $username, $password, $class_id,$profile_data, 1, $instant_activate);
+
+			if ($response)
+			{
+				// This is an example 'Welcome' email that could be sent to a new user upon registration.
+				// Bear in mind, if registration has been set to require the user activates their account, they will already be receiving an activation email.
+				// Therefore sending an additional email welcoming the user may be deemed unnecessary.
+				$email_data = array('identity' => $email, 'username' => $username , 'password' => $password);
+				$this->flexi_auth->send_email($email, 'Welcome', 'registration_welcome.tpl.php', $email_data);
+				// Note: The 'registration_welcome.tpl.php' template file is located in the '../views/includes/email/' directory defined by the config file.
+				
+				###+++++++++++++++++###
+				
+				// Save any public status or error messages (Whilst suppressing any admin messages) to CI's flash session data.
+				$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+				
+				// This is an example of how to log the user into their account immeadiately after registering.
+				// This example would only be used if users do not have to authenticate their account via email upon registration.
+				
+				redirect('dashboard');
+			}
+		}
+
+		// Set validation errors.
+		$this->data['message'] = validation_errors('<p class="error_msg">', '</p>');
+
+		return FALSE;
+	}
+
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	// Account Activation
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	

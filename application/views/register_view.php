@@ -50,13 +50,18 @@
 								<?php } ?>
 								</select>
 							</li>
-							<li class="info_req">
-								<label for="password">Password:</label>
-								<input type="password" id="password" name="register_password" value="<?php echo set_value('register_password');?>"/>
+							<br><br>
+							<li>
+								<label for="class">Register with random password:</label>
+								<input type="checkbox" id="passwordcheckbox" value="1" name="register_random_password" checked="checked"> 
 							</li>
-							<li class="info_req">
+							<li class="password_textbox">
+								<label for="password">Password:</label>
+								<input type="password" id="password" name="register_password" value="<?php echo set_value('register_password');?>" disabled/>
+							</li>
+							<li class="password_confirm_textbox">
 								<label for="confirm_password">Confirm Password:</label>
-								<input type="password" id="confirm_password" name="register_confirm_password" value="<?php echo set_value('register_confirm_password');?>"/>
+								<input type="password" id="confirm_password" name="register_confirm_password" value="<?php echo set_value('register_confirm_password');?>" disabled/>
 							</li>				
 						</ul>
 						<input type="submit" name="register_user" id="submit" value="Submit" class="small button"/>
@@ -64,4 +69,18 @@
 					
 
 				<?php echo form_close();?>
-	</div> <!-- end large 12 columns -->	
+	</div> <!-- end large 12 columns -->
+<script type="text/javascript">
+$('#passwordcheckbox').change(function(){
+    if ($('#passwordcheckbox').is(':checked') == true){
+      $('#password').prop('disabled', true);
+      $('#confirm_password').prop('disabled', true);
+      console.log('checked');
+   } else {
+     $('#password').prop('disabled', false);
+     $('#confirm_password').prop('disabled', false);
+     console.log('unchecked');
+   }
+
+});
+</script>

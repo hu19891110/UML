@@ -2423,7 +2423,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$this->email->to($email_to);
 		$this->email->subject($this->login->email_settings['site_title'] ." ". $email_title);
 		$this->email->message($message);
-			
+		
 		return $this->email->send();
 	}
 	
@@ -2463,7 +2463,7 @@ function register_account()
 		);
 
 		$this->form_validation->set_rules($validation_rules);
-		echo 'jo';
+		
 		// Run the validation.
 		if ($this->form_validation->run())
 		{

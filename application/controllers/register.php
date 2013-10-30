@@ -45,10 +45,18 @@ class Register extends CI_Controller {
 	function register_account()
 	{
 		// If 'Registration' form has been submitted, attempt to register their details as a new account.
+		if (!empty($_POST['register_random_password'])) {
+			$register_random = TRUE;
+		}
 		if ($this->input->post('register_user'))
-		{		
-			$this->load->model('demo_auth_model');
-			$this->demo_auth_model->register_account();
+		{	
+			if ($register_random) {
+				$this->load->model('demo_auth_model');
+				$this->demo_auth_model->register_account_random_password();
+			} else {
+				$this->load->model('demo_auth_model');
+				$this->demo_auth_model->register_account();
+			}
 		}
 		
 		// Get any status message that may have been set.

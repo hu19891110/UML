@@ -46,6 +46,23 @@ $config['index_page'] = '';
 */
 $config['uri_protocol']	= 'AUTO';
 
+
+/*
+|--------------------------------------------------------------------------
+| EMAIL PROTOCOL
+|--------------------------------------------------------------------------
+|*/
+
+$config['protocol'] = 'smtp';
+$config['smtp_host'] = 'ssl://smtp.googlemail.com';
+$config['smtp_port'] = 465;
+//$config['smtp_crypto'] = 'ssl';
+$config['smtp_user'] = 'UMLchecker5IT@gmail.com';
+$config['smtp_pass'] = 'Umlchecker5';
+//$config['mailtype'] = 'html';
+
+
+
 /*
 |--------------------------------------------------------------------------
 | URL suffix
