@@ -23,6 +23,47 @@
 						</ul>
 					</fieldset>
 					
+<<<<<<< HEAD
+					<fieldset>
+						<legend>Login Details</legend>
+						<ul>
+							<li class="info_req">
+								<label for="email_address">Email Address:</label>
+								<input type="text" id="email_address" name="register_email_address" value="<?php echo set_value('register_email_address');?>" class="tooltip_trigger"
+									title="This demo requires that upon registration, you will need to activate your account via clicking a link that is sent to your email address."
+								/>
+							</li>
+							<li class="info_req">
+								<label for="username">Username:</label>
+								<input type="text" id="username" name="register_username" value="<?php echo set_value('register_username');?>" class="tooltip_trigger"
+									title="Set a username that can be used to login with."
+								/>
+							</li>
+							</li>
+							<!-- HIJ STAAT ER TOCH GODVERDOMME ECHT HOOR LAU! -->
+							<li class="info_req">
+								<label for="class">Student Class:</label>
+								<select id="class" name="register_class" class="tooltip_trigger"
+									title="Set the students class.">
+								<?php foreach($classes as $class) { ?>
+									<option value="<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>" >
+										<?php echo $class[$this->flexi_auth->db_column('student_class', 'name')];?>
+									</option>
+								<?php } ?>
+								</select>
+							</li>
+							<li class="info_req">
+								<label for="password">Password:</label>
+								<input type="password" id="password" name="register_password" value="<?php echo set_value('register_password');?>"/>
+							</li>
+							<li class="info_req">
+								<label for="confirm_password">Confirm Password:</label>
+								<input type="password" id="confirm_password" name="register_confirm_password" value="<?php echo set_value('register_confirm_password');?>"/>
+							</li>				
+						</ul>
+						<input type="submit" name="register_user" id="submit" value="Submit" class="small button"/>
+					</fieldset>
+					
 				<fieldset>
 					<legend>Login Details</legend>
 					<ul>
