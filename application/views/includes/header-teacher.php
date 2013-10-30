@@ -94,6 +94,7 @@
       <li><a href="<?php echo site_url('dashboard/manage_student_classes') ?>">View All Classes</a></li>
       <li class="divider"></li>
       <li><a href="<?php echo $base_url;?>dashboard/update_user_account/<?php echo $currentuser['uacc_id']; ?>">User Details</a></li>
+      <li><a href="<?php echo site_url('dashboard/update_user_account/1') ?>">User Details</a></li>
       <li class="divider"></li>
       
       <!--  

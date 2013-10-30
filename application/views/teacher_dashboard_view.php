@@ -49,10 +49,10 @@
 		
 			<div id="box-6" class="box">
 		<img id="image-6" src="../includes/images/userdetails.jpg"/>
-		<span class="caption scale-caption">
+		<a href="<?php echo site_url('dashboard/update_user_account/1') ?>"><span class="caption scale-caption">
 			<h3></h3>
 			<p> </p>
-		</span>
+		</span></a>
 		</div>
 		
 	</div> <!-- mainwrapper --> 	
