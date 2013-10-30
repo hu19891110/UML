@@ -89,9 +89,11 @@
       <li class="divider hide-for-small"></li>
       <li><a href="<?php echo site_url('register') ?>">Register new student</a></li>
       <li class="divider"></li>
-      <li><a href="<?php echo site_url('dashboard/manage_user_accounts') ?>">View all users</a></li>
+      <li><a href="<?php echo site_url('dashboard/manage_user_accounts') ?>">View all Users</a></li>
       <li class="divider"></li>
-      <li><a href="#">User Details</a></li>
+      <li><a href="<?php echo site_url('dashboard/manage_student_classes') ?>">View All Classes</a></li>
+      <li class="divider"></li>
+      <li><a href="<?php echo $base_url;?>dashboard/update_user_account/<?php echo $currentuser['uacc_id']; ?>">User Details</a></li>
       <li class="divider"></li>
       
       <!--  
