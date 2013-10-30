@@ -91,7 +91,7 @@
       <li class="divider"></li>
       <li><a href="<?php echo site_url('dashboard/manage_user_accounts') ?>">View all users</a></li>
       <li class="divider"></li>
-      <li><a href="#">User Details</a></li>
+      <li><a href="<?php echo site_url('dashboard/update_user_account/1') ?>">User Details</a></li>
       <li class="divider"></li>
       
       <!--  
