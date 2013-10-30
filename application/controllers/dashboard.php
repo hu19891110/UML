@@ -28,8 +28,8 @@ class Dashboard extends CI_Controller {
 		
 		$this->data = null;
 		
-		$this->load->vars('base_url', 'http://localhost:8888/');
-		$this->load->vars('includes_dir', 'http://localhost:8888/includes/');
+		$this->load->vars('base_url', 'http://'.$_SERVER['HTTP_HOST'].'/');
+		$this->load->vars('includes_dir', 'http://'.$_SERVER['HTTP_HOST'].'/includes/');
 		$this->load->vars('current_url', $this->uri->uri_to_assoc(1));
 		
 		$currentuser_id = $this->flexi_auth->get_user_id();
