@@ -9,8 +9,8 @@
 			<?php } ?>
 							
 				<?php echo form_open(current_url()); ?>  	
-					<fieldset>
-						<legend>Personal Details</legend>
+					
+						<h3>Personal Details</h3>
 						<ul>
 							<li class="info_req">
 								<label for="first_name">First Name:</label>
@@ -21,11 +21,9 @@
 								<input type="text" id="last_name" name="register_last_name" value="<?php echo set_value('register_last_name');?>"/>
 							</li>
 						</ul>
-					</fieldset>
-					
-<<<<<<< HEAD
-					<fieldset>
-						<legend>Login Details</legend>
+				
+				
+						<h3>Login Details</h3>
 						<ul>
 							<li class="info_req">
 								<label for="email_address">Email Address:</label>
@@ -61,7 +59,7 @@
 							</li>				
 						</ul>
 						<input type="submit" name="register_user" id="submit" value="Submit" class="small button"/>
-					</fieldset>
+					
 					
 				<fieldset>
 					<legend>Login Details</legend>
