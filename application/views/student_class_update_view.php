@@ -1,7 +1,6 @@
 <!-- Main Content -->
 	<div class="large-12 columns padding">
 				<h2>Update User Class</h2>
-				<a href="<?php echo $base_url;?>dashboard/manage_student_classes">Manage User classes</a>
 
 			<?php if (! empty($message)) { ?>
 				<div id="message">
@@ -27,6 +26,8 @@
 					<a class="button small" href="<?php echo $base_url;?>dashboard/add_student_to_class/<?php echo $class_id; ?>">Add/remove students</a>
 				
 					<input type="submit" name="update_student_class" id="submit" value="Update class" class="button small"/>
+					<br/> <br/>
+					<a href="<?php echo $base_url;?>dashboard/manage_student_classes">Manage User classes</a>
 			
 				<?php echo form_close();?>
 	</div>	

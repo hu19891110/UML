@@ -47,7 +47,7 @@
 								</td>
 								<td>
 									<a href="<?php echo $base_url.'dashboard/update_user_account/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>">
-									Update
+									Edit
 									</a>
 								</td>
 								<!--
