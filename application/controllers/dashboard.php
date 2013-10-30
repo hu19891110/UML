@@ -260,6 +260,19 @@ class Dashboard extends CI_Controller {
 			redirect('dashboard');		
 		}
 		
+		
+		if ($this->input->post('delete_class') && $this->flexi_auth->is_privileged('Delete Student Class')) 
+		{
+			if ($delete_classes = $this->input->post('delete_class'))
+			{
+				foreach($delete_classes as $class_id => $delete)
+				{
+					// Note: As the 'delete_class' input is a checkbox, it will only be present in the $_POST data if it has been checked,
+					// therefore we don't need to check the submitted value.
+					$this->flexi_auth->delete_class($class_id);
+				}
+			}
+		}
 		// Define the group data columns to use on the view page. 
 		// Note: The columns defined using the 'db_column()' functions are native table columns to the auth library. 
 		// Read more on 'db_column()' functions in the quick help section near the top of this controller. 

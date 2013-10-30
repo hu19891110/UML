@@ -38,11 +38,11 @@
 								
 								<td class="align_ctr">
 								<?php if ($this->flexi_auth->is_privileged('Delete Student Class')) { ?>
-									<input type="checkbox" name="delete_group[<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>]" value="1"/>
+									<input type="checkbox" name="delete_class[<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>]" value="1"/>
 								<?php } else { ?>
 									<input type="checkbox" disabled="disabled"/>
 									<small>Not Privileged</small>
-									<input type="hidden" name="delete_group[<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>]" value="0"/>
+									<input type="hidden" name="delete_class[<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>]" value="0"/>
 								<?php } ?>
 								</td>
 							</tr>
@@ -50,8 +50,8 @@
 						</tbody>
 						<tfoot>
 							<td colspan="5">
-								<?php $disable = (! $this->flexi_auth->is_privileged('Update User Groups') && ! $this->flexi_auth->is_privileged('Delete User Groups')) ? 'disabled="disabled"' : NULL;?>
-								<input type="submit" name="submit" value="Delete Checked User Groups" class="link_button large" <?php echo $disable; ?>/>
+								<?php $disable = (! $this->flexi_auth->is_privileged('Update Student Class') && ! $this->flexi_auth->is_privileged('Delete Student Class')) ? 'disabled="disabled"' : NULL;?>
+								<input type="submit" name="submit" value="Delete Checked Student Classes" class="link_button large" <?php echo $disable; ?>/>
 							</td>
 						</tfoot>
 					</table>
