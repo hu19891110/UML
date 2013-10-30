@@ -1,7 +1,5 @@
 <!-- Main Content -->
-	<div class="content_wrap main_content_bg">
-		<div class="content clearfix">
-			<div class="col100">
+	<div class="large-12 columns padding">
 				<h2>Update User Group Privileges of Group '<?php echo $group['ugrp_name']; ?>'</h2>
 				<a href="<?php echo $base_url;?>dashboard/manage_user_groups">Manage User Groups</a> | 
 				<a href="<?php echo $base_url;?>dashboard/update_user_group/<?php echo $group['ugrp_id']; ?>">Update User Group</a>
@@ -60,6 +58,4 @@
 						</tfoot>
 					</table>					
 				<?php echo form_close();?>
-			</div>
-		</div>
 	</div>	

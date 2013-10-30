@@ -1,8 +1,5 @@
 <!-- Main Content -->
-	<div class="content_wrap main_content_bg">
-		<div class="content clearfix">
-			<div class="col100">
-			
+	<div class="large-12 columns padding">
 			<?php if (! empty($message)) { ?>
 				<div id="message">
 					<?php echo $message; ?>
@@ -62,6 +59,4 @@
 						*/?>
 					</table>					
 				<?php echo form_close();?>
-			</div>
-		</div>
-	</div>	
+	</div>

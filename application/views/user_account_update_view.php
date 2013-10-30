@@ -1,6 +1,5 @@
 	<div class="large-12 columns padding">
 				<h2>Update Account of <?php echo $user['upro_first_name'].' '.$user['upro_last_name']; ?></h2>
-				<a href="<?php echo $base_url;?>dashboard/manage_user_accounts">Manage User Accounts</a>
 
 			<?php if (! empty($message)) { ?>
 				<div id="message">
@@ -9,8 +8,8 @@
 			<?php } ?>
 				
 				<?php echo form_open(current_url());?>  	
-					<fieldset>
-						<legend>Personal Details</legend>
+					
+						<h3>Personal Details</h3>
 						<ul>
 							<li class="info_req">
 								<label for="first_name">First Name:</label>
@@ -21,10 +20,10 @@
 								<input type="text" id="last_name" name="update_last_name" value="<?php echo set_value('update_last_name',$user['upro_last_name']);?>"/>
 							</li>
 						</ul>
-					</fieldset>
 					
-					<fieldset>
-						<legend>Login Details</legend>
+					
+				
+						<h3>Login Details</h3>
 						<ul>
 							<li class="info_req">
 								<label for="email_address">Email Address:</label>
@@ -64,29 +63,16 @@
 							</li>
 							<li>
 								<label>Privileges:</label>
-								<a href="<?php echo $base_url.'dashboard/update_user_privileges/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>" class="tooltip_trigger"
-									title="Manage a users access privileges.">Manage User Privileges</a>
+								 <a style="font-size:14px;" href="<?php echo $base_url.'dashboard/update_user_privileges/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>" class="tooltip_trigger"
+									title="Manage a users access privileges."> >> Manage User Privileges</a> 
 							</li>
 						</ul>
-					</fieldset>
-					
-					<fieldset>
-						<legend>Update Account</legend>
-						<ul>
-							<li>
-								<label for="submit">Update Account:</label>
-								<input type="submit" name="update_users_account" id="submit" value="Submit" class="small button"/>
-							</li>
-						</ul>
-					</fieldset>
-					<fieldset>
-						<legend>Delete Account</legend>
-						<ul>
-							<li>
-								<label for="submit">Delete Account:</label>
-								<input type="submit" name="delete_users_account" id="delete" value="Delete" class="small button"/>
-							</li>
-						</ul>
-					</fieldset>
+
+								<input type="submit" name="update_users_account" id="submit" value="Update Account" class="small button"/>
+				
+								
+								<input type="submit" name="delete_users_account" id="delete" value="Delete Account" class="small button"/>
+				
+			
 				<?php echo form_close();?>
 	</div> <!-- end large 12 columns -->
