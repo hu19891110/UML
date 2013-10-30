@@ -24,6 +24,7 @@ class Dashboard extends CI_Controller {
 			redirect('login');
 		}
 		
+		//$this->output->enable_profiler(TRUE);
 		
 		$this->data = null;
 		
@@ -327,6 +328,7 @@ class Dashboard extends CI_Controller {
 		$sql_where = array($this->flexi_auth->db_column('student_class', 'id') => $class_id);
 		$this->data['class'] = $this->flexi_auth->get_classes_row_array(FALSE, $sql_where);
 		
+		$this->data['class_id'] = $class_id;
 		// Set any returned status/error messages.
 		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
 
@@ -344,12 +346,26 @@ class Dashboard extends CI_Controller {
 			redirect('dashboard/manage_student_classes');		
 		}
 		
-		if ($this->input->post('update_class_user') && $this->flexi_auth->is_privileged('Update Student Class')) 
-		{
-			$this->load->model('demo_auth_admin_model');
-			$this->demo_auth_admin_model->update_class_students($class_id);
+		if (!empty($_POST)) {	
+			foreach($_POST as $key => $value)
+			{
+			
+			   if(substr($key,0,11) == "add_student")
+			   {
+			      $user_id = substr($key,11);
+			      $sql_update = array($this->login->tbl_col_user_account['class_id'] => $class_id);
+				  $sql_where = array($this->login->tbl_col_user_account['id'] => $user_id);
+				  $this->db->update($this->login->tbl_user_account, $sql_update, $sql_where);
+			   }
+			   else if(substr($key,0,14) == "remove_student")
+			   {
+			      $user_id = substr($key,14);
+			      $sql_update = array($this->login->tbl_col_user_account['class_id'] => 1);
+				  $sql_where = array($this->login->tbl_col_user_account['id'] => $user_id);
+				  $this->db->update($this->login->tbl_user_account, $sql_update, $sql_where);
+			   }
+			}
 		}
-		
 		
 		// Get all privilege data. 
 		$sql_select = array(

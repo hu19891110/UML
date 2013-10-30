@@ -31,8 +31,10 @@
 						<?php foreach ($users as $user) { ?>
 							<tr>
 								<td>
-									<input type="hidden" name="update[<?php echo $user[$this->flexi_auth->db_column('user_acc', 'id')]; ?>][id]" value="<?php echo $user[$this->flexi_auth->db_column('user_acc', 'id')]; ?>"/>
+									<input type="hidden" name="id" value="<?php echo $user[$this->flexi_auth->db_column('user_acc', 'id')]; ?>"/>
+									<a href="<?php echo $base_url;?>dashboard/update_user_account/<?php echo $user[$this->flexi_auth->db_column('user_acc', 'id')];?>">
 									<?php echo $user[$this->flexi_auth->db_column('user_acc', 'username')];?>
+									</a>
 									
 								</td>
 								<td><?php echo $user[$this->flexi_auth->db_column('user_acc', 'email')];?></td>
@@ -41,16 +43,15 @@
 										<?php
 										// Define form input values.
 										$current_status = (in_array($user[$this->flexi_auth->db_column('user_acc', 'id')], $class_users)) ? 1 : 0; 
-										$new_status = (in_array($user[$this->flexi_auth->db_column('user_acc', 'id')], $class_users)) ? 'checked="checked"' : NULL;
-									?>
-
-									<input type="hidden" name="update[<?php echo $user[$this->flexi_auth->db_column('user_acc', 'id')];?>][current_status]" value="<?php echo $current_status ?>"/>
-									<input type="hidden" name="update[<?php echo $user[$this->flexi_auth->db_column('user_acc', 'id')];?>][new_status]" value="0"/> 
-									<input type="checkbox" name="update[<?php echo $user[$this->flexi_auth->db_column('user_acc', 'id')];?>][new_status]" value="<?php echo $current_status ?>" <?php echo $new_status ?>/>
+									
+										$action_button = ($current_status == 0) ? '<input type="submit" name="add_student'.$user[$this->flexi_auth->db_column('user_acc', 'id')].'" value="Add student" />' : '<input type="submit" name="remove_student'.$user[$this->flexi_auth->db_column('user_acc', 'id')].'" value="Remove student"/>' ;
+										?>
+								<?php echo $action_button; ?>
 								</td>
 							</tr>
 						<?php }  ?>
 						</tbody>
+						<?/*
 						<tfoot>
 							<tr>
 								<td colspan="3">
@@ -58,6 +59,7 @@
 								</td>
 							</tr>
 						</tfoot>
+						*/?>
 					</table>					
 				<?php echo form_close();?>
 			</div>

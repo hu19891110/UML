@@ -859,9 +859,9 @@ class Flexi_auth extends Flexi_auth_lite
 	}
 	
 	
-	function add_student_to_class($user_id,$class_id)
+	function add_student_to_class($user_id,$user_data)
 	{
-		if ($this->CI->flexi_auth_model->add_student_to_class($user_id, $class_id))
+		if ($this->CI->flexi_auth_model->update_user($user_id, $user_data))
 		{
 			$this->CI->flexi_auth_model->set_status_message('update_successful', 'config');
 			return TRUE;

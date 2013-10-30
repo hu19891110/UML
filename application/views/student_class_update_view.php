@@ -27,7 +27,15 @@
 							</li>
 						</ul>
 					</fieldset>
-									
+					<fieldset>
+						<legend>Add/Remove students</legend>
+						<ul>
+							<li>
+								<a href="<?php echo $base_url;?>dashboard/add_student_to_class/<?php echo $class_id; ?>">Add/remove students</a>
+								
+							</li>
+						</ul>
+					</fieldset>				
 					<fieldset>
 						<legend>Update Class Details</legend>
 						<ul>

@@ -615,25 +615,6 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		return $this->db->affected_rows() == 1;	
 	}
 	
-	function add_student_to_class($user_id, $class_id)
-	{
-		
-		/*
-		$update = array (
-			'uacc_class_fk' => $class_id;
-		)
-		
-		$his->db->where(id, $user_id);	
-		$this->db->update('user_accounts', $update);
-		*/
-		
-		$sql_update = array($this->login->tbl_col_user_account['class_id'] => $class_id);
-		
-		$sql_where = array($this->login->tbl_col_user_account['id'] => $user_id);
-			
-		$this->db->update($this->login->tbl_user_account, $sql_update, $sql_where);
-	}
-	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	
 	/**
