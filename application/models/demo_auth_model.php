@@ -113,7 +113,7 @@ class Demo_auth_model extends CI_Model {
 			array('field' => 'register_email_address', 'label' => 'Email Address', 'rules' => 'required|valid_email|identity_available'),
 			array('field' => 'register_username', 'label' => 'Username', 'rules' => 'required|min_length[4]|identity_available'),
 			array('field' => 'register_class', 'label' => 'Student Class', 'rules' => 'required|integer'),
-			array('field' => 'register_password', 'label' => 'Password', 'rules' => 'required|validate_password')
+			
 		);
 
 		$this->form_validation->set_rules($validation_rules);

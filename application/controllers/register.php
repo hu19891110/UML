@@ -10,7 +10,7 @@ class Register extends CI_Controller {
 		$this->load->library('session');
 		$this->load->helper('url');
  		$this->load->helper('form');
-			
+		$this->load->helper('string');	
 			
 		$this->login = new stdClass;
 		
@@ -26,8 +26,8 @@ class Register extends CI_Controller {
 
 		}
 		
-		$this->load->vars('base_url', 'http://'.$_SERVER['HTTP_HOST'].'/');
-		$this->load->vars('includes_dir', 'http://'.$_SERVER['HTTP_HOST'].'/includes/');
+		$this->load->vars('base_url', 'http://localhost/UML/');
+		$this->load->vars('includes_dir', 'http://localhost/UML/includes/');
 		$this->load->vars('current_url', $this->uri->uri_to_assoc(1));
 		
 		$this->data = null;		
@@ -54,7 +54,6 @@ class Register extends CI_Controller {
 		// Get any status message that may have been set.
 		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
 
-		$this->data['classes'] = $this->flexi_auth->get_classes_array();
 
 		$data['maincontent'] = $this->load->view('register_view', $this->data, TRUE);
 		$this->load->view('template-teacher', $data);	
