@@ -39,6 +39,7 @@
 								/>
 							</li>
 							</li>
+							<!-- HIJ STAAT ER TOCH GODVERDOMME ECHT HOOR LAU! -->
 							<li class="info_req">
 								<label for="class">Student Class:</label>
 								<select id="class" name="register_class" class="tooltip_trigger"
