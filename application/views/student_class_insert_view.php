@@ -1,7 +1,6 @@
 	<!-- Main Content -->
 	<div class="large-12 columns padding">
 				<h2>Insert New Student Class</h2>
-				<a href="<?php echo $base_url;?>dashboard/manage_student_classes">Manage student classes</a>
 
 			<?php if (! empty($message)) { ?>
 				<div id="message">
@@ -10,8 +9,8 @@
 			<?php } ?>
 				
 				<?php echo form_open(current_url());	?>  	
-					<fieldset>
-						<legend>Class Details</legend>
+				
+						<h3>Class Details</h3>
 						<ul>
 							<li class="info_req">
 								<label for="class">Class Name:</label>
@@ -24,16 +23,10 @@
 									title="A short description of the purpose of the student class."><?php echo set_value('insert_class_description');?></textarea>
 							</li>
 						</ul>
-					</fieldset>
-
-					<fieldset>
-						<legend>Insert New Student Class</legend>
-						<ul>
-							<li>
-								<label for="submit">Insert Class:</label>
-								<input type="submit" name="insert_student_class"id="submit" value="Submit" class="link_button large"/>
-							</li>
-						</ul>
-					</fieldset>
+		
+						<input type="submit" name="insert_student_class"id="submit" value="Insert new student class" class="button small"/>
+					<br/> <br/>
+					<a href="<?php echo $base_url;?>dashboard/manage_student_classes">Manage student classes</a>
+			
 				<?php echo form_close();?>
 	</div>	

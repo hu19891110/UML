@@ -10,8 +10,7 @@
 			<?php } ?>
 				
 				<?php echo form_open(current_url());	?>  	
-					<fieldset>
-						<legend>Class Details</legend>
+						<h3>Class Details</h3>
 						<ul>
 							<li class="info_req">
 								<label for="class">Class Name:</label>
@@ -24,24 +23,10 @@
 									title="A short description of the purpose of the user class."><?php echo set_value('update_class_description', $class[$this->flexi_auth->db_column('student_class', 'description')]);?></textarea>
 							</li>
 						</ul>
-					</fieldset>
-					<fieldset>
-						<legend>Add/Remove students</legend>
-						<ul>
-							<li>
-								<a href="<?php echo $base_url;?>dashboard/add_student_to_class/<?php echo $class_id; ?>">Add/remove students</a>
-								
-							</li>
-						</ul>
-					</fieldset>				
-					<fieldset>
-						<legend>Update Class Details</legend>
-						<ul>
-							<li>
-								<label for="submit">Update Class:</label>
-								<input type="submit" name="update_student_class" id="submit" value="Submit" class="link_button large"/>
-							</li>
-						</ul>
-					</fieldset>
+
+					<a class="button small" href="<?php echo $base_url;?>dashboard/add_student_to_class/<?php echo $class_id; ?>">Add/remove students</a>
+				
+					<input type="submit" name="update_student_class" id="submit" value="Update class" class="button small"/>
+			
 				<?php echo form_close();?>
 	</div>	

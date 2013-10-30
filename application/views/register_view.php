@@ -1,6 +1,6 @@
 	<div class="large-12 columns padding">
 
-				<h2>Register Account</h2>
+				<h2>Register New Student</h2>
 
 			<?php if (! empty($message)) { ?>
 				<div id="message">

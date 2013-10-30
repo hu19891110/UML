@@ -1,7 +1,6 @@
 <!-- Main Content -->
 	<div class="large-12 columns padding">
-				<h2>Manage Student Classes</h2>
-				<a href="<?php echo $base_url;?>dashboard/insert_student_class">Insert New Student Class</a>
+				<h2>Manage Student Classes</h2> 
 
 			<?php if (! empty($message)) { ?>
 				<div id="message">
@@ -56,6 +55,8 @@
 							</td>
 						</tfoot>
 					</table>
+					
+					<a href="<?php echo $base_url;?>dashboard/insert_student_class">Insert New Student Class</a>
 					
 				<?php echo form_close();?>
 	</div>	
