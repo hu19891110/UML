@@ -1,3 +1,4 @@
+
 	<meta charset="utf-8" />
 	<meta name="robots" content="index, follow"/>
 	<meta name="designer" content="Five-IT"/> 
@@ -12,7 +13,5 @@
 	<link rel="stylesheet" href="<?php echo $includes_dir;?>css/style.css">
 	<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
 	
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 	<script type="text/javascript" src="<?php echo $includes_dir;?>Foundation/tables/responsive-tables.js"></script>
 	<script src="<?php echo $includes_dir;?>Foundation/js/vendor/custom.modernizr.js"></script>
-	

@@ -615,7 +615,6 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		return $this->db->affected_rows() == 1;	
 	}
 	
-	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	
 	/**
@@ -2464,6 +2463,7 @@ function register_account()
 		);
 
 		$this->form_validation->set_rules($validation_rules);
+		echo 'jo';
 		// Run the validation.
 		if ($this->form_validation->run())
 		{
