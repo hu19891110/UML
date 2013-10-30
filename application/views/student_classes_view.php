@@ -54,7 +54,7 @@
 						<tfoot>
 							<td colspan="5">
 								<?php $disable = (! $this->flexi_auth->is_privileged('Update User Groups') && ! $this->flexi_auth->is_privileged('Delete User Groups')) ? 'disabled="disabled"' : NULL;?>
-								<input type="submit" name="submit" value="Delete Checked Classes" class="link_button large" <?php echo $disable; ?>/>
+								<input type="submit" name="submit" value="Delete Checked User Groups" class="link_button large" <?php echo $disable; ?>/>
 							</td>
 						</tfoot>
 					</table>
