@@ -37,6 +37,11 @@
 									title="Set the users username that they can use to login with."
 								/>
 							</li>
+							<li>
+								<label for="password">Password:</label>
+								<a href="<?php echo $base_url.'dashboard/change_password/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>" class="tooltip_trigger small button" title="Manage a users access privileges."> Change password</a>
+							</li>
+							
 							<li class="info_req">
 								<label for="group">Group:</label>
 								<select id="group" name="update_group" class="tooltip_trigger"
@@ -61,15 +66,10 @@
 								<?php } ?>
 								</select>
 							</li>
-							<li>
-								<label>Privileges:</label>
-								 <a style="font-size:14px;" href="<?php echo $base_url.'dashboard/update_user_privileges/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>" class="tooltip_trigger"
-									title="Manage a users access privileges."> >> Manage User Privileges</a> 
-							</li>
 						</ul>
 
 								<input type="submit" name="update_users_account" id="submit" value="Update Account" class="small button"/>
-				
+								<a href="<?php echo $base_url.'dashboard/update_user_privileges/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>" class="tooltip_trigger small button" title="Manage a users access privileges."> Manage User Privileges</a>
 								
 								<input type="submit" name="delete_users_account" id="delete" value="Delete Account" class="small button"/>
 				

@@ -351,8 +351,13 @@ class Demo_auth_model extends CI_Model {
 	 * change_password
 	 * Updates a users password.
 	 */
-	function change_password()
+	function change_password($user_id)
 	{
+		if (! $this->flexi_auth->is_privileged('Update Users') && ($user_id != $this->flexi_auth->get_user_id()))
+		{
+			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to update user accounts.</p>');
+			redirect('dashboard');		
+		}
 		$this->load->library('form_validation');
 
 		// Set validation rules.
@@ -369,7 +374,7 @@ class Demo_auth_model extends CI_Model {
 		if ($this->form_validation->run())
 		{
 			// Get password data from input.
-			$identity = $this->flexi_auth->get_user_identity();
+			$identity = $user_id;
 			$current_password = $this->input->post('current_password');
 			$new_password = $this->input->post('new_password');			
 			
@@ -381,7 +386,7 @@ class Demo_auth_model extends CI_Model {
 
 			// Redirect user.
 			// Note: As an added layer of security, you may wish to email the user that their password has been updated.
-			($response) ? redirect('auth_public/dashboard') : redirect('auth_public/change_password');
+			($response) ? redirect('dashboard') : redirect('dashboard/change_password/');
 		}
 		else
 		{		

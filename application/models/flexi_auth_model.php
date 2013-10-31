@@ -1151,7 +1151,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	    if ($this->verify_password($identity, $current_password))
 	    {
 			// Remove 'Remember me' database sessions so all remembered instances have to re-login, whilst maintaining current login session
-			$user_id = $this->login->session_data[$this->login->session_name['user_id']];
+			$user_id = $identity;
 			
 			if ($session_token = $this->login->session_data[$this->login->session_name['login_session_token']])
 			{

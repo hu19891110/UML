@@ -105,7 +105,8 @@ class Dashboard extends CI_Controller {
     function update_user_account($user_id)
 	{
 		// Check user has privileges to update user accounts, else display a message to notify the user they do not have valid privileges.
-		if (! $this->flexi_auth->is_privileged('Update Users'))
+	
+		if (! $this->flexi_auth->is_privileged('Update Users') && ($user_id != $this->flexi_auth->get_user_id()))
 		{
 			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to update user accounts.</p>');
 			redirect('dashboard');		
@@ -637,6 +638,32 @@ class Dashboard extends CI_Controller {
 		$data['maincontent'] = $this->load->view('user_group_privileges_update_view', $this->data, TRUE);
 		$this->load->view('template-teacher', $data);			
     }
+    
+    
+function change_password($user_id)
+	{
+		if (! $this->flexi_auth->is_privileged('Update Users') && ($user_id != $this->flexi_auth->get_user_id()))
+		{
+			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to update user accounts.</p>');
+			redirect('dashboard');		
+		}
+		// If the 'Change Forgotten Password' form has been submitted, then update the users password.
+		if ($this->input->post('change_password')) 
+		{
+			$this->load->model('demo_auth_model');
+			$this->demo_auth_model->change_password($user_id);
+		}
+		
+		// Get any status message that may have been set.
+		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
+
+		$data['maincontent'] = $this->load->view('change_password_view', $this->data, TRUE);
+		if ($this->flexi_auth->is_admin()) {
+			$this->load->view('template-teacher', $data);
+		} else {
+			$this->load->view('template-student', $data);
+		}
+	}
 
 }
 ?>
