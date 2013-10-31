@@ -49,6 +49,7 @@
 		
 			<div id="box-6" class="box">
 		<img id="image-6" src="../includes/images/userdetails.jpg"/>
+		<a href="<?php echo $base_url;?>dashboard/update_user_account/<?php echo $currentuser['uacc_id']; ?>">
 		<span class="caption scale-caption">
 			<h3></h3>
 			<p> </p>

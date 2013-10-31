@@ -7,6 +7,14 @@ body{
 	background-image:url('../images/background.jpg');
 }
 
+select{
+	width: auto;
+}
+
+input, textarea{
+	max-width: 600px;
+}
+
 .header .row h1{
 	font-family: 'Myriad Pro', 'PT Sans', Arial;
 	font-size: 4.3em;	
