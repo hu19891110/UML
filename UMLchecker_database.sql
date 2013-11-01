@@ -21,33 +21,6 @@ CREATE TABLE `ci_sessions` (
 -- Records of ci_sessions
 -- ----------------------------
 
--- ----------------------------
--- Table structure for `demo_user_address`
--- ----------------------------
-DROP TABLE IF EXISTS `demo_user_address`;
-CREATE TABLE `demo_user_address` (
-  `uadd_id` int(11) NOT NULL AUTO_INCREMENT,
-  `uadd_uacc_fk` int(11) NOT NULL DEFAULT '0',
-  `uadd_alias` varchar(50) NOT NULL DEFAULT '',
-  `uadd_recipient` varchar(100) NOT NULL DEFAULT '',
-  `uadd_phone` varchar(25) NOT NULL DEFAULT '',
-  `uadd_company` varchar(75) NOT NULL DEFAULT '',
-  `uadd_address_01` varchar(100) NOT NULL DEFAULT '',
-  `uadd_address_02` varchar(100) NOT NULL DEFAULT '',
-  `uadd_city` varchar(50) NOT NULL DEFAULT '',
-  `uadd_county` varchar(50) NOT NULL DEFAULT '',
-  `uadd_post_code` varchar(25) NOT NULL DEFAULT '',
-  `uadd_country` varchar(50) NOT NULL DEFAULT '',
-  PRIMARY KEY (`uadd_id`),
-  UNIQUE KEY `uadd_id` (`uadd_id`),
-  KEY `uadd_uacc_fk` (`uadd_uacc_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of demo_user_address
--- ----------------------------
-INSERT INTO `demo_user_address` VALUES ('1', '4', 'Home', 'Joe Public', '0123456789', '', '123', '', 'My City', 'My County', 'My Post Code', 'My Country');
-INSERT INTO `demo_user_address` VALUES ('2', '4', 'Work', 'Joe Public', '0123456789', 'Flexi', '321', '', 'My Work City', 'My Work County', 'My Work Post Code', 'My Work Country');
 
 -- ----------------------------
 -- Table structure for `user_profiles`
@@ -68,7 +41,6 @@ CREATE TABLE `user_profiles` (
 -- Records of user_profiles
 -- ----------------------------
 INSERT INTO `user_profiles` VALUES ('1', '1', '', 'John', 'Teacher');
-INSERT INTO `user_profiles` VALUES ('2', '2', '', 'Jim', 'Assistant');
 INSERT INTO `user_profiles` VALUES ('3', '3', '', 'Joe', 'Student');
 
 -- ----------------------------
@@ -96,6 +68,7 @@ CREATE TABLE `user_accounts` (
   `uacc_date_fail_login_ban` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Time user is banned until due to repeated failed logins',
   `uacc_date_last_login` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `uacc_date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `uacc_first_login` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`uacc_id`),
   UNIQUE KEY `uacc_id` (`uacc_id`),
   KEY `uacc_group_fk` (`uacc_group_fk`),
@@ -108,9 +81,8 @@ CREATE TABLE `user_accounts` (
 -- ----------------------------
 -- Records of user_accounts
 -- ----------------------------
-INSERT INTO `user_accounts` VALUES ('1', '3', '1', 'admin@admin.com', 'admin', '$2a$08$lSOQGNqwBFUEDTxm2Y.hb.mfPEAt/iiGY9kJsZsd4ekLJXLD.tCrq', '0.0.0.0', 'XKVT29q2Jr', '', '', '0000-00-00 00:00:00', '', '', '1', '0', '0', '', '0000-00-00 00:00:00', '2012-04-12 21:15:05', '2011-01-01 00:00:00');
-INSERT INTO `user_accounts` VALUES ('2', '2', '1', 'moderator@moderator.com', 'moderator', '$2a$08$q.0ZhovC5ZkVpkBLJ.Mz.O4VjWsKohYckJNx4KM40MXdP/zEZpwcm', '0.0.0.0', 'ZC38NNBPjF', '', '', '0000-00-00 00:00:00', '', '', '1', '0', '0', '', '0000-00-00 00:00:00', '2012-04-10 21:58:02', '2011-08-04 16:49:07');
-INSERT INTO `user_accounts` VALUES ('3', '1', '1', 'public@public.com', 'public', '$2a$08$GlxQ00VKlev2t.CpvbTOlepTJljxF2RocJghON37r40mbDl4vJLv2', '0.0.0.0', 'CDNFV6dHmn', '', '', '0000-00-00 00:00:00', '', '', '1', '0', '0', '', '0000-00-00 00:00:00', '2012-04-10 22:01:41', '2011-09-15 12:24:45');
+INSERT INTO `user_accounts` VALUES ('1', '2', '1', 'admin@admin.com', 'admin', '$2a$08$lSOQGNqwBFUEDTxm2Y.hb.mfPEAt/iiGY9kJsZsd4ekLJXLD.tCrq', '0.0.0.0', 'XKVT29q2Jr', '', '', '0000-00-00 00:00:00', '', '', '1', '0', '0', '', '0000-00-00 00:00:00', '2012-04-12 21:15:05', '2011-01-01 00:00:00' ,'1');
+INSERT INTO `user_accounts` VALUES ('2', '1', '1', 'public@public.com', 'public', '$2a$08$GlxQ00VKlev2t.CpvbTOlepTJljxF2RocJghON37r40mbDl4vJLv2', '0.0.0.0', 'CDNFV6dHmn', '', '', '0000-00-00 00:00:00', '', '', '1', '0', '0', '', '0000-00-00 00:00:00', '2012-04-10 22:01:41', '2011-09-15 12:24:45', '1');
 
 -- ----------------------------
 -- Table structure for `user_groups`
@@ -131,8 +103,7 @@ CREATE TABLE `user_groups` (
 -- Records of user_groups
 -- ----------------------------
 INSERT INTO `user_groups` VALUES ('1', 'Student', 'Student : has no admin access rights.', '0');
-INSERT INTO `user_groups` VALUES ('2', 'Student Assistant', 'Student assistant : has partial admin access rights.', '1');
-INSERT INTO `user_groups` VALUES ('3', 'Teacher', 'Teacher : has full admin access rights.', '1');
+INSERT INTO `user_groups` VALUES ('2', 'Teacher', 'Teacher : has full admin access rights.', '1');
 
 -- ----------------------------
 -- Table structure for `student_class`
@@ -226,14 +197,10 @@ INSERT INTO `user_privilege_users` VALUES ('8', '1', '8');
 INSERT INTO `user_privilege_users` VALUES ('9', '1', '9');
 INSERT INTO `user_privilege_users` VALUES ('10', '1', '10');
 INSERT INTO `user_privilege_users` VALUES ('11', '1', '11');
-INSERT INTO `user_privilege_users` VALUES ('12', '2', '1');
-INSERT INTO `user_privilege_users` VALUES ('13', '2', '2');
-INSERT INTO `user_privilege_users` VALUES ('14', '2', '3');
-INSERT INTO `user_privilege_users` VALUES ('15', '2', '6');
-INSERT INTO `user_privilege_users` VALUES ('16', '1', '12');
-INSERT INTO `user_privilege_users` VALUES ('17', '1', '13');
-INSERT INTO `user_privilege_users` VALUES ('18', '1', '14');
-INSERT INTO `user_privilege_users` VALUES ('19', '1', '15');
+INSERT INTO `user_privilege_users` VALUES ('12', '1', '12');
+INSERT INTO `user_privilege_users` VALUES ('13', '1', '13');
+INSERT INTO `user_privilege_users` VALUES ('14', '1', '14');
+INSERT INTO `user_privilege_users` VALUES ('15', '1', '15');
 
 
 -- ----------------------------

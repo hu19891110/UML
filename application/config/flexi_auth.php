@@ -74,6 +74,7 @@
 	$config['database']['user_acc']['columns']['failed_login_ban_date'] = 'uacc_date_fail_login_ban';
 	$config['database']['user_acc']['columns']['last_login_date'] = 'uacc_date_last_login';
 	$config['database']['user_acc']['columns']['date_added'] = 'uacc_date_added';
+	$config['database']['user_acc']['columns']['first_login'] = 'uacc_first_login';
 	
 	// Custom columns can be added to the main user account table to enable library functions to handle additional custom data stored within the table.
 	$config['database']['user_acc']['custom_columns'] = array(
@@ -636,10 +637,10 @@
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 	
 	// Site title shown as 'from' header on emails.
-	$config['email']['site_title'] = "flexi auth";
+	$config['email']['site_title'] = "UMLchecker";
 	
 	// Reply email shown as 'from' header on emails.
-	$config['email']['reply_email'] = "info@website.com";
+	$config['email']['reply_email'] = "info@UMLchecker.com";
 	
 	/**
 	 * Type of email to send, options: 'html', 'text'.

@@ -542,9 +542,9 @@ class Flexi_auth extends Flexi_auth_lite
 	 * @return void
 	 * @author Rob Hussey
 	 */
-	public function insert_user($email, $username = FALSE, $password, /* $class_id,*/ $user_data, $group_id = FALSE, $activate = FALSE) 
+	public function insert_user($email, $username = FALSE, $password, $class_id, $user_data, $group_id = FALSE, $activate = FALSE) 
 	{
-		$user_id = $this->CI->flexi_auth_model->insert_user($email, $username, $password, /* $class_id,*/ $user_data, $group_id);
+		$user_id = $this->CI->flexi_auth_model->insert_user($email, $username, $password, $class_id, $user_data, $group_id);
 
 		if ($user_id)
 		{
@@ -1241,7 +1241,11 @@ class Flexi_auth extends Flexi_auth_lite
 		
 		$this->CI->login->template_data = $data;
 	}
+	
+	
 }
+
+
 
 /* End of file flexi_auth.php */
 /* Location: ./application/controllers/flexi_auth.php */

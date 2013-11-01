@@ -23,7 +23,13 @@ class Dashboard extends CI_Controller {
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			redirect('login');
 		}
-		
+		$currentuser_id = $this->flexi_auth->get_user_id();
+		$this->load->model('flexi_auth_model');
+		$first_time = $this->flexi_auth_model->first_login($currentuser_id);
+		if ($first_time && uri_string() != 'dashboard/change_password/'.$currentuser_id) {
+			redirect('dashboard/change_password/'. $currentuser_id);
+		}
+
 		//$this->output->enable_profiler(TRUE);
 		
 		$this->data = null;
@@ -644,7 +650,7 @@ class Dashboard extends CI_Controller {
     }
     
     
-function change_password($user_id)
+    function change_password($user_id)
 	{
 		if (! $this->flexi_auth->is_privileged('Update Users') && ($user_id != $this->flexi_auth->get_user_id()))
 		{
@@ -657,7 +663,7 @@ function change_password($user_id)
 			$this->load->model('demo_auth_model');
 			$this->demo_auth_model->change_password($user_id);
 		}
-		
+
 		// Get any status message that may have been set.
 		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
 

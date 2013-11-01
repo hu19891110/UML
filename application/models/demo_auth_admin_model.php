@@ -34,7 +34,7 @@ class Demo_auth_admin_model extends CI_Model {
 		// For this example, prevent any 'Master Admin' users (User group id of 3) being listed to non 'Master Admin' users.
 		if (! $this->flexi_auth->in_group('Master Admin'))
 		{
-			$sql_where[$this->flexi_auth->db_column('user_group', 'id').' !='] = 3;
+			$sql_where[$this->flexi_auth->db_column('user_group', 'id').' !='] = 2;
 			$this->flexi_auth->sql_where($sql_where);
 		}	
 

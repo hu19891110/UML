@@ -189,7 +189,8 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			$this->login->tbl_col_user_account['date_added'] => $this->database_date_time(),
 			$this->login->tbl_col_user_account['activation_token'] => $activation_token,
 			$this->login->tbl_col_user_account['active'] => 0,		
-			$this->login->tbl_col_user_account['suspend'] => $suspend_account		
+			$this->login->tbl_col_user_account['suspend'] => $suspend_account,
+			$this->login->tbl_col_user_account['first_login'] => 0		
 		);
 
 	    if ($store_database_salt)
@@ -2464,10 +2465,8 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		);
 		set_cookie($ci_session);	
 	}
-}
-
-
-function register_account()
+	
+	function register_account()
 	{
 		$this->load->library('form_validation');
 		
@@ -2483,7 +2482,6 @@ function register_account()
 		);
 
 		$this->form_validation->set_rules($validation_rules);
-		echo 'jo';
 		// Run the validation.
 		if ($this->form_validation->run())
 		{
@@ -2530,7 +2528,7 @@ function register_account()
 				if ($instant_activate && $this->flexi_auth->login($email, $password))
 				{
 					// Redirect user to public dashboard.
-					redirect('auth_public/dashboard');
+					redirect('dashboard');
 				}
 				
 				// Redirect user to login page
@@ -2543,6 +2541,39 @@ function register_account()
 
 		return FALSE;
 	}
+	
+	public function first_login($user_id)
+	{
+		$sql_select = array($this->login->tbl_col_user_account['first_login']);
+		$sql_where = array($this->login->tbl_col_user_account['id'] => $user_id);
+		
+		$query = $this->db->select($sql_select)
+		->where($sql_where)
+		->get($this->login->tbl_user_account);
+		$user = $query->row();
+		$first_login = $user->{$this->login->database_config['user_acc']['columns']['first_login']};
+	
+		if ($first_login == 1) {
+			return FALSE;
+		} else {
+			return TRUE;
+		}	
+	}
+	
+	public function update_first_time_login($user_id)
+	{
+		$update_data = array(
+			$this->login->tbl_col_user_account['first_login'] => 1
+		);
+		
+		$this->db->update($this->login->tbl_user_account, $update_data, array($this->login->tbl_col_user_account['id'] => $user_id));
+
+	    return $this->db->affected_rows() == 1;
+	}	
+}
+
+
+	
 
 
 /* End of file flexi_auth_model.php */

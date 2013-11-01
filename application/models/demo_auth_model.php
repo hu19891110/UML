@@ -136,20 +136,21 @@ class Demo_auth_model extends CI_Model {
 			
 			// Set whether to instantly activate account.
 			// This var will be used twice, once for registration, then to check if to log the user in after registration.
-			$instant_activate = FALSE;
+			$instant_activate = TRUE;
 	
 			// The last 2 variables on the register function are optional, these variables allow you to:
 			// #1. Specify the group ID for the user to be added to (i.e. 'Moderator' / 'Public'), the default is set via the config file.
 			// #2. Set whether to automatically activate the account upon registration, default is FALSE. 
 			// Note: An account activation email will be automatically sent if auto activate is FALSE, or if an activation time limit is set by the config file.
 			$response = $this->flexi_auth->insert_user($email, $username, $password, $class_id,$profile_data, 1, $instant_activate);
-
+			
 			if ($response)
 			{
+				$first_name = $profile_data['upro_first_name'];
 				// This is an example 'Welcome' email that could be sent to a new user upon registration.
 				// Bear in mind, if registration has been set to require the user activates their account, they will already be receiving an activation email.
 				// Therefore sending an additional email welcoming the user may be deemed unnecessary.
-				$email_data = array('identity' => $email);
+				$email_data = array('identity' => $email, 'name' => $first_name, 'password' => $password);
 				$this->flexi_auth->send_email($email, 'Welcome', 'registration_welcome.tpl.php', $email_data);
 				// Note: The 'registration_welcome.tpl.php' template file is located in the '../views/includes/email/' directory defined by the config file.
 				
@@ -389,7 +390,13 @@ class Demo_auth_model extends CI_Model {
 
 			// Redirect user.
 			// Note: As an added layer of security, you may wish to email the user that their password has been updated.
-			($response) ? redirect('dashboard/update_user_account/'.$user_id) : redirect('dashboard/change_password/'.$user_id);
+			if ($response)
+			{
+				$this->flexi_auth_model->update_first_time_login($user_id);
+				redirect('dashboard/update_user_account/'.$user_id);
+			} else {
+				redirect('dashboard/change_password/'.$user_id);
+			}
 		}
 		else
 		{		
