@@ -1,15 +1,10 @@
 	<div class="large-12 columns padding">
 	
 	<!-- Main Content -->
-<<<<<<< HEAD
 	<div class="content_wrap main_content_bg">
 		<div class="content clearfix">
 			<div class="col100">
 				<h2>Change Password</h2>
-=======
-
-				<h2>Update Password</h2>
->>>>>>> f34de0738faf0e0bf413d6582b57534a114370f5
 				
 
 			<?php if (! empty($message)) { ?>
@@ -43,5 +38,6 @@
 						</ul>
 					</div>
 				<?php echo form_close();?>
-		
+			</div>
+		</div>
 	</div>	
