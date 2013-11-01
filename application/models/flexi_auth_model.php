@@ -1476,7 +1476,27 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	}
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
-
+	
+	public function get_email_by_id($user_id = FALSE) 
+	{
+		if (empty($user_id)) {
+			return FALSE;
+		} else {
+		
+			$sql_select = array($this->login->tbl_col_user_account['email']);
+			$sql_where = array($this->login->tbl_col_user_account['id'] => $user_id);
+			
+			$query = $this->db->select($sql_select)
+			->where($sql_where)
+			->get($this->login->tbl_user_account);
+			$user = $query->row();
+			$user_email = $user->{$this->login->database_config['user_acc']['columns']['email']};
+			
+			return $user_email;
+		}
+	}
+	
+	
 	/**
 	 * get_unactivated_users
 	 * Cleanup function to get unactivated users from database within expiry period.

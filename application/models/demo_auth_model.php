@@ -336,7 +336,7 @@ class Demo_auth_model extends CI_Model {
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 
 			// Redirect user.
-			($response) ? redirect('auth_public/dashboard') : redirect('auth_public/update_account');
+			($response) ? redirect('dashboard') : redirect('auth_public/update_account');
 		}
 		else
 		{		
@@ -374,10 +374,13 @@ class Demo_auth_model extends CI_Model {
 		if ($this->form_validation->run())
 		{
 			// Get password data from input.
-			$identity = $user_id;
+			$this->load->model('flexi_auth_model');
+			$user_email = $this->flexi_auth_model->get_email_by_id($user_id);
+			
+			$identity = $user_email;
 			$current_password = $this->input->post('current_password');
 			$new_password = $this->input->post('new_password');			
-			
+
 			// Note: Changing a password will delete all 'Remember me' database sessions for the user, except their current session.
 			$response = $this->flexi_auth->change_password($identity, $current_password, $new_password);
 			
@@ -386,7 +389,7 @@ class Demo_auth_model extends CI_Model {
 
 			// Redirect user.
 			// Note: As an added layer of security, you may wish to email the user that their password has been updated.
-			($response) ? redirect('dashboard') : redirect('dashboard/change_password/');
+			($response) ? redirect('dashboard/update_user_account/'.$user_id) : redirect('dashboard/change_password/'.$user_id);
 		}
 		else
 		{		
