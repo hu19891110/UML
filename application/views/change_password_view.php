@@ -32,8 +32,7 @@
 								<input type="password" id="confirm_new_password" name="confirm_new_password" value="<?php echo set_value('confirm_new_password');?>"/>
 							</li>
 							<li>
-								<label for="submit">Update Password:</label>
-								<input type="submit" name="change_password" id="submit" value="Submit" class="link_button large"/>
+								<input type="submit" name="change_password" id="submit" value="Submit" class="button small"/>
 							</li>
 						</ul>
 					</div>
