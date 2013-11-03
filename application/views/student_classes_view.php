@@ -54,7 +54,7 @@
 						</tbody>
 						<tfoot>
 							<td colspan="5">
-								<a href="<?php echo $base_url;?>dashboard/insert_student_class" class="button">Insert New Student Class</a>
+								<a href="<?php echo $base_url;?>dashboard/insert_student_class" class="button medium">Insert New Student Class</a>
 								<?php $disable = (! $this->flexi_auth->is_privileged('Update Student Class') && ! $this->flexi_auth->is_privileged('Delete Student Class')) ? 'disabled="disabled"' : NULL;?>
 								<input type="submit" name="submit" value="Delete Checked Student Classes" class="button" <?php echo $disable; ?>/>
 							</td>

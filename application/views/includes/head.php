@@ -15,3 +15,10 @@
 	
 	<script type="text/javascript" src="<?php echo $includes_dir;?>Foundation/tables/responsive-tables.js"></script>
 	<script src="<?php echo $includes_dir;?>Foundation/js/vendor/custom.modernizr.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+	
+	<script type="text/javascript" src="<?php echo $includes_dir;?>js/jquery.ui-1.7.2.custom.min.js"></script>
+	<script src="<?php echo $includes_dir;?>js/jqBarGraph.1.1.min.js"></script>
+	
+	
+	

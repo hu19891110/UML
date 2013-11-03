@@ -1,9 +1,7 @@
 	<div class="large-12 columns padding">
 	
 	<!-- Main Content -->
-	<div class="content_wrap main_content_bg">
-		<div class="content clearfix">
-			<div class="col100">
+
 				<h2>Change Password</h2>
 				
 
@@ -37,6 +35,5 @@
 						</ul>
 					</div>
 				<?php echo form_close();?>
-			</div>
-		</div>
+	
 	</div>	
