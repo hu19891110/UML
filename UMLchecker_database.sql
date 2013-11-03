@@ -117,6 +117,7 @@ CREATE TABLE `student_classes` (
   UNIQUE KEY `studentclass_id` (`studentclass_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
+
 -- ----------------------------
 -- Records of user_groups
 -- ----------------------------

@@ -56,6 +56,7 @@
 						</tfoot>
 					</table>
 					
+					<a href="<?php echo $base_url;?>dashboard/students_per_class">Overview of students per class</a> <br/>
 					<a href="<?php echo $base_url;?>dashboard/insert_student_class">Insert New Student Class</a>
 					
 				<?php echo form_close();?>

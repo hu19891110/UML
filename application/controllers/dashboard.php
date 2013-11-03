@@ -262,6 +262,42 @@ class Dashboard extends CI_Controller {
  	  	 * View and manage a table of all user groups.
  	 */
  	 
+ 	 function students_per_class()
+ 	 {
+ 	 
+ 	 	// Check user has privileges to view user groups, else display a message to notify the user they do not have valid privileges.
+		if (! $this->flexi_auth->is_privileged('View Student Classes'))
+		{
+			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to view student classes.</p>');
+			redirect('dashboard');		
+		}
+		
+				// Get all privilege data. 
+		$sql_select = array(
+			$this->flexi_auth->db_column('user_acc', 'id'),
+			$this->flexi_auth->db_column('user_acc', 'username'),
+			$this->flexi_auth->db_column('user_acc', 'email'),
+			$this->flexi_auth->db_column('user_acc', 'class_fk')
+		);
+		$this->data['users'] = $this->flexi_auth->get_users_row_array($sql_select);
+ 	 
+		// Define the group data columns to use on the view page. 
+		// Note: The columns defined using the 'db_column()' functions are native table columns to the auth library. 
+		// Read more on 'db_column()' functions in the quick help section near the top of this controller. 
+		$sql_select = array(
+			$this->flexi_auth->db_column('student_class', 'id'),
+			$this->flexi_auth->db_column('student_class', 'name')
+		);
+		$this->data['student_classes'] = $this->flexi_auth->get_classes_array($sql_select);
+	
+ 	 
+ 	 	// Set any returned status/error messages.
+		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];	
+		
+ 	 	$data['maincontent'] = $this->load->view('students_per_class_view', $this->data, TRUE);	
+		$this->load->view('template-teacher', $data);	
+ 	 }
+ 	 
     function manage_student_classes()
     {
 		// Check user has privileges to view user groups, else display a message to notify the user they do not have valid privileges.
