@@ -259,10 +259,10 @@ class Dashboard extends CI_Controller {
 	
  	/**
  	 * manage_student_classes
- 	  	 * View and manage a table of all user groups.
+ 	 * View and manage a table of all user groups.
  	 */
  	 
- 	 function students_per_class()
+ 	 function students_per_class($class_id)
  	 {
  	 
  	 	// Check user has privileges to view user groups, else display a message to notify the user they do not have valid privileges.
@@ -272,25 +272,32 @@ class Dashboard extends CI_Controller {
 			redirect('dashboard');		
 		}
 		
-				// Get all privilege data. 
 		$sql_select = array(
 			$this->flexi_auth->db_column('user_acc', 'id'),
 			$this->flexi_auth->db_column('user_acc', 'username'),
-			$this->flexi_auth->db_column('user_acc', 'email'),
-			$this->flexi_auth->db_column('user_acc', 'class_fk')
+			$this->flexi_auth->db_column('user_acc', 'email')
 		);
-		$this->data['users'] = $this->flexi_auth->get_users_row_array($sql_select);
- 	 
-		// Define the group data columns to use on the view page. 
-		// Note: The columns defined using the 'db_column()' functions are native table columns to the auth library. 
-		// Read more on 'db_column()' functions in the quick help section near the top of this controller. 
-		$sql_select = array(
-			$this->flexi_auth->db_column('student_class', 'id'),
-			$this->flexi_auth->db_column('student_class', 'name')
-		);
-		$this->data['student_classes'] = $this->flexi_auth->get_classes_array($sql_select);
-	
- 	 
+		$this->data['users'] = $this->flexi_auth->get_users_array($sql_select);
+		
+		// Get data for the current privilege group.
+		$sql_select = array($this->flexi_auth->db_column('user_acc', 'id'));
+		$sql_where = array($this->flexi_auth->db_column('user_acc', 'class_id') => $class_id);
+		$class_users = $this->flexi_auth->get_users_array($sql_select, $sql_where);
+                
+		// For the purposes of the example demo view, create an array of ids for all the privileges that have been assigned to a privilege group.
+		// The array can then be used within the view to check whether the group has a specific privilege, this data allows us to then format form input values accordingly. 
+		$this->data['class_users'] = array();
+		
+		foreach($class_users as $class_user)
+		{	
+			$this->data['class_users'][] = $class_user[$this->flexi_auth->db_column('user_acc', 'id')];
+		}
+		
+		$sql_where = array($this->flexi_auth->db_column('student_class', 'id') => $class_id);
+		$this->data['class'] = $this->flexi_auth->get_classes_row_array(FALSE, $sql_where);
+		
+		$this->data['class_id'] = $class_id;
+		
  	 	// Set any returned status/error messages.
 		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];	
 		

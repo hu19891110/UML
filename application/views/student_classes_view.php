@@ -20,6 +20,10 @@
 									title="A short description of the purpose of the student class.">
 									Class Description
 								</th>
+								<th class="tooltip_trigger" 
+									title="A short description of the purpose of the student class.">
+									List of students in class
+								</th>
 								<th class="spacer_100 align_ctr tooltip_trigger" 
 									title="If checked, the row will be deleted upon the form being updated.">
 									Delete
@@ -35,7 +39,7 @@
 									</a>
 								</td>
 								<td><?php echo $class[$this->flexi_auth->db_column('student_class', 'description')];?></td>
-								
+								<td><a href="<?php echo $base_url;?>dashboard/students_per_class/<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>">View list of students</a></td>
 								<td class="align_ctr">
 								<?php if ($this->flexi_auth->is_privileged('Delete Student Class')) { ?>
 									<input type="checkbox" name="delete_class[<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>]" value="1"/>
@@ -50,14 +54,14 @@
 						</tbody>
 						<tfoot>
 							<td colspan="5">
+								<a href="<?php echo $base_url;?>dashboard/insert_student_class" class="button">Insert New Student Class</a>
 								<?php $disable = (! $this->flexi_auth->is_privileged('Update Student Class') && ! $this->flexi_auth->is_privileged('Delete Student Class')) ? 'disabled="disabled"' : NULL;?>
-								<input type="submit" name="submit" value="Delete Checked Student Classes" class="link_button large" <?php echo $disable; ?>/>
+								<input type="submit" name="submit" value="Delete Checked Student Classes" class="button" <?php echo $disable; ?>/>
 							</td>
 						</tfoot>
 					</table>
 					
-					<a href="<?php echo $base_url;?>dashboard/students_per_class">Overview of students per class</a> <br/>
-					<a href="<?php echo $base_url;?>dashboard/insert_student_class">Insert New Student Class</a>
+						
 					
 				<?php echo form_close();?>
 	</div>	
