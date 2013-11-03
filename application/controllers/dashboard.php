@@ -52,6 +52,8 @@ class Dashboard extends CI_Controller {
 	
 	function dashboard() 
 	{
+		$this->data['classes'] = $this->flexi_auth->get_classes_array();
+		
 		if ($this->flexi_auth->is_admin()) {
 			$this->data['message'] = $this->session->flashdata('message');
 			$this->load->view('teacher_dashboard_view', $this->data);
@@ -59,6 +61,7 @@ class Dashboard extends CI_Controller {
 			$this->data['message'] = $this->session->flashdata('message');
 			$this->load->view('student_dashboard_view', $this->data);
 		}
+
 
 	}
 	

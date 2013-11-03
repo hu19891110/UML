@@ -7,15 +7,9 @@ body{
 	background-image:url('../images/background.jpg');
 }
 
-	.content{
-				position:absolute;
-				top:105px;
-				left:0px;
-				right:0px;
-				padding:0px;
-				margin:0px;
-				height:550px;
-			}
+#asstocheck{
+	max-width: 375px;
+}
 
 select{
 	width: auto;

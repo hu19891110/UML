@@ -133,6 +133,34 @@
 				title: '<h3> Highest and lowest grades per test</h3>'
 				});
 				</script>
+				
+				<div class="large-3 columns margin-left" style="background: #f2f2f2; border: 1px solid #8f8f8f; border-radius: 10px; height: 330px; max-width: 290px;">
+					<h3> Add a new deadline </h3>
+					
+					<ul>
+						<li>
+							<label for="Description"> Description: </label>
+							<input type="text" id="" name="e" value=""/>
+						</li>
+						<li>
+							<label for="class">Student Class:</label>
+							<select id="class" name="register_class" class="tooltip_trigger"
+								title="Set the students class.">
+							<?php foreach($classes as $class) { ?>
+								<option value="<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>" >
+									<?php echo $class[$this->flexi_auth->db_column('student_class', 'name')];?>
+								</option>
+							<?php } ?>
+							</select>
+						</li> <br/>
+						<li>
+							<label for="End_date">End date:</label>
+							<input type="text" id="datepicker" name="" value=""/>
+						</li>
+					</ul>
+					
+					<input type="submit" name="" id="submit" value="Submit" class="small button"/>
+				</div>
 					
 				
 				</div> <!-- row -->			
