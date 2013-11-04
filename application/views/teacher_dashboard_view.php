@@ -71,15 +71,16 @@
       			<th >Deadline</th>
       			<th> Date of deadline </th>
     			</tr>
-    			<tr>
+    			
       			<?php 
       			foreach ($deadlines as $deadline)
       			{ ?>
+      			<tr>
 	      			<td><?php echo $deadline[$this->flexi_auth->db_column('deadline', 'desc')];?></td>
 	      			<td><?php echo $deadline[$this->flexi_auth->db_column('deadline', 'enddate')];?></td>
-	      			
+	      		</tr>
       			<?php } ?>
-    			</tr>		
+    					
     		
   				</tbody>
 				</table>
