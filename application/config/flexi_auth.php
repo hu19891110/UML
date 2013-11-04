@@ -168,6 +168,20 @@
 	$config['database']['user_sess']['columns']['token'] = 'usess_token';
 	$config['database']['user_sess']['columns']['date'] = 'usess_login_date';
 	
+
+	
+	
+	$config['database']['deadline']['table'] = 'deadlines';
+	$config['database']['deadline']['columns']['id'] = 'deadline_id';
+	$config['database']['deadline']['columns']['desc'] = 'deadline_desc';
+	$config['database']['deadline']['columns']['enddate'] = 'deadline_enddate';
+	$config['database']['deadline']['columns']['date_added'] = 'deadline_date_added';
+	
+	$config['database']['class_deadline']['table'] = 'class_deadlines';
+	$config['database']['class_deadline']['columns']['id'] = 'class_deadline_id';
+	$config['database']['class_deadline']['columns']['deadline_id'] = 'deadline_deadline_id_fk';
+	$config['database']['class_deadline']['columns']['class_id'] = 'deadline_class_id_fk';
+	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 	// Custom User Related Tables
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
@@ -759,6 +773,12 @@
 	$config['messages']['target_user']['update_unsuccessful'] = 'public';
 	$config['messages']['target_user']['delete_successful'] = 'public';
 	$config['messages']['target_user']['delete_unsuccessful'] = 'public';
+	
+	// Deadlines
+	$config['messages']['target_user']['add_deadline_successful'] = 'public';
+	$config['messages']['target_user']['add_deadline_unsuccessful'] = 'public';
+	$config['messages']['target_user']['delete_deadline_successful'] = 'public';
+	$config['messages']['target_user']['delete_deadline_unsuccessful'] = 'public';
 
 	// Form Validation
 	$config['messages']['target_user']['form_validation_duplicate_identity'] = 'public';

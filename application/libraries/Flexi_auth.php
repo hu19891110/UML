@@ -1012,6 +1012,51 @@ class Flexi_auth extends Flexi_auth_lite
 		return FALSE;
 	}
 	
+	
+	
+	public function add_deadline($deadline_desc, $deadline_enddate)
+	{	
+		$deadline_id = $this->CI->flexi_auth_model->add_deadline($deadline_desc, $deadline_enddate);
+		if ($deadline_id != FALSE)
+		{
+			$this->CI->flexi_auth_model->set_status_message('add_deadline_successful', 'config');
+			return $deadline_id;
+		}
+
+		$this->CI->flexi_auth_model->set_error_message('add_deadline_unsuccessful', 'config');
+		return FALSE;
+	}
+	
+	public function delete_deadline($sql_where)
+	{
+		if ($this->CI->flexi_auth_model->delete_deadline($sql_where))
+		{
+			$this->CI->flexi_auth_model->set_status_message('delete_deadline_successful', 'config');
+			return TRUE;
+		}
+
+		$this->CI->flexi_auth_model->set_error_message('delete_deadline_unsuccessful', 'config');
+		return FALSE;
+	}
+	
+	
+	public function assign_deadline($deadline_id, $class_id)
+	{
+		if ($this->CI->flexi_auth_model->assign_deadline($deadline_id, $class_id))
+		{
+			$this->CI->flexi_auth_model->set_status_message('add_deadline_successful', 'config');
+			return TRUE;
+		}
+
+		$this->CI->flexi_auth_model->set_error_message('add_deadline_unsuccessful', 'config');
+		return FALSE;
+	}
+	
+	
+
+	
+	
+	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 	
 	/**
