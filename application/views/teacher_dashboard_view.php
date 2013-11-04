@@ -134,32 +134,48 @@
 				});
 				</script>
 				
-				<div class="large-3 columns margin-left" style="background: #f2f2f2; border: 1px solid #8f8f8f; border-radius: 10px; height: 330px; max-width: 290px;">
+				<div class="large-3 columns margin-left deadline">
 					<h3> Add a new deadline </h3>
 					
+					<form name="deadline">
 					<ul>
 						<li>
 							<label for="Description"> Description: </label>
-							<input type="text" id="" name="e" value=""/>
+							<input type="text" id="description" name="insert_description" value=""/>
 						</li>
 						<li>
-							<label for="class">Student Class:</label>
-							<select id="class" name="register_class" class="tooltip_trigger"
-								title="Set the students class.">
+							<label for="class">Student Class:</label> 
+							
+							<script type="text/javascript">
+        						function toggle_all(check) {  //naam van de functie
+           					 var form = document.forms['deadline']; // dit leest het formulier in <form name="deadline" ... >
+            				var formelements = form.elements;
+            				for(var i = 0; i < formelements.length; i++) // loop door alle elementen
+                			if(formelements[i].type && formelements[i].type=='checkbox'){ // controleer per element of het een checkbox is
+                    		formelements[i].checked = check; // vink checkbox aan
+                			}                  // 'check' is een variabele die true (aan) of false (uit) kan zijn
+        					}
+   					 	</script>
+							
+							<input type="button" class="check" value="Check all" onclick="toggle_all(true);"/>
+							<input type="button" class="check" value="Uncheck all" onclick="toggle_all(false);"/><br/>
+					
+							
 							<?php foreach($classes as $class) { ?>
-								<option value="<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>" >
+								<input type="checkbox" value="<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>" >
 									<?php echo $class[$this->flexi_auth->db_column('student_class', 'name')];?>
-								</option>
+								</input>
 							<?php } ?>
-							</select>
-						</li> <br/>
+						
+						</li>
 						<li>
 							<label for="End_date">End date:</label>
-							<input type="text" id="datepicker" name="" value=""/>
+							<input type="text" id="datepicker" name="insert_enddate" value=""/>
 						</li>
 					</ul>
 					
 					<input type="submit" name="" id="submit" value="Submit" class="small button"/>
+					</form>
 				</div>
 					
 				

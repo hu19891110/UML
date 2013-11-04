@@ -22,10 +22,10 @@
 	<script src="<?php echo $includes_dir;?>Foundation/js/vendor/custom.modernizr.js"></script>
 
 	<script src="<?php echo $includes_dir;?>js/jqBarGraph.1.1.min.js"></script>
-	
+	<script src="<?php echo $includes_dir;?>js/timepicker.js"></script>
 	
 	 <script>
   $(function() {
-    $( "#datepicker" ).datepicker({dateFormat: 'dd-mm-yy'});
+    $( "#datepicker" ).datetimepicker({dateFormat: 'yy-mm-dd'});
   });
   </script>
