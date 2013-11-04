@@ -108,7 +108,13 @@
 					<h3> Add a new deadline </h3>
 					
 <<<<<<< HEAD
+<<<<<<< HEAD
 					<?php echo form_open(current_url());	?>
+=======
+					<?php
+					$form_name = array('name' => 'deadline');
+					echo form_open(current_url(), $form_name);	?>
+>>>>>>> 7e4e6584b499d34fae8be54a82158b0f4b120c11
 =======
 					<?php
 					$form_name = array('name' => 'deadline');
@@ -121,8 +127,12 @@
 						</li>
 						<li>
 <<<<<<< HEAD
+<<<<<<< HEAD
 							
 							<label for="class">Student Class:</label>	
+=======
+							<label for="class">Student Class:</label>
+>>>>>>> 7e4e6584b499d34fae8be54a82158b0f4b120c11
 =======
 							<label for="class">Student Class:</label>
 >>>>>>> 7e4e6584b499d34fae8be54a82158b0f4b120c11
@@ -173,9 +183,12 @@
 								<?php } ?>
 								</tbody>
 <<<<<<< HEAD
+<<<<<<< HEAD
 								</table>					
 						</li> 
 =======
+=======
+>>>>>>> 7e4e6584b499d34fae8be54a82158b0f4b120c11
 								</table>				
 						</li> <br/>
 >>>>>>> 7e4e6584b499d34fae8be54a82158b0f4b120c11
