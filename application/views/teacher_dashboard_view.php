@@ -136,16 +136,17 @@
 				
 				<div class="large-3 columns margin-left deadline">
 					<h3> Add a new deadline </h3>
-<<<<<<< HEAD
+
 					
 					<form name="deadline">
 					<ul>
 						<li>
 							<label for="Description"> Description: </label>
-							<input type="text" id="description" name="insert_description" value=""/>
+							<input type="text" id="" name="add_deadline_desc" value=""/>
 						</li>
 						<li>
-							<label for="class">Student Class:</label> 
+							<label for="class">Student Class:</label>	
+							
 							
 							<script type="text/javascript">
         						function toggle_all(check) {  //naam van de functie
@@ -160,32 +161,8 @@
 							
 							<input type="button" class="check" value="Check all" onclick="toggle_all(true);"/>
 							<input type="button" class="check" value="Uncheck all" onclick="toggle_all(false);"/><br/>
-					
+							</form>
 							
-							<?php foreach($classes as $class) { ?>
-								<input type="checkbox" value="<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>" >
-									<?php echo $class[$this->flexi_auth->db_column('student_class', 'name')];?>
-								</input>
-							<?php } ?>
-						
-						</li>
-						<li>
-							<label for="End_date">End date:</label>
-							<input type="text" id="datepicker" name="insert_enddate" value=""/>
-						</li>
-					</ul>
-					
-					<input type="submit" name="" id="submit" value="Submit" class="small button"/>
-					</form>
-=======
-					<?php echo form_open(current_url());	?>
-					<ul>
-						<li>
-							<label for="Description"> Description: </label>
-							<input type="text" id="" name="add_deadline_desc" value=""/>
-						</li>
-						<li>
-							<label for="class">Student Class:</label>	
 							<table>
 								<thead>
 									<tr>
@@ -220,7 +197,7 @@
 								<?php } ?>
 								</tbody>
 								</table>					
-						</li> <br/>
+						</li> 
 						<li>
 							<label for="End_date">End date:</label>
 							<input type="text" id="datepicker" name="add_deadline_enddate" value=""/>
@@ -229,10 +206,10 @@
 						<input type="submit" name="add_deadline" id="add_deadline" value="Add Deadline" class="small button"/>
 						</li>
 					</ul>
-					<?php echo form_close();?>
+					</form>
+					
 
->>>>>>> 4c6c338818763d3364336e0562a53ab2e85abd8d
-				</div>
+				</div><!--large-3 columns -->
 					
 				
 				</div> <!-- row -->			
