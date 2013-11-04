@@ -109,6 +109,12 @@ class Dashboard extends CI_Controller {
 		$data['maincontent'] =  $this->load->view('userlist_view', $this->data , TRUE);
 		$this->load->view('template-teacher', $data);		
     }
+    
+    function email()
+    {
+		$this->load->view('registration_welcome');	
+    
+    }
 
 
     function update_user_account($user_id)
