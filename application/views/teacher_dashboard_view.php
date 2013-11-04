@@ -136,6 +136,7 @@
 				
 				<div class="large-3 columns margin-left deadline">
 					<h3> Add a new deadline </h3>
+<<<<<<< HEAD
 					
 					<form name="deadline">
 					<ul>
@@ -176,6 +177,61 @@
 					
 					<input type="submit" name="" id="submit" value="Submit" class="small button"/>
 					</form>
+=======
+					<?php echo form_open(current_url());	?>
+					<ul>
+						<li>
+							<label for="Description"> Description: </label>
+							<input type="text" id="" name="add_deadline_desc" value=""/>
+						</li>
+						<li>
+							<label for="class">Student Class:</label>	
+							<table>
+								<thead>
+									<tr>
+										<th class="tooltip_trigger"
+											title="The name of the class."/>
+											Class Name
+										</th>
+										<th class="spacer_150 align_ctr tooltip_trigger"
+											title="If checked, the deadline will be for this class."/>
+											Assign deadline
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+								<?php foreach ($classes as $class) { ?>
+									<tr>
+										<td>
+											<input type="hidden" name="add[<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>][id]" value="<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>"/>
+											<?php echo $class[$this->flexi_auth->db_column('student_class', 'name')];?>
+										</td>
+										<td class="align_ctr">
+											<?php 
+												// Define form input values.
+												$current_status = 0; 
+												$new_status = NULL;
+											?>
+											<input type="hidden" name="add[<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>][current_status]" value="<?php echo $current_status ?>"/>
+											<input type="hidden" name="add[<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>][new_status]" value="0"/>
+											<input type="checkbox" name="add[<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>][new_status]" value="1" <?php echo $new_status ?>/>
+										</td>
+									</tr>
+								<?php } ?>
+								</tbody>
+								</table>					
+						</li> <br/>
+						<li>
+							<label for="End_date">End date:</label>
+							<input type="text" id="datepicker" name="add_deadline_enddate" value=""/>
+						</li>
+						<li>
+						<input type="submit" name="add_deadline" id="add_deadline" value="Add Deadline" class="small button"/>
+						</li>
+					</ul>
+					<?php echo form_close();?>
+
+>>>>>>> 4c6c338818763d3364336e0562a53ab2e85abd8d
 				</div>
 					
 				

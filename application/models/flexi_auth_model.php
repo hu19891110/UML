@@ -897,6 +897,63 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	}
 	
 
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
+	###DEADLINES
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
+		
+	public function add_deadline($deadline_desc, $deadline_enddate)
+	{
+		$sql_insert = array(
+			$this->login->tbl_col_deadline['desc'] => $deadline_desc,
+			$this->login->tbl_col_deadline['enddate'] => $deadline_enddate,
+			$this->login->tbl_col_deadline['date_added'] => $this->database_date_time()
+		);
+
+		$this->db->insert($this->login->tbl_deadline, $sql_insert);
+		
+		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
+	}
+	
+	public function delete_deadline($sql_where)
+	{
+		if (is_numeric($sql_where))
+		{
+			$sql_where = array($this->login->tbl_col_deadline['id'] => $sql_where);
+		}
+		
+		$this->db->delete($this->login->tbl_deadline, $sql_where);
+
+		return $this->db->affected_rows() == 1;
+	}
+	
+	
+	public function assign_deadline($deadline_id, $class_id)
+	{
+		if (!is_numeric($deadline_id) || !is_numeric($class_id))
+		{
+			return FALSE;
+		}
+		
+		// Set standard privilege data.
+		$sql_insert = array(
+			$this->login->tbl_col_class_deadline['deadline_id'] => $deadline_id,
+			$this->login->tbl_col_class_deadline['class_id'] => $class_id
+		);
+
+		$this->db->insert($this->login->tbl_class_deadline, $sql_insert);
+		
+		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
+	}
+	
+
+
+
+
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	// CHECK USER IDENTITIES
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	

@@ -538,6 +538,47 @@ class Demo_auth_admin_model extends CI_Model {
 		// Redirect user.
 		redirect('dashboard/manage_user_groups');			
     }
+    
+    
+    function add_deadline()
+	{
+		$this->load->library('form_validation');
+
+		// Set validation rules.
+		$validation_rules = array(
+			array('field' => 'add_deadline_desc', 'label' => 'Deadline description', 'rules' => 'required'),
+			array('field' => 'add_deadline_enddate', 'label' => 'Deadline enddate', 'rules' => 'required')
+		);
+		
+		$this->form_validation->set_rules($validation_rules);
+		
+		if ($this->form_validation->run())
+		{
+			// Get privilege data from input.
+			$deadline_desc = $this->input->post('add_deadline_desc');
+			$deadline_enddate = $this->input->post('add_deadline_enddate');
+
+			$deadline_id = $this->flexi_auth->add_deadline($deadline_desc, $deadline_enddate);			
+			foreach($this->input->post('add') as $row)
+			{
+				if ($row['current_status'] != $row['new_status'])
+				{
+					// Assign deadline to class.
+					if ($row['new_status'] == 1)
+					{
+						$this->flexi_auth->assign_deadline($deadline_id, $row['id']);	
+					}
+				}
+			}
+			// Save any public or admin status or error messages to CI's flash session data.
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+			
+			// Redirect user.
+			redirect('dashboard');			
+		}
+	}
+
+
 }
 
 /* End of file demo_auth_admin_model.php */
