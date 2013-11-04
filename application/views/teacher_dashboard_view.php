@@ -68,8 +68,8 @@
   				</thead>
   				<tbody>
   				<tr>
-      			<th >Deadline</th>
-      			<th> Date of deadline </th>
+      			<th>Deadline</th>
+      			<th>Date of deadline</th>
     			</tr>
       			<?php 
       			foreach ($deadlines as $deadline)
@@ -106,14 +106,17 @@
 				
 				<div class="large-3 columns margin-left deadline">
 					<h3> Add a new deadline </h3>
-					<?php echo form_open(current_url());	?>
+					
+					<?php
+					$form_name = array('name' => 'deadline');
+					echo form_open(current_url(), $form_name);	?>
 					<ul>
 						<li>
 							<label for="Description"> Description: </label>
 							<input type="text" id="" name="add_deadline_desc" value=""/>
 						</li>
 						<li>
-							<label for="class">Student Class:</label>	
+							<label for="class">Student Class:</label>
 							<script type="text/javascript">
         						function toggle_all(check) {  //naam van de functie
            					 var form = document.forms['deadline']; // dit leest het formulier in <form name="deadline" ... >
@@ -124,7 +127,6 @@
                 			}                  // 'check' is een variabele die true (aan) of false (uit) kan zijn
         					}
    					 	</script>
-							
 							<input type="button" class="check" value="Check all" onclick="toggle_all(true);"/>
 							<input type="button" class="check" value="Uncheck all" onclick="toggle_all(false);"/><br/>
 							<table>
@@ -160,7 +162,7 @@
 									</tr>
 								<?php } ?>
 								</tbody>
-								</table>					
+								</table>				
 						</li> <br/>
 						<li>
 							<label for="End_date">End date:</label>
