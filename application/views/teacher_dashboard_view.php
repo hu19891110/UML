@@ -166,14 +166,10 @@
 									</tr>
 								<?php } ?>
 								</tbody>
-<<<<<<< HEAD
 								</table>				
 						</li> 
-=======
 								</table>					
 						</li> 
-
->>>>>>> c2533fd52e1d6382b5d6c6551c12c708c2600679
 						<li>
 							<label for="End_date">End date:</label>
 							<input type="text" id="datepicker" name="add_deadline_enddate" value=""/>
