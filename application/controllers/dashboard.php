@@ -112,10 +112,8 @@ class Dashboard extends CI_Controller {
     
     function email()
     {
-		$this->load->view('registration_welcome');	
-    
+		$this->load->view('includes/email/registration_welcome');	
     }
-
 
     function update_user_account($user_id)
 	{
