@@ -106,36 +106,20 @@
 				
 				<div class="large-3 columns margin-left deadline">
 					<h3> Add a new deadline </h3>
-					
-<<<<<<< HEAD
-<<<<<<< HEAD
-					<?php echo form_open(current_url());	?>
-=======
+
 					<?php
 					$form_name = array('name' => 'deadline');
 					echo form_open(current_url(), $form_name);	?>
->>>>>>> 7e4e6584b499d34fae8be54a82158b0f4b120c11
-=======
-					<?php
-					$form_name = array('name' => 'deadline');
-					echo form_open(current_url(), $form_name);	?>
->>>>>>> 7e4e6584b499d34fae8be54a82158b0f4b120c11
+
 					<ul>
 						<li>
 							<label for="Description"> Description: </label>
 							<input type="text" id="" name="add_deadline_desc" value=""/>
 						</li>
 						<li>
-<<<<<<< HEAD
-<<<<<<< HEAD
-							
-							<label for="class">Student Class:</label>	
-=======
+
 							<label for="class">Student Class:</label>
->>>>>>> 7e4e6584b499d34fae8be54a82158b0f4b120c11
-=======
-							<label for="class">Student Class:</label>
->>>>>>> 7e4e6584b499d34fae8be54a82158b0f4b120c11
+
 							<script type="text/javascript">
         						function toggle_all(check) {  //naam van de functie
            					 var form = document.forms['deadline']; // dit leest het formulier in <form name="deadline" ... >
@@ -182,16 +166,9 @@
 									</tr>
 								<?php } ?>
 								</tbody>
-<<<<<<< HEAD
-<<<<<<< HEAD
 								</table>					
 						</li> 
-=======
-=======
->>>>>>> 7e4e6584b499d34fae8be54a82158b0f4b120c11
-								</table>				
-						</li> <br/>
->>>>>>> 7e4e6584b499d34fae8be54a82158b0f4b120c11
+
 						<li>
 							<label for="End_date">End date:</label>
 							<input type="text" id="datepicker" name="add_deadline_enddate" value=""/>
