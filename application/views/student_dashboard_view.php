@@ -1,7 +1,3 @@
-<!-- Include head -->
-<?php $this->load->view('includes/head'); ?>
-<!-- Include header -->
-<?php $this->load->view('includes/header-student'); ?>
 
 <!-- main content -->
 <div class="large-12 columns padding">
@@ -47,9 +43,6 @@
 		</div>
 				
 			</div> <!-- end 12 columns --> 
-
-<!-- Include footer -->
-<?php $this->load->view('includes/footer'); ?>	
 
 
  

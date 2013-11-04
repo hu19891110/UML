@@ -62,12 +62,13 @@ class Dashboard extends CI_Controller {
 		
 		$this->data['classes'] = $this->flexi_auth->get_classes_array();
 		
+		$this->data['message'] = $this->session->flashdata('message');
 		if ($this->flexi_auth->is_admin()) {
-			$this->data['message'] = $this->session->flashdata('message');
-			$this->load->view('teacher_dashboard_view', $this->data);
+			$data['maincontent'] = $this->load->view('teacher_dashboard_view', $this->data, TRUE);
+			$this->load->view('template-teacher', $data);
 		} else {
-			$this->data['message'] = $this->session->flashdata('message');
-			$this->load->view('student_dashboard_view', $this->data);
+			$data['maincontent'] = $this->load->view('student_dashboard_view', $this->data, TRUE);
+			$this->load->view('template-student', $data);	
 		}
 
 
@@ -705,6 +706,23 @@ class Dashboard extends CI_Controller {
                 
 		$data['maincontent'] = $this->load->view('user_group_privileges_update_view', $this->data, TRUE);
 		$this->load->view('template-teacher', $data);			
+    }
+    
+    
+    function manage_deadlines()
+    {
+	    if ($this->input->post('add_deadline')) 
+		{
+			$this->load->model('demo_auth_admin_model');
+			$this->demo_auth_admin_model->add_deadline();
+		}
+		$deadlines = $this->flexi_auth->get_deadlines();
+		$this->data['deadlines'] = $deadlines->result_array();
+		
+		$this->data['classes'] = $this->flexi_auth->get_classes_array();
+		
+		$data['maincontent'] = $this->load->view('manage_deadlines_view', $this->data, TRUE);
+		$this->load->view('template-teacher', $data);
     }
     
     
