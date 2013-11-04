@@ -106,17 +106,20 @@
 				
 				<div class="large-3 columns margin-left deadline">
 					<h3> Add a new deadline </h3>
-					
+
 					<?php
 					$form_name = array('name' => 'deadline');
 					echo form_open(current_url(), $form_name);	?>
+
 					<ul>
 						<li>
 							<label for="Description"> Description: </label>
 							<input type="text" id="" name="add_deadline_desc" value=""/>
 						</li>
 						<li>
+
 							<label for="class">Student Class:</label>
+
 							<script type="text/javascript">
         						function toggle_all(check) {  //naam van de functie
            					 var form = document.forms['deadline']; // dit leest het formulier in <form name="deadline" ... >
@@ -129,6 +132,7 @@
    					 	</script>
 							<input type="button" class="check" value="Check all" onclick="toggle_all(true);"/>
 							<input type="button" class="check" value="Uncheck all" onclick="toggle_all(false);"/><br/>
+							
 							<table>
 								<thead>
 									<tr>
@@ -162,8 +166,14 @@
 									</tr>
 								<?php } ?>
 								</tbody>
+<<<<<<< HEAD
 								</table>				
 						</li> 
+=======
+								</table>					
+						</li> 
+
+>>>>>>> c2533fd52e1d6382b5d6c6551c12c708c2600679
 						<li>
 							<label for="End_date">End date:</label>
 							<input type="text" id="datepicker" name="add_deadline_enddate" value=""/>
