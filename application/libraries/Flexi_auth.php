@@ -1053,6 +1053,7 @@ class Flexi_auth extends Flexi_auth_lite
 	}
 	
 	
+	
 
 	
 	
@@ -1229,6 +1230,14 @@ class Flexi_auth extends Flexi_auth_lite
 		}
 	
 		return $this->CI->flexi_auth_model->get_user_group_privileges($sql_select, $sql_where);
+	}
+	
+	
+	
+	
+	public function get_deadlines($sql_select = FALSE, $sql_where = FALSE)
+	{
+		return $this->CI->flexi_auth_model->get_deadlines($sql_select, $sql_where);
 	}
 
 	

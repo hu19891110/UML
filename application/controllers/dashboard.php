@@ -57,6 +57,8 @@ class Dashboard extends CI_Controller {
 			$this->load->model('demo_auth_admin_model');
 			$this->demo_auth_admin_model->add_deadline();
 		}
+		$deadlines = $this->flexi_auth->get_deadlines();
+		$this->data['deadlines'] = $deadlines->result_array();
 		
 		$this->data['classes'] = $this->flexi_auth->get_classes_array();
 		

@@ -63,50 +63,22 @@
 				<table id="asstocheck" class="large-4 columns margin-left">
   				<thead>
     				<tr>
-      			<th colspan="2" style="text-align: center;">Assignments to check</th>
+      			<th colspan="2" style="text-align: center;">Upcoming deadlines</th>
     				</tr>
   				</thead>
   				<tbody>
   				<tr>
-      			<th >Assignment</th>
+      			<th >Deadline</th>
       			<th> Date of deadline </th>
     			</tr>
     			<tr>
-      			<td>Class diagram test 1</td>
-      			<td>10-08-2013</td>
-      	
-    			</tr>
-    			<tr>
-      			<td>Class diagram test 3</td>
-      			<td>09-03-2013</td>
-    			</tr>
-    			<tr>
-      			<td>Class diagram test 4</td>
-      			<td>12-02-2013</td>
-    			</tr>
-    			<tr>
-      			<td>Class diagram test 7</td>
-      			<td>05-09-2013</td>
-    			</tr>
-    			<tr>
-      			<td>Class diagram test 11</td>
-      			<td>22-11-2013</td>
-    			</tr>	
-    			<tr>
-      			<td>Class diagram test 18</td>
-      			<td>25-11-2013</td>
-    			</tr>	
-    			<tr>
-      			<td>Class diagram test 19</td>
-      			<td>30-11-2013</td>
-    			</tr>		
-    			<tr>
-      			<td>Class diagram test 20</td>
-      			<td>02-12-2013</td>
-    			</tr>	
-    			<tr>
-      			<td>Class diagram test 21</td>
-      			<td>05-12-2013</td>
+      			<?php 
+      			foreach ($deadlines as $deadline)
+      			{ ?>
+	      			<td><?php echo $deadline[$this->flexi_auth->db_column('deadline', 'desc')];?></td>
+	      			<td><?php echo $deadline[$this->flexi_auth->db_column('deadline', 'enddate')];?></td>
+	      			
+      			<?php } ?>
     			</tr>		
     		
   				</tbody>

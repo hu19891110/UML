@@ -1684,6 +1684,13 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			->join($this->login->tbl_user_privilege_groups, $this->login->tbl_col_user_privilege['id'].' = '.$this->login->tbl_col_user_privilege_groups['privilege_id'])
 			->get();
 	}
+	
+	public function get_deadlines($sql_select, $sql_where)
+	{
+		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
+		
+		return $this->db->get($this->login->tbl_deadline);
+	}
 
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
