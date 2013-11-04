@@ -163,7 +163,7 @@
 								<?php } ?>
 								</tbody>
 								</table>				
-						</li> <br/>
+						</li> 
 						<li>
 							<label for="End_date">End date:</label>
 							<input type="text" id="datepicker" name="add_deadline_enddate" value=""/>
