@@ -60,6 +60,11 @@ $lang['update_unsuccessful']						= 'Unable to update account information.';
 $lang['delete_successful']							= 'Account information has been successfully deleted.';
 $lang['delete_unsuccessful']						= 'Unable to delete account information.';
 
+$lang['add_deadline_successful']					= 'Deadline has been successfully added.';
+$lang['add_deadline_unsuccessful']					= 'Unable to add deadline.';
+$lang['delete_deadline_successful']					= 'Deadline has been successfully deleted.';
+$lang['delete_deadline_unsuccessful']				= 'Unable to delete deadline.';
+
 // Form Validation
 $lang['form_validation_duplicate_identity'] 		= "An account with this email address or username already exists.";
 $lang['form_validation_duplicate_email'] 			= "The Email of %s field is not available.";

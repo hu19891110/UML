@@ -538,7 +538,6 @@ class Demo_auth_admin_model extends CI_Model {
 		// Redirect user.
 		redirect('dashboard/manage_user_groups');			
     }
-<<<<<<< HEAD
     
     
     function add_deadline()
@@ -555,7 +554,7 @@ class Demo_auth_admin_model extends CI_Model {
 		
 		if ($this->form_validation->run())
 		{
-			// Get deadline data from input.
+			// Get privilege data from input.
 			$deadline_desc = $this->input->post('add_deadline_desc');
 			$deadline_enddate = $this->input->post('add_deadline_enddate');
 
@@ -575,34 +574,11 @@ class Demo_auth_admin_model extends CI_Model {
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			
 			// Redirect user.
-			redirect('dashboard/manage_deadlines');			
+			redirect('dashboard');			
 		}
 	}
-	
-	
-	function delete_deadline()
-    {
-		// Get post data
-		
-		
-		foreach($this->input->post('delete') as $row)
-		{
-			if ($row['current_status'] != $row['new_status'])
-			{
-				// Assign deadline to class.
-				if ($row['new_status'] == 1)
-				{
-					$this->flexi_auth->delete_deadline($row['id']);	
-					$this->flexi_auth->unassign_deadline($row['id']);
-				}
-			}
-		}	
-		redirect('dashboard/manage_deadlines');
-	}
 
 
-=======
->>>>>>> parent of 4c6c338... Deadlines toegevoegd
 }
 
 /* End of file demo_auth_admin_model.php */

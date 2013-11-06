@@ -504,12 +504,6 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	
 		return TRUE;
 	}
-	
-	public function get_deadlines_data() {
-	
-	
-	
-	}
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 
@@ -903,7 +897,6 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	}
 	
 
-<<<<<<< HEAD
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
@@ -957,24 +950,10 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
 	}
 	
-	public function unassign_deadline($sql_where)
-	{
-		if (is_numeric($sql_where))
-		{
-			$sql_where = array($this->login->tbl_col_class_deadline['deadline_id'] => $sql_where);
-		}
-		
-		$this->db->delete($this->login->tbl_class_deadline, $sql_where);
-
-		return $this->db->affected_rows() == 1;
-	}
-	
 
 
 
 
-=======
->>>>>>> parent of 4c6c338... Deadlines toegevoegd
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	// CHECK USER IDENTITIES
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
@@ -1711,20 +1690,6 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
 		
 		return $this->db->get($this->login->tbl_deadline);
-	}
-	
-	public function get_uploads_by_deadline($sql_select, $sql_where)
-	{
-		//$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, 'uploads');
-		
-		return $this->db->get_where('uploads', array('type' => 1));
-	}
-	
-	public function get_correct_file_by_deadline($sql_select, $sql_where)
-	{
-		//$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, 'uploads');
-		
-		return $this->db->get_where('uploads', array('type' => 2, 'deadline_id' => 3));
 	}
 
 	

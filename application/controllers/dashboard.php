@@ -52,7 +52,6 @@ class Dashboard extends CI_Controller {
 	
 	function dashboard() 
 	{
-<<<<<<< HEAD
 		if ($this->input->post('add_deadline')) 
 		{
 			$this->load->model('demo_auth_admin_model');
@@ -61,8 +60,6 @@ class Dashboard extends CI_Controller {
 		$deadlines = $this->flexi_auth->get_deadlines();
 		$this->data['deadlines'] = $deadlines->result_array();
 		
-=======
->>>>>>> parent of 4c6c338... Deadlines toegevoegd
 		$this->data['classes'] = $this->flexi_auth->get_classes_array();
 		
 		$this->data['message'] = $this->session->flashdata('message');
@@ -711,21 +708,6 @@ class Dashboard extends CI_Controller {
 		$this->load->view('template-teacher', $data);			
     }
     
-    function deadline($deadline_id)
-    {
-    	$sql_where = array($this->flexi_auth->db_column('deadline', 'id') => $deadline_id);
-	    $deadline = $this->flexi_auth->get_deadlines(FALSE , $sql_where);
-		$this->data['deadline'] = $deadline->row_array();
-		
-		if($this->flexi_auth->is_admin())
-		{
-			$data['maincontent'] = $this->load->view('deadline_view_teacher', $this->data, TRUE);
-			$this->load->view('template-teacher', $data);
-		} else {
-			$data['maincontent'] = $this->load->view('deadline_view_student', $this->data, TRUE);
-			$this->load->view('template-student', $data);
-		}
-    }
     
     function manage_deadlines()
     {
@@ -733,11 +715,6 @@ class Dashboard extends CI_Controller {
 		{
 			$this->load->model('demo_auth_admin_model');
 			$this->demo_auth_admin_model->add_deadline();
-		}
-		if ($this->input->post('delete_deadline')) 
-		{
-			$this->load->model('demo_auth_admin_model');
-			$this->demo_auth_admin_model->delete_deadline();
 		}
 		$deadlines = $this->flexi_auth->get_deadlines();
 		$this->data['deadlines'] = $deadlines->result_array();

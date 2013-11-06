@@ -9,7 +9,7 @@ class Assignments extends CI_Controller {
 		$this->load->database();
 		$this->load->library('session');
 		$this->load->helper(array('form', 'url'));
-
+		
 		$this->login = new stdClass;
 		
 		$this->load->library('flexi_auth');	

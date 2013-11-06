@@ -1012,7 +1012,6 @@ class Flexi_auth extends Flexi_auth_lite
 		return FALSE;
 	}
 	
-<<<<<<< HEAD
 	
 	
 	public function add_deadline($deadline_desc, $deadline_enddate)
@@ -1052,17 +1051,6 @@ class Flexi_auth extends Flexi_auth_lite
 		$this->CI->flexi_auth_model->set_error_message('add_deadline_unsuccessful', 'config');
 		return FALSE;
 	}
-	public function unassign_deadline($sql_where)
-	{
-		if ($this->CI->flexi_auth_model->unassign_deadline($sql_where))
-		{
-			$this->CI->flexi_auth_model->set_status_message('delete_deadline_successful', 'config');
-			return TRUE;
-		}
-
-		$this->CI->flexi_auth_model->set_error_message('delete_deadline_unsuccessful', 'config');
-		return FALSE;
-	}
 	
 	
 	
@@ -1070,8 +1058,6 @@ class Flexi_auth extends Flexi_auth_lite
 	
 	
 	
-=======
->>>>>>> parent of 4c6c338... Deadlines toegevoegd
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 	
 	/**
@@ -1246,14 +1232,6 @@ class Flexi_auth extends Flexi_auth_lite
 		return $this->CI->flexi_auth_model->get_user_group_privileges($sql_select, $sql_where);
 	}
 	
-	
-	public function get_uploads_by_deadline($sql_select = FALSE, $sql_where = FALSE) {
-		return $this->CI->flexi_auth_model->get_uploads_by_deadline($sql_select, $sql_where);
-	}
-	
-	public function get_correct_file_by_deadline($sql_select = FALSE, $sql_where = FALSE) {
-		return $this->CI->flexi_auth_model->get_correct_file_by_deadline($sql_select, $sql_where);
-	}
 	
 	
 	
