@@ -266,6 +266,7 @@ CREATE TABLE IF NOT EXISTS `user_privilege_groups` (
 -- Dumping data for table `user_privilege_groups`
 --
 
+<<<<<<< HEAD
 INSERT INTO `user_privilege_groups` (`upriv_groups_id`, `upriv_groups_ugrp_fk`, `upriv_groups_upriv_fk`) VALUES
 (1, 3, 1),
 (3, 3, 3),
@@ -346,3 +347,22 @@ INSERT INTO `user_profiles` (`upro_id`, `upro_uacc_fk`, `upro_company`, `upro_fi
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+=======
+-- ----------------------------
+-- Records of user_privilege_groups
+-- ----------------------------
+
+INSERT INTO `user_privilege_groups` VALUES(1, 3, 1);
+INSERT INTO `user_privilege_groups` VALUES(3, 3, 3);
+INSERT INTO `user_privilege_groups` VALUES(4, 3, 4);
+INSERT INTO `user_privilege_groups` VALUES(5, 3, 5);
+INSERT INTO `user_privilege_groups` VALUES(6, 3, 6);
+INSERT INTO `user_privilege_groups` VALUES(7, 3, 7);
+INSERT INTO `user_privilege_groups` VALUES(8, 3, 8);
+INSERT INTO `user_privilege_groups` VALUES(9, 3, 9);
+INSERT INTO `user_privilege_groups` VALUES(10, 3, 10);
+INSERT INTO `user_privilege_groups` VALUES(11, 3, 11);
+INSERT INTO `user_privilege_groups` VALUES(12, 2, 2);
+INSERT INTO `user_privilege_groups` VALUES(13, 2, 4);
+INSERT INTO `user_privilege_groups` VALUES(14, 2, 5);
+>>>>>>> parent of 4c6c338... Deadlines toegevoegd
