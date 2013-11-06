@@ -950,6 +950,18 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
 	}
 	
+	public function unassign_deadline($sql_where)
+	{
+		if (is_numeric($sql_where))
+		{
+			$sql_where = array($this->login->tbl_col_class_deadline['deadline_id'] => $sql_where);
+		}
+		
+		$this->db->delete($this->login->tbl_class_deadline, $sql_where);
+
+		return $this->db->affected_rows() == 1;
+	}
+	
 
 
 

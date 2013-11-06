@@ -592,6 +592,7 @@ class Demo_auth_admin_model extends CI_Model {
 				if ($row['new_status'] == 1)
 				{
 					$this->flexi_auth->delete_deadline($row['id']);	
+					$this->flexi_auth->unassign_deadline($row['id']);
 				}
 			}
 		}	
