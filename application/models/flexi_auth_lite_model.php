@@ -227,7 +227,6 @@ class Flexi_auth_lite_model extends CI_Model
 
 		return $this->db->get($this->login->tbl_user_account);
 	}
-	
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	// LOGOUT / VALIDATION METHODS

@@ -71,7 +71,7 @@
       			foreach ($deadlines as $deadline)
       			{ ?>
       			<tr>
-	      			<td><?php echo $deadline[$this->flexi_auth->db_column('deadline', 'desc')];?></td>
+	      			<td><a href="<?php echo $base_url . 'dashboard/deadline/'. $deadline[$this->flexi_auth->db_column('deadline', 'id')];?>"><?php echo $deadline[$this->flexi_auth->db_column('deadline', 'desc')];?></a></td>
 	      			<td><?php echo $deadline[$this->flexi_auth->db_column('deadline', 'enddate')];?></td>
 	      		</tr>	
       			<?php } ?>		

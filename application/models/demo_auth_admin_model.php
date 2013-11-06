@@ -554,7 +554,7 @@ class Demo_auth_admin_model extends CI_Model {
 		
 		if ($this->form_validation->run())
 		{
-			// Get privilege data from input.
+			// Get deadline data from input.
 			$deadline_desc = $this->input->post('add_deadline_desc');
 			$deadline_enddate = $this->input->post('add_deadline_enddate');
 
@@ -574,8 +574,29 @@ class Demo_auth_admin_model extends CI_Model {
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			
 			// Redirect user.
-			redirect('dashboard');			
+			redirect('dashboard/manage_deadlines');			
 		}
+	}
+	
+	
+	function delete_deadline()
+    {
+		// Get post data
+		
+		
+		foreach($this->input->post('delete') as $row)
+		{
+			if ($row['current_status'] != $row['new_status'])
+			{
+				// Assign deadline to class.
+				if ($row['new_status'] == 1)
+				{
+					$this->flexi_auth->delete_deadline($row['id']);	
+					$this->flexi_auth->unassign_deadline($row['id']);
+				}
+			}
+		}	
+		redirect('dashboard/manage_deadlines');
 	}
 
 
