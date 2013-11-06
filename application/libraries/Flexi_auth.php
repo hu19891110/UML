@@ -1233,6 +1233,14 @@ class Flexi_auth extends Flexi_auth_lite
 	}
 	
 	
+	public function get_uploads_by_deadline($sql_select = FALSE, $sql_where = FALSE) {
+		return $this->CI->flexi_auth_model->get_uploads_by_deadline($sql_select, $sql_where);
+	}
+	
+	public function get_correct_file_by_deadline($sql_select = FALSE, $sql_where = FALSE) {
+		return $this->CI->flexi_auth_model->get_correct_file_by_deadline($sql_select, $sql_where);
+	}
+	
 	
 	
 	public function get_deadlines($sql_select = FALSE, $sql_where = FALSE)

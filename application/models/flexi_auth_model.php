@@ -504,6 +504,12 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	
 		return TRUE;
 	}
+	
+	public function get_deadlines_data() {
+	
+	
+	
+	}
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 
@@ -1690,6 +1696,20 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
 		
 		return $this->db->get($this->login->tbl_deadline);
+	}
+	
+	public function get_uploads_by_deadline($sql_select, $sql_where)
+	{
+		//$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, 'uploads');
+		
+		return $this->db->get_where('uploads', array('type' => 1));
+	}
+	
+	public function get_correct_file_by_deadline($sql_select, $sql_where)
+	{
+		//$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, 'uploads');
+		
+		return $this->db->get_where('uploads', array('type' => 2, 'deadline_id' => 3));
 	}
 
 	
