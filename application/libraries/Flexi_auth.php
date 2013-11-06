@@ -1051,6 +1051,17 @@ class Flexi_auth extends Flexi_auth_lite
 		$this->CI->flexi_auth_model->set_error_message('add_deadline_unsuccessful', 'config');
 		return FALSE;
 	}
+	public function unassign_deadline($sql_where)
+	{
+		if ($this->CI->flexi_auth_model->unassign_deadline($sql_where))
+		{
+			$this->CI->flexi_auth_model->set_status_message('delete_deadline_successful', 'config');
+			return TRUE;
+		}
+
+		$this->CI->flexi_auth_model->set_error_message('delete_deadline_unsuccessful', 'config');
+		return FALSE;
+	}
 	
 	
 	
