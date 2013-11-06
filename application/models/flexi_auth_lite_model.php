@@ -134,18 +134,6 @@ class Flexi_auth_lite_model extends CI_Model
 		$this->login->tbl_join_user_account = $database_config['user_acc']['join'];
 		$this->login->tbl_col_user_account = array_merge($database_config['user_acc']['columns'], $database_config['user_acc']['custom_columns']);
 		#$this->login->tbl_custom_col_user_account = $database_config['user_acc']['custom_columns']; // Currently unused.
-		
-		
-		// Deadline table
-		$this->login->tbl_deadline = $database_config['deadline']['table'];
-		$this->login->tbl_col_deadline = $database_config['deadline']['columns'];
-		
-		
-		// Class deadline table
-		$this->login->tbl_class_deadline = $database_config['class_deadline']['table'];
-		$this->login->tbl_col_class_deadline = $database_config['class_deadline']['columns'];
-		
-		
 
 		// User custom data table(s)
 		$this->login->tbl_custom_data = (! empty($database_config['custom'])) ? $database_config['custom'] : array();

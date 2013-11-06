@@ -1012,6 +1012,7 @@ class Flexi_auth extends Flexi_auth_lite
 		return FALSE;
 	}
 	
+<<<<<<< HEAD
 	
 	
 	public function add_deadline($deadline_desc, $deadline_enddate)
@@ -1069,6 +1070,8 @@ class Flexi_auth extends Flexi_auth_lite
 	
 	
 	
+=======
+>>>>>>> parent of 4c6c338... Deadlines toegevoegd
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 	
 	/**

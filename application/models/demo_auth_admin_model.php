@@ -538,6 +538,7 @@ class Demo_auth_admin_model extends CI_Model {
 		// Redirect user.
 		redirect('dashboard/manage_user_groups');			
     }
+<<<<<<< HEAD
     
     
     function add_deadline()
@@ -600,6 +601,8 @@ class Demo_auth_admin_model extends CI_Model {
 	}
 
 
+=======
+>>>>>>> parent of 4c6c338... Deadlines toegevoegd
 }
 
 /* End of file demo_auth_admin_model.php */

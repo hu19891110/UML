@@ -102,17 +102,22 @@
 				
 				<div class="large-3 columns margin-left deadline">
 					<h3> Add a new deadline </h3>
+<<<<<<< HEAD
 
 					<?php
 					$form_name = array('name' => 'deadline');
 					echo form_open(current_url(), $form_name);	?>
 
+=======
+					
+>>>>>>> parent of 4c6c338... Deadlines toegevoegd
 					<ul>
 						<li>
 							<label for="Description"> Description: </label>
-							<input type="text" id="" name="add_deadline_desc" value=""/>
+							<input type="text" id="" name="e" value=""/>
 						</li>
 						<li>
+<<<<<<< HEAD
 
 							<label for="class">Student Class:</label>
 
@@ -166,18 +171,33 @@
 						</li> 
 								</table>					
 						</li> 
+=======
+							<label for="class">Student Class:</label>
+							<select id="class" name="register_class" class="tooltip_trigger"
+								title="Set the students class.">
+							<?php foreach($classes as $class) { ?>
+								<option value="<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>" >
+									<?php echo $class[$this->flexi_auth->db_column('student_class', 'name')];?>
+								</option>
+							<?php } ?>
+							</select>
+						</li> <br/>
+>>>>>>> parent of 4c6c338... Deadlines toegevoegd
 						<li>
 							<label for="End_date">End date:</label>
-							<input type="text" id="datepicker" name="add_deadline_enddate" value=""/>
-						</li>
-						<li>
-						<input type="submit" name="add_deadline" id="add_deadline" value="Add Deadline" class="small button"/>
+							<input type="text" id="datepicker" name="" value=""/>
 						</li>
 					</ul>
+<<<<<<< HEAD
 					<?php echo form_close();?>
 					
 
 				</div><!--large-3 columns -->
+=======
+					
+					<input type="submit" name="" id="submit" value="Submit" class="small button"/>
+				</div>
+>>>>>>> parent of 4c6c338... Deadlines toegevoegd
 					
 				
 				</div> <!-- row -->			
