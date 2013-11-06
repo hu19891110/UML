@@ -8,7 +8,6 @@
 	
 <h2>Manage deadlines</h2> 
 
-	
 			<div class="large-6 columns">
 			<h3> Add a new deadline </h3>
 					<?php
@@ -90,8 +89,6 @@
 						</li>
 					</ul>
 					<?php echo form_close();?>
-					
-
 				</div><!--large-6 columns -->
 			
 				<?php echo form_open(current_url()); ?>
