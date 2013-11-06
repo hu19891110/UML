@@ -708,6 +708,21 @@ class Dashboard extends CI_Controller {
 		$this->load->view('template-teacher', $data);			
     }
     
+    function deadline($deadline_id)
+    {
+    	$sql_where = array($this->flexi_auth->db_column('deadline', 'id') => $deadline_id);
+	    $deadline = $this->flexi_auth->get_deadlines(FALSE , $sql_where);
+		$this->data['deadline'] = $deadline->row_array();
+		
+		if($this->flexi_auth->is_admin())
+		{
+			$data['maincontent'] = $this->load->view('deadline_view_teacher', $this->data, TRUE);
+			$this->load->view('template-teacher', $data);
+		} else {
+			$data['maincontent'] = $this->load->view('deadline_view_student', $this->data, TRUE);
+			$this->load->view('template-student', $data);
+		}
+    }
     
     function manage_deadlines()
     {

@@ -1,4 +1,3 @@
-
 <!-- main content -->
 <div class="large-12 columns padding">
 	<?php if (! empty($message)) { ?>
@@ -77,28 +76,6 @@
       			<?php } ?>		
       			</tbody>
 				</table>
-				
-				<div id="graph" class="large-4 columns margin-left"> </div>
-				
-				<script>
-				graphResolutionByYear = new Array(
-				[[3, 8],'Test 1'],
-				[[4, 9],'Test 2'],
-				[[1, 9],'Test 3']
-				);
-
-				$("#graph").jqBarGraph({
-				data: graphResolutionByYear,
-				colors: ['#435B77','#000'],
-				legends: ['Lowest grade','Highest grade'],
-				legend: true,
-				width: 350,
-				color: '#ffffff',
-				type: 'multi',
-				postfix: '',
-				title: '<h3> Highest and lowest grades per test</h3>'
-				});
-				</script>
 				
 				<div class="large-3 columns margin-left deadline">
 					<h3> Add a new deadline </h3>
@@ -184,47 +161,3 @@
 			</div> <!-- mainwrapper --> 	
 				
 		</div> <!-- end 12 columns --> 
-
-
-
-
-  <!--
-  
-  <script src="<?php echo $includes_dir;?>Foundation/js/foundation/foundation.js"></script>
-  
-  <script src="<?php echo $includes_dir;?>Foundation/js/foundation/foundation.interchange.js"></script>
-  
-  <script src="<?php echo $includes_dir;?>Foundation/js/foundation/foundation.abide.js"></script>
-  
-  <script src="<?php echo $includes_dir;?>Foundation/js/foundation/foundation.dropdown.js"></script>
-  
-  <script src="<?php echo $includes_dir;?>Foundation/js/foundation/foundation.placeholder.js"></script>
-  
-  <script src="<?php echo $includes_dir;?>Foundation/js/foundation/foundation.forms.js"></script>
-  
-  <script src="<?php echo $includes_dir;?>Foundation/js/foundation/foundation.alerts.js"></script>
-  
-  <script src="<?php echo $includes_dir;?>Foundation/js/foundation/foundation.magellan.js"></script>
-  
-  <script src="<?php echo $includes_dir;?>Foundation/js/foundation/foundation.reveal.js"></script>
-  
-  <script src="<?php echo $includes_dir;?>Foundation/js/foundation/foundation.tooltips.js"></script>
-  
-  <script src="<?php echo $includes_dir;?>Foundation/js/foundation/foundation.clearing.js"></script>
-  
-  <script src="<?php echo $includes_dir;?>Foundation/js/foundation/foundation.cookie.js"></script>
-  
-  <script src="<?php echo $includes_dir;?>Foundation/js/foundation/foundation.joyride.js"></script>
-  
-  <script src="<?php echo $includes_dir;?>Foundation/js/foundation/foundation.orbit.js"></script>
-  
-  <script src="<?php echo $includes_dir;?>Foundation/js/foundation/foundation.section.js"></script>
-  
-  <script src="<?php echo $includes_dir;?>Foundation/js/foundation/foundation.topbar.js"></script>
-  
-  -->
-  
-
-
-
-	
