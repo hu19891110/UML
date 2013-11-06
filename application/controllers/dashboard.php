@@ -731,6 +731,11 @@ class Dashboard extends CI_Controller {
 			$this->load->model('demo_auth_admin_model');
 			$this->demo_auth_admin_model->add_deadline();
 		}
+		if ($this->input->post('delete_deadline')) 
+		{
+			$this->load->model('demo_auth_admin_model');
+			$this->demo_auth_admin_model->delete_deadline();
+		}
 		$deadlines = $this->flexi_auth->get_deadlines();
 		$this->data['deadlines'] = $deadlines->result_array();
 		

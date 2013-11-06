@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!-- main content -->
 <div class="large-12 columns padding">
 	<?php if (! empty($message)) { ?>
@@ -55,29 +54,48 @@
 	
 			
 		<div class="row">			
-				
+				<?php echo form_open(current_url()); ?>
 				<table id="asstocheck" class="large-4 columns margin-left">
   				<thead>
     				<tr>
-      			<th colspan="2" style="text-align: center;">Upcoming deadlines</th>
+      			<th colspan="3" style="text-align: center;">Upcoming deadlines</th>
     				</tr>
   				</thead>
   				<tbody>
   				<tr>
       			<th>Deadline</th>
       			<th>Date of deadline</th>
+      			<th>Delete deadline</th>
     			</tr>
       			<?php 
       			foreach ($deadlines as $deadline)
       			{ ?>
       			<tr>
-	      			<td><a href="<?php echo $base_url . 'dashboard/deadline/'. $deadline[$this->flexi_auth->db_column('deadline', 'id')];?>"><?php echo $deadline[$this->flexi_auth->db_column('deadline', 'desc')];?></a></td>
+	      			<td><input type="hidden" name="delete[<?php echo $deadline[$this->flexi_auth->db_column('deadline', 'id')];?>][id]" value="<?php echo $deadline[$this->flexi_auth->db_column('deadline', 'id')];?>"/>
+	      			<a href="<?php echo $base_url . 'dashboard/deadline/'. $deadline[$this->flexi_auth->db_column('deadline', 'id')];?>"><?php echo $deadline[$this->flexi_auth->db_column('deadline', 'desc')];?></a></td>
 	      			<td><?php echo $deadline[$this->flexi_auth->db_column('deadline', 'enddate')];?></td>
-	      		</tr>	
+	      			<td>
+	      			<?php 
+						// Define form input values.
+						$current_status = 0; 
+						$new_status = NULL;
+					?>
+	      			
+	      			<input type="hidden" name="delete[<?php echo $deadline[$this->flexi_auth->db_column('deadline', 'id')];?>][current_status]" value="<?php echo $current_status ?>"/>
+					<input type="hidden" name="delete[<?php echo $deadline[$this->flexi_auth->db_column('deadline', 'id')];?>][new_status]" value="0"/>
+											
+					<input style="float:right;" type="checkbox" name="delete[<?php echo $deadline[$this->flexi_auth->db_column('deadline', 'id')];?>][new_status]" value="1" <?php echo $new_status ?>/></td>
+	      		</tr>
+	      		
       			<?php } ?>		
       			</tbody>
+      			<tfoot>
+      				<tr><td colspan="3">
+      				<input type="submit" name="delete_deadline" id="add_deadline" value="Delete Checked deadlines" class="small button"/>
+      				</td></tr>
+      			</tfoot>
 				</table>
-				
+				<?php echo form_close(); ?>
 				<div class="large-3 columns margin-left deadline">
 					<h3> Add a new deadline </h3>
 <!-- Main Content -->
