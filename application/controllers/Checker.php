@@ -87,14 +87,18 @@ class Checker extends CI_Controller {
 		$uploads = $uploads->result_array();
 		
 		foreach($uploads as $upload) {
-			$this->faults = ' ';
-			$this->GRADE = 0;
+			$this->faults = '';
+			$this->GRADE = 10;
 			
 			$handed_in_file = (string) $upload['student_id'] . '-' . (string)$upload['deadline_id'] . '.xml';
 			$this->checkFile($correctfile_name, $handed_in_file);
 			
-			
+			if(empty($this->faults)) {
+				$this->faults = 'No faults, perfect score!';
+			}
+			$this->flexi_auth->update_file_by_deadline($upload['student_id'], $upload['deadline_id'], $this->GRADE, $this->faults);
 		}
+		
 		
 		
 		$this->data['uploads'] = $uploads;
@@ -120,9 +124,6 @@ class Checker extends CI_Controller {
 		$handed_in_file = simplexml_load_string($handed_in_file);
 		
 		$this->checkModels($correctfile, $handed_in_file);
-		
-		echo $this->faults;
-		echo $this->GRADE;
 	
 	}
 	
@@ -532,6 +533,10 @@ class Checker extends CI_Controller {
 				if((string)$attribute1->Type->DataType->attributes()->Name == (string)$attribute2->Type->DataType->attributes()->Name) {
 					return true; // attributen hebben een standaard datatype
 				} 
+			} else if(isset($attribute1->Type->Class) && isset($attribute2->Type->Class)) {
+				if((string)$attribute1->Type->Class->attributes()->Name  == (string)$attribute2->Type->Class->attributes()->Name) {
+					return true; // parameters hebben zelfde class
+				}
 			}
 		} else {
 			if((string)$attribute1->attributes()->Type == (string)$attribute2->attributes()->Type) {
@@ -545,9 +550,13 @@ class Checker extends CI_Controller {
 	
 	function sameTypeParam($parameter1, $parameter2) {
 		if(!empty($parameter1->Type) && !empty($parameter2->Type)) {
-			if( isset($parameter1->Type->DataType) && isset($parameter2->Type->DataType)){
+			if(isset($parameter1->Type->DataType) && isset($parameter2->Type->DataType)){
 				if((string)$parameter1->Type->DataType->attributes()->Name == (string)$parameter2->Type->DataType->attributes()->Name) {
 					return true; // parameters hebben zelfde standaard datatype
+				}
+			} else if(isset($parameter1->Type->Class) && isset($parameter2->Type->Class)) {
+				if((string)$parameter1->Type->Class->attributes()->Name  == (string)$parameter2->Type->Class->attributes()->Name) {
+					return true; // parameters hebben zelfde class
 				}
 			}
 		} else {

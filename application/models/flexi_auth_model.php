@@ -600,6 +600,23 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 		return $this->db->affected_rows() == 1;	
 	}
+	
+	public function update_file_by_deadline($student_id, $deadline_id, $grade, $faults) {
+		
+		$data = array(
+			'grade' => $grade,
+			'faults' => $faults
+		);
+		
+		$sql_where = array(
+			'student_id' => $student_id,
+			'deadline_id' => $deadline_id
+		);
+
+		
+		$this->db->update('uploads', $data, $sql_where);
+		
+	}
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 

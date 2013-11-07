@@ -129,7 +129,7 @@
 		<Stereotype Abstract="false" BaseType="Usage" Documentation_plain="" Id="8gWYbIKD.AAAAQal" Leaf="false" Name="parameter" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:02:14.150" PmLastModified="2013-09-19T14:11:24.624" QualityScore="-1" Root="false" UserIDLastNumericValue="0"/>
 		<Package Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="m_nNTIKGAqAACwUt" Leaf="false" Name="Happer" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:12:14.681" PmLastModified="2013-09-23T18:06:10.623" QualityScore="-1" Root="false" UserIDLastNumericValue="0" Visibility="public">
 			<SubDiagrams>
-				<ClassDiagram Idref="EL7NTIKGAqAACwUm"/>
+				<ClassDiagram Idref="EL7FNTIKGAqAACwUm"/>
 			</SubDiagrams>
 			<ModelChildren>
 				<Class Abstract="false" Active="false" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="57BdTIKGAqAACwWm" Leaf="false" Name="Game" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:19:16.071" PmLastModified="2013-09-19T16:00:14.269" QualityScore="-1" Root="false" UserIDLastNumericValue="0" Visibility="public">
@@ -540,7 +540,7 @@
 						<Class Idref="5ZWPTIKGAqAACwoZ" Name="GameStatus"/>
 					</MasterView>
 				</Class>
-				<Class Abstract="false" Active="false" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="VHZPTIKGAqAACwo4" Leaf="false" Name="	" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:20:50.730" PmLastModified="2013-09-19T15:00:01.440" QualityScore="-1" Root="false" UserIDLastNumericValue="0" Visibility="public">
+				<Class Abstract="false" Active="false" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="VHZPTIKGAqAACwo4" Leaf="false" Name="GameDifficulty" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:20:50.730" PmLastModified="2013-09-19T15:00:01.440" QualityScore="-1" Root="false" UserIDLastNumericValue="0" Visibility="public">
 					<Stereotypes>
 						<Stereotype Idref="VF73TIKGAqAACwnj" Name="enumeration"/>
 					</Stereotypes>

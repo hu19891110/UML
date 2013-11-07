@@ -838,6 +838,10 @@ class Flexi_auth extends Flexi_auth_lite
 		$this->CI->flexi_auth_model->set_error_message('update_unsuccessful', 'config');
 		return FALSE;
 	}
+	
+	public function update_file_by_deadline($student_id, $deadline_id, $grade, $faults) {
+		$this->CI->flexi_auth_model->update_file_by_deadline($student_id, $deadline_id, $grade, $faults);
+	}
 
 	/**
 	 * delete_class
