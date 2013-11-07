@@ -26,7 +26,7 @@ input, textarea{
 }
 
 /* graph dashboard */ 
-#graphHolder2graph{
+#graphHolder2graph, #graphHolder3graph{
 	float:left;
 }
 

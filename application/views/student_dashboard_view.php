@@ -6,43 +6,52 @@
 			<?php echo $message; ?>
 		</div>
 	<?php } ?>
+	
+				<table id="asstocheck" class="large-4 columns margin-left">
+  				<thead>
+    				<tr>
+      			<th colspan="2" style="text-align: center;">Upcoming deadlines</th>
+    				</tr>
+  				</thead>
+  				<tbody>
+  				<tr>
+      			<th>Deadline</th>
+      			<th>Date of deadline</th>
+    			</tr>
+      			<?php 
+      			foreach ($deadlines as $deadline)
+      			{ ?>
+      			<tr>
+	      			<td><a href="<?php echo $base_url . 'dashboard/deadline/'. $deadline[$this->flexi_auth->db_column('deadline', 'id')];?>"><?php echo $deadline[$this->flexi_auth->db_column('deadline', 'desc')];?></a></td>
+	      			<td><?php echo $deadline[$this->flexi_auth->db_column('deadline', 'enddate')];?></td>
+	      		</tr>	
+      			<?php } ?>		
+      			</tbody>
+				</table>
 				
-		<div id="mainwrapper">	
-		<!-- Image Caption 6 -->
-		<div id="box-6" class="box">
-		<img id="image-6" src="../includes/images/assignments.jpg"/>
-		<a href="<?php echo site_url('assignments') ?>"><span class="caption scale-caption">
-			<h3></h3>
-			<p> Upload assignments <br/>
-			Get an overview of uploaded assignments </p>
-		</span></a>
-		</div>
-		
-			<div id="box-6" class="box">
-		<img id="image-6" src="../includes/images/deadlines.jpg"/>
-		<span class="caption scale-caption">
-			<h3></h3>
-			<p> </p>
-		</span>
-		</div>
-		
-			<div id="box-6" class="box">
-		<img id="image-6" src="../includes/images/archive.jpg"/>
-		<span class="caption scale-caption">
-			<h3></h3>
-			<p> </p>
-		</span>
-		</div>
-		
-			<div id="box-6" class="box">
-		<img id="image-6" src="../includes/images/userdetails.jpg"/>
-		<span class="caption scale-caption">
-			<h3></h3>
-			<p> </p>
-		</span>
-		</div>
+				<div id="graph" class="large-4 columns "> </div>
 				
-			</div> <!-- end 12 columns --> 
+				<script>
+				graphResolutionByYear = new Array(
+				[3,'Test 1'],
+				[ 9,'Test 2'],
+				[9,'Test 3'],
+				[9,'Test 4']
+				);
+
+				$("#graph").jqBarGraph({
+				data: graphResolutionByYear,
+				colors: ['#435B77','#000'],
+				width: 250,
+				color: '#ffffff',
+				type: 'false',
+				postfix: '',
+				title: '<h3> Grades per test</h3>'
+				});
+				</script>
+
+
+</div> <!-- end 12 columns --> 
 
 
  
