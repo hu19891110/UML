@@ -37,6 +37,7 @@ class Assignments extends CI_Controller {
 
 	function index()
 	{
+
 		$this->data['error'] = ' ';
 		
 		if ($this->flexi_auth->is_admin()) {
@@ -60,6 +61,7 @@ class Assignments extends CI_Controller {
 		$config['max_size']	= '100';
 		$config['max_width']  = '1024';
 		$config['max_height']  = '768';
+		$config['file_name'] = 'PETRA'.'3';
 
 		$this->load->library('upload', $config);
 
