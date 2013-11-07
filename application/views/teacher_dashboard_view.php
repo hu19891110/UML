@@ -53,20 +53,25 @@
 		</span>
 		</div> -->
 	
+		<script>
+		$(document).ready(function() 
+    { 
+        $("#asstocheck").tablesorter(); 
+    } 
+	) </script>
+	
 			
 		<div class="row">			
 				
-				<table id="asstocheck" class="large-4 columns margin-left">
+				<table id="asstocheck" class="large-4 columns margin-left tablesorter">
   				<thead>
     				<tr>
-      			<th colspan="2" style="text-align: center;">Upcoming deadlines</th>
+      			<th>Deadline</th>
+      			<th>Date of deadline</th>
     				</tr>
   				</thead>
   				<tbody>
-  				<tr>
-      			<th>Deadline</th>
-      			<th>Date of deadline</th>
-    			</tr>
+  			
       			<?php 
       			foreach ($deadlines as $deadline)
       			{ ?>

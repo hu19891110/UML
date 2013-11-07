@@ -23,6 +23,7 @@
 
 	<script src="<?php echo $includes_dir;?>js/jqBarGraph.1.1.min.js"></script>
 	<script src="<?php echo $includes_dir;?>js/timepicker.js"></script>
+	<script src="<?php echo $includes_dir;?>js/jquery.tablesorter.min.js"></script>
 	
 	 <script>
   $(function() {
