@@ -1727,18 +1727,18 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		return $this->db->get($this->login->tbl_deadline);
 	}
 	
-	public function get_uploads_by_deadline($sql_select, $sql_where)
+	public function get_uploads_by_deadline($deadline_id)
 	{
 		//$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, 'uploads');
 		
-		return $this->db->get_where('uploads', array('type' => 1));
+		return $this->db->get_where('uploads', array('type' => 1, 'deadline_id' => $deadline_id));
 	}
 	
-	public function get_correct_file_by_deadline($sql_select, $sql_where)
+	public function get_correct_file_by_deadline($deadline_id)
 	{
 		//$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, 'uploads');
 		
-		return $this->db->get_where('uploads', array('type' => 2, 'deadline_id' => 3));
+		return $this->db->get_where('uploads', array('type' => 2, 'deadline_id' => $deadline_id));
 	}
 
 	

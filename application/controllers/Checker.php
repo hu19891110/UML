@@ -17,6 +17,9 @@ global $ParameterMissing;
 global $OperationMissing;
 global $AttribuutMissing;
 
+global $StereotypeFout;
+global $returnTypeFout;
+
 global $OperatieVariabelenFout; //(leaf/scope/unique/visibility/static) waarde * aantalvarsfout = totale_aftrek
 global $AttribuutVariabelenFout; //(leaf/scope/unique/visibility/static) waarde * aantalvarsfout = totale_aftrek
 //-----------Puntenaftrek------------
@@ -46,6 +49,9 @@ class Checker extends CI_Controller {
 		$this->ParameterMissing = 0.3;
 		$this->OperationMissing = 0.3;
 		$this->AttribuutMissing = 0.3;
+		
+		$this->StereotypeFout = 0.3;
+		$this->returnTypeFout = 0.3;
 
 		$this->OperatieVariabelenFout = 0.1; //(leaf/scope/unique/visibility/static) waarde * aantalvarsfout = totale_aftrek
 		$this->AttribuutVariabelenFout = 0.1; //(leaf/scope/unique/visibility/static) waarde * aantalvarsfout = totale_aftrek
@@ -77,13 +83,13 @@ class Checker extends CI_Controller {
 	
 		$this->data['error'] = ' ';
 		
-		$correctfile = $this->flexi_auth->get_correct_file_by_deadline();
+		$correctfile = $this->flexi_auth->get_correct_file_by_deadline(3);
 		$correctfile = $correctfile->result_array();
 		$correctfile = $correctfile[0];
 		
 		$correctfile_name = (string) $correctfile['student_id'] . '-' . (string)$correctfile['deadline_id'] . '.xml';
 		
-		$uploads = $this->flexi_auth->get_uploads_by_deadline();
+		$uploads = $this->flexi_auth->get_uploads_by_deadline(3);
 		$uploads = $uploads->result_array();
 		
 		foreach($uploads as $upload) {
@@ -135,6 +141,12 @@ class Checker extends CI_Controller {
 			if($this->classExists($class1, $xml2)) {
 				foreach($xml2->Models->Package->ModelChildren->Class as $class2) { // dieper in klassen gaan als ze met elkaar overeenkomen
 					if((string)$class1->attributes()->Name == (string)$class2->attributes()->Name) { 
+						if(isset($class1->Stereotypes) && isset($class2->Stereotypes)) {
+							if(!((string)$class1->Stereotypes->Stereotype->attributes()->Name == (string)$class2->Stereotypes->Stereotype->attributes()->Name)) {
+								$this->faults = $this->faults . 'Het Stereotype van ' . (string)$class1->attributes()->Name . ' komt niet overeen<br />';
+								$this->GRADE = $this->GRADE - $this->StereotypeFout;
+							}
+						}
 					
 						if($class1->ModelChildren->Attribute != NULL) {
 							$this->checkAttributes($class1, $class2);
@@ -189,6 +201,16 @@ class Checker extends CI_Controller {
 				foreach($modelChildren2->Operation as $operations2) { // alle operaties langs gaan van andere file, nu kijken of operation naam overeen komt? naam komt twee x overeen
 					
 					if((string)$operations1->attributes()->Name == (string)$operations2->attributes()->Name) { // De namene van deo peraties zijn hetzelfde, kijken voor parameters
+						
+						if(!empty($operations1->ReturnType) && !empty($operations2->ReturnType)) {
+							//$laat = $this->returnTypeExists($operations1->ReturnType, $operations2->ReturnType);
+							if(!$this->returnTypeExists($operations1->ReturnType, $operations2->ReturnType)) {
+								$this->faults = $this->faults . 'The ReturnType of the operation: ' . (string)$operations1->attributes()->Name . ' is not right<br />';
+								$this->GRADE = $this->GRADE - $this->returnTypeFout;
+							}
+						}
+						
+						
 						
 						if(!empty($operations1->ModelChildren) && !empty($operations2->ModelChildren)) { // er zijn parameters
 						
@@ -298,6 +320,19 @@ class Checker extends CI_Controller {
 				$this->faults = $this->faults. 'The operation: ' . (string)$operations1->attributes()->Name . ' From the Class ' . (string)$class1->attributes()->Name . ' is missing in the handed in file.  <font color="red">*Puntenaftrek*</font>  <br />';
 				$this->GRADE = $this->GRADE - $this->OperationMissing;
 			}			
+		}
+	}
+	
+	function returnTypeExists($returntype1, $returntype2) {
+		if(isset($returntype1->DataType) && isset($returntype2->DataType)){
+			if((string)$returntype1->DataType->attributes()->Name == (string)$returntype2->DataType->attributes()->Name) {
+				return true;
+			}
+		} else if(isset($returntype1->Class) && isset($returntype2->Class)) {
+			if((string)$returntype1->Class->attributes()->Name == (string)$returntype2->Class->attributes()->Name) {
+				return true;
+			}	
+			return false;
 		}
 	}
 	
@@ -500,23 +535,23 @@ class Checker extends CI_Controller {
 		$attributes2 = $attribute2->attributes();
 		$i = 0;
 		if((string)$attributes1->Leaf != (string)$attributes2->Leaf) {
-			echo 'Leaf, '; 
+			$this->faults = $this->faults . 'Leaf, '; 
 			$i++;
 		}
 		if((string)$attributes1->Unique != (string)$attributes2->Unique) {
-			echo 'Unique, '; 
+			$this->faults = $this->faults . 'Unique, '; 
 			$i++;
 		}
 		if((string)$attributes1->Static != (string)$attributes2->Static) {
-			echo 'Static, '; 
+			$this->faults = $this->faults . 'Static, '; 
 			$i++;
 		}
 		if((string)$attributes1->Visibility != (string)$attributes2->Visibility) {
-			echo 'Visibility, '; 
+			$this->faults = $this->faults . 'Visibility, '; 
 			$i++;
 		}
 		if((string)$attributes1->Scope != (string)$attributes2->Scope) {
-			echo 'Scope, '; 
+			$this->faults = $this->faults . 'Scope, '; 
 			$i++;
 		}
 		return $i;
