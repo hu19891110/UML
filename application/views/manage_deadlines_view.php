@@ -129,7 +129,7 @@
       			<tfoot>
       				<tr><td colspan="3">
       				<input type="submit" name="delete_deadline" id="add_deadline" value="Delete Checked deadlines" class="small button"/>
-      				</td></tr>
+      				</td></tr>	
       			</tfoot>
 				</table>
 				<?php echo form_close(); ?>

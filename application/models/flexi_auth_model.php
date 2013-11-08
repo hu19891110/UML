@@ -1667,7 +1667,46 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 	    return $this->db->get($this->login->tbl_student_class);
   	}
+	
+	public function get_student_class($user_id) {
+		
+		return $this->db->get_where('user_accounts', array('uacc_id' => $user_id));
+		
+	}
+	
+	public function get_deadlines_by_class($class_id) {
+		$deadline_ids = $this->db->get_where('class_deadlines', array('deadline_class_id_fk' => $class_id));
+		$deadline_ids = $deadline_ids->result_array();
+		$array = array();
+		foreach($deadline_ids as $deadline_id_array) {
+			$deadline_id = $deadline_id_array['deadline_deadline_id_fk'];
+			$deadline = $this->db->get_where('deadlines', array('deadline_id' => $deadline_id));
+			$deadline = $deadline->result_array();
+			array_push($array, $deadline[0]);
+		}
+		return $array;
+	}
 
+	public function set_student_file_on_deadline($student_id, $deadline_id) {
+		$sql_insert = array(
+			'student_id' => $student_id,
+			'deadline_id' => $deadline_id,
+			'grade' => 0,
+			'Type' => 1
+		);
+
+		$this->db->insert('uploads', $sql_insert);
+		
+		if ($this->db->affected_rows() > 0)
+	    {
+			return TRUE;
+	    } else {
+			return FALSE;
+		}
+	
+	}
+	
+	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	
 	

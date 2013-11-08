@@ -38,7 +38,22 @@ class Assignments extends CI_Controller {
 	function index()
 	{
 
+		if ($this->input->post('add_deadline')) {
+			$this->do_upload();
+		}
+	
 		$this->data['error'] = ' ';
+		$rows = $this->flexi_auth->get_student_class($this->flexi_auth->get_user_id());
+		$rows = $rows->result_array();
+		//print_r($rows);
+		$class_id = $rows[0]['uacc_class_fk'];
+		
+		
+		$deadlines = $this->flexi_auth->get_deadlines_by_class($class_id);
+		
+		$this->data['deadlines'] = $deadlines;
+		
+		//echo '<br /><br />' . $class_id;
 		
 		if ($this->flexi_auth->is_admin()) {
 			$data['maincontent'] = $this->load->view('teacher_assignments_view', $this->data, TRUE);
@@ -56,15 +71,22 @@ class Assignments extends CI_Controller {
 
 	function do_upload()
 	{
+		
+		/*$rows = $this->flexi_auth->get_student_class($this->flexi_auth->get_user_id());
+		$rows = $rows->result_array();
+		//print_r($rows);
+		$class_id = $rows[0]['uacc_class_fk'];
+		*/
+		
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types'] = '*';
-		$config['max_size']	= '100';
+		$config['max_size']	= '2000';
 		$config['max_width']  = '1024';
 		$config['max_height']  = '768';
-		$config['file_name'] = 'PETRA'.'3';
+		$config['file_name'] = $this->flexi_auth->get_user_id(). '-3';
 
 		$this->load->library('upload', $config);
-
+		
 		if ( ! $this->upload->do_upload())
 		{
 			$this->data['error'] = array('error' => $this->upload->display_errors());
@@ -74,6 +96,14 @@ class Assignments extends CI_Controller {
 		}
 		else
 		{
+			$this->load->model('demo_auth_model');
+			$la = $this->demo_auth_model->add_file_by_student();
+			print_r($la);
+			/*if($la) {
+				echo 'GLUKT<br />';
+			} else {
+				echo 'kk<br />';
+			}*/
 			$data = array('upload_data' => $this->upload->data());
 
 			$this->data['maincontent'] = $this->load->view('upload_success', $data, TRUE);

@@ -698,6 +698,12 @@ class Flexi_auth extends Flexi_auth_lite
 		return FALSE;
 	}
 	
+	public function set_student_file_on_deadline($student_id, $deadline_id) {
+		
+		return $this->CI->flexi_auth_model->set_student_file_on_deadline($student_id, $deadline_id);
+	
+	}
+	
 	/**
 	 * update_custom_user_data
 	 * Updates a custom user table with any submitted data.
@@ -1179,6 +1185,13 @@ class Flexi_auth extends Flexi_auth_lite
 		return $this->CI->flexi_auth_model->get_groups($sql_select, $sql_where);
 	}
 	
+	public function get_student_class($user_id) {
+		return $this->CI->flexi_auth_model->get_student_class($user_id);
+	}
+	
+	public function get_deadlines_by_class($class_id) {
+		return $this->CI->flexi_auth_model->get_deadlines_by_class($class_id);
+	}
 		
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 		
