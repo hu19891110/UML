@@ -2,8 +2,7 @@
 
 	<h2>Assignments Overview</h2>
 	<div class="large-12 columns">
-		<div class="large-6 columms">
-		<h3>Upload assignment</h3>
+
 		<?php if (! empty($message)) { ?>
 			<div id="message">
 				<?php echo $message; ?>
@@ -23,8 +22,11 @@
 
 				<ul>
 					<li>
-						
-						<table>
+						<label for="Description"> Description: </label>
+						<input type="text" id="" name="" value=""/>
+					</li>
+				
+					<li>
 
 						<table style="width: 300px;">
 							<thead>
@@ -69,12 +71,10 @@
 					</li> 
 					<input type="file" name="userfile" size="20" />									 
 					<li>
-					<input type="submit" name="add_deadline" id="add_deadline" value="Add Deadline" class="small button"/>
+					<input type="submit" name="add_deadline" id="add_deadline" value="Add Assignment" class="small button"/>
 					</li>
 				</ul>
 				<?php echo form_close();?>
 			</div><!--large-6 columns -->
-		</div>
-
 
 </div> <!-- end large 12 columns --> 
