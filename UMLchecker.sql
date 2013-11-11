@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: localhost
--- Genereertijd: 11 nov 2013 om 16:23
+-- Genereertijd: 11 nov 2013 om 16:50
 -- Serverversie: 5.6.12
 -- PHP-versie: 5.5.3
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('ccc1a0eaa793764ee0744f30e4c27b85', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1384183362, 'a:2:{s:9:"user_data";s:0:"";s:10:"flexi_auth";a:7:{s:15:"user_identifier";s:15:"admin@admin.com";s:7:"user_id";s:1:"1";s:5:"admin";b:1;s:5:"group";a:1:{i:2;s:7:"Teacher";}s:10:"privileges";a:15:{i:1;s:10:"View Users";i:2;s:16:"View User Groups";i:3;s:15:"View Privileges";i:4;s:18:"Insert User Groups";i:5;s:17:"Insert Privileges";i:6;s:12:"Update Users";i:7;s:18:"Update User Groups";i:8;s:17:"Update Privileges";i:9;s:12:"Delete Users";i:10;s:18:"Delete User Groups";i:11;s:17:"Delete Privileges";i:12;s:20:"View Student Classes";i:13;s:20:"Update Student Class";i:14;s:20:"Insert Student Class";i:15;s:20:"Delete Student Class";}s:22:"logged_in_via_password";b:1;s:19:"login_session_token";s:40:"528b224576db44174b6fb990226925a66b8e2aa0";}}');
+('f96bb77d44914443660aedd3a49a5bda', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1384184700, 'a:2:{s:9:"user_data";s:0:"";s:10:"flexi_auth";a:7:{s:15:"user_identifier";s:15:"admin@admin.com";s:7:"user_id";s:1:"1";s:5:"admin";b:1;s:5:"group";a:1:{i:2;s:7:"Teacher";}s:10:"privileges";a:16:{i:1;s:10:"View Users";i:2;s:16:"View User Groups";i:3;s:15:"View Privileges";i:4;s:18:"Insert User Groups";i:5;s:17:"Insert Privileges";i:6;s:12:"Update Users";i:7;s:18:"Update User Groups";i:8;s:17:"Update Privileges";i:9;s:12:"Delete Users";i:10;s:18:"Delete User Groups";i:11;s:17:"Delete Privileges";i:12;s:20:"View Student Classes";i:13;s:20:"Update Student Class";i:14;s:20:"Insert Student Class";i:15;s:20:"Delete Student Class";i:16;s:8:"Add user";}s:22:"logged_in_via_password";b:1;s:19:"login_session_token";s:40:"df05889621b71b41fe19e306bfd799f4db2f8db3";}}');
 
 -- --------------------------------------------------------
 
@@ -140,8 +140,8 @@ CREATE TABLE IF NOT EXISTS `user_accounts` (
 --
 
 INSERT INTO `user_accounts` (`uacc_id`, `uacc_group_fk`, `uacc_class_fk`, `uacc_email`, `uacc_username`, `uacc_password`, `uacc_ip_address`, `uacc_salt`, `uacc_activation_token`, `uacc_forgotten_password_token`, `uacc_forgotten_password_expire`, `uacc_update_email_token`, `uacc_update_email`, `uacc_active`, `uacc_suspend`, `uacc_fail_login_attempts`, `uacc_fail_login_ip_address`, `uacc_date_fail_login_ban`, `uacc_date_last_login`, `uacc_date_added`, `uacc_first_login`, `uacc_times_logged_in`) VALUES
-(1, 2, 1, 'admin@admin.com', 'admin', '$2a$08$lSOQGNqwBFUEDTxm2Y.hb.mfPEAt/iiGY9kJsZsd4ekLJXLD.tCrq', '::1', 'XKVT29q2Jr', '', '', '0000-00-00 00:00:00', '', '', 1, 0, 0, '', '0000-00-00 00:00:00', '2013-11-11 16:23:02', '2011-01-01 00:00:00', 1, 1),
-(2, 1, 1, 'public@public.com', 'public', '$2a$08$GlxQ00VKlev2t.CpvbTOlepTJljxF2RocJghON37r40mbDl4vJLv2', '::1', 'CDNFV6dHmn', '', '', '0000-00-00 00:00:00', '', '', 1, 0, 0, '', '0000-00-00 00:00:00', '2013-11-11 16:22:52', '2011-09-15 12:24:45', 1, 1);
+(1, 2, 1, 'admin@admin.com', 'admin', '$2a$08$lSOQGNqwBFUEDTxm2Y.hb.mfPEAt/iiGY9kJsZsd4ekLJXLD.tCrq', '::1', 'XKVT29q2Jr', '', '', '0000-00-00 00:00:00', '', '', 1, 0, 0, '', '0000-00-00 00:00:00', '2013-11-11 16:46:55', '2011-01-01 00:00:00', 1, 5),
+(2, 1, 1, 'public@public.com', 'public', '$2a$08$GlxQ00VKlev2t.CpvbTOlepTJljxF2RocJghON37r40mbDl4vJLv2', '::1', 'CDNFV6dHmn', '', '', '0000-00-00 00:00:00', '', '', 1, 0, 0, '', '0000-00-00 00:00:00', '2013-11-11 16:33:28', '2011-09-15 12:24:45', 1, 5);
 
 -- --------------------------------------------------------
 
@@ -186,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `user_login_sessions` (
 --
 
 INSERT INTO `user_login_sessions` (`usess_uacc_fk`, `usess_series`, `usess_token`, `usess_login_date`) VALUES
-(1, '', '528b224576db44174b6fb990226925a66b8e2aa0', '2013-11-11 16:23:04');
+(1, '', 'df05889621b71b41fe19e306bfd799f4db2f8db3', '2013-11-11 16:49:21');
 
 -- --------------------------------------------------------
 
@@ -274,7 +274,7 @@ CREATE TABLE IF NOT EXISTS `user_privilege_users` (
   UNIQUE KEY `upriv_users_id` (`upriv_users_id`) USING BTREE,
   KEY `upriv_users_uacc_fk` (`upriv_users_uacc_fk`),
   KEY `upriv_users_upriv_fk` (`upriv_users_upriv_fk`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Gegevens worden uitgevoerd voor tabel `user_privilege_users`
@@ -295,7 +295,8 @@ INSERT INTO `user_privilege_users` (`upriv_users_id`, `upriv_users_uacc_fk`, `up
 (12, 1, 12),
 (13, 1, 13),
 (14, 1, 14),
-(15, 1, 15);
+(15, 1, 15),
+(16, 1, 16);
 
 -- --------------------------------------------------------
 
