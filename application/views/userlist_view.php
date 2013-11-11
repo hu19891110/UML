@@ -11,6 +11,7 @@
 								<th>First Name</th>
 								<th>Last Name</th>
 								<th>User Group</th>
+								<th>Times logged in </th>
 								<th></th>
 								<!--
 								<th class="spacer_100 align_ctr tooltip_trigger"
@@ -44,6 +45,9 @@
 								</td>
 								<td>
 									<?php echo $user[$this->flexi_auth->db_column('user_group', 'name')];?>
+								</td>
+								<td>
+									<?php echo $user['uacc_times_logged_in'];?>
 								</td>
 								<td>
 									<a href="<?php echo $base_url.'dashboard/update_user_account/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>">

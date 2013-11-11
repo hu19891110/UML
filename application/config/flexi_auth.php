@@ -79,6 +79,7 @@
 	// Custom columns can be added to the main user account table to enable library functions to handle additional custom data stored within the table.
 	$config['database']['user_acc']['custom_columns'] = array(
 		### Example : 'date_modified', 'modified_user_id' etc.
+		'uacc_times_logged_in',
 	); 
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###

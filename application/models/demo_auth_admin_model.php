@@ -28,6 +28,7 @@ class Demo_auth_admin_model extends CI_Model {
 			$this->flexi_auth->db_column('user_group', 'name'),
 			'upro_first_name',
 			'upro_last_name',
+			'uacc_times_logged_in'
 		);
 		$this->flexi_auth->sql_select($sql_select);
 

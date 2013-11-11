@@ -20,12 +20,17 @@ class Register extends CI_Controller {
 		if (! $this->flexi_auth->is_logged_in_via_password()) 
 		{
 		
+			
 			$this->flexi_auth->set_error_message('You must be logged in to access this area.', TRUE);
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			redirect('login');
 
 		}
-		
+		if (! $this->flexi_auth->is_privileged('Add user'))
+		{
+			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to add user accounts.</p>');
+			redirect('dashboard');
+		}
 		$this->load->vars('base_url', 'http://'.$_SERVER['HTTP_HOST'].'/');
 		$this->load->vars('includes_dir', 'http://'.$_SERVER['HTTP_HOST'].'/includes/');
 		$this->load->vars('current_url', $this->uri->uri_to_assoc(1));

@@ -1889,6 +1889,9 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 					{
 						$this->flexi_auth_lite_model->delete_remember_me_cookies();
 					}
+					$this->db->where($this->login->primary_identity_col, $identity);
+					$this->db->set('uacc_times_logged_in', 'uacc_times_logged_in +1',false);
+					$this->db->update('user_accounts');
 					return TRUE;
 				}
 			}
