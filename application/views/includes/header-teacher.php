@@ -87,8 +87,6 @@
     <!-- Right Nav Section -->
     <ul class="right">
       <li class="divider hide-for-small"></li>
-      <li><a href="<?php echo site_url('register') ?>">Register new student</a></li>
-      <li class="divider"></li>
       <li><a href="<?php echo site_url('dashboard/manage_user_accounts') ?>">View all Users</a></li>
       <li class="divider"></li>
       <li><a href="<?php echo site_url('dashboard/manage_student_classes') ?>">View All Classes</a></li>
