@@ -77,6 +77,8 @@ class Dashboard extends CI_Controller {
 	function manage_user_accounts()
     {
 		$this->load->model('demo_auth_admin_model');
+		$this->load->library('flexi_auth');	
+		$this->data['classes'] = $this->flexi_auth->get_classes_array();
 
 		// Check user has privileges to view user accounts, else display a message to notify the user they do not have valid privileges.
 		if (! $this->flexi_auth->is_privileged('View Users'))
