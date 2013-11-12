@@ -7,14 +7,14 @@
 			<thead>
 			<tr>
 				<th>Not handed in assignments</th>
-				<th>Date</th>			
+				<th>Time left</th>			
 			</tr>
 			</thead>
 					<?php if (!empty($users)) { ?>
 						<tbody>
 							<?php foreach ($users as $user) { ?> <!-- for each assignment -->
 							<tr>
-								<td>
+								<td style="width: 700px;">
 									Software Engineering Assignment 5 
 									<!-- <?php echo $user['uacc_email'];?> --> <!--echo assignment name-->
 								</td>
@@ -44,20 +44,20 @@
 			<thead>
 			<tr>
 				<th>Handed in assignments</th>
-				<th>Date</th>			
+				<th>Date handed in</th>			
 			</tr>
 			</thead>
 					<?php if (!empty($users)) { ?>
 						<tbody>
 							<?php foreach ($users as $user) { ?> <!-- for each assignment -->
 							<tr>
-								<td>
+								<td style="width: 700px;">
 									Software Engineering Assignment 7 
 									<!-- <?php echo $user['uacc_email'];?> --> <!--echo assignment name-->
 								</td>
 								
 								<td>
-									01 day(s) left <!-- echo deadline date / handed in date -->
+									01 day(s) ago <!-- echo deadline date / handed in date -->
 								</td>
 								
 							</tr>
