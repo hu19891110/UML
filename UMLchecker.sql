@@ -266,8 +266,19 @@ CREATE TABLE `class_deadlines` (
   KEY `deadline_class_id_fk` (`deadline_class_id_fk`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
-
-
+-- ----------------------------
+-- Table structure for assignments
+-- ----------------------------
+DROP TABLE IF EXISTS `assignments`;
+CREATE TABLE `assignments` (
+	`assignment_id` smallint(5) NOT NULL AUTO_INCREMENT,
+	`assignment_desc` varchar(50) NOT NULL DEFAULT '',
+	`assignment_name` varchar(50) NOT NULL DEFAULT '',
+	`deadline_id_fk` smallint(5),
+	PRIMARY KEY (`assignment_id`),
+	KEY deadline_id_fk (`deadline_id_fk`)
+	);
+	
 
 -- --------------------------------------------------------
 --

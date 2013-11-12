@@ -154,6 +154,10 @@ class Flexi_auth_lite_model extends CI_Model
 		$this->login->tbl_uml_error = $database_config['uml_error']['table'];
 		$this->login->tbl_col_uml_error = $database_config['uml_error']['columns'];
 		
+		//assingment table
+		$this->login->tbl_assignment = $database_config['assignment']['table'];
+		$this->login->tbl_col_assignment = $database_config['assignment']['columns'];
+		
 		
 
 		// User custom data table(s)

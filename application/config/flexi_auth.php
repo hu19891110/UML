@@ -169,9 +169,6 @@
 	$config['database']['user_sess']['columns']['token'] = 'usess_token';
 	$config['database']['user_sess']['columns']['date'] = 'usess_login_date';
 	
-
-	
-	
 	$config['database']['deadline']['table'] = 'deadlines';
 	$config['database']['deadline']['columns']['id'] = 'deadline_id';
 	$config['database']['deadline']['columns']['desc'] = 'deadline_desc';
@@ -182,10 +179,6 @@
 	$config['database']['class_deadline']['columns']['id'] = 'class_deadline_id';
 	$config['database']['class_deadline']['columns']['deadline_id'] = 'deadline_deadline_id_fk';
 	$config['database']['class_deadline']['columns']['class_id'] = 'deadline_class_id_fk';
-	
-	
-	
-	
 	
 	$config['database']['checker_error']['table'] = 'checker_errors';
 	$config['database']['checker_error']['columns']['id'] = 'ce_id';
@@ -200,15 +193,18 @@
 	$config['database']['checker_error']['columns']['relatie'] = 'ce_relatie';
 	$config['database']['checker_error']['columns']['eigenschappen'] = 'ce_eigenschappen';
 	
-	
-	
-	
-	
 	$config['database']['uml_error']['table'] = 'uml_errors';
 	$config['database']['uml_error']['columns']['id'] = 'ue_id';
 	$config['database']['uml_error']['columns']['name'] = 'ue_name';
 	$config['database']['uml_error']['columns']['desc'] = 'ue_desc';
 	$config['database']['uml_error']['columns']['value'] = 'ue_error_value';
+	
+	$config['database']['assignment']['table'] = 'assignments';
+	$config['database']['assignment']['columns']['id'] = 'assignment_id';
+	$config['database']['assignment']['columns']['name'] = 'assignment_name';
+	$config['database']['assignment']['columns']['desc'] = 'assignment_desc';
+	$config['database']['assignment']['columns']['deadline_id'] = 'deadline_id_fk';
+	
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 	// Custom User Related Tables
