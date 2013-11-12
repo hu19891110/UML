@@ -12,6 +12,26 @@ body{
 	max-width: 375px;
 }
 
+/********   handed in assignments per student       ********/
+.assignmentstudents thead{
+	background: none;
+}
+
+.assignmentstudents th{
+	color:#435B77;
+	font-weight: bold !important;
+	font-size: 11pt;
+}
+
+.assignmentstudents{
+	border: none;
+}
+
+.assignmentstudents tr:nth-of-type(even){
+	background: none;
+}
+/******** handed in assignments per student        ********/
+
 select{
 	width: auto;
 }
@@ -146,6 +166,8 @@ nav.top-bar{ /* navigatie */
 
 #container .row .large-12{ /* inhoud */ 
 	background: #fff;
+	line-height: 1.5em;
+	font-size: 0.875em;
 }
 
 .koptekst{ /* welkom + log out */ 
