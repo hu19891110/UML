@@ -778,6 +778,50 @@ class Dashboard extends CI_Controller {
 			$this->load->view('template-student', $data);
 		}
 	}
+	
+	function checker()
+	{
+		echo 'test';
+		$this->load->library('checker');
+		echo 'test2';
+		$this->load->library('flexi_auth');	
+		
+		$this->data['error'] = '';
+		
+		$correctfile = $this->flexi_auth->get_correct_file_by_deadline(3);
+		$correctfile = $correctfile->result_array();
+		$correctfile = $correctfile[0];
+		
+		$correctfile_name = (string) $correctfile['student_id'] . '-' . (string)$correctfile['deadline_id'] . '.xml';
+		
+		$uploads = $this->flexi_auth->get_uploads_by_deadline(3);
+		$uploads = $uploads->result_array();
+		
+		foreach($uploads as $upload) {
+			$this->faults = '';
+			$this->GRADE = 10;
+			
+			$handed_in_file = (string) $upload['student_id'] . '-' . (string)$upload['deadline_id'] . '.xml';
+			$this->checker->checkFile($correctfile_name, $handed_in_file);
+			
+			if(empty($this->faults)) {
+				$this->faults = 'No faults, perfect score!';
+			}
+			$this->flexi_auth->update_file_by_deadline($upload['student_id'], $upload['deadline_id'], $this->GRADE, $this->faults);
+		
+		}
+		$this->data['uploads'] = $uploads;
+		
+		$data['maincontent'] = $this->load->view('compare_file_view', $this->data, TRUE);
+		
+		
+		if ($this->flexi_auth->is_admin()) {
+			$this->load->view('template-teacher', $data);
+		} else {
+			$this->load->view('template-student', $data);
+		}
+
+	}
 
 }
 ?>

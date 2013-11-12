@@ -25,7 +25,7 @@ global $AttribuutVariabelenFout; //(leaf/scope/unique/visibility/static) waarde 
 //-----------Puntenaftrek------------
 
 
-class Checker extends CI_Controller {
+class Checker_backup extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();

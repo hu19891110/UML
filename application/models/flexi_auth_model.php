@@ -988,6 +988,23 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 
 
 
+	###++++++++++++++++++++++++++++++++++
+	###ERRORS
+	###++++++++++++++++++++++++++++++++++
+	
+		public function add_error($student_id , $deadline_id, $error_id)
+	{
+		$sql_insert = array(
+			$this->login->tbl_col_checker_error['student_id'] => $student_id,
+			$this->login->tbl_col_checker_error['deadline_id'] => $deadline_id,
+			$this->login->tbl_col_checker_error['error_id'] => $error_id
+		);
+
+		$this->db->insert($this->login->tbl_checker_error, $sql_insert);
+		
+		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
+	}
+
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	// CHECK USER IDENTITIES

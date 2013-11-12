@@ -146,6 +146,15 @@ class Flexi_auth_lite_model extends CI_Model
 		$this->login->tbl_col_class_deadline = $database_config['class_deadline']['columns'];
 		
 		
+		// Checker error table
+		$this->login->tbl_checker_errors = $database_config['checker_error']['table'];
+		$this->login->tbl_col_checker_errors = $database_config['checker_error']['columns'];
+		
+		// UML error table
+		$this->login->tbl_uml_errors = $database_config['uml_error']['table'];
+		$this->login->tbl_col_uml_errors = $database_config['uml_error']['columns'];
+		
+		
 
 		// User custom data table(s)
 		$this->login->tbl_custom_data = (! empty($database_config['custom'])) ? $database_config['custom'] : array();

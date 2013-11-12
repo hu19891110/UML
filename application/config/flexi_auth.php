@@ -183,6 +183,24 @@
 	$config['database']['class_deadline']['columns']['deadline_id'] = 'deadline_deadline_id_fk';
 	$config['database']['class_deadline']['columns']['class_id'] = 'deadline_class_id_fk';
 	
+	
+	
+	
+	
+	$config['database']['checker_error']['table'] = 'checker_errors';
+	$config['database']['checker_error']['columns']['id'] = 'ce_id';
+	$config['database']['checker_error']['columns']['student_id'] = 'ce_student_id';
+	$config['database']['checker_error']['columns']['deadline_id'] = 'ce_deadline_id';
+	$config['database']['checker_error']['columns']['error_id'] = 'ce_error_id';
+	
+	
+	
+	$config['database']['uml_error']['table'] = 'uml_errors';
+	$config['database']['uml_error']['columns']['id'] = 'ue_id';
+	$config['database']['uml_error']['columns']['name'] = 'ue_name';
+	$config['database']['uml_error']['columns']['desc'] = 'ue_desc';
+	$config['database']['uml_error']['columns']['value'] = 'ue_error_value';
+	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 	// Custom User Related Tables
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
