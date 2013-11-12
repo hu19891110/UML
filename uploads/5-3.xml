@@ -132,7 +132,7 @@
 				<ClassDiagram Idref="EL7FNTIKGAqAACwUm"/>
 			</SubDiagrams>
 			<ModelChildren>
-				<Class Abstract="false" Active="false" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="57BdTIKGAqAACwWm" Leaf="false" Name="Game" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:19:16.071" PmLastModified="2013-09-19T16:00:14.269" QualityScore="-1" Root="false" UserIDLastNumericValue="0" Visibility="public">
+				<Class Abstract="false" Active="false" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="57BdTIKGAqAACwWm" Leaf="false" Name="Games" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:19:16.071" PmLastModified="2013-09-19T16:00:14.269" QualityScore="-1" Root="false" UserIDLastNumericValue="0" Visibility="public">
 					<ModelChildren>
 						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="VPZdTIKGAqAACwWs" Leaf="false" Name="Game" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:19:40.970" PmLastModified="2013-09-19T13:21:12.425" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
 							<ModelChildren>
@@ -475,10 +475,10 @@
 					<ModelChildren>
 						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="XFJ3TIKGAqAACwnD" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="lives" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:16:19.386" PmLastModified="2013-09-19T16:00:14.274" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true">
 							<Type>
-								<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+								<DataType Idref="J5kNTIKGAqAACwNX" Name="char"/>
 							</Type>
 						</Attribute>
-						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="3sp3TIKGAqAACwnF" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="points" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:16:21.755" PmLastModified="2013-09-19T16:00:14.274" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="3sp3TIKGAqAACwnF" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="point" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:16:21.755" PmLastModified="2013-09-19T16:00:14.274" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true">
 							<Type>
 								<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
 							</Type>

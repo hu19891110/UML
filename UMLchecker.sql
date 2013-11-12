@@ -273,6 +273,7 @@ CREATE TABLE `class_deadlines` (
 --
 -- Tabelstructuur voor tabel `checker_errors`
 --
+DROP TABLE IF EXISTS `uploads`;
 CREATE TABLE `uploads` (
   `student_id` int(11) NOT NULL DEFAULT '0',
   `deadline_id` int(11) NOT NULL,
@@ -295,6 +296,13 @@ CREATE TABLE `checker_errors` (
   `ce_student_id` int(11) NOT NULL DEFAULT '0',
   `ce_deadline_id` int(11) NOT NULL DEFAULT '0',
   `ce_error_id` int(11) NOT NULL DEFAULT '0',
+  `ce_class_name` varchar(30) NOT NULL DEFAULT '',
+  `ce_operation_name` varchar(30) NOT NULL DEFAULT '',
+  `ce_attribute_name` varchar(30) NOT NULL DEFAULT '',
+  `ce_parameter_name` varchar(30) NOT NULL DEFAULT '',
+  `ce_datatype` varchar(20) NOT NULL DEFAULT '',
+  `ce_relatie` varchar(30) NOT NULL DEFAULT '',
+  `ce_eigenschappen` varchar(30) NOT NULL DEFAULT '',
   PRIMARY KEY (`ce_id`),
   UNIQUE KEY `ce_id` (`ce_id`),
   KEY `ce_student_id` (`ce_student_id`) USING BTREE,

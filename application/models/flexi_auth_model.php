@@ -992,12 +992,19 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	###ERRORS
 	###++++++++++++++++++++++++++++++++++
 	
-		public function add_error($student_id , $deadline_id, $error_id)
+	public function add_error($student_id, $deadline_id, $error_id, $class_name, $operation_name, $attribute_name, $parameter_name, $datatype, $relation_name, $eigenschappen)
 	{
 		$sql_insert = array(
 			$this->login->tbl_col_checker_error['student_id'] => $student_id,
 			$this->login->tbl_col_checker_error['deadline_id'] => $deadline_id,
-			$this->login->tbl_col_checker_error['error_id'] => $error_id
+			$this->login->tbl_col_checker_error['error_id'] => $error_id,
+			$this->login->tbl_col_checker_error['class'] => $class_name,
+			$this->login->tbl_col_checker_error['operation'] => $operation_name,
+			$this->login->tbl_col_checker_error['attribute'] => $attribute_name,
+			$this->login->tbl_col_checker_error['parameter'] => $parameter_name,
+			$this->login->tbl_col_checker_error['datatype'] => $datatype,
+			$this->login->tbl_col_checker_error['relatie'] => $relation_name,
+			$this->login->tbl_col_checker_error['eigenschappen'] => $eigenschappen			
 		);
 
 		$this->db->insert($this->login->tbl_checker_error, $sql_insert);

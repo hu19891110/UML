@@ -781,9 +781,7 @@ class Dashboard extends CI_Controller {
 	
 	function checker()
 	{
-		echo 'test';
 		$this->load->library('checker');
-		echo 'test2';
 		$this->load->library('flexi_auth');	
 		
 		$this->data['error'] = '';

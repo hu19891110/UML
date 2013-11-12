@@ -192,6 +192,15 @@
 	$config['database']['checker_error']['columns']['student_id'] = 'ce_student_id';
 	$config['database']['checker_error']['columns']['deadline_id'] = 'ce_deadline_id';
 	$config['database']['checker_error']['columns']['error_id'] = 'ce_error_id';
+	$config['database']['checker_error']['columns']['class'] = 'ce_class_name';
+	$config['database']['checker_error']['columns']['operation'] = 'ce_operation_name';
+	$config['database']['checker_error']['columns']['attribute'] = 'ce_attribute_name';
+	$config['database']['checker_error']['columns']['parameter'] = 'ce_parameter_name';
+	$config['database']['checker_error']['columns']['datatype'] = 'ce_datatype';
+	$config['database']['checker_error']['columns']['relatie'] = 'ce_relatie';
+	$config['database']['checker_error']['columns']['eigenschappen'] = 'ce_eigenschappen';
+	
+	
 	
 	
 	

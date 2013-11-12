@@ -57,49 +57,63 @@ class Checker
 		
 		$correctfile = file_get_contents('./uploads/' . $correctfile);
 		$correctfile = simplexml_load_string($correctfile);
-		
+		$filename = $handed_in_file;
 		$handed_in_file = file_get_contents('./uploads/' . $handed_in_file);
 		$handed_in_file = simplexml_load_string($handed_in_file);
 		
-		$this->checkModels($correctfile, $handed_in_file);
+		$this->checkModels($correctfile, $handed_in_file, $filename);
 	
 	}
 	
 	/***
 	Checks if the Classes are compared with eachother and goes deeper in each time
 	***/
-	function checkModels($xml, $xml2) {
+	function checkModels($xml, $xml2, $filename) {
 		foreach($xml->Models->Package->ModelChildren->Class as $class1) { // goes through all models that should exist.
 			if($this->classExists($class1, $xml2)) {
 				foreach($xml2->Models->Package->ModelChildren->Class as $class2) { // dieper in klassen gaan als ze met elkaar overeenkomen
 					if((string)$class1->attributes()->Name == (string)$class2->attributes()->Name) { 
 						if(isset($class1->Stereotypes) && isset($class2->Stereotypes)) {
-							if(!((string)$class1->Stereotypes->Stereotype->attributes()->Name == (string)$class2->Stereotypes->Stereotype->attributes()->Name)) {
+							if(!((string)$class1->Stereotypes->Stereotype->attributes()->Name == (string)$class2->Stereotypes->Stereotype->attributes()->Name)) {	
+								/*
 								$this->faults = $this->faults . 'Het Stereotype van ' . (string)$class1->attributes()->Name . ' komt niet overeen<br />';
+								
 								$this->GRADE = $this->GRADE - $this->StereotypeFout;
+								*/
+								//handling the error
+								$class_name = (string)$class1->attributes()->Name;
+								$error_id = 11;
+								$this->add_error($filename, $error_id, $class_name, '', '', '', '', '', '');
 							}
 						}
 					
 						if($class1->ModelChildren->Attribute != NULL) {
-							$this->checkAttributes($class1, $class2);
+							$this->checkAttributes($class1, $class2, $filename);
 							
 						} 
 						
 						if($class1->ModelChildren->Operations != NULL) {
-							$this->checkOperations($class1, $class2);
+							$this->checkOperations($class1, $class2, $filename);
 						}
 					}
 				}
 			} else {
+				/*
 				$this->faults = $this->faults . 'The Model: ' . (string)$class1->attributes()->Name . ' is missing in the handed in file.  <font color="red">*Puntenaftrek*</font>  <br />';
 				$this->GRADE = $this->GRADE - $this->ModelIsNietAanwezig;
+				*/
+				//handling the error
+				$class_name = (string)$class1->attributes()->Name;
+				$error_id = 15;
+				$this->add_error($filename, $error_id, $class_name, '', '', '', '', '', '');
+
 			}
 		}
 		//echo 'NU GAAN WE RELATIES BEKIJKEN =D' . '<br /><br />';
-		$this->checkRelations($xml, $xml2);
+		$this->checkRelations($xml, $xml2, $filename);
 	}
 
-	function checkOperations($class1, $class2) {
+	function checkOperations($class1, $class2, $filename) {
 		$modelChildren1 = $class1->ModelChildren;
 		$modelChildren2 = $class2->ModelChildren;
 		$arrayElements = array();
@@ -137,8 +151,15 @@ class Checker
 						if(!empty($operations1->ReturnType) && !empty($operations2->ReturnType)) {
 							//$laat = $this->returnTypeExists($operations1->ReturnType, $operations2->ReturnType);
 							if(!$this->returnTypeExists($operations1->ReturnType, $operations2->ReturnType)) {
+								/*
 								$this->faults = $this->faults . 'The ReturnType of the operation: ' . (string)$operations1->attributes()->Name . ' is not right<br />';
 								$this->GRADE = $this->GRADE - $this->returnTypeFout;
+								*/
+								//handling the error
+								$operation_name = (string)$operations1->attributes()->Name;
+								$error_id = 12;
+								$this->add_error($filename, $error_id, '', $operation_name, '', '', '', '', '');
+
 							}
 						}
 						
@@ -152,23 +173,54 @@ class Checker
 										foreach($operations2->ModelChildren->Parameter as $parameters2) {
 											if((string)$parameters1->attributes()->Name == (string)$parameters2->attributes()->Name) {
 												if($this->sameTypeParam($parameters1, $parameters2)) {
-													$amount = $this->checkOperation($operations1, $operations2);
+													$class_name = (string)$class1->attributes()->Name;
+													$amount = $this->checkOperation($operations1, $operations2, $class_name, $filename);
 													if($amount != 0) {
+														/*
 														$this->faults = $this->faults. ' zijn de waardes die niet overeenkomen met elkaar bij de operatie ' . (string)$operations1->attributes()->Name . ' van de klasse ' . (string)$class1->attributes()->Name . '.' . ' <font color="red">*Puntenaftrek*</font>' . '<br />';
 														$this->GRADE = $this->GRADE - $this->OperatieVariabelenFout;
+														*/
+														//Error handling already done.
+														
+														
 													} else {
 														//echo 'Parameter: <strong>' . (string)$parameters1->attributes()->Name . '</strong> From the operation <strong>' . (string)$operations1->attributes()->Name . '</strong> From the Class <strong>' . (string)$class1->attributes()->Name . '</strong> is Okay.<br />';
 													}
 												} else if( isset($operations1->Type->DataType) && isset($operations2->Type->DataType)) { // KIJKEN OF IE UBERHAUBT WEL EEN DATATYPE HEEFT VOORDAT WE HET FOUT REKENEN
+													/*
 													$this->faults = $this->faults. 'The datatype of the parameter: ' . (string)$parameters1->attributes()->Name . ' is ' . (string)$parameters1->attributes()->Type . ', Which should be ' . (string)$parameters2->attributes()->Type . '  of the operation ' . (string)$operations1->attributes()->Name . ' From the Class ' . (string)$class1->attributes()->Name . ' does not match. <font color="red">*Puntenaftrek*</font>  <br />';
 													$this->GRADE = $this->GRADE - $this->DataTypeParameterFout;
+													*/
+													$class_name = (string)$class1->attributes()->Name;
+													$operation_name = (string)$operations1->attributes()->Name;
+													$parameter_name =  (string)$parameters1->attributes()->Name;
+													$parameter2 = $parameters2;
+													if(!empty($parameter2->Type)) {
+														if(isset($parameter2->Type->DataType)) {
+															$datatype = (string)$parameter2->Type->DataType->attributes()->Name;
+														} else if(isset($parameter2->Type->Class)) {
+															$datatype = (string)$parameter2->Type->Class->attributes()->Name;
+														}
+													} else {
+														$datatype = (string)$parameter2->attributes()->Type;
+													}
+
+												
+													$error_id = 7;
+													$this->add_error($filename, $error_id, $class_name, $operation_name, '', $parameter_name, $datatype, '', '');
 												}
 
 											} 
 										}
 									} else {
+										/*
 										$this->faults = $this->faults. 'Parameter: ' . (string)$parameters1->attributes()->Name . ' is missing in the operation ' . (string)$operations1->attributes()->Name . '.  <font color="red">*Puntenaftrek*</font>  <br />';
 										$this->GRADE = $this->GRADE - $this->ParameterMissing;
+										*/
+										$operation_name = (string)$operations1->attributes()->Name;
+										$parameter_name = (string)$parameters1->attributes()->Name;
+										$error_id = 8;
+										$this->add_error($filename, $error_id, '', $operation_name, '', $parameter_name, '', '', '');
 									}
 								}
 								
@@ -213,11 +265,15 @@ class Checker
 										foreach($operations2->ModelChildren->Parameter as $parameters2) { // count parameters
 											if((string)$parameters1->attributes()->Name == (string)$parameters2->attributes()->Name) {
 												if($this->sameTypeParam($parameters1, $parameters2)) {
-													$amount = $this->checkOperation($operations1, $operations2);
+													$class_name = (string)$class1->attributes()->Name;
+													$amount = $this->checkOperation($operations1, $operations2, $class_name, $filename);
 													if($amount != 0) {
+														/*
 														$this->faults = $this->faults. ' zijn de waardes die niet overeenkomen met elkaar bij de operatie ' . (string)$operations1->attributes()->Name . ' van de klasse ' . (string)$class1->attributes()->Name . '.  <font color="red">*Puntenaftrek*</font>  <br />';
 														$this->GRADE = $this->GRADE - $this->OperatieVariabelenFout;
-													} else {
+														*/
+														//Error handling already done
+														} else {
 														//echo 'Parameter: <strong>' . (string)$parameters1->attributes()->Name . '</strong> From the operation <strong>' . (string)$operations1->attributes()->Name . '</strong> From the Class <strong>' . (string)$class1->attributes()->Name . '</strong> is Okay.<br />';
 													}
 												} else { // NOG EVEN DIEPER KIJKEN VOOR TYPE OF DATAYPE MY SHIZZLE DIZZLE NIZZLE
@@ -249,8 +305,14 @@ class Checker
 					}
 				}
 			} else {
+				/*
 				$this->faults = $this->faults. 'The operation: ' . (string)$operations1->attributes()->Name . ' From the Class ' . (string)$class1->attributes()->Name . ' is missing in the handed in file.  <font color="red">*Puntenaftrek*</font>  <br />';
 				$this->GRADE = $this->GRADE - $this->OperationMissing;
+				*/
+				$class_name = (string)$class1->attributes()->Name;
+				$operation_name = (string)$operations1->attributes()->Name;
+				$error_id = 9;
+				$this->add_error($filename, $error_id, $class_name, $operation_name, '', '', '', '', '');
 			}			
 		}
 	}
@@ -269,7 +331,7 @@ class Checker
 	}
 	
 	//RELATIONS CHECKER
-	function checkRelations($xml, $xml2){
+	function checkRelations($xml, $xml2, $filename){
 		foreach($xml->Models->ModelRelationshipContainer->ModelChildren->ModelRelationshipContainer as $container1) {
 			foreach($xml2->Models->ModelRelationshipContainer->ModelChildren->ModelRelationshipContainer as $container2) {
 				//'speciale' relaties
@@ -298,12 +360,19 @@ class Checker
 								//echo 'De relatie '. $naam1 .' heeft in het ingeleverde model <strong>dezelfde</strong> naam.' . '<br />';
 							}
 							else{
+								/*
 								$this->faults = $this->faults. 'De relatie komt wel voor in het ingeleverde model maar heeft een <strong>andere</strong> naam' . '<br />';
 								$this->GRADE = $this->GRADE - $this->RelatieNaamAnders;
+								*/
+								
+								$relation_name = $naam2;
+								$error_id = 1;
+								$this->add_error($filename, $error_id, '', '', '', '', '', $relation_name, '');
+								
 							}
 							
 							//check het soort relatie
-							$this->checkSoort($relatie1, $relatie2);
+							$this->checkSoort($relatie1, $relatie2, $filename);
 										
 							//relatie komt voor in nakijkmodel dus we kijken verder
 							
@@ -311,23 +380,34 @@ class Checker
 							//check of de relatie dezelfde begin- en eindbestemming heeft
 							//eindbestemming
 							if(!$this->checkBestemming($from_end1, $from_end2)){
+								/*
 								$this->faults = $this->faults. 'Deze relatie heeft NIET dezelfde eindbestemming, <font color="red">*Puntenaftrek*</font>' . '<br />';
 								$this->GRADE = $this->GRADE - $this->RelatieHeeftAnderEind;
+								*/
+								$relation_name = $naam2;
+								$error_id = 3;
+								$this->add_error($filename, $error_id, '', '', '', '', '', $relation_name, '');
+								
 								
 							}
 									
 							//beginbestemming
 							if(!$this->checkBestemming($to_end1, $to_end2)){
+								/*
 								$this->faults = $this->faults. 'Deze relatie heeft NIET dezelfde beginbestemming, <font color="red">*Puntenaftrek*</font>' . '<br />';
 								$this->GRADE = $this->GRADE - $this->RelatieHeeftAnderBegin;
+								*/
+								$relation_name = $naam2;
+								$error_id = 2;
+								$this->add_error($filename, $error_id, '', '', '', '', '', $relation_name, '');
 							}
 							
 							//kijken of de relatie dezelfde multipliciteit heeft
 							//eindbestemming
-							$this->checkMP($from_end1, $from_end2, 'eindbestemming');
+							$this->checkMP($from_end1, $from_end2, 'eindbestemming', $filename);
 									
 							//beginbestemming
-							$this->checkMP($to_end1, $to_end2, 'beginbestemming');
+							$this->checkMP($to_end1, $to_end2, 'beginbestemming', $filename);
 										
 						}//if naamgelijkheid
 						else {
@@ -340,15 +420,20 @@ class Checker
 	}
 	// /RELATIONS CHECKER
 	
-	function checkSoort($relatie1, $relatie2){
+	function checkSoort($relatie1, $relatie2, $filename){
+		$naam2 = (string)$relatie2->attributes()->Name;
 		$direction1 = (string)$relatie1->attributes()->Direction;
 		$direction2 = (string)$relatie2->attributes()->Direction;
 		if ($direction1 == $direction2){
 			//echo 'De relatie is van dezelfde soort' . '<br />';
 		}//if direction
 		else {
+			/*
 			$this->faults = $this->faults. 'De relatie is NIET van dezelfde soort, <font color="red">*Puntenaftrek*</font>' . '<br />';
 			$this->GRADE = $this->GRADE - $this->RelatieAndereSoort;
+			*/
+			$error_id = 4;
+			$this->add_error($filename, $error_id, '', '', '', '', '', $naam2, '');
 		}//else direction
 	}//checkSoort
 
@@ -365,7 +450,8 @@ class Checker
 		}//else relatie_bestemming
 	}//checkbestemming
 
-	function checkMP($end1, $end2, $text){
+	function checkMP($end1, $end2, $text, $filename){
+		//$naam2 = (string)$relatie2->attributes()->Name;
 		$relatie_eindbestemmingMP1 = (string)$end1->attributes()->Multiplicity;
 		$relatie_eindbestemmingMP2 = (string)$end2->attributes()->Multiplicity;
 		if($relatie_eindbestemmingMP1 == $relatie_eindbestemmingMP2){
@@ -373,36 +459,50 @@ class Checker
 			//echo 'Deze relatie heeft dezelfde ' . $text . ' Multiplicity' . '<br />';
 		}//if relatie_eindbestemmingMP
 		else{
+			/*
 			$this->faults = $this->faults. 'Deze relatie heeft NIET dezelfde ' . $text . ' Multiplicity, <font color="red">*Puntenaftrek*</font>' . '<br />';
 			$this->GRADE = $this->GRADE - $this->RelatieMPFout;
+			*/
+			$error_id = 5;
+			$this->add_error($filename, $error_id, '', '', '', '', '', '', '');
+			
 		}//else relatie_eindbestemmingMP
 	}//checkMP
 	//RELATIONS CHECKER	
 	
-	function checkOperation($operations1, $operations2) {
+	function checkOperation($operations1, $operations2, $class_name, $filename) {
 		// abstract, Leaf, Static, Unique, Scope
+		$operatie_name = $operations1->attributes()->Name;
 		$operations1 = $operations1->attributes();
 		$operations2 = $operations2->attributes();
 		$i = 0;
+		if((string)$operations1->Abstract != (string)$operations2->Abstract) {
+			$eigenschappen = $eigenschappen . 'Abstract, ';
+			$i++;
+		}
 		if((string)$operations1->Leaf != (string)$operations2->Leaf) {
-			$this->faults = $this->faults. 'Leaf, '; 
+			$eigenschappen = $eigenschappen . 'Leaf, ';
 			$i++;
 		}
 		if((string)$operations1->Unique != (string)$operations2->Unique) {
-			$this->faults = $this->faults. 'Unique, '; 
+			$eigenschappen = $eigenschappen . 'Unique, '; 
 			$i++;
 		}
 		if((string)$operations1->Static != (string)$operations2->Static) {
-			$this->faults = $this->faults. 'Static, '; 
+			$eigenschappen = $eigenschappen . 'Static, '; 
 			$i++;
 		}
 		if((string)$operations1->Visibility != (string)$operations2->Visibility) {
-			$this->faults = $this->faults. 'Visibility, '; 
+			$eigenschappen = $eigenschappen . 'Visibility, '; 
 			$i++;
 		}
 		if((string)$operations1->Scope != (string)$operations2->Scope) {
-			$this->faults = $this->faults. 'Scope, '; 
+			$eigenschappen = $eigenschappen . 'Scope, '; 
 			$i++;
+		}
+		if ($i != 0) {
+			$error_id = 13;
+			$this->add_error($filename, $error_id, '', $operatie_naam, '', '', '', '', $eigenschappen);
 		}
 		return $i;
 	}
@@ -411,7 +511,7 @@ class Checker
 	/**
 	Checks all attributes and compares them
 	**/
-	function checkAttributes($class1, $class2) {
+	function checkAttributes($class1, $class2, $filename) {
 		$modelChildren1 = $class1->ModelChildren; // Dieper gaan om attributen te checken
 		$modelChildren2 = $class2->ModelChildren; // Dieper gaan om attributen te checken
 			
@@ -421,20 +521,48 @@ class Checker
 				foreach($modelChildren2->Attribute as $attributes2) {				
 					if((string)$attributes1->attributes()->Name == (string)$attributes2->attributes()->Name) { // Dieper attribuut bekijken als naam overeenkomt.
 						if($this->sameTypeAttr($attributes1, $attributes2)) { // Checkt of dataTypes hetzelfde zijn.
-							$amount = $this->checkAttribute($attributes1, $attributes2);
+							$class_name = (string)$class1->attributes()->Name;
+							$amount = $this->checkAttribute($attributes1, $attributes2, $class_name, $filename);
 							if($amount != 0) {
+								/*
 								$this->faults = $this->faults. ' zijn de waardes die niet overeenkomen met elkaar bij het attribuut ' . (string)$attributes1->attributes()->Name . ' van de klasse ' . (string)$class1->attributes()->Name . '.  <font color="red">*Puntenaftrek*</font>  <br />';
 								$this->GRADE = $this->GRADE - $this->AttribuutVariabelenFout;
+								*/
+								/*
+								//Error handling already been done.
+*/
 							}
 						} else {
+							/*
 							$this->faults = $this->faults. 'Het Datatype van het attribuut ' . (string)$attributes1->attributes()->Name . ' van de klasse ' . (string)$class1->attributes()->Name . ' komt niet overeen.  <font color="red">*Puntenaftrek*</font> <br />';
 							$this->GRADE = $this->GRADE - $this->DatatypeAttribuutFout;
+							*/
+							$class_name = (string)$class1->attributes()->Name;
+							$attribute_name = (string)$attributes1->attributes()->Name;
+							$attribute2 = $attributes2;
+							if(!empty($attribute2->Type)) {
+								if(isset($attribute2->Type->DataType)) {
+									$datatype = (string)$attribute2->Type->DataType->attributes()->Name;
+								} else if(isset($attribute2->Type->Class)) {
+									$datatype = (string)$attribute2->Type->Class->attributes()->Name;
+								}
+							} else {
+								$datatype = (string)$attribute2->attributes()->Type;
+							}
+							$error_id = 6;
+							$this->add_error($filename, $error_id, $class_name, '', $attribute_name, '', $datatype, '', '');
 						}
 					} 
 				}
 			} else {
+				/*
 				$this->faults = $this->faults. 'The attribute: ' . (string)$attributes1->attributes()->Name . ' From the Class ' . (string)$class1->attributes()->Name . ' is missing in the handed in file.  <font color="red">*Puntenaftrek*</font>  <br />';
 				$this->GRADE = $this->GRADE - $this->AttribuutMissing;
+				*/
+				$class_name = (string)$class1->attributes()->Name;
+				$attribute_name = (string)$attributes1->attributes()->Name;
+				$error_id = 10;
+				$this->add_error($filename, $error_id, $class_name, '', $attribute_name, '', '', '', '');
 			}
 						
 		}
@@ -461,33 +589,37 @@ class Checker
 	elsewise faultss the string of the incorrect type.
 
 	**/
-	function checkAttribute($attribute1, $attribute2) {
+	function checkAttribute($attribute1, $attribute2, $class_name, $filename) {
 		// Leaf, Static, Unique, Visibility, Scope
+		$attribute_name = $attribute1->attributes()->Name;
 		$attributes1 = $attribute1->attributes();
 		$attributes2 = $attribute2->attributes();
 		$i = 0;
 		if((string)$attributes1->Leaf != (string)$attributes2->Leaf) {
-			$this->faults = $this->faults . 'Leaf, '; 
+			$eigenschappen = $eigenschappen . 'Leaf, '; 
 			$i++;
 		}
 		if((string)$attributes1->Unique != (string)$attributes2->Unique) {
-			$this->faults = $this->faults . 'Unique, '; 
+			$eigenschappen = $eigenschappen . 'Unique, '; 
 			$i++;
 		}
 		if((string)$attributes1->Static != (string)$attributes2->Static) {
-			$this->faults = $this->faults . 'Static, '; 
+			$eigenschappen = $eigenschappen . 'Static, '; 
 			$i++;
 		}
 		if((string)$attributes1->Visibility != (string)$attributes2->Visibility) {
-			$this->faults = $this->faults . 'Visibility, '; 
+			$eigenschappen = $eigenschappen . 'Visibility, '; 
 			$i++;
 		}
 		if((string)$attributes1->Scope != (string)$attributes2->Scope) {
-			$this->faults = $this->faults . 'Scope, '; 
+			$eigenschappen = $eigenschappen . 'Scope, '; 
 			$i++;
 		}
+		if ($i != 0) {
+			$error_id = 14;
+			$this->add_error($filename, $error_id, $class_name, '', $attribute_name, '', '', '', $eigenschappen);
+		}
 		return $i;
-		
 	}
 
 
@@ -581,6 +713,20 @@ class Checker
 		}
 	 
 		return false;
+	}
+	
+	
+	//Error handling
+	
+	function add_error($filename, $error_id, $class_name, $operation_name ,$attribute_name, $parameter_name, $datatype, $relation_name, $eigenschappen)
+	{
+		$this->CI->load->model('flexi_auth_model');
+		$info = explode("-", $filename);
+		$student_id = $info[0];
+		$deadline_id = $info[1]; 
+		
+		$this->CI->flexi_auth_model->add_error($student_id, $deadline_id, $error_id, $class_name, $operation_name, $attribute_name, $parameter_name, $datatype, $relation_name, $eigenschappen);
+		
 	}
 
 }

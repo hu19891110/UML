@@ -147,12 +147,12 @@ class Flexi_auth_lite_model extends CI_Model
 		
 		
 		// Checker error table
-		$this->login->tbl_checker_errors = $database_config['checker_error']['table'];
-		$this->login->tbl_col_checker_errors = $database_config['checker_error']['columns'];
+		$this->login->tbl_checker_error = $database_config['checker_error']['table'];
+		$this->login->tbl_col_checker_error = $database_config['checker_error']['columns'];
 		
 		// UML error table
-		$this->login->tbl_uml_errors = $database_config['uml_error']['table'];
-		$this->login->tbl_col_uml_errors = $database_config['uml_error']['columns'];
+		$this->login->tbl_uml_error = $database_config['uml_error']['table'];
+		$this->login->tbl_col_uml_error = $database_config['uml_error']['columns'];
 		
 		
 
