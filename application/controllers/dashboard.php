@@ -739,8 +739,10 @@ class Dashboard extends CI_Controller {
     function deadline($deadline_id)
     {
     	$sql_where = array($this->flexi_auth->db_column('deadline', 'id') => $deadline_id);
-	   $deadline = $this->flexi_auth->get_deadlines(FALSE , $sql_where);
+    	$deadline = $this->flexi_auth->get_deadlines(FALSE , $sql_where);
 		$this->data['deadline'] = $deadline->row_array();
+		
+		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
 		
 		if($this->flexi_auth->is_admin())
 		{
@@ -768,6 +770,8 @@ class Dashboard extends CI_Controller {
 		$this->data['deadlines'] = $deadlines->result_array();
 		
 		$this->data['classes'] = $this->flexi_auth->get_classes_array();
+		
+		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
 		
 		if($this->flexi_auth->is_admin())
 		{
@@ -812,28 +816,32 @@ class Dashboard extends CI_Controller {
 		
 		$this->data['error'] = '';
 		
-		$correctfile = $this->flexi_auth->get_correct_file_by_deadline(3);
-		$correctfile = $correctfile->result_array();
-		$correctfile = $correctfile[0];
+		$this->data['assignments'] = '';
 		
-		$correctfile_name = (string) $correctfile['student_id'] . '-' . (string)$correctfile['deadline_id'] . '.xml';
+		if ($this->input->post('check_assignment')) {
 		
-		$uploads = $this->flexi_auth->get_uploads_by_deadline(3);
-		$uploads = $uploads->result_array();
-		
-		foreach($uploads as $upload) {
-			$this->faults = '';
-			$this->GRADE = 10;
-			
-			$handed_in_file = (string) $upload['student_id'] . '-' . (string)$upload['deadline_id'] . '.xml';
-			$this->checker->checkFile($correctfile_name, $handed_in_file);
-			
-			if(empty($this->faults)) {
-				$this->faults = 'No faults, perfect score!';
+			$correctfile = $this->flexi_auth->get_correct_file_by_deadline($deadline_id);
+			$correctfile = $correctfile->result_array();
+			if (empty($correctfile)) {
+				
 			}
-			$this->flexi_auth->update_file_by_deadline($upload['student_id'], $upload['deadline_id'], $this->GRADE, $this->faults);
-		
+			$correctfile = $correctfile[0];
+			
+			$correctfile_name = (string) $correctfile['student_id'] . '-' . (string)$correctfile['deadline_id'] . '.xml';
+			
+			$uploads = $this->flexi_auth->get_uploads_by_deadline($deadline_id);
+			$uploads = $uploads->result_array();
+			
+			foreach($uploads as $upload) {
+			
+				$handed_in_file = (string) $upload['student_id'] . '-' . (string)$upload['deadline_id'] . '.xml';
+				$this->checker->checkFile($correctfile_name, $handed_in_file);
+				
+			}
 		}
+		
+		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
+		
 		$this->data['uploads'] = $uploads;
 		
 		$data['maincontent'] = $this->load->view('compare_file_view', $this->data, TRUE);

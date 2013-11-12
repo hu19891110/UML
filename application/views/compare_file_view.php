@@ -9,7 +9,11 @@
 		</div>
 	<?php } ?>
 	
-	<?php foreach($uploads as $upload) echo $upload['student_id']; ?>
+<?php   foreach($uploads as $upload) {
+	
+			echo $upload['student_id']; ?>
+		
+		}
 	
 	<?php echo $error;?>
 
