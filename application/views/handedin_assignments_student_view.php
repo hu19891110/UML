@@ -1,12 +1,14 @@
-<div class="large-12 columns padding">
+<div class="large-12 columns">
 
-	<h2> Assignments for student <?php echo $user['uacc_username'];?> </h2>
-		
+	<div class="h2bg">
+	<h2> Student <?php echo $user['uacc_username'];?> </h2>
+	<h4> Assignments overview </h4>
+	</div>	
 		
 	<table style="width: 1000px;" class="assignmentstudents responsive">
 			<thead>
 			<tr>
-				<th>Not handed in assignments</th>
+				<th class="nothandedin">Not handed in assignments</th> 
 				<th>Time left</th>			
 			</tr>
 			</thead>
@@ -43,7 +45,7 @@
 	<table style="width: 1000px;" class="assignmentstudents responsive">
 			<thead>
 			<tr>
-				<th>Handed in assignments</th>
+				<th class="handedin">Handed in assignments</th>
 				<th>Date handed in</th>			
 			</tr>
 			</thead>

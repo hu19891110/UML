@@ -7,6 +7,33 @@ body{
 	background-image:url('../images/background.jpg');
 }
 
+.h2bg{
+	background: #DFDFDF;
+	height: 70px;
+	width: 1120px;
+	margin-left: -13px !important;
+	margin-top: 0;
+	margin-bottom: 10px;
+	padding: 10px;
+}
+
+h4{
+	font-size: 0.9em;
+	color: #4f4f4f;
+	font-weight: normal;
+	text-transform: uppercase;
+	line-height: 1;
+	margin: 0 !important;
+}
+
+.button.small{
+	font-size: 0.9125em;
+}
+
+label{
+	font-size: 0.975em;
+}
+
 /* dashboard assignents overview */ 
 #asstocheck{
 	max-width: 375px;
@@ -29,6 +56,24 @@ body{
 
 .assignmentstudents tr:nth-of-type(even){
 	background: none;
+}
+
+.nothandedin{
+	background-image:url('../images/nothandedin.jpg');
+	width: 55px;
+	height: 40px;
+	background-repeat: no-repeat;
+}
+
+.handedin{
+	background-image:url('../images/handedin.jpg');
+	width: 55px;
+	height: 40px;
+	background-repeat: no-repeat;
+}
+
+th.handedin, th.nothandedin{
+	padding-left: 60px;
 }
 /******** handed in assignments per student        ********/
 
