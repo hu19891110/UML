@@ -88,6 +88,23 @@ class Dashboard extends CI_Controller {
 		$this->load->view('template-teacher', $data);		
 	}
 	
+	function handedin_assignments_per_student($user_id)
+	{
+		$this->load->model('demo_auth_admin_model');
+		$this->load->library('flexi_auth');	
+		$this->demo_auth_admin_model->get_user_accounts();
+		
+		// Get users current data.
+		$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
+		$this->data['user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
+		
+		// Set any returned status/error messages.
+		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
+	
+		$data['maincontent'] =  $this->load->view('handedin_assignments_student_view', $this->data , TRUE);
+		$this->load->view('template-teacher', $data);		
+	}
+	
 	function manage_user_accounts()
     {
 		$this->load->model('demo_auth_admin_model');
