@@ -203,6 +203,7 @@
 	$config['database']['assignment']['columns']['id'] = 'assignment_id';
 	$config['database']['assignment']['columns']['name'] = 'assignment_name';
 	$config['database']['assignment']['columns']['desc'] = 'assignment_desc';
+	$config['database']['assignment']['columns']['checked'] = 'assignment_checked';
 	$config['database']['assignment']['columns']['deadline_id'] = 'deadline_id_fk';
 	
 	
@@ -808,6 +809,10 @@
 	$config['messages']['target_user']['form_validation_duplicate_identity'] = 'public';
 	$config['messages']['target_user']['form_validation_duplicate_email'] = 'public';
 	$config['messages']['target_user']['form_validation_duplicate_username'] = 'public';
+	
+	//checker messages
+	$config['messages']['target_user']['correctfile_missing'] = 'admin';
+	$config['messages']['target_user']['assignment_checked'] = 'admin';
 
 /* End of file flexi_auth.php */
 /* Location: ./system/application/config/flexi_auth.php */

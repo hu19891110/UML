@@ -819,17 +819,20 @@ class Dashboard extends CI_Controller {
 		$this->data['assignments'] = '';
 		
 		if ($this->input->post('check_assignment')) {
-		
-			$correctfile = $this->flexi_auth->get_correct_file_by_deadline($deadline_id);
+			
+			$assignment_id = $this->input->post('assignment_id');
+			$correctfile = $this->flexi_auth->get_correct_file_by_deadline($assignment_id);
 			$correctfile = $correctfile->result_array();
 			if (empty($correctfile)) {
-				
+				$this->load->model('flexi_auth_model');
+				$this->flexi_auth_model->set_error_message('correctfile_missing', 'config');
+				redirect('dashboard/checker');
 			}
 			$correctfile = $correctfile[0];
 			
 			$correctfile_name = (string) $correctfile['student_id'] . '-' . (string)$correctfile['deadline_id'] . '.xml';
 			
-			$uploads = $this->flexi_auth->get_uploads_by_deadline($deadline_id);
+			$uploads = $this->flexi_auth->get_uploads_by_deadline($assignment_id);
 			$uploads = $uploads->result_array();
 			
 			foreach($uploads as $upload) {
@@ -838,11 +841,17 @@ class Dashboard extends CI_Controller {
 				$this->checker->checkFile($correctfile_name, $handed_in_file);
 				
 			}
+			$this->flexi_auth_model->mark_assignment_as_checked($assignment_id);
+			redirect('dashboard/checker');
 		}
 		
-		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
+		$sql_where = array($this->login->tbl_col_assignment['checked'] => '0');
 		
-		$this->data['uploads'] = $uploads;
+		$assignments = $this->flexi_auth_model->get_assignments(FALSE, $sql_where);
+		
+		$this->data['assignments'] = $assignments->result_array();
+		
+		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
 		
 		$data['maincontent'] = $this->load->view('compare_file_view', $this->data, TRUE);
 		

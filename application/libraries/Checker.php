@@ -34,6 +34,8 @@ class Checker
 		$this->CI =& get_instance();
 		
 		$this->CI->load->model('flexi_auth_lite_model');
+		$this->CI->load->library('session');
+		$this->CI->load->library('flexi_auth');
 		
 		/*
 		// Validate login credentials on every page load if set via config file.
@@ -62,7 +64,10 @@ class Checker
 		$handed_in_file = simplexml_load_string($handed_in_file);
 		
 		$this->checkModels($correctfile, $handed_in_file, $filename);
-	
+		
+		$this->CI->load->model('flexi_auth_model');
+		$this->CI->flexi_auth_model->set_status_message('assignment_checked', 'config');
+		$this->CI->session->set_flashdata('message', $this->CI->flexi_auth->get_messages());
 	}
 	
 	/***

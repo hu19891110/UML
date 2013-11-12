@@ -70,3 +70,7 @@ $lang['form_validation_duplicate_identity'] 		= "An account with this email addr
 $lang['form_validation_duplicate_email'] 			= "The Email of %s field is not available.";
 $lang['form_validation_duplicate_username'] 		= "The Username of %s field is not available.";
 $lang['form_validation_current_password'] 			= "The %s field is invalid.";
+
+// Checker
+$lang['correctfile_missing']						= 'The correction file has not been uploaded yet.';
+$lang['assignment_checked']							= 'The assignment has been checked.';

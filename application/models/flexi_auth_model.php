@@ -985,8 +985,56 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		return $this->db->affected_rows() == 1;
 	}
 	
+	
+	public function add_assignment($assignment_name, $assignment_desc, $deadline_id)
+	{
+		$sql_insert = array(
+			$this->login->tbl_col_assignment['name'] => $assignment_name,
+			$this->login->tbl_col_assignment['desc'] => $deadline_id,
+			$this->login->tbl_col_assignment['deadline_id'] => $deadline_id,
+		);
 
+		$this->db->insert($this->login->tbl_assignment, $sql_insert);
+		
+		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
+	}
+	
+	public function assign_assignment($assignment_id, $deadline_id)
+	{
+		if (!is_numeric($deadline_id) || !is_numeric($class_id))
+		{
+			return FALSE;
+		}
+		
+		// Set standard privilege data.
+		$sql_insert = array(
+			$this->login->tbl_col_assignment['deadline_id'] => $deadline_id,
+			$this->login->tbl_col_assignment['id'] => $assignment_id
+		);
 
+		$this->db->insert($this->login->tbl_assignment, $sql_insert);
+		
+		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
+	}
+	
+	public function get_assignments($sql_select = FALSE, $sql_where = FALSE)
+  	{
+		// Set any custom defined SQL statements.
+		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
+		
+	    return $this->db->get($this->login->tbl_assignment);
+  	}
+  	
+  	public function mark_assignment_as_checked($assignment_id)
+  	{
+	  	$data = array('assignment_checked' => '1');
+		
+		$sql_where = array('assignment_id' => $assignment_id );
+
+		$this->db->update('assignments', $data, $sql_where);
+  	}
+  	
+  	
 
 	###++++++++++++++++++++++++++++++++++
 	###ERRORS

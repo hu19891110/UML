@@ -274,10 +274,11 @@ CREATE TABLE `assignments` (
 	`assignment_id` smallint(5) NOT NULL AUTO_INCREMENT,
 	`assignment_desc` varchar(50) NOT NULL DEFAULT '',
 	`assignment_name` varchar(50) NOT NULL DEFAULT '',
+  `assignment_checked` smallint(5) NOT NULL DEFAULT '0',
 	`deadline_id_fk` smallint(5),
 	PRIMARY KEY (`assignment_id`),
 	KEY deadline_id_fk (`deadline_id_fk`)
-	);
+);
 	
 
 -- --------------------------------------------------------
