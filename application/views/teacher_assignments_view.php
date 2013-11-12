@@ -21,7 +21,7 @@
 			<?php echo form_open_multipart('assignments/do_upload');?>
 			<input type="file" name="userfile" size="20"><br>
 			<br>
-
+<!-- 
 			User <?php echo $this->flexi_auth->get_user_id();?> 
 
 			<label for="group">Group:</label>
@@ -33,9 +33,11 @@
 				</option>
 				<?php } ?>
 			
-
-
-			</select> <input type="submit" value="Upload" class="small button">
+-->
+			</select> <input type="submit" value="Upload" class="small button"> <br/> <br/>
+			
+			<a href="<?php echo $base_url.'dashboard/assignments_students/';?>"> View handed in assignments per student</a>
+	
 		</div><!-- end large 12 columns -->
 	</body>
 </html>

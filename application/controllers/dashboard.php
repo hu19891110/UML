@@ -74,6 +74,20 @@ class Dashboard extends CI_Controller {
 
 	}
 	
+	function assignments_students()
+	{
+		$this->load->model('demo_auth_admin_model');
+		$this->load->library('flexi_auth');	
+	
+		// Set any returned status/error messages.
+		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
+	
+		$this->demo_auth_admin_model->get_user_accounts();
+	
+		$data['maincontent'] =  $this->load->view('assignments_studentlist_view', $this->data , TRUE);
+		$this->load->view('template-teacher', $data);		
+	}
+	
 	function manage_user_accounts()
     {
 		$this->load->model('demo_auth_admin_model');
@@ -119,11 +133,6 @@ class Dashboard extends CI_Controller {
 
 		$data['maincontent'] =  $this->load->view('userlist_view', $this->data , TRUE);
 		$this->load->view('template-teacher', $data);		
-    }
-    
-    function email()
-    {
-		$this->load->view('includes/email/registration_welcome');	
     }
 
     function update_user_account($user_id)
