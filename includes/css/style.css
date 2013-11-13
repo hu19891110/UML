@@ -34,6 +34,19 @@ label{
 	font-size: 0.975em;
 }
 
+.status_msg{
+	padding: 10px;
+	color: #fff;
+	background:#5da423;
+	border: 1px solid #457a1a;
+}
+
+.error_msg{
+	background: #C60F13;
+	padding: 10px;
+	color: #fff;
+}
+
 /* dashboard assignents overview */ 
 #asstocheck{
 	max-width: 375px;
