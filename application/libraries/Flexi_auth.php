@@ -1075,7 +1075,7 @@ class Flexi_auth extends Flexi_auth_lite
 	
 	public function add_assignment($assignment_name, $assignment_desc, $assignment_enddate)
 	{	
-		$deadline_id = $this->CI->flexi_auth_model->add_assignment($assignment_name, $assignment_desc, $assignment_enddate);
+		$assignment_id = $this->CI->flexi_auth_model->add_assignment($assignment_name, $assignment_desc, $assignment_enddate);
 		if ($assignment_id != FALSE)
 		{
 			$this->CI->flexi_auth_model->set_status_message('add_deadline_successful', 'config');
@@ -1298,6 +1298,11 @@ class Flexi_auth extends Flexi_auth_lite
 	public function get_deadlines($sql_select = FALSE, $sql_where = FALSE)
 	{
 		return $this->CI->flexi_auth_model->get_deadlines($sql_select, $sql_where);
+	}
+	
+	public function get_assignments($sql_select = FALSE, $sql_where = FALSE)
+	{
+		return $this->CI->flexi_auth_model->get_assignments($sql_select, $sql_where);
 	}
 
 	

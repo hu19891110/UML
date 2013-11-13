@@ -66,18 +66,18 @@
 				<table id="asstocheck" class="large-4 columns margin-left tablesorter">
   				<thead>
     				<tr>
-      			<th>Deadline</th>
-      			<th>Date of deadline</th>
+      			<th>assignment</th>
+      			<th>Date of assignment</th>
     				</tr>
   				</thead>
   				<tbody>
   			
       			<?php 
-      			foreach ($deadlines as $deadline)
+      			foreach ($assignments as $assignment)
       			{ ?>
       			<tr>
-	      			<td><a href="<?php echo $base_url . 'dashboard/deadline/'. $deadline[$this->flexi_auth->db_column('deadline', 'id')];?>"><?php echo $deadline[$this->flexi_auth->db_column('deadline', 'desc')];?></a></td>
-	      			<td><?php echo $deadline[$this->flexi_auth->db_column('deadline', 'enddate')];?></td>
+	      			<td><a href="<?php echo $base_url . 'dashboard/assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>"><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></a></td>
+	      			<td><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'enddate')];?></td>
 	      		</tr>	
       			<?php } ?>		
       			</tbody>
@@ -105,17 +105,17 @@
 				});
 				</script>
 				
-				<div class="large-3 columns margin-left deadline">
-					<h3> Add a new deadline </h3>
+				<div class="large-3 columns margin-left assignment">
+					<h3> Add a new assignment </h3>
 
 					<?php
-					$form_name = array('name' => 'deadline');
+					$form_name = array('name' => 'assignment');
 					echo form_open(current_url(), $form_name);	?>
 
 					<ul>
 						<li>
 							<label for="Description"> Description: </label>
-							<input type="text" id="" name="add_deadline_desc" value=""/>
+							<input type="text" id="" name="add_assignment_desc" value=""/>
 						</li>
 						<li>
 
@@ -123,7 +123,7 @@
 
 							<script type="text/javascript">
         						function toggle_all(check) {  //naam van de functie
-           					 var form = document.forms['deadline']; // dit leest het formulier in <form name="deadline" ... >
+           					 var form = document.forms['assignment']; // dit leest het formulier in <form name="assignment" ... >
             				var formelements = form.elements;
             				for(var i = 0; i < formelements.length; i++) // loop door alle elementen
                 			if(formelements[i].type && formelements[i].type=='checkbox'){ // controleer per element of het een checkbox is
@@ -142,8 +142,8 @@
 											Class Name
 										</th>
 										<th class="spacer_150 align_ctr tooltip_trigger"
-											title="If checked, the deadline will be for this class."/>
-											Assign deadline
+											title="If checked, the assignment will be for this class."/>
+											Assign assignment
 										</th>
 									</tr>
 								</thead>
@@ -173,10 +173,10 @@
 						</li> 
 						<li>
 							<label for="End_date">End date:</label>
-							<input type="text" id="datepicker" name="add_deadline_enddate" value=""/>
+							<input type="text" id="datepicker" name="add_assignment_enddate" value=""/>
 						</li>
 						<li>
-						<input type="submit" name="add_deadline" id="add_deadline" value="Add Deadline" class="small button"/>
+						<input type="submit" name="add_assignment" id="add_assignment" value="Add assignment" class="small button"/>
 						</li>
 					</ul>
 					<?php echo form_close();?>

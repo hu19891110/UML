@@ -609,7 +609,7 @@ class Demo_auth_admin_model extends CI_Model {
 		$validation_rules = array(
 			array('field' => 'add_assignment_name', 'label' => 'Assignment Name', 'rules' => 'required'),
 			array('field' => 'add_assignment_desc', 'label' => 'Assignment description', 'rules' => 'required'),
-			array('field' => 'add_assignemnt_enddate', 'label' => 'Assignment enddate', 'rules' => 'required')
+			array('field' => 'add_assignment_enddate', 'label' => 'Assignment enddate', 'rules' => 'required')
 		);
 		
 		$this->form_validation->set_rules($validation_rules);

@@ -969,7 +969,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	}
 	*/
 	
-	public function add_assignment($assignment_name, $assignment_desc, $deadline_id)
+	public function add_assignment($assignment_name, $assignment_desc, $assignment_enddate)
 	{
 		$sql_insert = array(
 			$this->login->tbl_col_assignment['name'] => $assignment_name,
@@ -982,17 +982,17 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
 	}
-	
-	public function assign_assignment($assignment_id, $deadline_id)
+	/*
+	public function assign_assignment($assignment_id, $class_id)
 	{
-		if (!is_numeric($deadline_id) || !is_numeric($class_id))
+		if (!is_numeric($assignment_id) || !is_numeric($class_id))
 		{
 			return FALSE;
 		}
 		
 		// Set standard privilege data.
 		$sql_insert = array(
-			$this->login->tbl_col_assignment['deadline_id'] => $deadline_id,
+			$this->login->tbl_col_assignment['deadline_id'] => $assignment_id,
 			$this->login->tbl_col_assignment['id'] => $assignment_id
 		);
 
@@ -1000,6 +1000,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
 	}
+	*/
 	
 	public function get_assignments($sql_select = FALSE, $sql_where = FALSE)
   	{
