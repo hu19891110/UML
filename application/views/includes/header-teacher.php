@@ -38,7 +38,7 @@
 			<li class="divider"></li>
       	<li><a href="<?php echo site_url('dashboard') ?>">Dashboard</a></li>
       	<li class="divider"></li>
-      	<li><a href="<?php echo site_url('assignments') ?>">Assignments</a></li>
+      	<li><a href="<?php echo site_url('dashboard/add_assignment') ?>">Assignments</a></li>
       	<li class="divider"></li>
       	<li><a href="<?php echo site_url('dashboard/manage_deadlines') ?>">Deadlines</a></li>
       	<li class="divider"></li>

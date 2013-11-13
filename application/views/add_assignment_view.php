@@ -94,4 +94,6 @@
 					<?php echo form_close();?>
 				</div><!--large-6 columns -->
 				
+		<a style="clear: both; float: left;" href="<?php echo $base_url.'dashboard/assignments_students/';?>"> View handed in assignments per student</a>
+				
 		</div> <!-- end 12 columns --> 		
