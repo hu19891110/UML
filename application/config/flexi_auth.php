@@ -175,10 +175,10 @@
 	$config['database']['deadline']['columns']['enddate'] = 'deadline_enddate';
 	$config['database']['deadline']['columns']['date_added'] = 'deadline_date_added';
 	
-	$config['database']['class_deadline']['table'] = 'class_deadlines';
-	$config['database']['class_deadline']['columns']['id'] = 'class_deadline_id';
-	$config['database']['class_deadline']['columns']['deadline_id'] = 'deadline_deadline_id_fk';
-	$config['database']['class_deadline']['columns']['class_id'] = 'deadline_class_id_fk';
+	$config['database']['class_assignment']['table'] = 'class_assignments';
+	$config['database']['class_assignment']['columns']['id'] = 'class_assignment_id';
+	$config['database']['class_assignment']['columns']['assignment_id'] = 'assignment_id_fk';
+	$config['database']['class_assignment']['columns']['class_id'] = 'class_id_fk';
 	
 	$config['database']['checker_error']['table'] = 'checker_errors';
 	$config['database']['checker_error']['columns']['id'] = 'ce_id';
@@ -204,7 +204,8 @@
 	$config['database']['assignment']['columns']['name'] = 'assignment_name';
 	$config['database']['assignment']['columns']['desc'] = 'assignment_desc';
 	$config['database']['assignment']['columns']['checked'] = 'assignment_checked';
-	$config['database']['assignment']['columns']['deadline_id'] = 'deadline_id_fk';
+	$config['database']['assignment']['columns']['enddate'] = 'assignment_enddate';
+	$config['database']['assignment']['columns']['date_added'] = 'assignment_date_added';
 	
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###

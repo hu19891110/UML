@@ -601,6 +601,45 @@ class Demo_auth_admin_model extends CI_Model {
 		redirect('dashboard/manage_deadlines');
 	}
 
+	function add_assignment()
+	{
+		$this->load->library('form_validation');
+
+		// Set validation rules.
+		$validation_rules = array(
+			array('field' => 'add_assignment_name', 'label' => 'Assignment Name', 'rules' => 'required'),
+			array('field' => 'add_assignment_desc', 'label' => 'Assignment description', 'rules' => 'required'),
+			array('field' => 'add_assignemnt_enddate', 'label' => 'Assignment enddate', 'rules' => 'required')
+		);
+		
+		$this->form_validation->set_rules($validation_rules);
+		
+		if ($this->form_validation->run())
+		{
+			// Get deadline data from input.
+			$assignment_name = $this->input->post('add_assignment_name');
+			$assignment_desc = $this->input->post('add_assignment_desc');
+			$assignment_enddate = $this->input->post('add_assignment_enddate');
+
+			$assignment_id = $this->flexi_auth->add_assignment($assignment_name, $assignment_desc, $assignment_enddate);			
+			foreach($this->input->post('add') as $row)
+			{
+				if ($row['current_status'] != $row['new_status'])
+				{
+					// Assign deadline to class.
+					if ($row['new_status'] == 1)
+					{
+						$this->flexi_auth->link_assignment_to_class($assignment_id, $row['id']);	
+					}
+				}
+			}
+			// Save any public or admin status or error messages to CI's flash session data.
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+			
+			// Redirect user.
+			redirect('dashboard');			
+		}
+	}
 
 }
 

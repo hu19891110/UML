@@ -1073,6 +1073,30 @@ class Flexi_auth extends Flexi_auth_lite
 		return FALSE;
 	}
 	
+	public function add_assignment($assignment_name, $assignment_desc, $assignment_enddate)
+	{	
+		$deadline_id = $this->CI->flexi_auth_model->add_assignment($assignment_name, $assignment_desc, $assignment_enddate);
+		if ($assignment_id != FALSE)
+		{
+			$this->CI->flexi_auth_model->set_status_message('add_deadline_successful', 'config');
+			return $assignment_id;
+		}
+
+		$this->CI->flexi_auth_model->set_error_message('add_deadline_unsuccessful', 'config');
+		return FALSE;
+	}
+	
+	function link_assignment_to_class($assignment_id, $class_id) {
+		if ($this->CI->flexi_auth_model->link_assignment_to_class($assignment_id, $class_id))
+		{
+			$this->CI->flexi_auth_model->set_status_message('add_deadline_successful', 'config');
+			return TRUE;
+		}
+
+		$this->CI->flexi_auth_model->set_error_message('add_deadline_unsuccessful', 'config');
+		return FALSE;
+		
+	}
 	
 	
 

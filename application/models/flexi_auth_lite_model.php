@@ -142,8 +142,8 @@ class Flexi_auth_lite_model extends CI_Model
 		
 		
 		// Class deadline table
-		$this->login->tbl_class_deadline = $database_config['class_deadline']['table'];
-		$this->login->tbl_col_class_deadline = $database_config['class_deadline']['columns'];
+		$this->login->tbl_class_assignment = $database_config['class_assignment']['table'];
+		$this->login->tbl_col_class_assignment = $database_config['class_assignment']['columns'];
 		
 		
 		// Checker error table

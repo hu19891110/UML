@@ -243,28 +243,12 @@ INSERT INTO `user_privilege_groups` VALUES(14, 2, 5);
 -- Table structure for 'deadlines'
 -- ----------------------------
 DROP TABLE IF EXISTS `deadlines`;
-CREATE TABLE `deadlines` (
-  `deadline_id` smallint(5) NOT NULL AUTO_INCREMENT,
-  `deadline_desc` varchar(50) NOT NULL DEFAULT '',
-  `deadline_enddate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deadline_date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`deadline_id`),
-  UNIQUE KEY `deadline_id` (`deadline_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for `class_deadlines`
 -- ----------------------------
 DROP TABLE IF EXISTS `class_deadlines`;
-CREATE TABLE `class_deadlines` (
-  `class_deadline_id` smallint(5) NOT NULL AUTO_INCREMENT,
-  `deadline_deadline_id_fk` int(11) NOT NULL DEFAULT '0',
-  `deadline_class_id_fk` smallint(5) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`class_deadline_id`),
-  UNIQUE KEY `class_deadline_id` (`class_deadline_id`) USING BTREE,
-  KEY `upriv_users_uacc_fk` (`deadline_deadline_id_fk`),
-  KEY `deadline_class_id_fk` (`deadline_class_id_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
 
 -- ----------------------------
 -- Table structure for assignments
@@ -275,10 +259,25 @@ CREATE TABLE `assignments` (
 	`assignment_desc` varchar(50) NOT NULL DEFAULT '',
 	`assignment_name` varchar(50) NOT NULL DEFAULT '',
   `assignment_checked` smallint(5) NOT NULL DEFAULT '0',
-	`deadline_id_fk` smallint(5),
-	PRIMARY KEY (`assignment_id`),
-	KEY deadline_id_fk (`deadline_id_fk`)
+	`assignment_enddate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `assignment_date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+	PRIMARY KEY (`assignment_id`)
 );
+
+
+-- ----------------------------
+-- Table structure for `class_deadlines`
+-- ----------------------------
+DROP TABLE IF EXISTS `class_assignments`;
+CREATE TABLE `class_assignments` (
+  `class_assignment_id` smallint(5) NOT NULL AUTO_INCREMENT,
+  `assignment_id_fk` int(11) NOT NULL DEFAULT '0',
+  `class_id_fk` smallint(5) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`class_assignment_id`),
+  UNIQUE KEY `class_assignment_id` (`class_assignment_id`) USING BTREE,
+  KEY `assignment_id_fk` (`assignment_id_fk`),
+  KEY `class_id_fk` (`class_id_fk`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 	
 
 -- --------------------------------------------------------

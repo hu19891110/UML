@@ -928,7 +928,8 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-		
+	
+	/*	
 	public function add_deadline($deadline_desc, $deadline_enddate)
 	{
 		$sql_insert = array(
@@ -955,24 +956,6 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	}
 	
 	
-	public function assign_deadline($deadline_id, $class_id)
-	{
-		if (!is_numeric($deadline_id) || !is_numeric($class_id))
-		{
-			return FALSE;
-		}
-		
-		// Set standard privilege data.
-		$sql_insert = array(
-			$this->login->tbl_col_class_deadline['deadline_id'] => $deadline_id,
-			$this->login->tbl_col_class_deadline['class_id'] => $class_id
-		);
-
-		$this->db->insert($this->login->tbl_class_deadline, $sql_insert);
-		
-		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
-	}
-	
 	public function unassign_deadline($sql_where)
 	{
 		if (is_numeric($sql_where))
@@ -984,14 +967,15 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 
 		return $this->db->affected_rows() == 1;
 	}
-	
+	*/
 	
 	public function add_assignment($assignment_name, $assignment_desc, $deadline_id)
 	{
 		$sql_insert = array(
 			$this->login->tbl_col_assignment['name'] => $assignment_name,
-			$this->login->tbl_col_assignment['desc'] => $deadline_id,
-			$this->login->tbl_col_assignment['deadline_id'] => $deadline_id,
+			$this->login->tbl_col_assignment['desc'] => $assignment_desc,
+			$this->login->tbl_col_assignment['enddate'] => $assignment_enddate,
+			$this->login->tbl_col_assignment['date_added'] => $this->database_date_time()
 		);
 
 		$this->db->insert($this->login->tbl_assignment, $sql_insert);
@@ -1033,6 +1017,23 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 
 		$this->db->update('assignments', $data, $sql_where);
   	}
+  	
+  	public function link_assignment_to_class($assignment_id, $class_id) {
+		if (!is_numeric($assignment_id) || !is_numeric($class_id))
+		{
+			return FALSE;
+		}
+		
+		// Set standard privilege data.
+		$sql_insert = array(
+			$this->login->tbl_col_class_assignment['assignment_id'] => $assignment_id,
+			$this->login->tbl_col_class_assignment['class_id'] => $class_id
+		);
+
+		$this->db->insert($this->login->tbl_class_assignment, $sql_insert);
+		
+		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
+	}
   	
   	
 
