@@ -94,6 +94,28 @@
 					<?php echo form_close();?>
 				</div><!--large-6 columns -->
 				
+			<div class="large-6 columns">	
+				<table id="asstocheck" class="large-4 columns margin-left tablesorter">
+  				<thead>
+    				<tr>
+      			<th>Assignment</th>
+      			<th>Date of assignment</th>
+    				</tr>
+  				</thead>
+  				<tbody>
+  			
+      			<?php 
+      			foreach ($assignments as $assignment)
+      			{ ?>
+      			<tr>
+	      			<td><a href="<?php echo $base_url . 'dashboard/assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>"><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></a></td>
+	      			<td><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'enddate')];?></td>
+	      		</tr>	
+      			<?php } ?>		
+      			</tbody>
+				</table>
+			</div> <!-- end large-6 columns -->
+				
 		<a style="clear: both; float: left;" href="<?php echo $base_url.'dashboard/assignments_students/';?>"> View handed in assignments per student</a>
 				
 		</div> <!-- end 12 columns --> 		

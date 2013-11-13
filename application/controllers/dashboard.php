@@ -859,6 +859,9 @@ class Dashboard extends CI_Controller {
 		
 		//$this->data['deadlines'] = $deadlines;
 		
+		$assignments = $this->flexi_auth->get_assignments();
+		$this->data['assignments'] = $assignments->result_array();
+		
 		$this->data['classes'] = $this->flexi_auth->get_classes_array();
 		
 		$this->data['message'] = $this->session->flashdata('message');
