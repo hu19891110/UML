@@ -640,7 +640,8 @@ class Demo_auth_admin_model extends CI_Model {
 			redirect('dashboard');			
 		} else {
 			$this->load->model('flexi_auth_model');
-			$this->flexi_auth_model->set_error_message('add_deadline_unsuccessful', 'config');
+			$this->flexi_auth_model->set_error_message('add_assignment_unsuccessful', 'config');
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			redirect('dashboard/add_assignment');
 		}
 	}

@@ -802,7 +802,7 @@
 	
 	// Deadlines
 	$config['messages']['target_user']['add_deadline_successful'] = 'public';
-	$config['messages']['target_user']['add_deadline_unsuccessful'] = 'public';
+	$config['messages']['target_user']['add_assignment_unsuccessful'] = 'public';
 	$config['messages']['target_user']['delete_deadline_successful'] = 'public';
 	$config['messages']['target_user']['delete_deadline_unsuccessful'] = 'public';
 

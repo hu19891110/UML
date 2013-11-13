@@ -61,7 +61,7 @@ $lang['delete_successful']							= 'Account information has been successfully de
 $lang['delete_unsuccessful']						= 'Unable to delete account information.';
 
 $lang['add_deadline_successful']					= 'Assignment has been successfully added.';
-$lang['add_deadline_unsuccessful']					= 'Unable to add Assignment.';
+$lang['add_assignment_unsuccessful']				= 'Assignment has not been added.';
 $lang['delete_deadline_successful']					= 'Deadline has been successfully deleted.';
 $lang['delete_deadline_unsuccessful']				= 'Unable to delete deadline.';
 

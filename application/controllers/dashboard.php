@@ -860,7 +860,7 @@ class Dashboard extends CI_Controller {
 		
 		$this->data['classes'] = $this->flexi_auth->get_classes_array();
 		
-		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
+		$this->data['message'] = $this->session->flashdata('message');
 		
 		
 		if ($this->flexi_auth->is_admin()) {
@@ -888,6 +888,8 @@ class Dashboard extends CI_Controller {
 		$this->data['assignment'] = $assignment->row_array();
 	
 		$this->data['classes'] = $this->flexi_auth->get_classes_array();
+		
+		$this->data['message'] = $this->session->flashdata('message');
 		
 		if ($this->flexi_auth->is_admin()) {
 			$data['maincontent'] = $this->load->view('assignment_teacher_view', $this->data, TRUE);
