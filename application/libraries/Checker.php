@@ -339,87 +339,100 @@ class Checker
 	function checkRelations($xml, $xml2, $filename){
 		foreach($xml->Models->ModelRelationshipContainer->ModelChildren->ModelRelationshipContainer as $container1) {
 			foreach($xml2->Models->ModelRelationshipContainer->ModelChildren->ModelRelationshipContainer as $container2) {
-				//'speciale' relaties
-				
-					//TODO
-				
-				//'normale' relaties
-				foreach($container1->ModelChildren->Association as $relatie1) {
-					foreach($container2->ModelChildren->Association as $relatie2) {
-						
-						$naam1 = (string)$relatie1->attributes()->Name;
-						$naam2 = (string)$relatie2->attributes()->Name;
-						
-						
-						$from_end1 = $relatie1->FromEnd->AssociationEnd;
-						$from_end2 = $relatie2->FromEnd->AssociationEnd;
-						$to_end1 = $relatie1->ToEnd->AssociationEnd;
-						$to_end2 = $relatie2->ToEnd->AssociationEnd;
-						
-						//check of het om éénzelfde relatie gaat door de begin- en eindbestemmingen te vergelijken.
-						if($this->checkBestemming($from_end1, $from_end2, 'eindbestemming') && $this->checkBestemming($to_end1, $to_end2, 'beginbestemming')) {
-							//echo 'Deze relatie komt voor in xml2: <strong>'. $naam1 . '</strong><br />';
 							
-							//check de naam van de relatie
-							if ($naam1 == $naam2){
-								//echo 'De relatie '. $naam1 .' heeft in het ingeleverde model <strong>dezelfde</strong> naam.' . '<br />';
-							}
-							else{
-								/*
-								$this->faults = $this->faults. 'De relatie komt wel voor in het ingeleverde model maar heeft een <strong>andere</strong> naam' . '<br />';
-								$this->GRADE = $this->GRADE - $this->RelatieNaamAnders;
-								*/
+				//relaties
+				$teller = 0;
+				if (isset ($container1->ModelChildren->Association)){
+					foreach($container1->ModelChildren->Association as $relatie1) {
+						$teller = 0;
+						if (isset ($container2->ModelChildren->Association)){
+							foreach($container2->ModelChildren->Association as $relatie2) {
 								
-								$relation_name = $naam2;
-								$error_id = 1;
-								$this->add_error($filename, $error_id, '', '', '', '', '', $relation_name, '');
+								$naam1 = (string)$relatie1->attributes()->Name;
+								$naam2 = (string)$relatie2->attributes()->Name;
 								
-							}
-							
-							//check het soort relatie
-							$this->checkSoort($relatie1, $relatie2, $filename);
+								
+								$from_end1 = $relatie1->FromEnd->AssociationEnd;
+								$from_end2 = $relatie2->FromEnd->AssociationEnd;
+								$to_end1 = $relatie1->ToEnd->AssociationEnd;
+								$to_end2 = $relatie2->ToEnd->AssociationEnd;
+								
+								//check of het om éénzelfde relatie gaat door de begin- en eindbestemmingen te vergelijken.
+								if($this->checkBestemming($from_end1, $from_end2, 'eindbestemming') && $this->checkBestemming($to_end1, $to_end2, 'beginbestemming')) {
+									//echo 'Deze relatie komt voor in xml2: <strong>'. $naam1 . '</strong><br />';
+									$teller = 1;
+									
+									//check de naam van de relatie
+									if ($naam1 == $naam2){
+										//echo 'De relatie '. $naam1 .' heeft in het ingeleverde model <strong>dezelfde</strong> naam.' . '<br />';
+									}
+									else{
+										/*
+										$this->faults = $this->faults. 'De relatie komt wel voor in het ingeleverde model maar heeft een <strong>andere</strong> naam' . '<br />';
+										$this->GRADE = $this->GRADE - $this->RelatieNaamAnders;
+										*/
 										
-							//relatie komt voor in nakijkmodel dus we kijken verder
-							
-									
-							//check of de relatie dezelfde begin- en eindbestemming heeft
-							//eindbestemming
-							if(!$this->checkBestemming($from_end1, $from_end2)){
-								/*
-								$this->faults = $this->faults. 'Deze relatie heeft NIET dezelfde eindbestemming, <font color="red">*Puntenaftrek*</font>' . '<br />';
-								$this->GRADE = $this->GRADE - $this->RelatieHeeftAnderEind;
-								*/
-								$relation_name = $naam2;
-								$error_id = 3;
-								$this->add_error($filename, $error_id, '', '', '', '', '', $relation_name, '');
-								
-								
-							}
-									
-							//beginbestemming
-							if(!$this->checkBestemming($to_end1, $to_end2)){
-								/*
-								$this->faults = $this->faults. 'Deze relatie heeft NIET dezelfde beginbestemming, <font color="red">*Puntenaftrek*</font>' . '<br />';
-								$this->GRADE = $this->GRADE - $this->RelatieHeeftAnderBegin;
-								*/
-								$relation_name = $naam2;
-								$error_id = 2;
-								$this->add_error($filename, $error_id, '', '', '', '', '', $relation_name, '');
-							}
-							
-							//kijken of de relatie dezelfde multipliciteit heeft
-							//eindbestemming
-							$this->checkMP($from_end1, $from_end2, 'eindbestemming', $filename);
-									
-							//beginbestemming
-							$this->checkMP($to_end1, $to_end2, 'beginbestemming', $filename);
+										$relation_name = $naam2;
+										$error_id = 1;
+										$this->add_error($filename, $error_id, '', '', '', '', '', $relation_name, '');
 										
-						}//if naamgelijkheid
-						else {
-	//						echo 'Deze relatienaam: "' . $naam1 . '" komt NIET voor in xml2! OF HET PROGRAMMA HEEFT HET VERGELEKEN MET EEN ANDERE RELATIE' . '<br />';
-						}// else naamgelijkheid
-					}//foreach xml2	
-				}//foreach xml
+									}
+									
+									//check het soort relatie
+									$this->checkSoort($relatie1, $relatie2, $filename);
+												
+									//relatie komt voor in nakijkmodel dus we kijken verder
+									
+									//kijken of de relatie dezelfde multipliciteit heeft
+									//eindbestemming
+									$this->checkMP($from_end1, $from_end2, 'eindbestemming', $filename);
+											
+									//beginbestemming
+									$this->checkMP($to_end1, $to_end2, 'beginbestemming', $filename);
+												
+								}//if naamgelijkheid
+								else if($naam1 == $naam2) {
+			//						echo 'Deze relatienaam: "' . $naam1 . '" komt NIET voor in xml2! OF HET PROGRAMMA HEEFT HET VERGELEKEN MET EEN ANDERE RELATIE' . '<br />';
+									//check of de relatie dezelfde begin- en eindbestemming heeft
+									//eindbestemming
+									if(!$this->checkBestemming($from_end1, $from_end2)){
+										/*
+										$this->faults = $this->faults. 'Deze relatie heeft NIET dezelfde eindbestemming, <font color="red">*Puntenaftrek*</font>' . '<br />';
+										$this->GRADE = $this->GRADE - $this->RelatieHeeftAnderEind;
+										*/
+										$relation_name = $naam2;
+										$error_id = 3;
+										$this->add_error($filename, $error_id, '', '', '', '', '', $relation_name, '');
+										
+										
+									}
+											
+									//beginbestemming
+									if(!$this->checkBestemming($to_end1, $to_end2)){
+										/*
+										$this->faults = $this->faults. 'Deze relatie heeft NIET dezelfde beginbestemming, <font color="red">*Puntenaftrek*</font>' . '<br />';
+										$this->GRADE = $this->GRADE - $this->RelatieHeeftAnderBegin;
+										*/
+										$relation_name = $naam2;
+										$error_id = 2;
+										$this->add_error($filename, $error_id, '', '', '', '', '', $relation_name, '');
+									}
+								}// else naamgelijkheid
+							}//foreach xml2	
+							if ( $teller == 0 ){
+								//echo 'de relatie ' . $relatie1 . 'is niet aanwezig in het ingeleverde model' . '<br />';
+								//$naam1 NIET AANWEZIG IN INGELEVERD MODEL
+								
+								
+								$relation_name = $naam1;
+								$error_id = 16;
+								$this->add_error($filename, $error_id, '', '', '', '', '', $relation_name, '');
+								
+							}
+							$teller = 0;
+						}//isset
+					}//foreach xml
+				}//isset
 			}
 		}		
 	}
