@@ -66,7 +66,7 @@
 				<table id="asstocheck" class="large-4 columns margin-left tablesorter">
   				<thead>
     				<tr>
-      			<th>assignment</th>
+      			<th>Assignment</th>
       			<th>Date of assignment</th>
     				</tr>
   				</thead>
@@ -113,6 +113,10 @@
 					echo form_open(current_url(), $form_name);	?>
 
 					<ul>
+						<li>
+							<label for="Description"> Name: </label>
+							<input type="text" id="" name="add_assignment_name" value=""/>
+						</li>
 						<li>
 							<label for="Description"> Description: </label>
 							<input type="text" id="" name="add_assignment_desc" value=""/>
