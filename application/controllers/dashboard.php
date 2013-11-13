@@ -809,6 +809,34 @@ class Dashboard extends CI_Controller {
 		}
 	}
 	
+	function assignments() {
+		if ($this->input->post('add_assignment')) {
+		
+			$this->load->model('demo_auth_admin_model');
+			$this->demo_auth_admin_model->add_assignment();
+			
+			//$this->do_upload();
+		}
+		
+		$assignments = $this->flexi_auth->get_assignments();
+		$this->data['assignments'] = $assignments->result_array();
+		
+		$this->data['classes'] = $this->flexi_auth->get_classes_array();
+		
+		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
+		
+		
+		if ($this->flexi_auth->is_admin()) {
+			$data['maincontent'] = $this->load->view('assignments_teacher_view', $this->data, TRUE);
+			$this->load->view('template-teacher', $data);
+		} else {
+			$data['maincontent'] = $this->load->view('assignments_student_view', $this->data, TRUE);
+			$this->load->view('template-student', $data);
+		}
+		
+		
+	}
+	
 	function add_assignment() {
 		
 		if ($this->input->post('add_assignment')) {
@@ -846,7 +874,32 @@ class Dashboard extends CI_Controller {
 
 	}
 	
-	function do_upload()
+	function assignment($assignment_id) {
+		
+		if ($this->input->post('update_assignment')) {
+		
+			$this->load->model('demo_auth_admin_model');
+			//$this->demo_auth_admin_model->update_assignment();
+			
+		}
+		
+		$sql_where = array($this->login->tbl_col_assignment['id'] => $assignment_id);
+		$assignment = $this->flexi_auth->get_assignments(FALSE, $sql_where);
+		$this->data['assignment'] = $assignment->row_array();
+	
+		$this->data['classes'] = $this->flexi_auth->get_classes_array();
+		
+		if ($this->flexi_auth->is_admin()) {
+			$data['maincontent'] = $this->load->view('assignment_teacher_view', $this->data, TRUE);
+			$this->load->view('template-teacher', $data);
+		} else {
+			$data['maincontent'] = $this->load->view('assignment_student_view', $this->data, TRUE);
+			$this->load->view('template-student', $data);
+		}
+		
+	}
+	
+	function do_upload($assignment_id)
 	{
 		
 		/*$rows = $this->flexi_auth->get_student_class($this->flexi_auth->get_user_id());
@@ -860,11 +913,11 @@ class Dashboard extends CI_Controller {
 		$config['max_size']	= '2000';
 		$config['max_width']  = '1024';
 		$config['max_height']  = '768';
-		$config['file_name'] = $this->flexi_auth->get_user_id(). '-3';
+		$config['file_name'] = $this->flexi_auth->get_user_id(). '-' . $assignment_id;
 
 		$this->load->library('upload', $config);
 		
-		if ( ! $this->upload->do_upload())
+		if ( ! $this->upload->do_upload($assignment_id))
 		{
 			$this->data['error'] = array('error' => $this->upload->display_errors());
 			
@@ -874,17 +927,11 @@ class Dashboard extends CI_Controller {
 		else
 		{
 			$this->load->model('demo_auth_model');
-			$la = $this->demo_auth_model->add_file_by_student();
-			print_r($la);
-			/*if($la) {
-				echo 'GLUKT<br />';
-			} else {
-				echo 'kk<br />';
-			}*/
+			$this->demo_auth_model->add_file_by_student($assignment_id);
+			
 			$data = array('upload_data' => $this->upload->data());
-
-			$this->data['maincontent'] = $this->load->view('upload_success', $data, TRUE);
-			$this->load->view('template-student', $this->data);
+			
+			redirect('assignment/' . $assignment_id);
 		}
 	}
 

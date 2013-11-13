@@ -638,6 +638,10 @@ class Demo_auth_admin_model extends CI_Model {
 			
 			// Redirect user.
 			redirect('dashboard');			
+		} else {
+			$this->load->model('flexi_auth_model');
+			$this->flexi_auth_model->set_error_message('add_deadline_unsuccessful', 'config');
+			redirect('dashboard/add_assignment);
 		}
 	}
 

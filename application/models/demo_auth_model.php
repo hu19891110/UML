@@ -78,7 +78,7 @@ class Demo_auth_model extends CI_Model {
 		}
 	}
 	
-	public function add_file_by_student() {
+	public function add_file_by_student($assignment_id) {
 		$this->load->library('form_validation');
 		
 		$validation_rules = array(
@@ -88,19 +88,19 @@ class Demo_auth_model extends CI_Model {
 		
 	
 			$student_id = $this->flexi_auth->get_user_id();
+			/*
 			$deadline_id;
 			foreach($this->input->post('add') as $deadline_id) {
 				if ($deadline_id['current_status'] != $deadline_id['new_status'])
 				{
 					// Assign deadline to class.
 					if ($deadline_id['new_status'] == 1)
-					{
-						$this->flexi_auth->set_student_file_on_deadline($student_id, $deadline_id['id']);
-					}
+					{*/
+						$this->flexi_auth->set_student_file_on_deadline($student_id, $assignment_id);
+					/*}
 				}
 			}
-		
-			return $deadline_id['id'];
+			*/
 	}
 
 	/**
