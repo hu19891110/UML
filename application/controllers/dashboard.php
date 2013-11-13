@@ -52,10 +52,11 @@ class Dashboard extends CI_Controller {
 	
 	function dashboard() 
 	{
-		if ($this->input->post('add_deadline')) 
-		{
+		if ($this->input->post('add_assignment')) {
+		
 			$this->load->model('demo_auth_admin_model');
-			$this->demo_auth_admin_model->add_deadline();
+			$this->demo_auth_admin_model->add_assignment();
+			
 		}
 		$assignments = $this->flexi_auth->get_assignments();
 		$this->data['assignments'] = $assignments->result_array();
