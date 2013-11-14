@@ -343,7 +343,6 @@ CREATE TABLE `uml_errors` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4;
 
 
--- HIER MOET NOG GEGEVENS VAN ELKE ERROR INGELADEN WORDEN.
 
 INSERT INTO `uml_errors` (`ue_id`, `ue_name`,`ue_desc`,`ue_error_value`) VALUES
 (1, 'Relatie naam anders', 'Relatie naam is anders' , '0.1'),
