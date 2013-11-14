@@ -138,6 +138,7 @@ class Dashboard extends CI_Controller {
 		$this->load->library('flexi_auth');	
 		
 		$sql_where = array($this->login->tbl_col_assignment['id'] => $assignment_id);
+		$this->data['assignment_id'] = $assignment_id;
 		
 		$assignment = $this->flexi_auth->get_assignments(FALSE, $sql_where);
 		$this->data['assignment'] = $assignment->row_array();
@@ -1024,6 +1025,7 @@ class Dashboard extends CI_Controller {
 			
 				$handed_in_file = (string) $upload['student_id'] . '-' . (string)$upload['deadline_id'] . '.xml';
 				$this->checker->checkFile($correctfile_name, $handed_in_file);
+				$this->flexi_auth->update_grade($upload['student_id'], $upload['deadline_id']);
 				
 			}
 			$this->flexi_auth_model->mark_assignment_as_checked($assignment_id);

@@ -1909,14 +1909,17 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	
 	public function get_errors_for_assignment_of_student($assignment_id, $student_id)
 	{
+		/*
 		$sql_where = array(
 			$this->login->tbl_col_checker_error['student_id'] => $student_id,
 			$this->login->tbl_col_checker_error['deadline_id'] => $assignment_id
 		);
 		
 		$this->flexi_auth_lite_model->set_custom_sql_to_db(FALSE , $sql_where);
+		*/
+		$errors = $this->db->get_where('checker_errors', array('ce_student_id' => $student_id, 'ce_deadline_id' => $assignment_id));
 		
-		return $this->db->get($this->login->tbl_checker_error);
+		return $errors;
 		
 	}
 	
@@ -1928,6 +1931,52 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$error_value = $error_info['ue_error_value'];
 		return $error_value;
 		
+	}
+	
+	public function calculate_grade($student_id, $assignment_id)
+		{		
+		$errors = $this->get_errors_for_assignment_of_student($assignment_id, $student_id);
+		$errors = $errors->result_array();
+		$substraction = 0;
+		
+		foreach ($errors as $error) {
+			$error_id = $error['ce_error_id'];
+			$error_substraction = $this->get_error_value($error_id);
+			$substraction = $substraction + $error_substraction;
+		
+		}
+		
+		$grade = 10 - $substraction;
+		
+		/*
+		sql_select = array($this->login->tbl_uploads['grade']); //select grade
+		sql_where = array(	$this->login->tbl_uploads['student_id'] => $student_id,
+							$this->login->tbl_uploads['deadline_id'] => $deadline_id); //van student bij deadline
+		
+		$GRADE = $this->db->select($sql_select)
+				->where($sql_where)
+				->get();
+		
+		
+		$sql_update[$this->login->tbl_uploads['grade']] = $GRADE;
+		$this->db->update($this->login->tbl_uploads, $sql_update, $sql_where);
+		*/
+		//$grade = 10;
+		return $grade;
+	}
+	
+	public function update_grade($student_id, $assignment_id)
+	{
+		$grade = $this->calculate_grade($student_id, $assignment_id);
+		$sql_update = array('grade' => $grade);
+		$sql_where = array(
+			$this->login->tbl_col_uploads['deadline_id'] => $assignment_id, 
+			$this->login->tbl_col_uploads['student_id'] => $student_id
+		);
+		
+		$this->db->update($this->login->tbl_uploads, $sql_update, $sql_where);
+		
+		return $this->db->affected_rows() == 1;	
 	}
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	

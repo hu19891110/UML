@@ -1331,7 +1331,16 @@ class Flexi_auth extends Flexi_auth_lite
 	{
 		return $this->CI->flexi_auth_model->get_error_value($error_id); 
 	}
+	
+	public function calculate_grade($student_id, $assignment_id)
+	{
+		return $this->CI->flexi_auth_model->calculate_grade($student_id, $assignment_id);
+	}
 
+	public function update_grade($student_id, $assignment_id)
+	{
+		return $this->CI->flexi_auth_model->update_grade($student_id, $assignment_id);
+	}
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	// EMAIL FUNCTIONS

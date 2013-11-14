@@ -288,9 +288,8 @@ DROP TABLE IF EXISTS `uploads`;
 CREATE TABLE `uploads` (
   `upload_id` smallint(5) NOT NULL AUTO_INCREMENT,
   `student_id` int(11) NOT NULL DEFAULT '0',
-  `deadline_id` int(11) NOT NULL,
-  `grade` int(11) NOT NULL,
-  `faults` varchar(9999) NOT NULL,
+  `deadline_id` int(11) NOT NULL DEFAULT '0',
+  `grade` float(5) NOT NULL DEFAULT '0',
   `Type` int(11) NOT NULL,
   `upload_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`upload_id`)
