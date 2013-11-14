@@ -1920,6 +1920,16 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 	}
 	
+	public function get_error_value($error_id) 
+	{
+		
+		$error_info = $this->db->get_where('uml_errors', array('ue_id' => $error_id));
+		$error_info = $error_info->row_array();
+		$error_value = $error_info['ue_error_value'];
+		return $error_value;
+		
+	}
+	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	// LOGIN / VALIDATION METHODS
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	

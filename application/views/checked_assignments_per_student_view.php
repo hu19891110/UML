@@ -38,21 +38,23 @@
 		foreach ($errors as $error) {
 			
 			 $error_id = $error[$this->flexi_auth->db_column('checker_error', 'error_id')];
+			 $error_value = $this->flexi_auth->get_error_value($error_id);
+			 $error_value = round($error_value, 1);
 			 if ($error_id == 1) {
 				 ?>
 				 <p>Relatie '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': De relatie komt wel voor in het ingeleverde model maar heeft een <strong>andere</strong> naam.</p>
 				 <?php
 			 } else if ($error_id == 2) {
 				 ?>
-				 <p>Relatie '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': Deze relatie heeft NIET dezelfde <strong>beginbestemming.</strong> </p>
+				 <p>Relatie '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': Deze relatie heeft NIET dezelfde <strong>beginbestemming. Aantal punten aftrek: <?php echo $error_value;?> .</strong> </p>
 				 <?php
 			 } else if ($error_id == 3) {
 				 ?>
-				 <p>Relatie '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': Deze relatie heeft NIET dezelfde <strong>eindbestemming.</strong> </p>
+				 <p>Relatie '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': Deze relatie heeft NIET dezelfde <strong>eindbestemming. Aantal punten aftrek: <?php echo $error_value;?> .</strong> </p>
 				 <?php
 			 } else if ($error_id == 4) {
 				 ?>
-				 <p>Relatie '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': De relatie is NIET van dezelfde soort. </p>
+				 <p>Relatie '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': De relatie is NIET van dezelfde soort. Aantal punten aftrek: <?php echo $error_value;?> . </p>
 				 <?php
 			 } else if ($error_id == 5) {
 				 ?>
@@ -60,7 +62,7 @@
 				 <?php
 			 } else if ($error_id == 6) {
 				 ?>
-				 <p>Klasse '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'class')];?>', attribuut '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'attribute')];?>': Het Datatype (<?php echo $error[$this->flexi_auth->db_column('checker_error', 'datatype')];?>) komt niet overeen. </p>
+				 <p>Klasse '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'class')];?>', attribuut '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'attribute')];?>': Het Datatype (<?php echo $error[$this->flexi_auth->db_column('checker_error', 'datatype')];?>) komt niet overeen. Aantal punten aftrek: <?php echo $error_value;?> .</p>
 				 <?php
 			 } else if ($error_id == 7) {
 				 ?>
@@ -76,7 +78,7 @@
 				 <?php
 			 } else if ($error_id == 10) {
 				 ?>
-				 <p>Klasse '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'class')];?>': Het attribuut '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'attribute')];?>' mist in het ingeleverde model.</p>
+				 <p>Klasse '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'class')];?>': Het attribuut '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'attribute')];?>' mist in het ingeleverde model. Aantal punten aftrek: <?php echo $error_value;?> .</p>
 
 				 <?php
 			 } else if ($error_id == 11) {
@@ -97,7 +99,7 @@
 				 <?php
 			 } else if ($error_id == 15) {
 				 ?>
-				 <p>Klasse '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'class')];?>' mist in het ingeleverde model. </p>
+				 <p>Klasse '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'class')];?>' mist in het ingeleverde model. Aantal punten aftrek: <?php echo $error_value;?> .</p>
 				 <?php
 			 } else if ($error_id == 16) {
 				 ?>
