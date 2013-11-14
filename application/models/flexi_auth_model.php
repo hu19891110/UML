@@ -1761,24 +1761,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		return $array;
 	}
 
-	public function set_student_file_on_deadline($student_id, $deadline_id) {
-		$sql_insert = array(
-			'student_id' => $student_id,
-			'deadline_id' => $deadline_id,
-			'grade' => 0,
-			'Type' => 1
-		);
-
-		$this->db->insert('uploads', $sql_insert);
-		
-		if ($this->db->affected_rows() > 0)
-	    {
-			return TRUE;
-	    } else {
-			return FALSE;
-		}
 	
-	}
 	
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
@@ -1842,17 +1825,11 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	
 	public function get_uploads_by_deadline($deadline_id)
 	{
-		//$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, 'uploads');
-		
-		
 		return $this->db->get_where('uploads', array('type' => 1, 'deadline_id' => $deadline_id));
 	}
 	
 	public function get_uploads_by_user($user_id)
-	{
-		
-		//$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, 'uploads');
-		
+	{	
 		return $this->db->get_where('uploads', array('type' => 1, 'student_id' => $user_id));
 	}
 	
@@ -1863,9 +1840,32 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		return $this->db->get($this->login->tbl_uploads);
 	}
 	
+	public function get_upload_date_time($assignment_id, $student_id)
+	{
+		$upload = $this->db->get_where('uploads', array('student_id' => $student_id, 'deadline_id' => $assignment_id));
+		$upload = $upload->row_array();
+		$date = $upload['upload_date'];
+		return $date;
+	}
+	
+	public function upload_too_late($upload_id, $assignment_id)
+	{
+		
+		$upload = $this->db->get_where('uploads', array('upload_id' => $upload_id));
+		$upload = $upload->row_array();
+		$assignment = $this->db->get_where('assignments', array('assignment_id' => $assignment_id));
+		$assignment = $assignment->row_array();
+		$upload_time = $upload['upload_date'];
+		$assignment_time = $assignment['assignment_enddate'];
+		$datetime1 = strtotime($assignment_time);
+		$datetime2 = strtotime($upload_time);
+		$datediff = $datetime2 - $datetime1;
+		$days = floor($datediff/(60*60*24));
+		return $days;
+	}
+	
 	public function get_correct_file_by_deadline($deadline_id)
 	{
-		//$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, 'uploads');
 		
 		return $this->db->get_where('uploads', array('type' => 2, 'deadline_id' => $deadline_id));
 	}
@@ -1909,28 +1909,18 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	
 	public function get_errors_for_assignment_of_student($assignment_id, $student_id)
 	{
-		/*
-		$sql_where = array(
-			$this->login->tbl_col_checker_error['student_id'] => $student_id,
-			$this->login->tbl_col_checker_error['deadline_id'] => $assignment_id
-		);
-		
-		$this->flexi_auth_lite_model->set_custom_sql_to_db(FALSE , $sql_where);
-		*/
 		$errors = $this->db->get_where('checker_errors', array('ce_student_id' => $student_id, 'ce_deadline_id' => $assignment_id));
 		
 		return $errors;
-		
 	}
 	
 	public function get_error_value($error_id) 
-	{
-		
+	{	
 		$error_info = $this->db->get_where('uml_errors', array('ue_id' => $error_id));
 		$error_info = $error_info->row_array();
 		$error_value = $error_info['ue_error_value'];
-		return $error_value;
 		
+		return $error_value;	
 	}
 	
 	public function calculate_grade($student_id, $assignment_id)
@@ -1948,20 +1938,6 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 		$grade = 10 - $substraction;
 		
-		/*
-		sql_select = array($this->login->tbl_uploads['grade']); //select grade
-		sql_where = array(	$this->login->tbl_uploads['student_id'] => $student_id,
-							$this->login->tbl_uploads['deadline_id'] => $deadline_id); //van student bij deadline
-		
-		$GRADE = $this->db->select($sql_select)
-				->where($sql_where)
-				->get();
-		
-		
-		$sql_update[$this->login->tbl_uploads['grade']] = $GRADE;
-		$this->db->update($this->login->tbl_uploads, $sql_update, $sql_where);
-		*/
-		//$grade = 10;
 		return $grade;
 	}
 	
@@ -1977,6 +1953,38 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$this->db->update($this->login->tbl_uploads, $sql_update, $sql_where);
 		
 		return $this->db->affected_rows() == 1;	
+	}
+	
+	public function set_student_file_on_deadline($student_id, $deadline_id) {
+		$sql_insert = array(
+			'student_id' => $student_id,
+			'deadline_id' => $deadline_id,
+			'grade' => 0,
+			'Type' => 1,
+			'upload_date' => $this->db->database_date_time()
+		);
+		
+		$this->db->insert('uploads', $sql_insert);
+		
+		$upload_id = $this->db->insert_id();
+		
+		$substraction_late = upload_too_late($upload_id, $deadline_id);
+		
+		if ($this->db->affected_rows() > 0)
+	    {
+			return TRUE;
+	    } else {
+			return FALSE;
+		}
+	
+	}
+	
+	public function get_upload_id($assignment_id, $student_id)
+	{
+		$upload = $this->db->get_where('uploads', array('student_id' => $student_id, 'deadline_id' => $assignment_id));
+		$upload = $upload->row_array();
+		$upload_id = $upload['upload_id'];
+		return $upload_id;
 	}
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	

@@ -292,6 +292,7 @@ CREATE TABLE `uploads` (
   `grade` float(5) NOT NULL DEFAULT '0',
   `Type` int(11) NOT NULL,
   `upload_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `substraction_late` float(5) NOT NULL DEFAULT '0',
   PRIMARY KEY (`upload_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

@@ -18,7 +18,7 @@ class Dashboard extends CI_Controller {
 		
 		if (! $this->flexi_auth->is_logged_in_via_password()) 
 		{
-			
+		
 			$this->flexi_auth->set_error_message('You must be logged in to access this area.', TRUE);
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			redirect('login');
@@ -75,90 +75,7 @@ class Dashboard extends CI_Controller {
 
 	}
 	
-	function assignments_students()
-	{
-		$this->load->model('demo_auth_admin_model');
-		$this->load->library('flexi_auth');	
-	
-		// Set any returned status/error messages.
-		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
-	
-		$this->demo_auth_admin_model->get_user_accounts();
-	
-		$data['maincontent'] =  $this->load->view('assignments_studentlist_view', $this->data , TRUE);
-		$this->load->view('template-teacher', $data);		
-	}
-	
-	function handedin_assignments_per_student($user_id)
-	{
-		$this->load->model('demo_auth_admin_model');
-		$this->load->library('flexi_auth');	
 		
-		$assignments = $this->flexi_auth->get_assignments();
-		$assignments = $assignments->result_array();
-		$this->data['assignments'] = $assignments;
-		
-		$handed_in_assignments = $this->flexi_auth->get_assignments_handed_in_by_user($user_id);
-		$this->data['handed_in_assignments'] = $handed_in_assignments;
-		
-		
-		$not_handed_in_assignments = $this->flexi_auth->get_assignments_not_handed_in_by_user($user_id);
-		$this->data['not_handed_in_assignments'] = $not_handed_in_assignments;
-		
-		$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
-		$checked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
-		$this->data['checked_assignments'] = $checked_assignments->result_array();
-		
-		//$checked = array($this->flexi_auth->db_column('assignment', 'checked'));
-		//$data = array('assignment_checked' => '1');
-		//$checked =  $this->flexi_auth->get_assignments($data);
-
-		$this->demo_auth_admin_model->get_user_accounts();		
-	
-		// Get users current data.
-		$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
-		$this->data['user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
-		
-		// Set any returned status/error messages.
-		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
-	
-		$data['maincontent'] =  $this->load->view('handedin_assignments_student_view', $this->data , TRUE);
-		$this->load->view('template-teacher', $data);		
-	}
-	
-	function checked_assignment_per_student()
-	{
-		$assignment_id = $this->uri->segment(3, 0);
-		$user_id = $this->uri->segment(4, 0);
-		
-		//if ($assignment_id == 0 || $user_id == 0) {
-		//	redirect('dashboard/assignments');
-		//}
-		$this->load->model('demo_auth_admin_model');
-		$this->load->library('flexi_auth');	
-		
-		$sql_where = array($this->login->tbl_col_assignment['id'] => $assignment_id);
-		$this->data['assignment_id'] = $assignment_id;
-		
-		$assignment = $this->flexi_auth->get_assignments(FALSE, $sql_where);
-		$this->data['assignment'] = $assignment->row_array();
-		
-		$errors = $this->flexi_auth->get_errors_for_assignment_of_student($assignment_id, $user_id);
-		$this->data['errors'] = $errors->result_array();
-		
-		$this->demo_auth_admin_model->get_user_accounts();	
-		
-		// Get users current data.
-		$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
-		$this->data['user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
-	
-		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
-	
-		$data['maincontent'] =  $this->load->view('checked_assignments_per_student_view', $this->data , TRUE);
-		$this->load->view('template-teacher', $data);		
-	
-	}
-	
 	function manage_user_accounts()
     {
 		$this->load->model('demo_auth_admin_model');
@@ -868,8 +785,7 @@ class Dashboard extends CI_Controller {
 		
 			$this->load->model('demo_auth_admin_model');
 			$this->demo_auth_admin_model->add_assignment();
-			
-			//$this->do_upload();
+
 		}
 		
 		$assignments = $this->flexi_auth->get_assignments();
@@ -892,25 +808,19 @@ class Dashboard extends CI_Controller {
 	}
 	
 	function add_assignment() {
+	
+		if (!$this->flexi_auth->is_admin()) {
+			$this->flexi_auth->set_error_message('You are not privliged to view this area.', TRUE);
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+			redirect('dashboard');
+		}
 		
 		if ($this->input->post('add_assignment')) {
 		
 			$this->load->model('demo_auth_admin_model');
 			$this->demo_auth_admin_model->add_assignment();
-			
-			//$this->do_upload();
+
 		}
-		
-		/*
-		$rows = $this->flexi_auth->get_student_class($this->flexi_auth->get_user_id());
-		$rows = $rows->result_array();
-		//print_r($rows);
-		$class_id = $rows[0]['uacc_class_fk'];
-		*/
-		
-		//$deadlines = $this->flexi_auth->get_deadlines_by_class($class_id);
-		
-		//$this->data['deadlines'] = $deadlines;
 		
 		$assignments = $this->flexi_auth->get_assignments();
 		$this->data['assignments'] = $assignments->result_array();
@@ -957,6 +867,98 @@ class Dashboard extends CI_Controller {
 		}
 		
 	}
+	
+	function assignments_students()
+	{
+		$this->load->model('demo_auth_admin_model');
+		$this->load->library('flexi_auth');	
+	
+		// Set any returned status/error messages.
+		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
+	
+		$this->demo_auth_admin_model->get_user_accounts();
+	
+		$data['maincontent'] =  $this->load->view('assignments_studentlist_view', $this->data , TRUE);
+		$this->load->view('template-teacher', $data);		
+	}
+	
+	function assignments_per_student($user_id)
+	{
+		
+		if (!$this->flexi_auth->is_admin()) {
+			$this->flexi_auth->set_error_message('You are not privliged to view this area.', TRUE);
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+			redirect('dashboard');
+		}
+		
+		$this->load->model('demo_auth_admin_model');
+		$this->load->library('flexi_auth');	
+		
+		$assignments = $this->flexi_auth->get_assignments();
+		$assignments = $assignments->result_array();
+		$this->data['assignments'] = $assignments;
+		
+		$handed_in_assignments = $this->flexi_auth->get_assignments_handed_in_by_user($user_id);
+		$this->data['handed_in_assignments'] = $handed_in_assignments;
+		
+		
+		$not_handed_in_assignments = $this->flexi_auth->get_assignments_not_handed_in_by_user($user_id);
+		$this->data['not_handed_in_assignments'] = $not_handed_in_assignments;
+		
+		$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
+		$checked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
+		$this->data['checked_assignments'] = $checked_assignments->result_array();
+		
+		//$checked = array($this->flexi_auth->db_column('assignment', 'checked'));
+		//$data = array('assignment_checked' => '1');
+		//$checked =  $this->flexi_auth->get_assignments($data);
+
+		$this->demo_auth_admin_model->get_user_accounts();		
+	
+		// Get users current data.
+		$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
+		$this->data['user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
+		
+		// Set any returned status/error messages.
+		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
+		
+		$data['maincontent'] =  $this->load->view('assignments_per_student_view', $this->data , TRUE);
+		$this->load->view('template-teacher', $data);		
+	}
+	
+	function checked_assignment_per_student()
+	{
+		$assignment_id = $this->uri->segment(3, 0);
+		$user_id = $this->uri->segment(4, 0);
+		
+		//if ($assignment_id == 0 || $user_id == 0) {
+		//	redirect('dashboard/assignments');
+		//}
+		$this->load->model('demo_auth_admin_model');
+		$this->load->library('flexi_auth');	
+		
+		$sql_where = array($this->login->tbl_col_assignment['id'] => $assignment_id);
+		$this->data['assignment_id'] = $assignment_id;
+		
+		$assignment = $this->flexi_auth->get_assignments(FALSE, $sql_where);
+		$this->data['assignment'] = $assignment->row_array();
+		
+		$errors = $this->flexi_auth->get_errors_for_assignment_of_student($assignment_id, $user_id);
+		$this->data['errors'] = $errors->result_array();
+		
+		$this->demo_auth_admin_model->get_user_accounts();	
+		
+		// Get users current data.
+		$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
+		$this->data['user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
+	
+		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
+	
+		$data['maincontent'] =  $this->load->view('checked_assignments_per_student_view', $this->data , TRUE);
+		$this->load->view('template-teacher', $data);		
+	
+	}
+
 	
 	function do_upload($assignment_id)
 	{
@@ -1012,6 +1014,7 @@ class Dashboard extends CI_Controller {
 			if (empty($correctfile)) {
 				$this->load->model('flexi_auth_model');
 				$this->flexi_auth_model->set_error_message('correctfile_missing', 'config');
+				$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 				redirect('dashboard/checker');
 			}
 			$correctfile = $correctfile[0];

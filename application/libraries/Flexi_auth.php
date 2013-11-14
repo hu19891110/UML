@@ -698,11 +698,7 @@ class Flexi_auth extends Flexi_auth_lite
 		return FALSE;
 	}
 	
-	public function set_student_file_on_deadline($student_id, $deadline_id) {
-		
-		return $this->CI->flexi_auth_model->set_student_file_on_deadline($student_id, $deadline_id);
 	
-	}
 	
 	/**
 	 * update_custom_user_data
@@ -1305,6 +1301,11 @@ class Flexi_auth extends Flexi_auth_lite
 		return $this->CI->flexi_auth_model->get_uploads($sql_select, $sql_where);
 	}
 	
+	public function get_upload_date_time($assignment_id, $student_id)
+	{
+		return $this->CI->flexi_auth_model->get_upload_date_time($assignment_id, $student_id);
+	}
+	
 	public function get_assignments($sql_select = FALSE, $sql_where = FALSE)
 	{
 		return $this->CI->flexi_auth_model->get_assignments($sql_select, $sql_where);
@@ -1342,6 +1343,21 @@ class Flexi_auth extends Flexi_auth_lite
 		return $this->CI->flexi_auth_model->update_grade($student_id, $assignment_id);
 	}
 	
+	public function set_student_file_on_deadline($student_id, $deadline_id) {
+		
+		return $this->CI->flexi_auth_model->set_student_file_on_deadline($student_id, $deadline_id);
+	
+	}
+	
+	public function upload_too_late($upload_id, $assignment_id)
+	{
+		return $this->CI->flexi_auth_model->upload_too_late($upload_id, $assignment_id);
+	}
+	
+	public function get_upload_id($assignment_id, $student_id)
+	{
+		return $this->CI->flexi_auth_model->get_upload_id($assignment_id, $student_id);
+	}
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	// EMAIL FUNCTIONS
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
