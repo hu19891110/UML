@@ -28,7 +28,7 @@
 									<?php echo $user['upro_first_name'];?> <?php echo $user['upro_last_name'];?>
 								</td>
 								<td>
-									<a href="<?php echo $base_url.'dashboard/handedin_assignments_per_student/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>"> 
+									<a href="<?php echo $base_url.'dashboard/assignments_per_student/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>"> 
 									View assignments
 									</a> 
 								</td>
