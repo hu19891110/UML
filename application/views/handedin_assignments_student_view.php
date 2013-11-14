@@ -9,7 +9,7 @@
 			
 			<thead>
 			<tr>
-				<th class="nothandedin">Not handed in assignments</th> 
+				<th class="nothandedin" style="width:700px;">Not handed in assignments</th> 
 				<th>Time left</th>			
 			</tr>
 			</thead>
@@ -45,7 +45,7 @@
 	<table style="width: 1000px;" class="assignmentstudents responsive">
 			<thead>
 			<tr>
-				<th class="handedin">Handed in assignments</th>
+				<th style="width:700px;" class="handedin">Handed in assignments</th>
 				<th>Date handed in</th>			
 			</tr>
 			</thead>
@@ -81,8 +81,8 @@
 	<table style="width: 1000px;" class="assignmentstudents responsive">
 			<thead>
 			<tr>
-				<th class="">Checked assignments</th>
-				<th>Not checked assignments</th>			
+				<th style="width:700px;">Checked assignments</th>
+				<th >Not checked assignments</th>			
 			</tr>
 			</thead>
 					<?php  if (!empty($checked_assignments)) { ?>
