@@ -17,7 +17,7 @@
 	
 		<h4>
 			<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?>	
-			<span class="goedkeuren"> Alles goedkeuren | Alles afkeuren </span>
+			<span class="goedkeuren"> Approve all | Disapprove all </span>
 		</h4>
 	</div> <!-- end h2bg --> 
 	<!--
@@ -48,19 +48,19 @@
 			 <?
 			 if ($error_id == 1) {
 				 ?>
-				 <p>Relatie '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': De relatie komt wel voor in het ingeleverde model maar heeft een <strong>andere</strong> naam.</p>
+				 <p>Relationship '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': The relationship exists in the handed in model but has <strong>another</strong> name.</p>
 				 <?php
 			 } else if ($error_id == 2) {
 				 ?>
-				 <p>Relatie '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': Deze relatie heeft NIET dezelfde <strong>beginbestemming. 
+				 <p>Relationship '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': This relationship does NOT have the same <strong>start destination. 
 				 <?php
 			 } else if ($error_id == 3) {
 				 ?>
-				 <p>Relatie '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': Deze relatie heeft NIET dezelfde <strong>eindbestemming.  
+				 <p>Relationship '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': This relationship does NOT have the same <strong>destination.  
 				 <?php
 			 } else if ($error_id == 4) {
 				 ?>
-				 <p>Relatie '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': De relatie is NIET van dezelfde soort.
+				 <p>Relationship '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': This relationship is NOT of the same type.
 				 <?php
 			 } else if ($error_id == 5) {
 				 ?>
@@ -68,7 +68,7 @@
 				 <?php
 			 } else if ($error_id == 6) {
 				 ?>
-				 <p>Klasse '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'class')];?>', attribuut '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'attribute')];?>': Het Datatype (<?php echo $error[$this->flexi_auth->db_column('checker_error', 'datatype')];?>) komt niet overeen. </p>
+				 <p>Class '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'class')];?>', attribute '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'attribute')];?>': the datatype (<?php echo $error[$this->flexi_auth->db_column('checker_error', 'datatype')];?>) does not match. </p>
 				 <?php
 			 } else if ($error_id == 7) {
 				 ?>
@@ -84,7 +84,7 @@
 				 <?php
 			 } else if ($error_id == 10) {
 				 ?>
-				 <p>Klasse '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'class')];?>': Het attribuut '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'attribute')];?>' mist in het ingeleverde model. </p>
+				 <p>Class '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'class')];?>': The attribute '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'attribute')];?>' is missing in the handed in model. </p>
 
 				 <?php
 			 } else if ($error_id == 11) {
@@ -105,7 +105,7 @@
 				 <?php
 			 } else if ($error_id == 15) {
 				 ?>
-				 <p>Klasse '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'class')];?>' mist in het ingeleverde model.</p>
+				 <p>Class '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'class')];?>' is missing in the handed in model.</p>
 				 <?php
 			 } else if ($error_id == 16) {
 				 ?>
