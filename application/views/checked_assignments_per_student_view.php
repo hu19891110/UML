@@ -4,7 +4,6 @@
 		<h2>
 			<?php 
 			$user_id = $user['uacc_id'];
-			//echo $user_id;
 			$assignment_grade = $this->flexi_auth->calculate_grade($user_id, $assignment_id);
 			?>
 			<span class="cijfer"><?php echo $assignment_grade;?> </span>

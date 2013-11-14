@@ -1,21 +1,22 @@
 <!-- main content -->
-<div class="large-12 columns padding">
+<div class="large-12 columns">
 	<?php if (! empty($message)) { ?>
 		<div id="message">
 			<?php echo $message; ?>
 		</div>
 	<?php } ?>
 	
-		
-				
-				<h3><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></h3>
-				<p> <?php echo $assignment[$this->flexi_auth->db_column('assignment', 'desc')];?> </p>
-				<p> Enddate and time: <?php echo $assignment[$this->flexi_auth->db_column('assignment', 'enddate')];?></p>
+				<div class="h2bg" style="height: 70px !important;">
+					<h2><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></h2>
+					<h4>Assignment details</h4>
+				</div>
+				<p> <b> Description of the assignment:</b> <?php echo $assignment[$this->flexi_auth->db_column('assignment', 'desc')];?> </p>
+				<p> <b>Enddate and time:</b> <?php echo $assignment[$this->flexi_auth->db_column('assignment', 'enddate')];?></p>
 				<?php $checked = ($assignment[$this->flexi_auth->db_column('assignment', 'checked')] == 1) ? 'Yes' : 'No';  ?>
-				<p> Checked? : <?php echo $checked;?></p>
+				<p> <b> Is the assignment already checked? </b> : <?php echo $checked;?></p>
 					
 				<?php if($checked == 'No'){ ?>	
-		<a href="<?php echo $base_url . 'dashboard/checker/';?>"> --> Check assignment </a>
+		<a class="small button" href="<?php echo $base_url . 'dashboard/checker/';?>">Check assignment </a>
 				<?php } ?>	
 				<br/><br/>
 				<h3>Upload correction model</h3>				
