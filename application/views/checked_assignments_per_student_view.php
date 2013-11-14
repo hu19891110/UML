@@ -9,7 +9,7 @@
 			<span class="cijfer"><?php echo $assignment_grade;?> </span>
 	 		Student <?php echo $user['uacc_username'];?> 	
 	 		<span class="backtoass"><a
-	 			href="<?php echo $base_url.'dashboard/handedin_assignments_per_student/'.$user['uacc_id'];?>"> 
+	 			href="<?php echo $base_url.'dashboard/assignments_per_student/'.$user['uacc_id'];?>"> 
 	 			Back to all assignments of the student</a>
 	 		</span>
 		</h2>
