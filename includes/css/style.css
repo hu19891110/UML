@@ -28,7 +28,11 @@ body{
 
 @media only screen and (max-width: 1080px ){
 	.backtoass, .goedkeuren{
+		clear: both;
 		float: left;
+	}
+	.h2bg{
+		height: 120px;
 	}
 }	
 
@@ -40,7 +44,6 @@ body{
 	clear:both;
 	float:left;
 	padding-left: 16px;
-	padding-top: 3px;
 	font-weight:normal;
 	font-size: 1.8em;
 }
