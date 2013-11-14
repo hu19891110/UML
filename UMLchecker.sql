@@ -359,6 +359,6 @@ INSERT INTO `uml_errors` (`ue_id`, `ue_name`,`ue_desc`,`ue_error_value`) VALUES
 (12, 'Return type fout', 'Return type is fout' , '0.3'),
 (13, 'Operatie variabelen fout', 'Variabelen van de operatie zijn fout' , '0.1'),
 (14, 'Attribuut Variable fout', 'Variabelen van attribuut zijn fout' , '0.3'),
-(15, 'Class fout', 'Class is niet aanwezig' , '0.5')
+(15, 'Class fout', 'Class is niet aanwezig' , '0.5'),
 (16, 'Relatie afwezig', 'Relatie is niet aanwezig' , '0.5');
 
