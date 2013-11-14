@@ -14,7 +14,9 @@
 				<?php $checked = ($assignment[$this->flexi_auth->db_column('assignment', 'checked')] == 1) ? 'Yes' : 'No';  ?>
 				<p> Checked? : <?php echo $checked;?></p>
 					
-					
+				<?php if($checked == 'No'){ ?>	
+		<a href="<?php echo $base_url . 'dashboard/checker/';?>"> --> Check assignment </a>
+				<?php } ?>	
 				<br/><br/>
 				<h3>Upload correction model</h3>				
 				<?php echo form_open_multipart('assignments/do_upload');?>

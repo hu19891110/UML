@@ -12,7 +12,7 @@
 	<ul>
 		<li>
 			<select id="assignments" name="assignment_id" class="tooltip_trigger"
-				title="Choice an assignment to check.">
+				title="Choose an assignment to check.">
 				<?php foreach($assignments as $assignment) { ?>
 					<option value="<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>" >
 						<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?>

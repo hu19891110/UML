@@ -29,7 +29,7 @@
 								</td>
 								<td>
 									<a href="<?php echo $base_url.'dashboard/handedin_assignments_per_student/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>"> 
-									View handed/not handed in assignments
+									View assignments
 									</a> 
 								</td>
 								
@@ -63,6 +63,8 @@
 						<p>Links: <?php echo $pagination['links'];?></p>
 					</div>
 				<?php } ?>
-		
+	
+	<a style="clear: both; float: left;" href="<?php echo $base_url.'dashboard/add_assignment/';?>"> Back to assignments</a>
+
 		
 </div>		

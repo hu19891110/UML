@@ -94,12 +94,12 @@
 					<?php echo form_close();?>
 				</div><!--large-6 columns -->
 				
-			<div class="large-6 columns">	
-				<table id="asstocheck" class="large-4 columns margin-left tablesorter">
+			
+				<table id="asstocheck" class="large-6 columns margin-left tablesorter">
   				<thead>
     				<tr>
       			<th>Assignment</th>
-      			<th>Date of assignment</th>
+      			<th>Deadline of assignment</th>
     				</tr>
   				</thead>
   				<tbody>
@@ -114,8 +114,7 @@
       			<?php } ?>		
       			</tbody>
 				</table>
-			</div> <!-- end large-6 columns -->
-				
-		<a style="clear: both; float: left;" href="<?php echo $base_url.'dashboard/assignments_students/';?>"> View handed in assignments per student</a>
+		
+		<a style="clear: both; float: left;" href="<?php echo $base_url.'dashboard/assignments_students/';?>"> Get an assignments overview per student</a>
 				
 		</div> <!-- end 12 columns --> 		

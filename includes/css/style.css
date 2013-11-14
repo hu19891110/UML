@@ -26,6 +26,10 @@ h4{
 	margin: 0 !important;
 }
 
+h4 span{
+	text-transform: none;
+}
+
 .button.small{
 	font-size: 0.9125em;
 }

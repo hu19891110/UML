@@ -12,13 +12,12 @@
 				<th>Time left</th>			
 			</tr>
 			</thead>
-					<?php if (!empty($users)) { ?>
+					<?php if (!empty($assignments)) { ?>
 						<tbody>
-							<?php foreach ($users as $user) { ?> <!-- for each assignment -->
+							<?php foreach ($assignments as $assignment) { ?> <!-- for each assignment -->
 							<tr>
 								<td style="width: 700px;">
-									Software Engineering Assignment 5 
-									<!-- <?php echo $user['uacc_email'];?> --> <!--echo assignment name-->
+									<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?>
 								</td>
 								
 								<td>
@@ -39,8 +38,7 @@
 						</tbody>
 					<?php } ?>
 	</table>
-					
-					
+								
 			
 	<table style="width: 1000px;" class="assignmentstudents responsive">
 			<thead>
@@ -49,17 +47,63 @@
 				<th>Date handed in</th>			
 			</tr>
 			</thead>
-					<?php if (!empty($users)) { ?>
+					<?php if (!empty($assignments)) { ?>
 						<tbody>
-							<?php foreach ($users as $user) { ?> <!-- for each assignment -->
+							<?php foreach ($assignments as $assignment) { ?> <!-- for each assignment -->
 							<tr>
 								<td style="width: 700px;">
-									Software Engineering Assignment 7 
-									<!-- <?php echo $user['uacc_email'];?> --> <!--echo assignment name-->
+									<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?>
 								</td>
 								
 								<td>
 									01 day(s) ago <!-- echo deadline date / handed in date -->
+								</td>
+								
+							</tr>
+						<?php } ?>
+						</tbody>
+					
+					<?php } else { ?>
+						<tbody>
+							<tr>
+								<td colspan="7" class="highlight_red">
+									No users are available.
+								</td>
+							</tr>
+						</tbody>
+					<?php } ?>
+	</table>		
+	
+
+			
+	<table style="width: 1000px;" class="assignmentstudents responsive">
+			<thead>
+			<tr>
+				<th class="">Checked assignments</th>
+				<th>Not checked assignments</th>			
+			</tr>
+			</thead>
+					<?php if (!empty($assignments)) { ?>
+						<tbody>
+							<?php foreach ($assignments as $assignment) { ?> <!-- for each assignment -->
+							<tr>
+								<td style="width: 700px;">
+						<?php $checked = ($assignment[$this->flexi_auth->db_column('assignment', 'checked')] == 1) ? 'Yes' : 'No';  ?>
+
+								
+						<?php	if ($checked == 'Yes') { ?>								
+								
+								<a href="<?php echo $base_url.'dashboard/checked_assignments_per_student/'.$assignment[$this->flexi_auth->db_column('assignment', 'id')];?>"> 
+									<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?>
+									</a> 
+						<?php } ?>
+								</td>
+								
+								<td>
+								<?php	if ($checked == 'No') { ?>		
+									<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?>
+								
+								<?php } ?>
 								</td>
 								
 							</tr>

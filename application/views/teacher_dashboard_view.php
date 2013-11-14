@@ -67,7 +67,7 @@
   				<thead>
     				<tr>
       			<th>Assignment</th>
-      			<th>Date of assignment</th>
+      			<th>Deadline of assignment</th>
     				</tr>
   				</thead>
   				<tbody>
