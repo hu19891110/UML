@@ -1898,8 +1898,10 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			
 			$i++;
 		}
-		$assignment = $this->db->get_where('assignments', $sql_where);
-		$assignment = $assignment->result_array();
+		if ($sql_where != '') { 
+			$assignment = $this->db->get_where('assignments', $sql_where);
+			$assignment = $assignment->result_array();
+		}
 		return $assignment;
 	}
 	
