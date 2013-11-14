@@ -1,10 +1,10 @@
-<div class="large-12 columns">
+<div class="large-12 columns" >
 
 	<div class="h2bg">
 		<h2>
-			<span class="cijfer"> </span>
+			<span class="cijfer"> 8 </span>
 	 		Student <?php echo $user['uacc_username'];?> 	
-	 		<span><a style="float: right; font-size: 0.8em;" 
+	 		<span class="backtoass"><a
 	 			href="<?php echo $base_url.'dashboard/handedin_assignments_per_student/'.$user['uacc_id'];?>"> 
 	 			Back to all assignments of the student</a>
 	 		</span>
@@ -12,13 +12,15 @@
 	
 		<h4>
 			<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?>	
-			<span style="float:right;"> Alles goedkeuren | Alles afkeuren </span>
+			<span class="goedkeuren"> Alles goedkeuren | Alles afkeuren </span>
 		</h4>
 	</div> <!-- end h2bg --> 
 	
 	<p> 
+	
 		<span class="notcheckedbutton"></span>
 		<span class="checkedbutton"></span>
+		<span class="mistake">-2</span>
 		<b> Line 15:</b> The name of the class should be 'student' in stead of 'students' <br/>
 		<small> For this mistake 1 point is substracted </small>
 	</p>

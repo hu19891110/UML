@@ -17,6 +17,21 @@ body{
 	padding: 10px;
 }
 
+.backtoass{
+	float: right;
+	font-size: 0.8em;
+}
+
+.goedkeuren{
+	float:right;
+}
+
+@media only screen and (max-width: 1080px ){
+	.backtoass, .goedkeuren{
+		float: left;
+	}
+}	
+
 .cijfer{
 	background-image:url('../images/cijfer.jpg');
 	width: 80px;
@@ -24,7 +39,23 @@ body{
 	background-repeat: no-repeat;
 	clear:both;
 	float:left;
+	padding-left: 16px;
+	padding-top: 3px;
+	font-weight:normal;
+	font-size: 1.8em;
+}
 
+.mistake{
+	background-image:url('../images/mistake.jpg');
+	width: 40px;
+	height: 40px;
+	background-repeat: no-repeat;
+	float:right;
+	padding-left: 12px; 
+	padding-top: 8px;
+	color: #fff;
+	border-radius: 10px;
+	font-size: 1.1em;
 }
 
 .checkedbutton{
@@ -33,6 +64,7 @@ body{
 	height: 40px;
 	background-repeat: no-repeat;
 	float:right;
+	margin-right: -20px;
 }
 
 .notcheckedbutton{
