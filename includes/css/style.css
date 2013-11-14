@@ -17,6 +17,32 @@ body{
 	padding: 10px;
 }
 
+.cijfer{
+	background-image:url('../images/cijfer.jpg');
+	width: 80px;
+	height: 50px;
+	background-repeat: no-repeat;
+	clear:both;
+	float:left;
+
+}
+
+.checkedbutton{
+	background-image:url('../images/checked.jpg');
+	width: 55px;
+	height: 40px;
+	background-repeat: no-repeat;
+	float:right;
+}
+
+.notcheckedbutton{
+	background-image:url('../images/notchecked.jpg');
+	width: 55px;
+	height: 40px;
+	background-repeat: no-repeat;
+	float:right;
+}
+
 h4{
 	font-size: 0.9em;
 	color: #4f4f4f;
