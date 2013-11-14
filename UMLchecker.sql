@@ -286,12 +286,14 @@ CREATE TABLE `class_assignments` (
 --
 DROP TABLE IF EXISTS `uploads`;
 CREATE TABLE `uploads` (
+  `upload_id` smallint(5) NOT NULL AUTO_INCREMENT,
   `student_id` int(11) NOT NULL DEFAULT '0',
   `deadline_id` int(11) NOT NULL,
   `grade` int(11) NOT NULL,
   `faults` varchar(9999) NOT NULL,
   `Type` int(11) NOT NULL,
-  PRIMARY KEY (`student_id`,`deadline_id`)
+  `upload_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`upload_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 

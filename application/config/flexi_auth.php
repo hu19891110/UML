@@ -207,6 +207,14 @@
 	$config['database']['assignment']['columns']['enddate'] = 'assignment_enddate';
 	$config['database']['assignment']['columns']['date_added'] = 'assignment_date_added';
 	
+	$config['database']['uploads']['table'] = 'uploads';
+	$config['database']['uploads']['columns']['id'] = 'upload_id';
+	$config['database']['uploads']['columns']['student_id'] = 'student_id';
+	$config['database']['uploads']['columns']['deadline_id'] = 'deadline_id';
+	$config['database']['uploads']['columns']['grade'] = 'grade';
+	$config['database']['uploads']['columns']['faults'] = 'faults';
+	
+	
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 	// Custom User Related Tables

@@ -1844,7 +1844,23 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	{
 		//$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, 'uploads');
 		
+		
 		return $this->db->get_where('uploads', array('type' => 1, 'deadline_id' => $deadline_id));
+	}
+	
+	public function get_uploads_by_user($user_id)
+	{
+		
+		//$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, 'uploads');
+		
+		return $this->db->get_where('uploads', array('type' => 1, 'student_id' => $user_id));
+	}
+	
+	public function get_uploads($sql_select, $sql_where)
+	{
+		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
+		
+		return $this->db->get($this->login->tbl_uploads);
 	}
 	
 	public function get_correct_file_by_deadline($deadline_id)
@@ -1853,7 +1869,52 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 		return $this->db->get_where('uploads', array('type' => 2, 'deadline_id' => $deadline_id));
 	}
+	
+	public function get_assignments_handed_in_by_user($user_id) {
+		$assignment_ids = $this->db->get_where('uploads', array('student_id' => $user_id));
+		$assignment_ids = $assignment_ids->result_array();
+		$array = array();
+		foreach($assignment_ids as $assignment_id_array) {
+			$assignment_id = $assignment_id_array['deadline_id'];
+			$assignment = $this->db->get_where('assignments', array('assignment_id' => $assignment_id));
+			$assignment = $assignment->result_array();
+			array_push($array, $assignment[0]);
+		}
+		return $array;
+	}
 
+	public function get_assignments_not_handed_in_by_user($user_id) {
+		$assignment_ids = $this->db->get_where('uploads', array('student_id' => $user_id));
+		$assignment_ids = $assignment_ids->result_array();
+		$sql_where = '';
+		$i = 0;
+		foreach($assignment_ids as $assignment_id_array) {
+			$assignment_id = $assignment_id_array['deadline_id'];
+			if ($i >0) {
+				$sql_where = $sql_where . " AND assignment_id != $assignment_id";
+			} else {
+				$sql_where = $sql_where . "assignment_id != $assignment_id";
+			}
+			
+			$i++;
+		}
+		$assignment = $this->db->get_where('assignments', $sql_where);
+		$assignment = $assignment->result_array();
+		return $assignment;
+	}
+	
+	public function get_errors_for_assignment_of_student($assignment_id, $student_id)
+	{
+		$sql_where = array(
+			$this->login->tbl_col_checker_error['student_id'] => $student_id,
+			$this->login->tbl_col_checker_error['deadline_id'] => $assignment_id
+		);
+		
+		$this->flexi_auth_lite_model->set_custom_sql_to_db(FALSE , $sql_where);
+		
+		return $this->db->get($this->login->tbl_checker_error);
+		
+	}
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	// LOGIN / VALIDATION METHODS

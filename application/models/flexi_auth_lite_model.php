@@ -158,6 +158,10 @@ class Flexi_auth_lite_model extends CI_Model
 		$this->login->tbl_assignment = $database_config['assignment']['table'];
 		$this->login->tbl_col_assignment = $database_config['assignment']['columns'];
 		
+		//Uploads table
+		$this->login->tbl_uploads = $database_config['uploads']['table'];
+		$this->login->tbl_col_uploads = $database_config['uploads']['columns'];
+		
 		
 
 		// User custom data table(s)

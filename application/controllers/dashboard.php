@@ -95,7 +95,20 @@ class Dashboard extends CI_Controller {
 		$this->load->library('flexi_auth');	
 		
 		$assignments = $this->flexi_auth->get_assignments();
-		$this->data['assignments'] = $assignments->result_array();
+		$assignments = $assignments->result_array();
+		$this->data['assignments'] = $assignments;
+		
+		$handed_in_assignments = $this->flexi_auth->get_assignments_handed_in_by_user($user_id);
+		$this->data['handed_in_assignments'] = $handed_in_assignments;
+		
+		
+		$not_handed_in_assignments = $this->flexi_auth->get_assignments_not_handed_in_by_user($user_id);
+		$this->data['not_handed_in_assignments'] = $not_handed_in_assignments;
+		
+		$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
+		$checked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
+		$this->data['checked_assignments'] = $checked_assignments->result_array();
+		
 		//$checked = array($this->flexi_auth->db_column('assignment', 'checked'));
 		//$data = array('assignment_checked' => '1');
 		//$checked =  $this->flexi_auth->get_assignments($data);
@@ -113,19 +126,30 @@ class Dashboard extends CI_Controller {
 		$this->load->view('template-teacher', $data);		
 	}
 	
-	function checked_assignments_per_student($assignment_id)
+	function checked_assignment_per_student()
 	{
+		$assignment_id = $this->uri->segment(3, 0);
+		$user_id = $this->uri->segment(4, 0);
+		
+		//if ($assignment_id == 0 || $user_id == 0) {
+		//	redirect('dashboard/assignments');
+		//}
 		$this->load->model('demo_auth_admin_model');
 		$this->load->library('flexi_auth');	
 		
-		$assignments = $this->flexi_auth->get_assignments();
-		$this->data['assignments'] = $assignments->result_array();
-
+		$sql_where = array($this->login->tbl_col_assignment['id'] => $assignment_id);
+		
+		$assignment = $this->flexi_auth->get_assignments(FALSE, $sql_where);
+		$this->data['assignment'] = $assignment->row_array();
+		
+		$errors = $this->flexi_auth->get_errors_for_assignment_of_student($assignment_id, $user_id);
+		$this->data['errors'] = $errors->result_array();
+		
 		$this->demo_auth_admin_model->get_user_accounts();	
 		
 		// Get users current data.
-		//$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
-		//$this->data['user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);	
+		$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
+		$this->data['user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
 	
 		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
 	
