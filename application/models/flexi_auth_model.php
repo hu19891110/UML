@@ -1903,6 +1903,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			$assignment = $assignment->result_array();
 		} else {
 			$assignment = $this->db->get('assignments');
+			$assignment = $assignment->result_array();
 		}
 		return $assignment;
 	}
