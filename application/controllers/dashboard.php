@@ -138,6 +138,7 @@ class Dashboard extends CI_Controller {
 		{
 			$this->load->model('demo_auth_admin_model');
 			$this->demo_auth_admin_model->update_user_account($user_id);
+			
 		}
 		if ($this->input->post('delete_users_account'))
 		{
@@ -158,10 +159,12 @@ class Dashboard extends CI_Controller {
 		// Set any returned status/error messages.
 		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
 
-		$data['maincontent'] = $this->load->view('user_account_update_view', $this->data, TRUE);
+		
 		if ($this->flexi_auth->is_admin()) {
+			$data['maincontent'] = $this->load->view('user_account_update_view', $this->data, TRUE);
 			$this->load->view('template-teacher', $data);	
 		} else {
+			$data['maincontent'] = $this->load->view('student_account_update_view', $this->data, TRUE);
 			$this->load->view('template-student', $data);
 		}
 	}

@@ -10,20 +10,20 @@
 				<table id="asstocheck" class="large-4 columns margin-left">
   				<thead>
     				<tr>
-      			<th colspan="2" style="text-align: center;">Upcoming deadlines</th>
+      			<th colspan="2" style="text-align: center;">Upcoming assignments</th>
     				</tr>
   				</thead>
   				<tbody>
   				<tr>
-      			<th>Deadline</th>
+      			<th>Assignment</th>
       			<th>Date of deadline</th>
     			</tr>
       			<?php 
-      			foreach ($deadlines as $deadline)
+      			foreach ($assignments as $assignment)
       			{ ?>
       			<tr>
-	      			<td><a href="<?php echo $base_url . 'dashboard/deadline/'. $deadline[$this->flexi_auth->db_column('deadline', 'id')];?>"><?php echo $deadline[$this->flexi_auth->db_column('deadline', 'desc')];?></a></td>
-	      			<td><?php echo $deadline[$this->flexi_auth->db_column('deadline', 'enddate')];?></td>
+	      			<td><a href="<?php echo $base_url . 'dashboard/assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>"><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></a></td>
+	      			<td><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'enddate')];?></td>
 	      		</tr>	
       			<?php } ?>		
       			</tbody>

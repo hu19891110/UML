@@ -9,8 +9,8 @@
 		
 				
 				<h3><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></h3>
-				<p> <?php echo $assignment[$this->flexi_auth->db_column('assignment', 'desc')];?> </p>
-				<p> Enddate and time: <?php echo $assignment[$this->flexi_auth->db_column('assignment', 'enddate')];?></p>
+				<p> <b> Description: </b><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'desc')];?> </p>
+				<p> <b> Enddate and time: </b> <?php echo $assignment[$this->flexi_auth->db_column('assignment', 'enddate')];?></p>
 									
 
 

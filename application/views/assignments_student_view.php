@@ -1,9 +1,33 @@
 <div class="large-12 columns">
 
+		<?php if (! empty($message)) { ?>
+		<div id="message">
+			<?php echo $message; ?>
+		</div>
+	<?php } ?>
+
 	<div class="h2bg">
 	<h2> Student <?php echo $user['uacc_username'];?> </h2>
 	<h4> Assignments overview </h4>
 	</div>	
+	
+	
+<!-- 	
+	<h3>Upload assignment</h3>
+
+	<?php echo $error;?>
+
+	<?php echo form_open_multipart('assignments/do_upload');?>
+
+	<input type="file" name="userfile" size="20" />
+
+	<br /><br />
+
+	<input type="submit" value="Upload" class = "small button"/>
+
+	</form>
+-->	
+	
 		
 	<table style="width: 1000px;" class="assignmentstudents responsive">
 			
@@ -126,8 +150,7 @@
 					</div>
 				<?php } */?>
 			
-			
-	<a href="<?php echo $base_url.'dashboard/assignments_students/';?>"> Back to student list </a>
+
 		
 		
 </div>		
