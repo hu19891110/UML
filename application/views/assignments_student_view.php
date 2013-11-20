@@ -106,7 +106,7 @@
 			<thead>
 			<tr>
 				<th style="width:700px;">Checked assignments</th>
-				<th >Not checked assignments</th>			
+							
 			</tr>
 			</thead>
 					<?php  if (!empty($checked_assignments)) { ?>
@@ -119,13 +119,6 @@
 								<a href="<?php echo $base_url.'dashboard/checked_assignment_per_student/'.$checked_assignment[$this->flexi_auth->db_column('assignment', 'id')].'/' .$user['uacc_id'];?>"> 
 									<?php echo $checked_assignment[$this->flexi_auth->db_column('assignment', 'name')];?>
 									</a> 
-								</td>
-								
-								<td>
-								<?php /*if ($checked == 'No') { ?>		
-									<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?>
-								
-								<?php }*/ ?>
 								</td>
 								
 							</tr>
@@ -142,6 +135,38 @@
 						</tbody>
 					<?php }  ?>
 	</table>				
+	
+	<table style="width: 1000px;" class="assignmentstudents responsive">
+			<thead>
+			<tr>
+				<th style="width:700px;">Not checked assignments</th>
+						
+			</tr>
+			</thead>
+					<?php  if (!empty($notchecked_assignments)) { ?>
+						<tbody>
+							<?php foreach ($notchecked_assignments as $notchecked_assignment) { ?> <!-- for each assignment -->
+							<tr>
+								<td style="width: 700px;">
+		
+								<?php echo $notchecked_assignment[$this->flexi_auth->db_column('assignment', 'name')];?>
+								 
+								</td>
+								
+							</tr>
+						<?php } ?>
+						</tbody>
+					
+					<?php } else { ?>
+						<tbody>
+							<tr>
+								<td colspan="7" class="highlight_red">
+									No assignments are available.
+								</td>
+							</tr>
+						</tbody>
+					<?php }  ?>
+	</table>		
 					
 				<?php /*  if (! empty($pagination['links'])) { ?>
 					<div id="pagination" class="w100 frame">

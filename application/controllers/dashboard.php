@@ -814,6 +814,10 @@ class Dashboard extends CI_Controller {
 			$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
 			$checked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
 			$this->data['checked_assignments'] = $checked_assignments->result_array();
+			
+			$sql_where = array($this->login->tbl_col_assignment['checked'] => 0);
+			$notchecked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
+			$this->data['notchecked_assignments'] = $notchecked_assignments->result_array();
 	
 			$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
 			$this->data['user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
@@ -937,6 +941,10 @@ class Dashboard extends CI_Controller {
 		$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
 		$checked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
 		$this->data['checked_assignments'] = $checked_assignments->result_array();
+		
+		$sql_where = array($this->login->tbl_col_assignment['checked'] => 0);
+		$notchecked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
+		$this->data['notchecked_assignments'] = $notchecked_assignments->result_array();
 		
 		//$checked = array($this->flexi_auth->db_column('assignment', 'checked'));
 		//$data = array('assignment_checked' => '1');
