@@ -1988,6 +1988,15 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		return $upload_id;
 	}
 	
+	public function get_grade_for_assignment_by_student($assignment_id, $student_id)
+	{	
+		$upload_info = $this->db->get_where('uploads', array('deadline_id' => $assignment_id, 'student_id' => $student_id));
+		$upload_info = $upload_info->row_array();
+		$grade = $upload_info['grade'];
+		
+		return $grade;	
+	}
+	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	// LOGIN / VALIDATION METHODS
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	

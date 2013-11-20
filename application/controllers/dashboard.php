@@ -798,6 +798,7 @@ class Dashboard extends CI_Controller {
 			
 			$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
 		} else {			
+			
 			$user_id = $this->flexi_auth->get_user_id();
 			$assignments = $this->flexi_auth->get_assignments();
 			$assignments = $assignments->result_array();
@@ -819,6 +820,7 @@ class Dashboard extends CI_Controller {
 			
 			// Set any returned status/error messages.
 			$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
+			
 		
 		}
 		
