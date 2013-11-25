@@ -7,16 +7,17 @@
 		</div>
 	<?php } ?>
 	
-				<table id="asstocheck" class="large-4 columns margin-left">
+				<table class="large-5 columns margin-left">
   				<thead>
     				<tr>
-      			<th colspan="2" style="text-align: center;">Upcoming assignments</th>
+      			<th colspan="3" style="text-align: center;">Upcoming assignments</th>
     				</tr>
   				</thead>
   				<tbody>
   				<tr>
       			<th>Assignment</th>
       			<th>Date of deadline</th>
+      			<th>Upload</th>
     			</tr>
       			<?php 
       			foreach ($assignments as $assignment)
@@ -24,19 +25,44 @@
       			<tr>
 	      			<td><a href="<?php echo $base_url . 'dashboard/assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>"><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></a></td>
 	      			<td><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'enddate')];?></td>
+	      			<td> Upload assignment </td>
 	      		</tr>	
       			<?php } ?>		
       			</tbody>
 				</table>
 				
+				
+				<table class="large-6 columns margin-left">
+  				<thead>
+    				<tr>
+      			<th colspan="3" style="text-align: center;">Grades</th>
+    				</tr>
+  				</thead>
+  				<tbody>
+  				<tr>
+      			<th>Assignment name</th>
+      			<th>Assignment description</th>
+      			<th>Grade</th>
+    			</tr>
+      			
+      			<tr>
+	      			<td> </td>
+	      			<td> </td>
+	      			<td> </td>
+	      		</tr>	
+      		
+      			</tbody>
+				</table>
+				
+				
 				<div id="graph" class="large-4 columns "> </div>
 				
 				<script>
 				graphResolutionByYear = new Array(
-				[3,'Test 1'],
-				[ 9,'Test 2'],
-				[9,'Test 3'],
-				[9,'Test 4']
+				[8,'Test 1'],
+				[ 9,'Test 4'],
+				[9,'Test 5'],
+				[9,'Test 7']
 				);
 
 				$("#graph").jqBarGraph({
@@ -46,7 +72,7 @@
 				color: '#ffffff',
 				type: 'false',
 				postfix: '',
-				title: '<h3> Grades per test</h3>'
+				title: '<h3> Highest grades</h3>'
 				});
 				</script>
 
