@@ -892,7 +892,7 @@ class Dashboard extends CI_Controller {
 		if (!$this->flexi_auth->is_admin()) {
 			$this->flexi_auth->set_error_message('You are not privliged to view this area.', TRUE);
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-			redirect('dashboard');
+			redirect('dashboard/add_assignment');
 		}
 		
 		if ($this->input->post('add_assignment')) {
@@ -913,7 +913,7 @@ class Dashboard extends CI_Controller {
 		if ($this->flexi_auth->is_admin()) {
 			$data['maincontent'] = $this->load->view('add_assignment_view', $this->data, TRUE);
 		} else {
-			redirect('dashboard');
+			redirect('dashboard/add_assignment');
 		}
 		
 		$this->load->view('template-teacher', $data);
