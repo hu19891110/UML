@@ -48,25 +48,28 @@
 									title="A short description of the purpose of the student class.">
 									List of students in class
 								</th>
+								<th> </th>
 								<th class="spacer_100 align_ctr tooltip_trigger" 
 									title="If checked, the row will be deleted upon the form being updated.">
-									Delete
 								</th>
+								
 							</tr>
 						</thead>
 						<tbody>
 						<?php foreach ($student_classes as $class) { ?>
 							<tr>
 								<td>
-									<a href="<?php echo $base_url;?>dashboard/update_student_class/<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>">
 										<?php echo $class[$this->flexi_auth->db_column('student_class', 'name')];?>
-									</a>
+									
 								</td>
 								<td><?php echo $class[$this->flexi_auth->db_column('student_class', 'description')];?></td>
 								<td><a href="<?php echo $base_url;?>dashboard/students_per_class/<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>">View list of students</a></td>
-								
+								<td>
+								<a href="<?php echo $base_url;?>dashboard/update_student_class/<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>">
+								Modify
+								</a>
+								</td>
 								<td class="align_ctr">
-								
 								<?php if ($this->flexi_auth->is_privileged('Delete Student Class')) { ?>
 								<input type="submit" name="delete_class[<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>]" value="Delete" class="button" />
 								<?php } ?>
@@ -81,6 +84,7 @@
 								<?php } ?>
 								-->
 								</td>
+								
 								
 							</tr>
 						<?php } ?>
