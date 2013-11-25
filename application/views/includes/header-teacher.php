@@ -38,10 +38,12 @@
 			<li class="divider"></li>
       	<li><a href="<?php echo site_url('dashboard') ?>">Dashboard</a></li>
       	<li class="divider"></li>
+      	<li><a href="<?php echo site_url('dashboard/manage_student_classes') ?>">Classes</a></li>
+     		<li class="divider"></li>
+      	<li><a href="<?php echo site_url('dashboard/manage_user_accounts') ?>">Users</a></li>
+      	<li class="divider"></li>
       	<li><a href="<?php echo site_url('dashboard/add_assignment') ?>">Assignments</a></li>
-      	<li class="divider"></li>
-      	<li><a href="#">Archive</a></li>
-      	<li class="divider"></li>
+      	
       
       <!-- 
       <li class="has-dropdown"><a href="#">Main Item 3</a>
@@ -85,11 +87,10 @@
     <!-- Right Nav Section -->
     <ul class="right">
       <li class="divider hide-for-small"></li>
-      <li><a href="<?php echo site_url('dashboard/manage_user_accounts') ?>">View all Users</a></li>
       <li class="divider"></li>
-      <li><a href="<?php echo site_url('dashboard/manage_student_classes') ?>">View All Classes</a></li>
+      <li><a href="#">Archive</a></li>
       <li class="divider"></li>
-    <li><a href="<?php echo $base_url;?>dashboard/update_user_account/<?php echo $currentuser['uacc_id']; ?>">User Details</a></li>
+    	<li><a href="<?php echo $base_url;?>dashboard/update_user_account/<?php echo $currentuser['uacc_id']; ?>">User Details</a></li>
       <li class="divider"></li>
       
       <!--  

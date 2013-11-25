@@ -170,9 +170,16 @@ input, textarea{
 	padding-bottom: 0.5em;
 }
 
+.dashboard table{
+	margin-left: 10px;
+	float: left;
+	max-width: 550px;
+	width: 100%;
+}
+
 /* graph dashboard */ 
 #graphHolder2graph, #graphHolder3graph{
-	float:left;
+
 }
 
 /* graph dashboard */ 

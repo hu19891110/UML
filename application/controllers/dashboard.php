@@ -52,16 +52,20 @@ class Dashboard extends CI_Controller {
 	
 	function dashboard() 
 	{
-		if ($this->input->post('add_assignment')) {
-		
-			$this->load->model('demo_auth_admin_model');
-			$this->demo_auth_admin_model->add_assignment();
+		$this->load->model('demo_auth_admin_model');
 			
-		}
+		$this->data['classes'] = $this->flexi_auth->get_classes_array();
 		$assignments = $this->flexi_auth->get_assignments();
 		$this->data['assignments'] = $assignments->result_array();
 		
-		$this->data['classes'] = $this->flexi_auth->get_classes_array();
+		$sql_select = array(
+			$this->flexi_auth->db_column('student_class', 'id'),
+			$this->flexi_auth->db_column('student_class', 'name'),
+			$this->flexi_auth->db_column('student_class', 'description'),
+		);
+		$this->data['student_classes'] = $this->flexi_auth->get_classes_array($sql_select);
+				
+		$this->demo_auth_admin_model->get_user_accounts();		
 		
 		$this->data['message'] = $this->session->flashdata('message');
 		if ($this->flexi_auth->is_admin()) {
@@ -88,6 +92,33 @@ class Dashboard extends CI_Controller {
 			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to view user accounts.</p>');
 			redirect('dashboard');
 		}
+		
+		$user_id = $this->flexi_auth->get_user_id();
+		
+		// If 'Update User Account' form has been submitted, update the users account details.
+		if ($this->input->post('update_users_account')) 
+		{
+			$this->load->model('demo_auth_admin_model');
+			$this->demo_auth_admin_model->update_user_account($user_id);
+			
+		}
+		if ($this->input->post('delete_users_account'))
+		{
+			$this->flexi_auth->delete_user($user_id);
+			redirect('dashboard/manage_user_accounts');
+		}
+		
+		// Get users current data.
+		$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
+		$this->data['user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
+	
+		// Get user groups.
+		$this->data['groups'] = $this->flexi_auth->get_groups_array();
+		
+		// Set any returned status/error messages.
+		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
+
+		
 		
 		/*
 		// If 'Admin Search User' form has been submitted, this example will lookup the users email address and first and last name.
@@ -332,7 +363,6 @@ class Dashboard extends CI_Controller {
 			redirect('dashboard');		
 		}
 		
-		
 		if ($this->input->post('delete_class') && $this->flexi_auth->is_privileged('Delete Student Class')) 
 		{
 			if ($delete_classes = $this->input->post('delete_class'))
@@ -360,12 +390,28 @@ class Dashboard extends CI_Controller {
 
 		$data['maincontent'] = $this->load->view('student_classes_view', $this->data, TRUE);	
 		$this->load->view('template-teacher', $data);		
+		
+		// Check user has privileges to insert user groups, else display a message to notify the user they do not have valid privileges.
+		if (! $this->flexi_auth->is_privileged('Insert Student Class'))
+		{
+			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to insert new student classes.</p>');
+			redirect('dashboard/manage_student_classes');		
+		}
+
+		// If 'Add Student Class' form has been submitted, insert the new user group.
+		if ($this->input->post('insert_student_class')) 
+		{
+			$this->load->model('demo_auth_admin_model');
+			$this->demo_auth_admin_model->insert_student_class();
+		}
+		
     }
+
 	
  	/**
  	 * insert_student_class
  	 * Insert a new student class.
- 	 */
+ 	 
 	function insert_student_class()
 	{
 		// Check user has privileges to insert user groups, else display a message to notify the user they do not have valid privileges.
@@ -388,6 +434,7 @@ class Dashboard extends CI_Controller {
 		$data['maincontent'] = $this->load->view('student_class_insert_view', $this->data, TRUE);
 		$this->load->view('template-teacher', $data);
 	}
+	*/
 	
  	/**
  	 * update_student_class

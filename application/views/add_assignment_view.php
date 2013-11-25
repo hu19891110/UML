@@ -7,6 +7,7 @@
 	<?php } ?>
 	
 <h2>Add new assignment</h2> 
+<a href="<?php echo $base_url.'dashboard/assignments_students/';?>"> <b> >> Get an assignments overview per student </b></a><br/>
 
 			<div class="large-6 columns">
 					<?php
@@ -95,7 +96,7 @@
 				</div><!--large-6 columns -->
 				
 			
-				<table id="asstocheck" class="large-6 columns margin-left tablesorter">
+				<table class="large-5 columns margin-left tablesorter">
   				<thead>
     				<tr>
       			<th>Assignment</th>
@@ -116,7 +117,5 @@
       			
       			</tbody>
 				</table>
-		
-		<a style="clear: both; float: left;" href="<?php echo $base_url.'dashboard/assignments_students/';?>"> Get an assignments overview per student</a>
-				
+						
 		</div> <!-- end 12 columns --> 		

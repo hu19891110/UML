@@ -33,7 +33,8 @@
 			
 			<thead>
 			<tr>
-				<th class="nothandedin" style="width:700px;">Not handed in assignments</th> 
+				<th class="nothandedin" style="width:500px;">Not handed in assignments</th> 
+				<th> Upload my assignment</th>
 				<th>Time left</th>			
 			</tr>
 			</thead>
@@ -42,10 +43,14 @@
 						<tbody>
 							<?php foreach ($not_handed_in_assignments as $assignment) { ?> <!-- for each assignment -->
 							<tr>
-								<td style="width: 700px;">
+								<td style="width: 500px;">
 									<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?>
 								</td>
-								
+								<td>
+									<div class="button small">
+									Upload 
+									</div>
+								</td>
 								<td>
 									01 day(s) left <!-- echo deadline date / handed in date -->
 								</td>
@@ -64,12 +69,12 @@
 						</tbody>
 					<?php }  ?>	
 	</table>
-						
+										
 			
 	<table style="width: 1000px;" class="assignmentstudents responsive">
 			<thead>
 			<tr>
-				<th style="width:700px;" class="handedin">Handed in assignments</th>
+				<th style="width:500px;" class="handedin">Handed in assignments</th>
 				<th>Date handed in</th>			
 			</tr>
 			</thead>
@@ -77,7 +82,7 @@
 						<tbody>
 							<?php foreach ($handed_in_assignments as $assignment) { ?> <!-- for each assignment -->
 							<tr>
-								<td style="width: 700px;">
+								<td style="width: 500px;">
 									<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?>
 								</td>
 								
@@ -105,7 +110,9 @@
 	<table style="width: 1000px;" class="assignmentstudents responsive">
 			<thead>
 			<tr>
-				<th style="width:700px;">Checked assignments</th>
+				<th style="width:500px;">Checked assignments</th>
+				<th> Mistakes & grade </th>
+				<th> Comments made by teacher </th>
 							
 			</tr>
 			</thead>
@@ -113,12 +120,18 @@
 						<tbody>
 							<?php foreach ($checked_assignments as $checked_assignment) { ?> <!-- for each assignment -->
 							<tr>
-								<td style="width: 700px;">
-		
-								
-								<a href="<?php echo $base_url.'dashboard/checked_assignment_per_student/'.$checked_assignment[$this->flexi_auth->db_column('assignment', 'id')].'/' .$user['uacc_id'];?>"> 
+								<td style="width: 500px;">
 									<?php echo $checked_assignment[$this->flexi_auth->db_column('assignment', 'name')];?>
+								</td>
+								
+								<td style="width: 320px;">
+									<a href="<?php echo $base_url.'dashboard/checked_assignment_per_student/'.$checked_assignment[$this->flexi_auth->db_column('assignment', 'id')].'/' .$user['uacc_id'];?>"> 
+									View details
 									</a> 
+								</td>
+								
+								<td>
+									View comments 
 								</td>
 								
 							</tr>
@@ -139,7 +152,7 @@
 	<table style="width: 1000px;" class="assignmentstudents responsive">
 			<thead>
 			<tr>
-				<th style="width:700px;">Not checked assignments</th>
+				<th style="width:500px;">Not checked assignments</th>
 						
 			</tr>
 			</thead>
@@ -147,7 +160,7 @@
 						<tbody>
 							<?php foreach ($notchecked_assignments as $notchecked_assignment) { ?> <!-- for each assignment -->
 							<tr>
-								<td style="width: 700px;">
+								<td style="width: 500px;">
 		
 								<?php echo $notchecked_assignment[$this->flexi_auth->db_column('assignment', 'name')];?>
 								 
