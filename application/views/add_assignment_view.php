@@ -9,7 +9,7 @@
 <h2>Add new assignment</h2> 
 <a href="<?php echo $base_url.'dashboard/assignments_students/';?>"> <b> >> Get an assignments overview per student </b></a><br/>
 
-			<div class="large-6 columns">
+			<div class="large-5 columns">
 					<?php
 					$form_name = array('name' => 'deadline');
 					echo form_open(current_url(), $form_name);	?>
@@ -96,11 +96,14 @@
 				</div><!--large-6 columns -->
 				
 			
-				<table class="large-5 columns margin-left tablesorter">
+				<table class="large-6 columns margin-left tablesorter">
   				<thead>
     				<tr>
       			<th>Assignment</th>
       			<th>Deadline of assignment</th>
+      			<th>View details</th>
+      			<th></th>
+      			<th></th>
     				</tr>
   				</thead>
   				<tbody>
@@ -109,8 +112,11 @@
       			foreach ($assignments as $assignment)
       			{ ?>
       			<tr>
-	      			<td><a href="<?php echo $base_url . 'dashboard/assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>"><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></a></td>
+	      			<td><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></td>
 	      			<td><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'enddate')];?></td>
+	      			<td> <a href="<?php echo $base_url . 'dashboard/assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">View details</a> </td>
+	      			<td> Modify </td>
+	      			<td> Delete </td>
 	      			
 	      		</tr>	
       			<?php } ?>	

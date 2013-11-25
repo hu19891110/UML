@@ -127,12 +127,13 @@
 				<table class="tablesorter">
   				<thead>
   					<tr>
-						<th colspan="2" style="text-align:center;"> Assignments </th>
+						<th colspan="3" style="text-align:center;"> Assignments </th>
 					</tr>	
   				</thead>
   				<tr>
       			<th>Assignment</th>
       			<th>Deadline of assignment</th>
+      			<th>View details </th>
     			</tr>
   				<tbody>
   			
@@ -142,6 +143,8 @@
       			<tr>
 	      			<td><a href="<?php echo $base_url . 'dashboard/assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>"><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></a></td>
 	      			<td><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'enddate')];?></td>
+	      			<td> <a href="<?php echo $base_url . 'dashboard/assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">View details</a> </td>
+
 	      		</tr>	
       			<?php } ?>		
       			</tbody>
