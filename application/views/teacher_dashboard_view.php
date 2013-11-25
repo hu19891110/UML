@@ -72,7 +72,7 @@
 		
 			
 			
-			<div class="dashboard responsive">
+			<div class="dashboardright">
 				<table>
 						<thead>
 							<tr>
