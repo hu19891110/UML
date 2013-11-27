@@ -1033,19 +1033,6 @@ class Flexi_auth extends Flexi_auth_lite
 		return FALSE;
 	}
 	
-	public function delete_deadline($sql_where)
-	{
-		if ($this->CI->flexi_auth_model->delete_deadline($sql_where))
-		{
-			$this->CI->flexi_auth_model->set_status_message('delete_deadline_successful', 'config');
-			return TRUE;
-		}
-
-		$this->CI->flexi_auth_model->set_error_message('delete_deadline_unsuccessful', 'config');
-		return FALSE;
-	}
-	
-	
 	public function assign_deadline($deadline_id, $class_id)
 	{
 		if ($this->CI->flexi_auth_model->assign_deadline($deadline_id, $class_id))
@@ -1082,6 +1069,31 @@ class Flexi_auth extends Flexi_auth_lite
 		return FALSE;
 	}
 	
+	public function delete_assignment($sql_where)
+	{
+		if ($this->CI->flexi_auth_model->delete_assignment($sql_where))
+		{
+			$this->CI->flexi_auth_model->set_status_message('delete_assignment_successful', 'config');
+			return TRUE;
+		}
+
+		$this->CI->flexi_auth_model->set_error_message('delete_assignment_unsuccessful', 'config');
+		return FALSE;
+	}
+	
+	public function update_assignment($assignment_id, $assignment_data)
+	{
+		if ($this->CI->flexi_auth_model->update_assignment($assignment_id, $assignment_data))
+		{
+			$this->CI->flexi_auth_model->set_status_message('update_assignment_successful', 'config');
+			return TRUE;
+		}
+		
+		//$this->CI->flexi_auth_model->set_error_message('update_assignment_unsuccessful', 'config');
+		return FALSE;
+	}
+	
+	
 	function link_assignment_to_class($assignment_id, $class_id) {
 		if ($this->CI->flexi_auth_model->link_assignment_to_class($assignment_id, $class_id))
 		{
@@ -1089,8 +1101,25 @@ class Flexi_auth extends Flexi_auth_lite
 			return TRUE;
 		}
 
-		$this->CI->flexi_auth_model->set_error_message('add_deadline_unsuccessful', 'config');
+		$this->CI->flexi_auth_model->set_error_message('add_assignment_unsuccessful', 'config');
 		return FALSE;
+		
+	}
+	
+	function unlink_assignment_from_class($assignment_id, $class_id) {
+		if ($this->CI->flexi_auth_model->unlink_assignment_to_class($assignment_id, $class_id))
+		{
+			$this->CI->flexi_auth_model->set_status_message('update_assignment_successful', 'config');
+			return TRUE;
+		}
+
+		$this->CI->flexi_auth_model->set_error_message('update_assignment_unsuccessful', 'config');
+		return FALSE;
+	}
+	
+	function get_classes_for_assignment($assignment_id) {
+	
+		return $this->CI->flexi_auth_model->get_classes_for_assignment($assignment_id);
 		
 	}
 	

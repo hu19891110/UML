@@ -809,10 +809,12 @@
 	$config['messages']['target_user']['delete_unsuccessful'] = 'public';
 	
 	// Deadlines
-	$config['messages']['target_user']['add_deadline_successful'] = 'public';
+	$config['messages']['target_user']['add_assignment_successful'] = 'public';
 	$config['messages']['target_user']['add_assignment_unsuccessful'] = 'public';
-	$config['messages']['target_user']['delete_deadline_successful'] = 'public';
-	$config['messages']['target_user']['delete_deadline_unsuccessful'] = 'public';
+	$config['messages']['target_user']['delete_assignment_successful'] = 'public';
+	$config['messages']['target_user']['delete_assignment_unsuccessful'] = 'public';
+	$config['messages']['target_user']['update_assignment_successful'] = 'public';
+	$config['messages']['target_user']['update_assignment_unsuccessful'] = 'public';
 
 	// Form Validation
 	$config['messages']['target_user']['form_validation_duplicate_identity'] = 'public';

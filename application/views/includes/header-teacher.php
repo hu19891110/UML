@@ -42,7 +42,7 @@
      		<li class="divider"></li>
       	<li><a href="<?php echo site_url('dashboard/manage_user_accounts') ?>">Users</a></li>
       	<li class="divider"></li>
-      	<li><a href="<?php echo site_url('dashboard/add_assignment') ?>">Assignments</a></li>
+      	<li><a href="<?php echo site_url('dashboard/assignments') ?>">Assignments</a></li>
       	
       
       <!-- 

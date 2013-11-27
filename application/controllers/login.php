@@ -131,7 +131,7 @@ class Login extends CI_Controller {
 		
 				
 		// Get any status message that may have been set.
-		// $this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
+		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
 
 		//$data['login_view_partial'] = 
 		

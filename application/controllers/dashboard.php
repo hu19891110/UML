@@ -818,7 +818,7 @@ class Dashboard extends CI_Controller {
 			$this->load->view('template-student', $data);
 		}
 	}
-	
+	/*
 	function assignments() {
 		if ($this->input->post('add_assignment')) {
 		
@@ -875,13 +875,29 @@ class Dashboard extends CI_Controller {
 		
 		
 	}
-	
-	function add_assignment() {
+	*/
+	function assignments($update_assignment_id = FALSE) {
 	
 		if (!$this->flexi_auth->is_admin()) {
 			$this->flexi_auth->set_error_message('You are not privliged to view this area.', TRUE);
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-			redirect('dashboard/add_assignment');
+			redirect('dashboard');
+		}
+		
+		if ($update_assignment_id != FALSE) {
+			$sql_where = array($this->flexi_auth->db_column('assignment', 'id') => $update_assignment_id);
+			
+			$update_assignment = $this->flexi_auth->get_assignments(FALSE, $sql_where);
+			
+			$this->data['update_assignment'] = $update_assignment->row_array();
+			
+			$assignment_classes = $this->flexi_auth->get_classes_for_assignment($update_assignment_id);
+
+			$this->data['assignment_classes'] = $assignment_classes;
+			
+			$this->data['update_assignment_info'] = 1;
+		} else {
+			$this->data['update_assignment_info'] = 0;
 		}
 		
 		if ($this->input->post('add_assignment')) {
@@ -891,23 +907,33 @@ class Dashboard extends CI_Controller {
 
 		}
 		
+		if ($this->input->post('delete_assignment'))
+		{
+			$delete_assignment_id = $this->input->post('assignmentID');
+			$this->flexi_auth->delete_assignment($delete_assignment_id);
+			$this->session->set_flashdata('message', '<p class="status_msg">The assignment has been deleted.</p>');
+			redirect('dashboard/assignments');
+		}
+		
+		if ($this->input->post('update_assignment')) 
+		{
+			$this->load->model('demo_auth_admin_model');
+			$this->demo_auth_admin_model->update_assignment($update_assignment_id);
+		}
+		
 		$assignments = $this->flexi_auth->get_assignments();
 		$this->data['assignments'] = $assignments->result_array();
 		
 		$this->data['classes'] = $this->flexi_auth->get_classes_array();
 		
-		$this->data['message'] = $this->session->flashdata('message');
-		
+		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
 		
 		if ($this->flexi_auth->is_admin()) {
-			$data['maincontent'] = $this->load->view('add_assignment_view', $this->data, TRUE);
+			$data['maincontent'] = $this->load->view('assignments_teacher_view', $this->data, TRUE);
+			$this->load->view('template-teacher', $data);
 		} else {
-			redirect('dashboard/add_assignment');
+			redirect('dashboard');
 		}
-		
-		$this->load->view('template-teacher', $data);
-
-
 	}
 	
 	function assignment($assignment_id) {

@@ -650,7 +650,65 @@ class Demo_auth_admin_model extends CI_Model {
 			redirect('dashboard/add_assignment');
 		}
 	}
+	
+function update_assignment($assignment_id)
+	{	
+		
+		$this->load->library('form_validation');
 
+		// Set validation rules.
+		$validation_rules = array(
+			array('field' => 'update_assignment_name', 'label' => 'Assignment Name', 'rules' => 'required'),
+			array('field' => 'update_assignment_desc', 'label' => 'Assignment description', 'rules' => 'required'),
+			array('field' => 'update_assignment_enddate', 'label' => 'Assignment enddate', 'rules' => 'required')
+		);
+		
+		$this->form_validation->set_rules($validation_rules);
+		
+		if ($this->form_validation->run())
+		{ 
+			// Get user class data from input.
+			
+			$data = array(
+				$this->flexi_auth->db_column('assignment', 'name') => $this->input->post('update_assignment_name'),
+				$this->flexi_auth->db_column('assignment', 'desc') => $this->input->post('update_assignment_desc'),
+				$this->flexi_auth->db_column('assignment', 'enddate') => $this->input->post('update_assignment_enddate')
+			);
+
+			$this->flexi_auth->update_assignment($assignment_id, $data);
+			
+			
+				
+			// Save any public or admin status or error messages to CI's flash session data.
+			
+			
+			// Redirect user.
+			
+			foreach($this->input->post('update') as $row)
+			{
+				if ($row['current_status'] != $row['new_status'])
+				{
+					// Link assignment to class.
+					if ($row['new_status'] == 1)
+					{
+						$this->flexi_auth->link_assignment_to_class($assignment_id, $row['id']);
+					}
+					// Unlink assignment to class.
+					else
+					{	
+						$this->flexi_auth->unlink_assignment_from_class($assignment_id, $row['id']);
+					}
+				}
+			}
+			
+			
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+			
+			
+			
+			redirect('dashboard/assignments/'. $assignment_id);			
+		}
+	}
 }
 
 /* End of file demo_auth_admin_model.php */

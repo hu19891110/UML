@@ -62,8 +62,10 @@ $lang['delete_unsuccessful']						= 'Unable to delete account information.';
 
 $lang['add_deadline_successful']					= 'Assignment has been successfully added.';
 $lang['add_assignment_unsuccessful']				= 'Assignment has not been added.';
-$lang['delete_deadline_successful']					= 'Deadline has been successfully deleted.';
-$lang['delete_deadline_unsuccessful']				= 'Unable to delete deadline.';
+$lang['delete_assignment_successful']				= 'Assignment has been successfully deleted.';
+$lang['delete_assignment_unsuccessful']				= 'Unable to delete assignment.';
+$lang['update_assignment_successful']				= 'Assignment has been successfully updated.';
+$lang['update_assignment_unsuccessful']				= 'Unable to update assignment.';
 
 // Form Validation
 $lang['form_validation_duplicate_identity'] 		= "An account with this email address or username already exists.";

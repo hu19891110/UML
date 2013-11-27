@@ -982,6 +982,46 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
 	}
+	
+	
+	public function delete_assignment($sql_where)
+	{
+		if (is_numeric($sql_where))
+		{
+			$sql_where = array($this->login->tbl_col_assignment['id'] => $sql_where);
+		}
+		
+		$this->db->delete($this->login->tbl_assignment, $sql_where);
+
+		return $this->db->affected_rows() == 1;
+	}
+	
+	public function update_assignment($assignment_id, $assignment_data)
+  	{
+		if (!is_numeric($assignment_id) || !is_array($assignment_data))
+		{
+			return FALSE;
+		}
+		
+		$sql_update = array();		
+		foreach ($this->login->database_config['assignment']['columns'] as $key => $column)
+		{
+			if (isset($assignment_data[$column]))
+			{
+				$sql_update[$this->login->tbl_col_assignment[$key]] = $assignment_data[$column];
+				unset($assignment_data[$column]);
+			}
+		}
+
+		$sql_where = array($this->login->tbl_col_assignment['id'] => $assignment_id);
+		
+		$this->db->update($this->login->tbl_assignment, $sql_update, $sql_where);
+		
+		return $this->db->affected_rows() == 1;	
+	}
+	
+	
+	
 	/*
 	public function assign_assignment($assignment_id, $class_id)
 	{
@@ -1034,6 +1074,23 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$this->db->insert($this->login->tbl_class_assignment, $sql_insert);
 		
 		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
+	}
+	
+	public function unlink_assignment_to_class($assignment_id, $class_id) {
+		if (!is_numeric($assignment_id) || !is_numeric($class_id))
+		{
+			return FALSE;
+		}
+		
+		// Set standard privilege data.
+		$sql_insert = array(
+			$this->login->tbl_col_class_assignment['assignment_id'] => $assignment_id,
+			$this->login->tbl_col_class_assignment['class_id'] => $class_id
+		);
+
+		$this->db->delete($this->login->tbl_class_assignment, $sql_insert);
+		
+		return $this->db->affected_rows() == 1;
 	}
   	
   	
@@ -1831,6 +1888,17 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	public function get_uploads_by_user($user_id)
 	{	
 		return $this->db->get_where('uploads', array('type' => 1, 'student_id' => $user_id));
+	}
+	
+	function get_classes_for_assignment($assignment_id) {
+		$class_assignments = $this->db->get_where('class_assignments', array('assignment_id_fk' => $assignment_id));
+		$class_assignments = $class_assignments->result_array();
+		$classes = array();
+		foreach ($class_assignments as $class_assignment) {
+			$class_id = $class_assignment['class_id_fk'];
+			array_push($classes, $class_id);
+		}
+		return $classes;
 	}
 	
 	public function get_uploads($sql_select, $sql_where)
