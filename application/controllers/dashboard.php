@@ -878,13 +878,14 @@ class Dashboard extends CI_Controller {
 	*/
 	function assignments($update_assignment_id = FALSE) {
 	
-		if (!$this->flexi_auth->is_admin()) {
-			$this->flexi_auth->set_error_message('You are not privliged to view this area.', TRUE);
-			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-			redirect('dashboard');
-		}
+
 		
 		if ($update_assignment_id != FALSE) {
+			if (!$this->flexi_auth->is_admin()) {
+				$this->flexi_auth->set_error_message('You are not privliged to view this area.', TRUE);
+				$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+				redirect('dashboard');
+			}
 			$sql_where = array($this->flexi_auth->db_column('assignment', 'id') => $update_assignment_id);
 			
 			$update_assignment = $this->flexi_auth->get_assignments(FALSE, $sql_where);
@@ -932,7 +933,8 @@ class Dashboard extends CI_Controller {
 			$data['maincontent'] = $this->load->view('assignments_teacher_view', $this->data, TRUE);
 			$this->load->view('template-teacher', $data);
 		} else {
-			redirect('dashboard');
+			$data['maincontent'] = $this->load->view('assignments_student_view', $this->data, TRUE);
+			$this->load->view('template-student', $data);
 		}
 	}
 	
