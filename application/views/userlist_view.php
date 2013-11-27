@@ -1,6 +1,12 @@
 <div class="large-12 columns padding">
-
-			<h2> Add a new user </h2>			
+		<?php if (! empty($message)) { ?>
+		<div id="message">
+			<?php echo $message; ?>
+		</div>
+		<?php } ?>
+		
+		<?php if ($update_user_info == 0) { ?>
+			<h2> Add a new student </h2>			
 			<div class="large-5 columns">
 				<?php echo form_open('register/register_account'); ?>  	
 					
@@ -48,22 +54,94 @@
 							<input type="password" id="password" name="register_password" value="<?php echo set_value('register_password', random_string('alnum', 13));?>"/>
 						</li>		
 					</ul>
-					<input type="submit" name="register_user" id="submit" value="Submit" class="small button"/>
+					<input type="submit" name="register_user" id="submit" value="Add User" class="small button"/>
 				
 				<?php echo form_close();?>
-		</div><!--large-6 columns -->
-	
-	
-	
-		
+				</div><!--large-6 columns -->
+			<?php } else if($update_user_info == 1) { ?>
+			<h2> Update student </h2>			
+			<div class="large-5 columns">
+			<?php echo form_open(current_url());?>  	
+					
+						<h3>Personal Details</h3>
+						<ul>
+							<li class="info_req">
+								<label for="first_name">First Name:</label>
+								<input type="text" id="first_name" name="update_first_name" value="<?php echo set_value('update_first_name',$update_user['upro_first_name']);?>"/>
+							</li>
+							<li class="info_req">
+								<label for="last_name">Last Name:</label>
+								<input type="text" id="last_name" name="update_last_name" value="<?php echo set_value('update_last_name',$update_user['upro_last_name']);?>"/>
+							</li>
+						</ul>
+					
+					
+				
+						<h3>Login Details</h3>
+						<ul>
+							<li class="info_req">
+								<label for="email_address">Email Address:</label>
+								<input type="text" id="email_address" name="update_email_address" value="<?php echo set_value('update_email_address',$update_user[$this->flexi_auth->db_column('user_acc', 'email')]);?>" class="tooltip_trigger"
+									title="Set the users email address that they can use to login with."
+								/>
+							</li>
+							<li>
+								<label for="username">Username:</label>
+								<input type="text" id="username" name="update_username" value="<?php echo set_value('update_username',$update_user[$this->flexi_auth->db_column('user_acc', 'username')]);?>" class="tooltip_trigger"
+									title="Set the users username that they can use to login with."
+								/>
+							</li>
+							<li>
+								<label for="password">Password:</label>
+								<a href="<?php echo $base_url.'dashboard/change_password/'.$update_user[$this->flexi_auth->db_column('user_acc', 'id')];?>" class="tooltip_trigger small button" title="Manage a users access privileges."> Change password</a>
+							</li>
+							
+							<li class="info_req">
+								<label for="group">Group:</label>
+								<select id="group" name="update_group" class="tooltip_trigger"
+									title="Set the users group, that can define them as an admin, public, moderator etc.">
+								<?php foreach($groups as $group) { ?>
+									<?php $user_group = ($group[$this->flexi_auth->db_column('user_group', 'id')] == $user[$this->flexi_auth->db_column('user_acc', 'group_id')]) ? TRUE : FALSE;?>
+									<option value="<?php echo $group[$this->flexi_auth->db_column('user_group', 'id')];?>" <?php echo set_select('update_group', $group[$this->flexi_auth->db_column('user_group', 'id')], $user_group);?>>
+										<?php echo $group[$this->flexi_auth->db_column('user_group', 'name')];?>
+									</option>
+								<?php } ?>
+								</select>
+							</li>
+							<li class="info_req">
+								<label for="class">Student Class:</label>
+								<select id="class" name="update_class" class="tooltip_trigger"
+									title="Set the students class.">
+								<?php foreach($classes as $class) { ?>
+									<?php $student_class = ($class[$this->flexi_auth->db_column('student_class', 'id')] == $user[$this->flexi_auth->db_column('user_acc', 'class_id')]) ? TRUE : FALSE;?>
+									<option value="<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>" <?php echo set_select('update_class', $class[$this->flexi_auth->db_column('student_class', 'id')], $student_class);?>>
+										<?php echo $class[$this->flexi_auth->db_column('student_class', 'name')];?>
+									</option>
+								<?php } ?>
+								</select>
+							</li>
+						</ul>
+
+								<input type="submit" name="update_users_account" id="submit" value="Update Account" class="small button"/>
+				
+			
+				<?php echo form_close();?>
+			</div><!--large-5 columns -->
+			<?php } ?>
+
+			<div>
+			<?php echo form_open(); ?>
 					<table class="responsive">
 						<thead>
 							<tr>
 								<th class="spacer_200">Email</th>
 								<th>First Name</th>
 								<th>Last Name</th>
+								<!-- 
 								<th>User Group</th>
-								<th>Times logged in </th>
+								<th>Times logged in </th> 
+								-->
+								<th>Assignments</th>
 								<th></th>
 								<th></th>
 								<!--
@@ -96,50 +174,27 @@
 								<td>
 									<?php echo $user['upro_last_name'];?>
 								</td>
+								<!--
 								<td>
 									<?php echo $user[$this->flexi_auth->db_column('user_group', 'name')];?>
 								</td>
 								<td>
 									<?php echo $user['uacc_times_logged_in'];?>
 								</td>
+								-->
 								<td>
-									<a href="<?php echo $base_url.'dashboard/update_user_account/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>">
+								<a href="<?php echo $base_url.'dashboard/assignments_per_student/' . $user[$this->flexi_auth->db_column('user_acc', 'id')];?>">View assignments</a>
+								</td>
+								<td>
+									<a href="<?php echo $base_url.'dashboard/manage_user_accounts/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>">
 									Modify
 									</a>
 								</td>
 								<td>
-									<input type="submit" name="delete_users_account" id="delete" value="Delete" class="small button"/>
+									<input type="hidden" id="userID" name="userID" value="<?php echo $user[$this->flexi_auth->db_column('user_acc', 'id')];?>" />
+									<input type="submit" name="delete_users_account" userID="<?php echo $user[$this->flexi_auth->db_column('user_acc', 'id')];?>" value="Delete" class="small button"/>
 								
 								</td>
-
-								<!--
-								<td class="align_ctr">
-									<a href="<?php echo $base_url.'dashboard/update_user_privileges/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>">Manage</a>
-								</td>
-								<td class="align_ctr">
-									<input type="hidden" name="current_status[<?php echo $user[$this->flexi_auth->db_column('user_acc', 'id')];?>]" value="<?php echo $user[$this->flexi_auth->db_column('user_acc', 'suspend')];?>"/>
-									A hidden 'suspend_status[]' input is included to detect unchecked checkboxes on submit
-									<input type="hidden" name="suspend_status[<?php echo $user[$this->flexi_auth->db_column('user_acc', 'id')];?>]" value="0"/>
-								
-								<?php if ($this->flexi_auth->is_privileged('Update Users')) { ?>
-									<input type="checkbox" name="suspend_status[<?php echo $user[$this->flexi_auth->db_column('user_acc', 'id')];?>]" value="1" <?php echo ($user[$this->flexi_auth->db_column('user_acc', 'suspend')] == 1) ? 'checked="checked"' : "";?>/>
-								<?php } else { ?>
-									<input type="checkbox" disabled="disabled"/>
-									<small>Not Privileged</small>
-									<input type="hidden" name="suspend_status[<?php echo $user[$this->flexi_auth->db_column('user_acc', 'id')];?>]" value="0"/>
-								<?php } ?>
-								</td>
-								
-								<td class="align_ctr">
-								<?php if ($this->flexi_auth->is_privileged('Delete Users')) { ?>
-									<input type="checkbox" name="delete_user[<?php echo $user[$this->flexi_auth->db_column('user_acc', 'id')];?>]" value="1"/>
-								<?php } else { ?>
-									<input type="checkbox" disabled="disabled"/>
-									<small>Not Privileged</small>
-									<input type="hidden" name="delete_user[<?php echo $user[$this->flexi_auth->db_column('user_acc', 'id')];?>]" value="0"/>
-								<?php } ?>
-								</td>
-								-->
 							</tr>
 						<?php } ?>
 						</tbody>
@@ -163,6 +218,11 @@
 						</tbody>
 					<?php } ?>
 					</table>
+			<?php echo form_close(); ?>
+			<?php if ($update_user_info == 1) { ?>
+			<a class="button small" href="<?php echo $base_url.'dashboard/manage_user_accounts' ?>">Add new student</a>
+			<?php } ?>
+			</div>
 					
 				<?php if (! empty($pagination['links'])) { ?>
 					<div id="pagination" class="w100 frame">
@@ -170,6 +230,6 @@
 						<p>Links: <?php echo $pagination['links'];?></p>
 					</div>
 				<?php } ?>
-					
+				
 	
 </div> <!-- end large 12 columns -->

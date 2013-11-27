@@ -68,6 +68,7 @@ class Dashboard extends CI_Controller {
 		$this->demo_auth_admin_model->get_user_accounts();		
 		
 		$this->data['message'] = $this->session->flashdata('message');
+		
 		if ($this->flexi_auth->is_admin()) {
 			$data['maincontent'] = $this->load->view('teacher_dashboard_view', $this->data, TRUE);
 			$this->load->view('template-teacher', $data);
@@ -80,12 +81,22 @@ class Dashboard extends CI_Controller {
 	}
 	
 		
-	function manage_user_accounts()
+	function manage_user_accounts($update_user_id = FALSE)
     {
+    	if (!$this->flexi_auth->is_admin()) {
+	    	redirect('dashboard');
+    	}
 		$this->load->model('demo_auth_admin_model');
 		$this->load->library('flexi_auth');	
 		$this->data['classes'] = $this->flexi_auth->get_classes_array();
 
+		if ($update_user_id != FALSE) {
+			$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $update_user_id);
+			$this->data['update_user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
+			$this->data['update_user_info'] = 1;
+		} else {
+			$this->data['update_user_info'] = 0;
+		}
 		// Check user has privileges to view user accounts, else display a message to notify the user they do not have valid privileges.
 		if (! $this->flexi_auth->is_privileged('View Users'))
 		{
@@ -93,22 +104,27 @@ class Dashboard extends CI_Controller {
 			redirect('dashboard');
 		}
 		
-		$user_id = $this->flexi_auth->get_user_id();
+		
 		
 		// If 'Update User Account' form has been submitted, update the users account details.
 		if ($this->input->post('update_users_account')) 
 		{
 			$this->load->model('demo_auth_admin_model');
-			$this->demo_auth_admin_model->update_user_account($user_id);
+			$this->demo_auth_admin_model->update_user_account($update_user_id);
 			
 		}
+		
+		
 		if ($this->input->post('delete_users_account'))
 		{
-			$this->flexi_auth->delete_user($user_id);
+			$delete_user_id = $this->input->post('userID');
+			$this->flexi_auth->delete_user($delete_user_id);
+			$this->session->set_flashdata('message', '<p class="status_msg">The student account has been deleted.</p>');
 			redirect('dashboard/manage_user_accounts');
 		}
 		
 		// Get users current data.
+		$user_id = $this->flexi_auth->get_user_id();
 		$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
 		$this->data['user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
 	
@@ -117,33 +133,6 @@ class Dashboard extends CI_Controller {
 		
 		// Set any returned status/error messages.
 		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
-
-		
-		
-		/*
-		// If 'Admin Search User' form has been submitted, this example will lookup the users email address and first and last name.
-		if ($this->input->post('search_users') && $this->input->post('search_query')) 
-		{
-			// Convert uri ' ' to '-' spacing to prevent '20%'.
-			// Note: Native php functions like urlencode() could be used, but by default, CodeIgniter disallows '+' characters.
-			$search_query = str_replace(' ','-',$this->input->post('search_query'));
-		
-			// Assign search to query string.
-			redirect('dashboard/manage_user_accounts/search/'.$search_query.'/page/');
-		}
-		
-		
-		// If 'Manage User Accounts' form has been submitted and user has privileges to update user accounts, then update the account details.
-		else if ($this->input->post('update_users') && $this->flexi_auth->is_privileged('Update Users')) 
-		{
-			$this->demo_auth_admin_model->update_user_accounts();
-		}
-		*/
-		// Get user account data for all users. 
-		// If a search has been performed, then filter the returned users.
-		
-		
-		//$this->flexi_auth->get_users()->result();
 		
 		$this->demo_auth_admin_model->get_user_accounts();
 
