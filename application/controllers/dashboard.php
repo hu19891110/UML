@@ -1091,7 +1091,7 @@ class Dashboard extends CI_Controller {
 			$data['maincontent'] = $this->load->view('checked_assignments_per_student_view', $this->data, TRUE);
 			$this->load->view('template-teacher', $data);
 		} else {
-			$data['maincontent'] = $this->load->view('checked_assignments_per_student_view', $this->data, TRUE);
+			$data['maincontent'] = $this->load->view('checked_assignments_per_student_view_student', $this->data, TRUE);
 			$this->load->view('template-student', $data);
 		}
 
