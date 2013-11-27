@@ -188,7 +188,7 @@
 				<?php echo form_close(); ?>
 				</div>
 				<?php } ?>
-					
+				<div>	
 				<?php echo form_open(); ?>
 				<table class="large-6 columns margin-left tablesorter">
   				<thead>
@@ -221,6 +221,11 @@
       			
       			</tbody>
 				</table>
+				
 				<?php echo form_close(); ?>
+				<?php if ($update_assignment_info == 1) { ?>
+						<a href="<?php echo $base_url . 'dashboard/assignments/'?>" class="small button">Add new assignment</a>			
+				<?php } ?>
+				</div>
 						
 		</div> <!-- end 12 columns --> 		
