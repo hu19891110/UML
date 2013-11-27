@@ -172,16 +172,8 @@ input, textarea{
 
 .dashboard table{
 	margin-left: 10px;
-	clear: both;
 	float: left;
-	max-width: 550px;
-	width: 100%;
-}
-
-.dashboardright table{
-	margin-left: 10px;
-	float: left;
-	max-width: 550px;
+	max-width: 330px;
 	width: 100%;
 }
 

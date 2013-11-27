@@ -37,10 +37,6 @@
 								</th>
 								<th class="tooltip_trigger" 
 									title="A short description of the purpose of the student class.">
-									Class Description
-								</th>
-								<th class="tooltip_trigger" 
-									title="A short description of the purpose of the student class.">
 									List of students in class
 								</th>
 							</tr>
@@ -52,7 +48,6 @@
 										<?php echo $class[$this->flexi_auth->db_column('student_class', 'name')];?>
 									</a>
 								</td>
-								<td><?php echo $class[$this->flexi_auth->db_column('student_class', 'description')];?></td>
 								<td><a href="<?php echo $base_url;?>dashboard/students_per_class/<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>">View list of students</a></td>
 							</tr>
 						<?php } ?>
@@ -72,7 +67,7 @@
 		
 			
 			
-			<div class="dashboardright">
+			<div class="dashboard">
 				<table>
 						<thead>
 							<tr>
