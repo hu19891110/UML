@@ -86,7 +86,7 @@ class Assignments extends CI_Controller {
 		$config['file_name'] = $this->flexi_auth->get_user_id(). '-3';
 
 		$this->load->library('upload', $config);
-		
+		echo $assignment[$this->flexi_auth->db_column('assignment', 'id')];
 		if ( ! $this->upload->do_upload())
 		{
 			$this->data['error'] = array('error' => $this->upload->display_errors());
