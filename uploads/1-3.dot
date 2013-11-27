@@ -1,0 +1,16 @@
+graph BST { 
+37 -- 15; 
+37 -- 41; 
+null0[shape=point]; 
+15 -- null0; 
+15 -- 23; 
+null1[shape=point]; 
+23 -- null1; 
+23 -- 36; 
+null2[shape=point]; 
+41 -- null2; 
+41 -- 75; 
+null3[shape=point]; 
+75 -- null3; 
+75 -- 80; 
+} 

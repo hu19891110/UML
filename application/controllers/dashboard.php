@@ -1012,12 +1012,17 @@ class Dashboard extends CI_Controller {
 	
 	function checked_assignment_per_student()
 	{
+		
 		$assignment_id = $this->uri->segment(3, 0);
 		$user_id = $this->uri->segment(4, 0);
 		
-		//if ($assignment_id == 0 || $user_id == 0) {
-		//	redirect('dashboard/assignments');
-		//}
+		if (!$this->flexi_auth->is_admin() && $user_id != $this->flexi_auth->get_user_id()) {
+			redirect('dashboard/assignments');
+		}
+		
+		if ($assignment_id == 0 || $user_id == 0) {
+			redirect('dashboard/assignments');
+		}
 		$this->load->model('demo_auth_admin_model');
 		$this->load->library('flexi_auth');	
 		
@@ -1036,10 +1041,15 @@ class Dashboard extends CI_Controller {
 		$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
 		$this->data['user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
 	
-		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
-	
-		$data['maincontent'] =  $this->load->view('checked_assignments_per_student_view', $this->data , TRUE);
-		$this->load->view('template-teacher', $data);		
+		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];	
+		
+		if ($this->flexi_auth->is_admin()) {
+			$data['maincontent'] = $this->load->view('checked_assignments_per_student_view', $this->data, TRUE);
+			$this->load->view('template-teacher', $data);
+		} else {
+			$data['maincontent'] = $this->load->view('checked_assignments_per_student_view', $this->data, TRUE);
+			$this->load->view('template-student', $data);
+		}	
 	
 	}
 
