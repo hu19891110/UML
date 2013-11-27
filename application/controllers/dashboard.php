@@ -877,7 +877,6 @@ class Dashboard extends CI_Controller {
 	}
 	*/
 	function assignments($update_assignment_id = FALSE) {
-	
 
 		
 		if ($update_assignment_id != FALSE) {
@@ -922,10 +921,35 @@ class Dashboard extends CI_Controller {
 			$this->demo_auth_admin_model->update_assignment($update_assignment_id);
 		}
 		
+		
 		$assignments = $this->flexi_auth->get_assignments();
 		$this->data['assignments'] = $assignments->result_array();
 		
 		$this->data['classes'] = $this->flexi_auth->get_classes_array();
+		if (!$this->flexi_auth->is_admin()) {
+			$user_id = $this->flexi_auth->get_user_id();
+			$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
+			$this->data['user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
+			$assignments = $this->flexi_auth->get_assignments();
+			$assignments = $assignments->result_array();
+			$this->data['assignments'] = $assignments;
+			
+			$handed_in_assignments = $this->flexi_auth->get_assignments_handed_in_by_user($user_id);
+			$this->data['handed_in_assignments'] = $handed_in_assignments;
+			
+			
+			$not_handed_in_assignments = $this->flexi_auth->get_assignments_not_handed_in_by_user($user_id);
+			$this->data['not_handed_in_assignments'] = $not_handed_in_assignments;
+			
+			$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
+			$checked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
+			$this->data['checked_assignments'] = $checked_assignments->result_array();
+			
+			$sql_where = array($this->login->tbl_col_assignment['checked'] => 0);
+			$notchecked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
+			$this->data['notchecked_assignments'] = $notchecked_assignments->result_array();
+	
+		}
 		
 		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
 		
