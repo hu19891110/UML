@@ -1024,6 +1024,9 @@ class Dashboard extends CI_Controller {
 		$errors = $this->flexi_auth->get_errors_for_assignment_of_student($assignment_id, $user_id);
 		$this->data['errors'] = $errors->result_array();
 		
+		$upload = $this->db->get_where('uploads', array('student_id' => $user_id, 'deadline_id' => $assignment_id));
+		$this->data['uploads'] = $upload;
+		
 		$this->demo_auth_admin_model->get_user_accounts();	
 		
 		// Get users current data.

@@ -16,6 +16,9 @@
 	
 		<h4>
 			<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?>	
+			//
+			<?php if($uploads->num_rows()) { echo $uploads->row()->comment; } ?>
+
 			<span class="goedkeuren"> Approve all | Disapprove all </span>
 		</h4>
 	</div> <!-- end h2bg --> 

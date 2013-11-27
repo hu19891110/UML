@@ -1914,6 +1914,12 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 		return $errors;
 	}
+	public function get_uploaddata_for_assignment_of_student($assignment_id, $student_id)
+	{
+		$upload = $this->db->get_where('uploads', array('student_id' => $student_id, 'deadline_id' => $assignment_id));
+		
+		return $upload;
+	}
 	
 	public function get_error_value($error_id) 
 	{	
