@@ -118,6 +118,18 @@
 		}
 		
 	?>	
+		
+		<!--comment section-->
+		<li>
+			<label for="comments">Comments:</label>
+			<textarea id="comments" name="comments" class="width_400 tooltip_trigger"
+				title="Optional comments on the handed in file for the student."><?php echo set_value('comments');?></textarea>
+		</li>
+		
+		<input type="submit" name="comments" id="submit" value="Submit comments" class="button small"/>
+		
+		
+		
 	 
 	
 	

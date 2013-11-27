@@ -1067,7 +1067,14 @@ class Dashboard extends CI_Controller {
 		} else {
 			$data['maincontent'] = $this->load->view('checked_assignments_per_student_view', $this->data, TRUE);
 			$this->load->view('template-student', $data);
-		}	
+		}
+
+		// If 'Comments' form has been submitted, insert the comments.
+		if ($this->input->post('comments')) 
+		{
+			$this->load->model('demo_auth_admin_model');
+			$this->demo_auth_admin_model->add_comment_to_checked_assignment();
+		}
 	
 	}
 

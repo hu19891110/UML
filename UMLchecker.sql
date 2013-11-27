@@ -258,9 +258,9 @@ CREATE TABLE `assignments` (
 	`assignment_id` smallint(5) NOT NULL AUTO_INCREMENT,
 	`assignment_desc` varchar(50) NOT NULL DEFAULT '',
 	`assignment_name` varchar(50) NOT NULL DEFAULT '',
-  `assignment_checked` smallint(5) NOT NULL DEFAULT '0',
+	`assignment_checked` smallint(5) NOT NULL DEFAULT '0',
 	`assignment_enddate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `assignment_date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+	`assignment_date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
 	PRIMARY KEY (`assignment_id`)
 );
 
@@ -293,6 +293,7 @@ CREATE TABLE `uploads` (
   `Type` int(11) NOT NULL,
   `upload_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `substraction_late` float(5) NOT NULL DEFAULT '0',
+  `comments` string(300) NOT NULL DEFAULT '',
   PRIMARY KEY (`upload_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
