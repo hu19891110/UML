@@ -2,7 +2,7 @@
 
 <title>Upload Form</title>
 
-<h3>Your UML diagram was successfully uploaded.</h3>
+<h3>Your file was successfully uploaded!</h3>
  
 <ul>
 <?php foreach ($upload_data as $item => $value):?>

@@ -12,9 +12,10 @@
 	</div>	
 	
 	
-	
+<!-- 	
 	<h3>Upload assignment</h3>
 
+	<?php echo $error;?>
 
 	<?php echo form_open_multipart('assignments/do_upload');?>
 
@@ -25,7 +26,7 @@
 	<input type="submit" value="Upload" class = "small button"/>
 
 	</form>
-
+-->	
 	
 		
 	<table style="width: 1000px;" class="assignmentstudents responsive">
@@ -51,9 +52,7 @@
 									</div>
 								</td>
 								<td>
-									01 day(s) left 
-									<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>
-									<!-- echo deadline date / handed in date -->
+									01 day(s) left <!-- echo deadline date / handed in date -->
 								</td>
 								
 							</tr>
