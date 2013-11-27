@@ -213,6 +213,7 @@
 	$config['database']['uploads']['columns']['deadline_id'] = 'deadline_id';
 	$config['database']['uploads']['columns']['grade'] = 'grade';
 	$config['database']['uploads']['columns']['faults'] = 'faults';
+	$config['database']['uploads']['columns']['comments'] = 'comments';
 	
 	
 	

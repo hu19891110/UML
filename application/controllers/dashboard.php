@@ -1070,10 +1070,24 @@ class Dashboard extends CI_Controller {
 		}
 
 		// If 'Comments' form has been submitted, insert the comments.
-		if ($this->input->post('comments')) 
+		if ($this->input->post('add_comment')) 
 		{
 			$this->load->model('demo_auth_admin_model');
-			$this->demo_auth_admin_model->add_comment_to_checked_assignment();
+			
+			$comment = $this->input->post('comment');
+			//echo $comment;
+			
+			$added = $this->flexi_auth->add_comment($comment, $user_id, $assignment_id);
+			/*
+			if ($added) {
+				$this->flexi_auth->set_status_message('The comment has been added.', TRUE);
+				$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+			} else {
+				$this->flexi_auth->set_error_message('The comment has not been added.', TRUE);
+				$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+			}
+			*/
+			redirect('dashboard/checked_assignment_per_student/'. $assignment_id . '/' . $user_id);
 		}
 	
 	}

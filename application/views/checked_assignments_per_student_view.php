@@ -16,8 +16,8 @@
 	
 		<h4>
 			<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?>	
-			//
-			<?php if($uploads->num_rows()) { echo $uploads->row()->comment; } ?>
+			
+			<?php //  if($uploads->num_rows()) { echo $uploads->row()->comment; } ?>
 
 			<span class="goedkeuren"> Approve all | Disapprove all </span>
 		</h4>
@@ -120,14 +120,15 @@
 	?>	
 		
 		<!--comment section-->
+		<?php echo form_open(); ?>
 		<li>
 			<label for="comments">Comments:</label>
-			<textarea id="comments" name="comments" class="width_400 tooltip_trigger"
+			<textarea id="comment" name="comment" class="width_400 tooltip_trigger"
 				title="Optional comments on the handed in file for the student."><?php echo set_value('comments');?></textarea>
 		</li>
 		
-		<input type="submit" name="comments" id="submit" value="Submit comments" class="button small"/>
-		
+		<input type="submit" name="add_comment" id="add_comment" value="Add comment" class="button small"/>
+		<?php echo form_close(); ?>
 		
 		
 	 

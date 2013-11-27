@@ -1123,6 +1123,11 @@ class Flexi_auth extends Flexi_auth_lite
 		
 	}
 	
+	public function	add_comment($comments, $student_id, $deadline_id) {
+		
+		return $this->CI->flexi_auth_model->add_comments($comments, $student_id, $deadline_id);
+			
+	}
 	
 
 	

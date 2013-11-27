@@ -3019,18 +3019,19 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	public function	add_comments($comments, $student_id, $deadline_id)
 	{
 		if (empty($comments))
-			{
-				return FALSE;
-			}
+		{
+			return FALSE;
+		}
 		
 		// Set the comments
-		$sql_update[$this->login->tbl_col_uploads['comments']] = $comments;
+		$sql_update = array( $this->login->tbl_col_uploads['comments'] => $comments);
 		$sql_where = array(	$this->login->tbl_col_uploads['student_id'] => $student_id,
 							$this->login->tbl_col_uploads['deadline_id'] => $deadline_id);
 		
 		// Insert the comments
-		$this->db->update($this->login->tbl_uploads, $sql_update)
-		->where($sql_where);
+		$this->db->update($this->login->tbl_uploads, $sql_update, $sql_where);
+		
+		//->where($sql_where);
 		
 		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
 	}
