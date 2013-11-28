@@ -79,7 +79,7 @@ class Dashboard extends CI_Controller {
 
 
 	}
-	
+	/*
 	function test_model () 
 	{
 	foreach ($this->login->database_config['custom'] as $custom_table => $table_data)
@@ -98,7 +98,7 @@ class Dashboard extends CI_Controller {
 			}
 		}
 	}
-	
+	*/
 		
 	function manage_user_accounts($update_user_id = FALSE)
     {
@@ -1234,8 +1234,7 @@ class Dashboard extends CI_Controller {
 
 	}
 
-}
-
+	/*
 	function grades_overview_student(){
 		$this->load->model('demo_auth_admin_model');
 		$this->load->library('flexi_auth');	
@@ -1244,5 +1243,6 @@ class Dashboard extends CI_Controller {
 			$grade = $this->flexi_auth->get_grade_for_assignment_by_student($assignment,$this->flexi_auth->get_user_id());
 		}
 	}
+	*/
 }
 ?>

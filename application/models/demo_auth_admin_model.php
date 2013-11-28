@@ -173,6 +173,8 @@ class Demo_auth_admin_model extends CI_Model {
 			// be able to identify the correct custom data row.
 			// In this example, the primary key column and value is 'upro_id' => $user_id.
 			
+			//echo $this->input->post('update_first_name');
+			//echo $this->input->post('update_last_name');
 			
 			$profile_data = array(
 				'upro_id' => $user_id,
@@ -191,7 +193,8 @@ class Demo_auth_admin_model extends CI_Model {
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			
 			// Redirect user.
-			redirect('dashboard/manage_user_accounts');			
+			redirect('dashboard/manage_user_accounts');
+			
 		}
 		
 		return FALSE;

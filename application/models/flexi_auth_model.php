@@ -2070,7 +2070,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 		return $grade;	
 	}
-	
+	/*
 	public function set_assignment_to_checked($assignment_id, $student_id)
 	{
 		$this->db->where(array('deadline_id' => $assignment_id, 'student_id', $student_id))->update('checked', true);
@@ -2084,8 +2084,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 		return true;
 	}
-	
-	
+	*/
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	// LOGIN / VALIDATION METHODS
@@ -3052,9 +3051,6 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
 	}
 }
-
-
-	
 
 
 /* End of file flexi_auth_model.php */
