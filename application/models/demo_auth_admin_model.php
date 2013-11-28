@@ -644,7 +644,7 @@ class Demo_auth_admin_model extends CI_Model {
 			}
 			// Save any public or admin status or error messages to CI's flash session data.
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-			
+			$this->session->set_flashdata('message', '<p class="status_msg">You heve succesfully added a new assignment.</p>');
 			// Redirect user.
 			redirect('dashboard/assignments');			
 		} else {
