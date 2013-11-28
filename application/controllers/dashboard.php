@@ -1216,4 +1216,14 @@ class Dashboard extends CI_Controller {
 	}
 
 }
+
+	function grades_overview_student(){
+		$this->load->model('demo_auth_admin_model');
+		$this->load->library('flexi_auth');	
+		
+		foreach($assignments as $assignment){
+			$grade = $this->flexi_auth->get_grade_for_assignment_by_student($assignment,$this->flexi_auth->get_user_id());
+		}
+	}
+}
 ?>
