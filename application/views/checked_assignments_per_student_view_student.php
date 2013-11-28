@@ -17,25 +17,10 @@
 		<h4>
 			<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?>	
 			
-		<!--	<?php   if($uploads->num_rows()) { echo $uploads->row()->comment; } ?>
+	<!--	<?php   if($uploads->num_rows()) { echo $uploads->row()->comment; } ?> -->
 
-		</h4>
-	</div> end h2bg
-	
-	<p>
-		<b> Line 15:</b> The name of the class should be 'student' in stead of 'students' <br/>
-		<small> For this mistake 1 point is substracted </small>
-	</p>
-	
-	<p> <b> Line 19:</b> The attribute of the class Student should be 'name' in stead of 'id' <br/>
-	<small> For this mistake 2 points are substracted </small>
-	</p>
-	
-	<p> <b> Line 20:</b> The method of the class Mario should be 'getDirection(position)' in stead of 'getDirection()' <br/>
-	<small> For this mistake 2 points are substracted </small>
-	</p>
-	-->
-	
+		</h4>	
+	</div>
 	<? 
 	
 		foreach ($errors as $error) {
@@ -44,8 +29,7 @@
 			 $error_value = $this->flexi_auth->get_error_value($error_id);
 			 $error_value = round($error_value, 1);
 			 ?>
-			 <span class="notcheckedbutton"></span>
-			 <span class="checkedbutton"></span>
+			 
 			 <span class="mistake"><?php echo $error_value;?></span>
 			 <?
 			 if ($error_id == 1) {
@@ -121,8 +105,13 @@
 		
 		<!--comment section-->
 		
-		
-		<!-- comment section
+		<h2>Comments</h2>
+		<?php if ($comment == '') {
+			echo '<p>The teacher did not make any comments on your assignment.</p>';
+		} else {
+			echo '<p>'. $comment . '</p>';
+		}
+		?>
 		
 	 
 	

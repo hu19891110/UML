@@ -99,6 +99,7 @@ class Dashboard extends CI_Controller {
 		}
 	}
 	*/
+	
 		
 	function manage_user_accounts($update_user_id = FALSE)
     {
@@ -1106,6 +1107,8 @@ class Dashboard extends CI_Controller {
 	
 		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];	
 		
+		$this->data['comment'] = $this->flexi_auth->get_comment($user_id, $assignment_id);
+		
 		if ($this->flexi_auth->is_admin()) {
 			$data['maincontent'] = $this->load->view('checked_assignments_per_student_view', $this->data, TRUE);
 			$this->load->view('template-teacher', $data);
@@ -1113,6 +1116,8 @@ class Dashboard extends CI_Controller {
 			$data['maincontent'] = $this->load->view('checked_assignments_per_student_view_student', $this->data, TRUE);
 			$this->load->view('template-student', $data);
 		}
+		
+
 
 		// If 'Comments' form has been submitted, insert the comments.
 		if ($this->input->post('add_comment')) 
@@ -1132,6 +1137,8 @@ class Dashboard extends CI_Controller {
 				$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			}
 			*/
+			$this->session->set_flashdata('message', '<p class="status_msg">The comment has been saved.</p>');
+			
 			redirect('dashboard/checked_assignment_per_student/'. $assignment_id . '/' . $user_id);
 		}
 	

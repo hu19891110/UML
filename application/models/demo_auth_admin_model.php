@@ -173,19 +173,18 @@ class Demo_auth_admin_model extends CI_Model {
 			// be able to identify the correct custom data row.
 			// In this example, the primary key column and value is 'upro_id' => $user_id.
 			
-			//echo $this->input->post('update_first_name');
-			//echo $this->input->post('update_last_name');
-			
+			$first_name = $this->input->post('update_first_name');
+			$last_name = $this->input->post('update_last_name');
 			$profile_data = array(
-				'upro_id' => $user_id,
-				'upro_first_name' => $this->input->post('update_first_name'),
-				'upro_last_name' => $this->input->post('update_last_name'),
+				'upro_uacc_fk' => $user_id,
+				'upro_first_name' => $first_name,
+				'upro_last_name' => $last_name,
 				$this->flexi_auth->db_column('user_acc', 'email') => $this->input->post('update_email_address'),
 				$this->flexi_auth->db_column('user_acc', 'username') => $this->input->post('update_username'),
 				$this->flexi_auth->db_column('user_acc', 'group_id') => $this->input->post('update_group'),
 				$this->flexi_auth->db_column('user_acc', 'class_id') => $this->input->post('update_class')
 			);			
-
+			
 			// If we were only updating profile data (i.e. no email, username or group included), we could use the 'update_custom_user_data()' function instead.
 			$this->flexi_auth->update_user($user_id, $profile_data);
 				

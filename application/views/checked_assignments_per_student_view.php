@@ -22,6 +22,12 @@
 			<span class="goedkeuren"> Approve all | Disapprove all </span>
 		</h4>
 	</div> <!-- end h2bg --> 
+	
+	<?php if (! empty($message)) { ?>
+		<div id="message">
+			<?php echo $message; ?>
+		</div>
+	<?php } ?>
 	<!--
 	<p>
 		<b> Line 15:</b> The name of the class should be 'student' in stead of 'students' <br/>
@@ -124,10 +130,13 @@
 		<li>
 			<label for="comments">Comments:</label>
 			<textarea id="comment" name="comment" class="width_400 tooltip_trigger"
-				title="Optional comments on the handed in file for the student."><?php echo set_value('comments');?></textarea>
+				title="Optional comments on the handed in file for the student."><?php echo $comment;?></textarea>
 		</li>
-		
-		<input type="submit" name="add_comment" id="add_comment" value="Add comment" class="button small"/>
+		<?php if ($comment == '') { ?>
+			<input type="submit" name="add_comment" id="add_comment" value="Add comment" class="button small"/> 
+		<?php } else { ?>
+			<input type="submit" name="add_comment" id="add_comment" value="Update comment" class="button small"/>
+		<?php } ?> 
 		<?php echo form_close(); ?>
 		
 		

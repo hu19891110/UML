@@ -481,14 +481,14 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 				foreach ($table_data['custom_columns'] as $key => $column)
 				{
 					if (isset($custom_data[$column]))
-					{					
+					{		
 						$sql_update[$this->login->tbl_custom_data[$custom_table]['custom_columns'][$key]] = $custom_data[$column];
 						unset($custom_data[$column]);
 					}
 				}
 
 				if (count($sql_update) > 0)
-				{
+				{	
 					if ($identifier_id)
 					{
 						$this->db->where($identifier_col, $identifier_id)
@@ -2069,6 +2069,13 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$grade = $upload_info['grade'];
 		
 		return $grade;	
+	}
+	
+	public function get_comment($user_id, $assignment_id) {
+		$upload_info = $this->db->get_where('uploads', array('deadline_id' => $assignment_id, 'student_id' => $user_id));
+		$upload_info = $upload_info->row_array();
+		$comment = $upload_info['comments'];
+		return $comment;
 	}
 	/*
 	public function set_assignment_to_checked($assignment_id, $student_id)
