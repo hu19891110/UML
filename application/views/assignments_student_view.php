@@ -10,24 +10,6 @@
 	<h2> Student <?php echo $user['uacc_username'];?> </h2>
 	<h4> Assignments overview </h4>
 	</div>	
-	
-	
-<!-- 	
-	<h3>Upload assignment</h3>
-
-	<?php echo $error;?>
-
-	<?php echo form_open_multipart('assignments/do_upload');?>
-
-	<input type="file" name="userfile" size="20" />
-
-	<br /><br />
-
-	<input type="submit" value="Upload" class = "small button"/>
-
-	</form>
--->	
-	
 		
 	<table style="width: 1000px;" class="assignmentstudents responsive">
 			
@@ -47,9 +29,10 @@
 									<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?>
 								</td>
 								<td>
-									<div class="button small">
-									Upload 
-									</div>
+									<?php echo form_open_multipart('assignments/do_upload');?>
+										<input type="file" name="userfile" size="20" />
+										<input type="submit" value="Upload" class = "small button"/>
+									</form>
 								</td>
 								<td>
 									01 day(s) left <!-- echo deadline date / handed in date -->
