@@ -2071,6 +2071,22 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		return $grade;	
 	}
 	
+	public function set_assignment_to_checked($assignment_id, $student_id)
+	{
+		$this->db->where(array('deadline_id' => $assignment_id, 'student_id', $student_id))->update('checked', true);
+		
+		return true;
+	}
+	
+	public function set_assignment_to_unchecked($assignment_id, $student_id)
+	{
+		$this->db->where(array('deadline_id' => $assignment_id, 'student_id', $student_id))->update('checked', false);
+		
+		return true;
+	}
+	
+	
+	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	// LOGIN / VALIDATION METHODS
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	

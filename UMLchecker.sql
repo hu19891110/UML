@@ -293,7 +293,8 @@ CREATE TABLE `uploads` (
   `Type` int(11) NOT NULL,
   `upload_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `substraction_late` float(5) NOT NULL DEFAULT '0',
-  `comments` string(300) NOT NULL DEFAULT '',
+  `checked` tinyint(1) NOT NULL DEFAULT '0',
+  `comments` varchar(300) NOT NULL DEFAULT '',
   PRIMARY KEY (`upload_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
