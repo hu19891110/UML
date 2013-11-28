@@ -61,7 +61,7 @@
 			<?php } else if($update_user_info == 1) { ?>
 			<h2> Update student </h2>			
 			<div class="large-5 columns">
-			<?php echo form_open(current_url());?>  	
+			<?php echo form_open();?>  	
 					
 						<h3>Personal Details</h3>
 						<ul>
@@ -101,8 +101,13 @@
 								<select id="group" name="update_group" class="tooltip_trigger"
 									title="Set the users group, that can define them as an admin, public, moderator etc.">
 								<?php foreach($groups as $group) { ?>
-									<?php $user_group = ($group[$this->flexi_auth->db_column('user_group', 'id')] == $user[$this->flexi_auth->db_column('user_acc', 'group_id')]) ? TRUE : FALSE;?>
-									<option value="<?php echo $group[$this->flexi_auth->db_column('user_group', 'id')];?>" <?php echo set_select('update_group', $group[$this->flexi_auth->db_column('user_group', 'id')], $user_group);?>>
+									<?php if ($group[$this->flexi_auth->db_column('user_group', 'id')] == $update_user[$this->flexi_auth->db_column('user_acc', 'group_id')]) {
+										$status = "selected";
+									} else {
+										$status = NULL;
+									}
+									?>
+									<option value="<?php echo $group[$this->flexi_auth->db_column('user_group', 'id')];?>" <?php echo $status ?>>
 										<?php echo $group[$this->flexi_auth->db_column('user_group', 'name')];?>
 									</option>
 								<?php } ?>

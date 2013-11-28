@@ -172,6 +172,8 @@ class Demo_auth_admin_model extends CI_Model {
 			// primary key column and value in the $profile_data for any custom user tables being updated, otherwise, the function will not
 			// be able to identify the correct custom data row.
 			// In this example, the primary key column and value is 'upro_id' => $user_id.
+			
+			
 			$profile_data = array(
 				'upro_id' => $user_id,
 				'upro_first_name' => $this->input->post('update_first_name'),
@@ -642,12 +644,12 @@ class Demo_auth_admin_model extends CI_Model {
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			
 			// Redirect user.
-			redirect('dashboard/add_assignment');			
+			redirect('dashboard/assignments');			
 		} else {
 			$this->load->model('flexi_auth_model');
 			$this->flexi_auth_model->set_error_message('add_assignment_unsuccessful', 'config');
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-			redirect('dashboard/add_assignment');
+			redirect('dashboard/assignments');
 		}
 	}
 	
@@ -707,6 +709,9 @@ function update_assignment($assignment_id)
 			
 			
 			redirect('dashboard/assignments/'. $assignment_id);			
+		} else {
+			$this->session->set_flashdata('message', '<p class="error_msg">Please fill in the correct information.</p>');
+			redirect('dashboard/assignments/'. $assignment_id);	
 		}
 	}
 }

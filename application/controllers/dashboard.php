@@ -80,6 +80,25 @@ class Dashboard extends CI_Controller {
 
 	}
 	
+	function test_model () 
+	{
+	foreach ($this->login->database_config['custom'] as $custom_table => $table_data)
+		{
+
+			// Update user custom data table
+			if (! empty($table_data['custom_columns']))
+			{
+				// Match submitted data with the custom data columns set via the config file
+				foreach ($table_data['custom_columns'] as $key => $column)
+				{
+					echo $column;
+					echo $key;
+				}
+				
+			}
+		}
+	}
+	
 		
 	function manage_user_accounts($update_user_id = FALSE)
     {
