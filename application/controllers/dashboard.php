@@ -381,6 +381,8 @@ class Dashboard extends CI_Controller {
 					// Note: As the 'delete_class' input is a checkbox, it will only be present in the $_POST data if it has been checked,
 					// therefore we don't need to check the submitted value.
 					$this->flexi_auth->delete_class($class_id);
+					$this->session->set_flashdata('message', '<p class="status_msg">The class has been deleted.</p>');
+					redirect('dashboard/manage_student_classes');
 				}
 			}
 		}

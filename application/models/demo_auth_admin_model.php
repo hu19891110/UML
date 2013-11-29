@@ -141,7 +141,7 @@ class Demo_auth_admin_model extends CI_Model {
 		$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 		
 		// Redirect user.
-		redirect('dashboard/manage_user_accounts');			
+		redirect('dashboard/manage_user_accounts');		
 	}
 
  	/**
@@ -177,7 +177,7 @@ class Demo_auth_admin_model extends CI_Model {
 			$last_name = $this->input->post('update_last_name');
 			$profile_data = array(
 				'upro_uacc_fk' => $user_id,
-				'upro_first_name' => $first_name,
+				'upro_firsthe assignment has been deletedt_name' => $first_name,
 				'upro_last_name' => $last_name,
 				$this->flexi_auth->db_column('user_acc', 'email') => $this->input->post('update_email_address'),
 				$this->flexi_auth->db_column('user_acc', 'username') => $this->input->post('update_username'),
@@ -190,9 +190,15 @@ class Demo_auth_admin_model extends CI_Model {
 				
 			// Save any public or admin status or error messages to CI's flash session data.
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+
+			//redirect to the appropriate user page
+			$current_session_id = $this->flexi_auth->get_user_id();
 			
-			// Redirect user.
-			redirect('dashboard/manage_user_accounts');
+			if($current_session_id == $user_id)
+				redirect('dashboard/update_user_account/1');
+			else 
+				redirect('dashboard/manage_user_accounts');	
+			
 			
 		}
 		
@@ -504,9 +510,10 @@ class Demo_auth_admin_model extends CI_Model {
 
 		// Save any public or admin status or error messages to CI's flash session data.
 		$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+		$this->session->set_flashdata('message', '<p class="status_msg">You have successfully updated your user privileges.</p>');
 		
 		// Redirect user.
-		redirect('dashboard/manage_user_accounts');			
+		redirect('dashboard/update_user_account/1');			
 	}
 
    	/**

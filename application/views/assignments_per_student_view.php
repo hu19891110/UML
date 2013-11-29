@@ -170,7 +170,7 @@
 				<?php } */?>
 			
 			
-	<a href="<?php echo $base_url.'dashboard/assignments_students/';?>"> Back to student list </a>
+	<a class="button small" href="<?php echo $base_url.'dashboard/manage_user_accounts' ?>">Back</a>	
 		
 		
 </div>		

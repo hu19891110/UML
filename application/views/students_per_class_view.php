@@ -45,4 +45,5 @@
 
 					
 				<?php echo form_close();?>
+				<a class="button small" href="<?php echo $base_url.'dashboard/manage_student_classes' ?>">Back</a>
 	</div>	

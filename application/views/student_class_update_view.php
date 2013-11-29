@@ -27,7 +27,7 @@
 				
 					<input type="submit" name="update_student_class" id="submit" value="Update class" class="button small"/>
 					<br/> <br/>
-					<a href="<?php echo $base_url;?>dashboard/manage_student_classes" class="button small" >Manage User classes</a>
+					<a href="<?php echo $base_url;?>dashboard/manage_student_classes" class="button small" >Back</a>
 			
 				<?php echo form_close();?>
 	</div>	

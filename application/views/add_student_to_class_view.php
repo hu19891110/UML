@@ -57,6 +57,6 @@
 							</tr>
 						</tfoot>
 						*/?>
-					</table>					
+					</table>				
 				<?php echo form_close();?>
 	</div>
