@@ -25,13 +25,15 @@
 							</li>
 						</ul>
 		
-						<input type="submit" name="insert_student_class"id="submit" value="Insert new student class" class="button small"/>
+						<input type="submit" name="insert_student_class"id="submit" value="Add" class="button small"/>
 					<br/> <br/>
 				
 			
 				<?php echo form_close();?>
 				</div> <!--large-6 columns -->
 				
+				
+			<div class="classes large-6 columns"> 	
 				<?php echo form_open(current_url());	?>  	
 					<table>
 						<thead>
@@ -99,7 +101,6 @@
 						</tfoot>
 					</table>
 					
-						
-					
 				<?php echo form_close();?>
+				</div>	
 	</div>	

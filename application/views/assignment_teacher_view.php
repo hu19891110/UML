@@ -11,7 +11,12 @@
 					<h4>Assignment details</h4>
 				</div>
 				<p> <b> Description of the assignment:</b> <?php echo $assignment[$this->flexi_auth->db_column('assignment', 'desc')];?> </p>
-				<p> <b>Enddate and time:</b> <?php echo $assignment[$this->flexi_auth->db_column('assignment', 'enddate')];?></p>
+				<p> <b>Enddate and time:</b> 
+					<?php  
+	      			$enddate = date_create( $assignment[$this->flexi_auth->db_column('assignment', 'enddate')] );
+	      			echo date_format($enddate, 'd-m-Y H:i:s');
+	      		?>
+				</p>
 				<?php $checked = ($assignment[$this->flexi_auth->db_column('assignment', 'checked')] == 1) ? 'Yes' : 'No';  ?>
 				<p> <b> Is the assignment already checked? </b> : <?php echo $checked;?></p>
 					
@@ -22,6 +27,6 @@
 				<h3>Upload correction model</h3>				
 				<?php echo form_open_multipart('assignments/do_upload');?>
 			<input type="file" name="userfile" size="20"> <br/> <br/>
-			<input type="submit" name="add_answer_sheet" value="Upload correction model" class="small button"> <br/> <br/>
+			<input type="submit" name="add_answer_sheet" value="Upload" class="small button"> <br/> <br/>
 
 </div> <!-- end 12 columns --> 

@@ -20,7 +20,7 @@
 			
 		<div class="row">		
 		
-		
+	<!--	
 			<div class="dashboard">
 				<?php echo form_open(current_url());	?>  	
 					<table>
@@ -54,18 +54,13 @@
 						</tbody>
 						<tfoot>
 							<td colspan="5">
-							<!--
-								<?php $disable = (! $this->flexi_auth->is_privileged('Update Student Class') && ! $this->flexi_auth->is_privileged('Delete Student Class')) ? 'disabled="disabled"' : NULL;?>
-								<input type="submit" name="submit" value="Delete Checked Student Classes" class="button" <?php echo $disable; ?>/>
-							-->
 							</td>
 						</tfoot>
 					</table>
 		
 				<?php echo form_close();?>
 		</div>
-		
-			
+	-->
 			
 			<div class="dashboard">
 				<table>
@@ -137,7 +132,12 @@
       			{ ?>
       			<tr>
 	      			<td><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></td>
-	      			<td><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'enddate')];?></td>
+	      			<td>
+	      				<?php  
+	      					$enddate = date_create( $assignment[$this->flexi_auth->db_column('assignment', 'enddate')] );
+	      					echo date_format($enddate, 'd-m-Y H:i:s');
+	      				?>
+	      			</td>
 	      			<td> <a href="<?php echo $base_url . 'dashboard/assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">View details</a> </td>
 
 	      		</tr>	
@@ -145,7 +145,6 @@
       			</tbody>
 				</table>
 		</div>
-		
 
 				
 				<div id="graph"> </div>

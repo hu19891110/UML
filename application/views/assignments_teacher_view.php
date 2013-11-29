@@ -181,16 +181,22 @@
 							<input style="width:150px;" type="text" id="datepicker" name="update_assignment_enddate" value="<?php echo $update_assignment[$this->flexi_auth->db_column('assignment', 'enddate')];?>"/>
 						</li>
 						<li>
-						<input type="submit" name="update_assignment" id="update_assignment" value="Update Assignment" class="small button"/>
+						<input type="submit" name="update_assignment" id="update_assignment" value="Save" class="small button"/>
 						</li>
 					</ul>
 				
 				<?php echo form_close(); ?>
 				</div>
 				<?php } ?>
-				<div>	
+				
+				
+			<div class="assignments large-7 columns">	
+				<?php if ($update_assignment_info == 1) { ?>
+				<a href="<?php echo $base_url . 'dashboard/assignments/'?>" class="small button">Add new assignment</a>			
+				<?php } ?>
+			
 				<?php echo form_open(); ?>
-				<table class="large-6 columns margin-left tablesorter">
+				<table class="tablesorter">
   				<thead>
     				<tr>
       			<th>Assignment</th>
@@ -207,7 +213,12 @@
       			{ ?>
       			<tr>
 	      			<td><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></td>
-	      			<td><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'enddate')];?></td>
+	      			<td>
+	      				<?php  
+	      				$enddate = date_create( $assignment[$this->flexi_auth->db_column('assignment', 'enddate')] );
+	      				echo date_format($enddate, 'd-m-Y H:i:s');
+	      				?>
+	      			</td>
 	      			<td> <a href="<?php echo $base_url . 'dashboard/assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">View details</a> </td>
 	      			<td> <a href="<?php echo $base_url . 'dashboard/assignments/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">Modify</a> </td>
 	      			<td>
@@ -223,9 +234,6 @@
 				</table>
 				
 				<?php echo form_close(); ?>
-				<?php if ($update_assignment_info == 1) { ?>
-						<a href="<?php echo $base_url . 'dashboard/assignments/'?>" class="small button">Add new assignment</a>			
-				<?php } ?>
 				</div>
 						
 		</div> <!-- end 12 columns --> 		

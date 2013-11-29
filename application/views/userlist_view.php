@@ -54,12 +54,13 @@
 							<input type="password" id="password" name="register_password" value="<?php echo set_value('register_password', random_string('alnum', 13));?>"/>
 						</li>		
 					</ul>
-					<input type="submit" name="register_user" id="submit" value="Add User" class="small button"/>
+					<input type="submit" name="register_user" id="submit" value="Add" class="small button"/>
 				
 				<?php echo form_close();?>
 				</div><!--large-6 columns -->
 			<?php } else if($update_user_info == 1) { ?>
 			<h2> Update student </h2>			
+			
 			<div class="large-5 columns">
 			<?php echo form_open();?>  	
 					
@@ -127,14 +128,17 @@
 							</li>
 						</ul>
 
-								<input type="submit" name="update_users_account" id="submit" value="Update Account" class="small button"/>
+								<input type="submit" name="update_users_account" id="submit" value="Save" class="small button"/>
 				
 			
 				<?php echo form_close();?>
 			</div><!--large-5 columns -->
 			<?php } ?>
 
-			<div>
+			<div class="users">
+			<?php if ($update_user_info == 1) { ?>
+			<a class="button small" href="<?php echo $base_url.'dashboard/manage_user_accounts' ?>">Add new student</a>
+			<?php } ?>
 			<?php echo form_open(); ?>
 					<table class="responsive">
 						<thead>
@@ -224,9 +228,6 @@
 					<?php } ?>
 					</table>
 			<?php echo form_close(); ?>
-			<?php if ($update_user_info == 1) { ?>
-			<a class="button small" href="<?php echo $base_url.'dashboard/manage_user_accounts' ?>">Add new student</a>
-			<?php } ?>
 			</div>
 					
 				<?php if (! empty($pagination['links'])) { ?>

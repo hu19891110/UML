@@ -25,7 +25,7 @@
 
 					<a class="button small" href="<?php echo $base_url;?>dashboard/add_student_to_class/<?php echo $class_id; ?>">Add/remove students</a>
 				
-					<input type="submit" name="update_student_class" id="submit" value="Update class" class="button small"/>
+					<input type="submit" name="update_student_class" id="submit" value="Save" class="button small"/>
 					<br/> <br/>
 					<a href="<?php echo $base_url;?>dashboard/manage_student_classes" class="button small" >Back</a>
 			
