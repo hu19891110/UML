@@ -167,7 +167,7 @@ class Dashboard extends CI_Controller {
 	{
 		// Check user has privileges to update user accounts, else display a message to notify the user they do not have valid privileges.
 	
-		if (! $this->flexi_auth->is_privileged('Update Users') && ($user_id != $this->flexi_auth->get_user_id()))
+		if ( $this->flexi_auth->is_privileged('Update Users') && ($user_id != $this->flexi_auth->get_user_id()))
 		{
 			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to update user accounts.</p>');
 			redirect('dashboard');		

@@ -193,9 +193,11 @@ class Demo_auth_admin_model extends CI_Model {
 
 			//redirect to the appropriate user page
 			$current_session_id = $this->flexi_auth->get_user_id();
-			
-			if($current_session_id == $user_id)
-				redirect('dashboard/update_user_account/1');
+
+			if($current_session_id == $user_id){
+				$user = $this->flexi_auth->get_user_id();
+				redirect('dashboard/update_user_account/'.$user);
+			}
 			else 
 				redirect('dashboard/manage_user_accounts');	
 			
@@ -512,8 +514,9 @@ class Demo_auth_admin_model extends CI_Model {
 		$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 		$this->session->set_flashdata('message', '<p class="status_msg">You have successfully updated your user privileges.</p>');
 		
+		$user = $this->flexi_auth->get_user_id();
 		// Redirect user.
-		redirect('dashboard/update_user_account/1');			
+		redirect('dashboard/update_user_account/'.$user);			
 	}
 
    	/**
