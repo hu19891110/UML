@@ -17,6 +17,14 @@
 	      			echo date_format($enddate, 'd-m-Y H:i:s');
 	      		?>
 				</p>
+				<p>
+				Assignment class:
+				<?php echo $assignment_classes[$this->flexi_auth->db_column('class_assignments', 'id')];?>
+				
+				<!-- <?php echo $class_names[$this->flexi_auth->db_column('student_classes', 'studentclass_name')];?> -->
+				</p>
+				
+				
 				<?php $checked = ($assignment[$this->flexi_auth->db_column('assignment', 'checked')] == 1) ? 'Yes' : 'No';  ?>
 				<p> <b> Is the assignment already checked? </b> : <?php echo $checked;?></p>
 					
