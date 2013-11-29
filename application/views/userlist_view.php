@@ -4,6 +4,7 @@
 			<?php echo $message; ?>
 		</div>
 		<?php } ?>
+	
 		
 		<?php if ($update_user_info == 0) { ?>
 			<h2> Add a new student </h2>			

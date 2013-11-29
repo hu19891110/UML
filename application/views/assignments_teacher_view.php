@@ -88,7 +88,7 @@
 							<input style="width:150px;" type="text" id="datepicker" name="add_assignment_enddate" value=""/>
 						</li>
 						<li>
-						<input type="submit" name="add_assignment" id="add_assignment" value="Add Assignment" class="small button"/>
+						<input type="submit" name="add_assignment" id="add_assignment" value="Add" class="small button"/>
 						</li>
 					</ul>
 					<?php echo form_close();?>
