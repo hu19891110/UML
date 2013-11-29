@@ -177,7 +177,7 @@ class Demo_auth_admin_model extends CI_Model {
 			$last_name = $this->input->post('update_last_name');
 			$profile_data = array(
 				'upro_uacc_fk' => $user_id,
-				'upro_firsthe assignment has been deletedt_name' => $first_name,
+				'upro_first_name' => $first_name,
 				'upro_last_name' => $last_name,
 				$this->flexi_auth->db_column('user_acc', 'email') => $this->input->post('update_email_address'),
 				$this->flexi_auth->db_column('user_acc', 'username') => $this->input->post('update_username'),
