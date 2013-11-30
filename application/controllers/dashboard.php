@@ -104,6 +104,7 @@ class Dashboard extends CI_Controller {
 	function manage_user_accounts($update_user_id = FALSE)
     {
     	if (!$this->flexi_auth->is_admin()) {
+    		$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to view user accounts.</p>');
 	    	redirect('dashboard');
     	}
 		$this->load->model('demo_auth_admin_model');

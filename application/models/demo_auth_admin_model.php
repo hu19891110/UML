@@ -34,11 +34,12 @@ class Demo_auth_admin_model extends CI_Model {
 		$this->flexi_auth->sql_select($sql_select);
 
 		// For this example, prevent any 'Master Admin' users (User group id of 3) being listed to non 'Master Admin' users.
-		if (! $this->flexi_auth->in_group('Master Admin'))
-		{
-			$sql_where[$this->flexi_auth->db_column('user_group', 'id').' !='] = 2;
+		//if (! $this->flexi_auth->in_group('Master Admin'))
+		//{
+			$sql_where[$this->flexi_auth->db_column('user_acc', 'id').' !='] = $this->flexi_auth->get_user_id();
 			$this->flexi_auth->sql_where($sql_where);
-		}	
+		//}	
+		
 
 		// Get url for any search query or pagination position.
 		$uri = $this->uri->uri_to_assoc(3);

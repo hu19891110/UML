@@ -104,12 +104,12 @@
 									title="Set the users group, that can define them as an admin, public, moderator etc.">
 								<?php foreach($groups as $group) { ?>
 									<?php if ($group[$this->flexi_auth->db_column('user_group', 'id')] == $update_user[$this->flexi_auth->db_column('user_acc', 'group_id')]) {
-										$status = "selected";
+										$group_status = "selected";
 									} else {
-										$status = NULL;
+										$group_status = NULL;
 									}
 									?>
-									<option value="<?php echo $group[$this->flexi_auth->db_column('user_group', 'id')];?>" <?php echo $status ?>>
+									<option value="<?php echo $group[$this->flexi_auth->db_column('user_group', 'id')];?>" <?php echo $group_status; ?>>
 										<?php echo $group[$this->flexi_auth->db_column('user_group', 'name')];?>
 									</option>
 								<?php } ?>
@@ -120,11 +120,16 @@
 								<select id="class" name="update_class" class="tooltip_trigger"
 									title="Set the students class.">
 								<?php foreach($classes as $class) { ?>
-									<?php $student_class = ($class[$this->flexi_auth->db_column('student_class', 'id')] == $user[$this->flexi_auth->db_column('user_acc', 'class_id')]) ? TRUE : FALSE;?>
-									<option value="<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>" <?php echo set_select('update_class', $class[$this->flexi_auth->db_column('student_class', 'id')], $student_class);?>>
+									<?php if ($class[$this->flexi_auth->db_column('student_class', 'id')] == $update_user[$this->flexi_auth->db_column('user_acc', 'class_id')]) {
+										$class_status = "selected";
+									} else {
+										$class_status = NULL;
+									}			
+									?>
+										<option value="<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>" <?php echo $class_status; ?>>
 										<?php echo $class[$this->flexi_auth->db_column('student_class', 'name')];?>
 									</option>
-								<?php } ?>
+								<?php } ?> 
 								</select>
 							</li>
 						</ul>
@@ -208,16 +213,6 @@
 							</tr>
 						<?php } ?>
 						</tbody>
-						<!--
-						<tfoot>
-							<tr>
-								<td colspan="7">
-									<?php $disable = (! $this->flexi_auth->is_privileged('Update Users') && ! $this->flexi_auth->is_privileged('Delete Users')) ? 'disabled="disabled"' : NULL;?>
-									<input type="submit" name="update_users" value="Update / Delete Users" class="link_button large" <?php echo $disable; ?>/>
-								</td>
-							</tr>
-						</tfoot>
-						-->
 					<?php } else { ?>
 						<tbody>
 							<tr>
