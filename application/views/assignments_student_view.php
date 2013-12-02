@@ -31,7 +31,8 @@
 								<td>
 									<?php echo form_open_multipart('assignments/do_upload');?>
 										<input type="file" name="userfile" size="20" />
-										<input type="submit" value="Upload" assignment_id="98" class = "small button"/>
+										<input type="hidden" id="assignmentID" name="assignmentID" value="<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>" />
+										<input type="submit" value="Upload" assignmentID="<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>" class = "small button"/>
 									</form>
 								</td>
 								<td>

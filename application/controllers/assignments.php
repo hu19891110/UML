@@ -77,7 +77,7 @@ class Assignments extends CI_Controller {
 		//print_r($rows);
 		$class_id = $rows[0]['uacc_class_fk'];
 		*/
-		
+		$assignment_id = '999'; //test
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types'] = '*';
 		$config['max_size']	= '2000';
