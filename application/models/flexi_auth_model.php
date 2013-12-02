@@ -1966,26 +1966,50 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	public function get_assignments_not_handed_in_by_user($user_id) {
 		$assignment_ids = $this->db->get_where('uploads', array('student_id' => $user_id));
 		$assignment_ids = $assignment_ids->result_array();
+		$class = $this->get_student_class($user_id);
+		$class = $class->row_array();
+		$class_id = $class['uacc_class_fk'];
 		$sql_where = '';
 		$i = 0;
 		foreach($assignment_ids as $assignment_id_array) {
 			$assignment_id = $assignment_id_array['deadline_id'];
-			if ($i >0) {
-				$sql_where = $sql_where . " AND assignment_id != $assignment_id";
+			if ($i > 0) {
+				$sql_where = $sql_where . " AND assignment_id_fk != $assignment_id";
 			} else {
-				$sql_where = $sql_where . "assignment_id != $assignment_id";
+				$sql_where = $sql_where . "class_id_fk = $class_id AND ";
+				$sql_where = $sql_where . "assignment_id_fk != $assignment_id";
 			}
 			
 			$i++;
 		}
 		if ($sql_where != '') { 
-			$assignment = $this->db->get_where('assignments', $sql_where);
-			$assignment = $assignment->result_array();
+			$assignments = $this->db->get_where('class_assignments', $sql_where);
+			$assignments = $assignments->result_array();
 		} else {
-			$assignment = $this->db->get('assignments');
-			$assignment = $assignment->result_array();
+			$assignments = $this->db->get('class_assignments');
+			$assignments = $assignments->result_array();
 		}
-		return $assignment;
+		
+		$i = 0;
+		$sql_where = '';
+		foreach ($assignments as $assignment ) {
+			$assignment_id = $assignment['assignment_id_fk'];
+			echo $assignment_id;
+			if ($i > 0) {
+				$sql_where = $sql_where . " OR assignment_id = $assignment_id";
+			} else {
+				$sql_where = $sql_where . "assignment_id = $assignment_id";
+			}
+			$i++;
+		}
+		if ($sql_where != '') { 
+			$class_assignments = $this->db->get_where('assignments', $sql_where);
+			$class_assignments = $class_assignments->result_array();
+		} else {
+			$class_assignments = $this->db->get('assignments');
+			$class_assignments = $class_assignments->result_array();
+		}
+		return $class_assignments;
 	}
 	
 	public function get_errors_for_assignment_of_student($assignment_id, $student_id)
