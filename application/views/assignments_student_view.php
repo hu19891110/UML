@@ -95,7 +95,6 @@
 			<tr>
 				<th style="width:500px;">Checked assignments</th>
 				<th> Mistakes & grade </th>
-				<th> Comments made by teacher </th>
 							
 			</tr>
 			</thead>
@@ -111,10 +110,6 @@
 									<a href="<?php echo $base_url.'dashboard/checked_assignment_per_student/'.$checked_assignment[$this->flexi_auth->db_column('assignment', 'id')].'/' .$user['uacc_id'];?>"> 
 									View details
 									</a> 
-								</td>
-								
-								<td>
-									View comments 
 								</td>
 								
 							</tr>
