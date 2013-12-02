@@ -60,7 +60,9 @@
 				</tr>
 				</thead>
 					<tbody>
-					<?php  if (!empty($checked_assignments)) { ?>
+					<?php 
+					print_r($current_user);
+					 if (!empty($checked_assignments)) { ?>
 					<?php foreach ($checked_assignments as $checked_assignment) { ?> 
 					<?php 
 							$assignment_id = $checked_assignment[$this->flexi_auth->db_column('assignment', 'id')];
@@ -70,7 +72,7 @@
 							?>
 							
 								<tr>
-									<td><?php echo $user['upro_first_name'] . ' ' . $user['upro_last_name'];?></td>
+									<td><?php echo $checked_assignment[$this->flexi_auth->db_column('assignment', 'name')];?></td>
 									<td><?php echo $grade; ?></td>
 									<td><a href="<?php echo $base_url.'dashboard/checked_assignment_per_student/'.$checked_assignment[$this->flexi_auth->db_column('assignment', 'id')].'/' .$current_user['uacc_id'];?>">details</a></td>
 								</tr>

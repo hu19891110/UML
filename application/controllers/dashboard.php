@@ -1199,6 +1199,15 @@ class Dashboard extends CI_Controller {
 		$this->load->model('demo_auth_admin_model');
 		$this->demo_auth_admin_model->get_user_accounts();
 		
+		$user_id = $this->flexi_auth->get_user_id();
+		echo $user_id;
+		$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
+		$current_user = $this->flexi_auth->get_users(FALSE, $sql_where);
+		$current_user = $current_user->row_array();
+		print_r($current_user);
+		$this->data['current_user'] = $current_user;
+		
+		
 		$data['maincontent'] = $this->load->view('grade_overview', $this->data, TRUE);
 		if ($this->flexi_auth->is_admin()) {
 			$this->load->view('template-teacher', $data);
