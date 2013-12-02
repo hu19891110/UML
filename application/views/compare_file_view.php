@@ -8,6 +8,8 @@
 		</div>
 	<?php } ?>
 	
+	<h3> Which assignment do you want to check? </h3>
+	
 	<?php echo form_open(current_url()); ?> 
 	<ul>
 		<li>
@@ -21,6 +23,7 @@
 			</select>
 		</li>
 		<li>
+			<br/>
 			<input type="submit" name="check_assignment" id="submit" value="Check assignment" class="small button"/>
 		</li>
 	</ul>

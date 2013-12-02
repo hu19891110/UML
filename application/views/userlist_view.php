@@ -201,7 +201,7 @@
 								<a href="<?php echo $base_url.'dashboard/assignments_per_student/' . $user[$this->flexi_auth->db_column('user_acc', 'id')];?>">View assignments</a>
 								</td>
 								<td>
-									<a href="<?php echo $base_url.'dashboard/manage_user_accounts/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>">
+									<a class="modify" href="<?php echo $base_url.'dashboard/manage_user_accounts/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>">
 									Modify
 									</a>
 								</td>

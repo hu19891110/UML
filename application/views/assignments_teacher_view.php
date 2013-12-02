@@ -220,7 +220,7 @@
 	      				?>
 	      			</td>
 	      			<td> <a href="<?php echo $base_url . 'dashboard/assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">View details</a> </td>
-	      			<td> <a href="<?php echo $base_url . 'dashboard/assignments/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">Modify</a> </td>
+	      			<td> <a class="modify" href="<?php echo $base_url . 'dashboard/assignments/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">Modify</a> </td>
 	      			<td>
 		      			<input type="hidden" id="assignmentID" name="assignmentID" value="<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>" />
 						<input type="submit" name="delete_assignment" assignmentID="<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>" value="Delete" class="small button"/>

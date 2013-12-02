@@ -90,6 +90,16 @@ body{
 	float:right;
 }
 
+.modify{
+	background-image:url('../images/edit.png');
+	background-size: 25px 25px;
+	width: 55px;
+	height: 40px;
+	background-repeat: no-repeat;
+	text-indent: -999px;
+	display: block;
+}
+
 h4{
 	font-size: 0.9em;
 	color: #4f4f4f;

@@ -67,7 +67,7 @@
 								<td><?php echo $class[$this->flexi_auth->db_column('student_class', 'description')];?></td>
 								<td><a href="<?php echo $base_url;?>dashboard/students_per_class/<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>">View list of students</a></td>
 								<td>
-								<a href="<?php echo $base_url;?>dashboard/update_student_class/<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>">
+								<a class="modify" href="<?php echo $base_url;?>dashboard/update_student_class/<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>">
 								Modify
 								</a>
 								</td>
