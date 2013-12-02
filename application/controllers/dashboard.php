@@ -1190,6 +1190,23 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
+	function grade_overview()
+	{	
+		$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
+		$checked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
+		$this->data['checked_assignments'] = $checked_assignments->result_array();
+		
+		$this->load->model('demo_auth_admin_model');
+		$this->demo_auth_admin_model->get_user_accounts();
+		
+		$data['maincontent'] = $this->load->view('grade_overview', $this->data, TRUE);
+		if ($this->flexi_auth->is_admin()) {
+			$this->load->view('template-teacher', $data);
+		} else {
+			$this->load->view('template-student', $data);
+		}
+
+	}
 	
 	function checker()
 	{

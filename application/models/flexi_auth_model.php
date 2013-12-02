@@ -2079,7 +2079,20 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 		$upload_id = $this->db->insert_id();
 		
-		$substraction_late = upload_too_late($upload_id, $deadline_id);
+		$days_late = upload_too_late($upload_id, $deadline_id);
+		$substraction_late = $days_late * 0.5;
+		
+		$sql_update = array (
+			'substraction_late' => $substraction_late
+		);
+		
+		$sql_where = array(
+			'student_id' => $student_id,
+			'deadline_id' => $deadline_id
+		);
+
+		$this->db->update('uploads', $sql_update, $sql_where);
+		
 		
 		if ($this->db->affected_rows() > 0)
 	    {
@@ -2102,7 +2115,11 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	{	
 		$upload_info = $this->db->get_where('uploads', array('deadline_id' => $assignment_id, 'student_id' => $student_id));
 		$upload_info = $upload_info->row_array();
+		if (!empty($upload_info)) {
 		$grade = $upload_info['grade'];
+		} else {
+			return FALSE;
+		}
 		
 		return $grade;	
 	}

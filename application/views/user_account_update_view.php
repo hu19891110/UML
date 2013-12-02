@@ -41,7 +41,7 @@
 								<label for="password">Password:</label>
 								<a href="<?php echo $base_url.'dashboard/change_password/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>" class="tooltip_trigger small button" title="Manage a users access privileges."> Change password</a>
 							</li>
-							
+
 							<li class="info_req">
 								<label for="group">Group:</label>
 								<select id="group" name="update_group" class="tooltip_trigger"

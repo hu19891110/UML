@@ -16,8 +16,8 @@
 			<thead>
 			<tr>
 				<th class="nothandedin" style="width:500px;">Not handed in assignments</th> 
-				<th> Upload my assignment</th>
-				<th>Time left</th>			
+				<th>Upload my assignment</th>
+				<th>Deadline</th>			
 			</tr>
 			</thead>
 			
@@ -35,8 +35,26 @@
 									</form>
 								</td>
 								<td>
-									01 day(s) left <!-- echo deadline date / handed in date -->
-								</td>
+									<?php 
+									$current_time = date('F d, Y G:i');
+									$assignment_time = $assignment['assignment_enddate'];
+									$datetime2 = strtotime($assignment_time);
+									$datetime1 = strtotime($current_time);
+									$datediff = $datetime2 - $datetime1;
+									$days_left = floor($datediff/(60*60*24)); 
+									
+									if ($days_left < 0) {
+										$days_left = -$days_left;				
+										?>
+										<p class="red"> <?php echo date('F d, Y G:i', strtotime($assignment_time)) . ' , ' . $days_left . ' days ago.';?></p>
+										<?php
+									} else {
+										?>
+										<p> <?php echo date('F d, Y G:i', strtotime($assignment_time)) . ' , ' . $days_left . ' days left.'; ?> </p>
+										<?php
+									}
+									?> 
+									</td>
 								
 							</tr>
 						<?php } ?>
@@ -70,7 +88,23 @@
 								</td>
 								
 								<td>
-									01 day(s) ago <!-- echo deadline date / handed in date -->
+									<?php
+									$assignment_id = $assignment[$this->flexi_auth->db_column('assignment', 'id')];
+									$student_id = $user['uacc_id'];
+									$date = $this->flexi_auth->get_upload_date_time($assignment_id, $student_id);
+									$upload_id = $this->flexi_auth->get_upload_id($assignment_id, $student_id);
+									$late = $this->flexi_auth->upload_too_late($upload_id, $assignment_id);
+									if ($late > 0) {
+										?>
+										<p class="red"> <?php echo date('F d, Y G:i', strtotime($date)) . ' , ' . $late . ' days late.';?></p>
+										<?php
+									} else {
+										?>
+										<p> <?php echo date('F d, Y G:i', strtotime($date)); ?> </p>
+										<?php
+									}
+									?>
+
 								</td>
 								
 							</tr>
