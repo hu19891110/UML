@@ -25,7 +25,7 @@
 					$numItems = count($assignment_classes);
 					
 					foreach ($assignment_classes as $assignment_class) {
-						$class_id = $assignment_classes[$this->flexi_auth->db_column('class_assignments', 'id')];
+						$class_id = $assignment_class;
 						$class_name = $this->flexi_auth->get_classname_for_class_id($class_id);
 						
 						$i++;
