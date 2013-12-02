@@ -44,7 +44,7 @@
 							
 						</ul>
 
-								<input type="submit" name="update_users_account" id="submit" value="Update Account" class="small button"/>
+								<input type="submit" name="update_users_account" id="submit" value="Save" class="small button"/>
 								
 				
 			

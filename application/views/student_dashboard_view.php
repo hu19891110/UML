@@ -7,7 +7,8 @@
 		</div>
 	<?php } ?>
 	
-				<table class="large-5 columns margin-left">
+			<div class="upcomingass large-5 columns">
+				<table>
   				<thead>
     				<tr>
       			<th colspan="3" style="text-align: center;">Upcoming assignments</th>
@@ -23,17 +24,28 @@
       			foreach ($assignments as $assignment)
       			{ ?>
       			<tr>
+      			<?php
+      				$current_time = date('F d, Y G:i');
+						$assignment_time = $assignment['assignment_enddate'];
+						$datetime2 = strtotime($assignment_time);
+						$datetime1 = strtotime($current_time);
+						$datediff = $datetime2 - $datetime1;
+						$days_left = floor($datediff/(60*60*24)); 
+      			?>
+      			<?php if ($days_left > 0){ ?>
 	      			<td><a href="<?php echo $base_url . 'dashboard/assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>"><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></a></td>
 	      			<td><?php $date = $assignment[$this->flexi_auth->db_column('assignment', 'enddate')];
 							echo date('d-m-Y H:i', strtotime($date));?></td>
 	      			<td> Upload assignment </td>
+	      		<?php } ?>	
 	      		</tr>	
       			<?php } ?>		
       			</tbody>
 				</table>
+		</div>		
 				
-				
-				<table class="large-6 columns margin-left">
+		<div class="grades large-5 columns">		
+				<table>
   				<thead>
     				<tr>
       			<th colspan="3" style="text-align: center;">Grades</th>
@@ -45,19 +57,18 @@
       			<th>Assignment description</th>
       			<th>Grade</th>
     			</tr>
-      			
-      			<tr>
-	      			<td> </td>
-	      			<td> </td>
-	      			<td> </td>
-	      		</tr>	
+      		<tr>
+      			<td> </td>
+      			<td> </td>
+      			<td> </td>
+      		
+      		</tr>
       		
       			</tbody>
 				</table>
-				
+		</div>		
 				
 				<div id="graph" class="large-4 columns "> </div>
-				
 				<script>
 				graphResolutionByYear = new Array(
 				[8,'Test 1'],

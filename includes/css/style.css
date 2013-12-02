@@ -7,6 +7,16 @@ body{
 	background-image:url('../images/background.jpg');
 }
 
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
 .h2bg{
 	background: #DFDFDF;
 	height: 70px;
@@ -191,16 +201,25 @@ input, textarea{
 	overflow-y: scroll;
 }
 
+.upcomingass{
+	height: 380px;
+	overflow-y: scroll;
+}
 
-::-webkit-scrollbar {
-    -webkit-appearance: none;
-    width: 7px;
+.grades{
+	height: 380px;
+	overflow-y: scroll;
 }
-::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(0,0,0,.5);
-    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+
+.upcomingass table thead, .grades table thead{
+	background: transparent;
 }
+
+.upcomingass table thead th, .grades table thead th{
+	color: #435B77;
+	font-weight: bold !important;
+}
+
 
 /* graph dashboard */ 
 #graphHolder2graph, #graphHolder3graph{

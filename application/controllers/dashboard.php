@@ -69,6 +69,7 @@ class Dashboard extends CI_Controller {
 		
 		$this->data['message'] = $this->session->flashdata('message');
 		
+		
 		if ($this->flexi_auth->is_admin()) {
 			$data['maincontent'] = $this->load->view('teacher_dashboard_view', $this->data, TRUE);
 			$this->load->view('template-teacher', $data);
