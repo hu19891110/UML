@@ -1994,7 +1994,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$sql_where = '';
 		foreach ($assignments as $assignment ) {
 			$assignment_id = $assignment['assignment_id_fk'];
-			echo $assignment_id;
+			//echo $assignment_id;
 			if ($i > 0) {
 				$sql_where = $sql_where . " OR assignment_id = $assignment_id";
 			} else {
