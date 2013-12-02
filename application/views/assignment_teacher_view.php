@@ -10,33 +10,43 @@
 					<h2><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></h2>
 					<h4>Assignment details</h4>
 				</div>
-				<p> <b> Description of the assignment:</b> <?php echo $assignment[$this->flexi_auth->db_column('assignment', 'desc')];?> </p>
-				<p> <b>Enddate and time:</b> 
+				<h3> Description of the assignment:</h3> <?php echo $assignment[$this->flexi_auth->db_column('assignment', 'desc')];?> 
+				<h3>Date of deadline:</h3>
 					<?php  
 	      			$enddate = date_create( $assignment[$this->flexi_auth->db_column('assignment', 'enddate')] );
 	      			echo date_format($enddate, 'd-m-Y H:i:s');
 	      		?>
-				</p>
-				<p>
-				Assignment classes: 
+				
+				
+				<h3>Assignment classes: </h3>
 				<?php 
 				
+					$i = 0;
+					$numItems = count($assignment_classes);
+					
 					foreach ($assignment_classes as $assignment_class) {
 						$class_id = $assignment_classes[$this->flexi_auth->db_column('class_assignments', 'id')];
 						$class_name = $this->flexi_auth->get_classname_for_class_id($class_id);
-						echo $class_name;
+						
+						$i++;
+						
+						if ($i == $numItems)
+							echo $class_name, '. ';	
+						else
+							echo $class_name, ', ';
 					}
-					
+				
 				?>
 				
 				<!-- <?php echo $class_names[$this->flexi_auth->db_column('student_classes', 'studentclass_name')];?> -->
-				</p>
+			
 				
 				
 				<?php $checked = ($assignment[$this->flexi_auth->db_column('assignment', 'checked')] == 1) ? 'Yes' : 'No';  ?>
-				<p> <b> Is the assignment already checked? </b> : <?php echo $checked;?></p>
+				<h3> Is the assignment already checked? </h3> <?php echo $checked;?>
 					
 				<?php if($checked == 'No'){ ?>	
+	<br/> <br/>			
 		<a class="small button" href="<?php echo $base_url . 'dashboard/checker/';?>">Check assignment </a>
 				<?php } ?>	
 				<br/><br/>
