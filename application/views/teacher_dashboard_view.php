@@ -62,7 +62,7 @@
 		</div>
 	-->
 			
-			<div class="dashboard">
+			<div class="dashboard large-6 columns">
 				<table>
 						<thead>
 							<tr>
@@ -111,8 +111,51 @@
 					<?php } ?>
 					</table>
 			</div>
+						
+			<div class="dashboard large-6 columns">
+				<table class="tablesorter">
+  				<thead>
+  					<tr>
+						<th colspan="3" style="text-align:center;"> Not yet handed in assignments </th>
+					</tr>	
+  				</thead>
+  				<tr>
+      			<th>Assignment</th>
+      			<th>Deadline of assignment</th>
+      			<th>Amount of students not yet handed in</th>
+    			</tr>
+  				<tbody>
+  			
+      			<?php 
+      			foreach ($assignments as $assignment)
+      			{ ?>
+      			<tr>
+      			<?php
+      				$current_time = date('F d, Y G:i');
+						$assignment_time = $assignment['assignment_enddate'];
+						$datetime2 = strtotime($assignment_time);
+						$datetime1 = strtotime($current_time);
+						$datediff = $datetime2 - $datetime1;
+						$days_left = floor($datediff/(60*60*24)); 
+      			?>
+      			<?php if ($days_left > 0){ ?>
+      			
+	      			<td><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></td>
+	      			<td>
+	      				<?php  
+	      					$enddate = date_create( $assignment[$this->flexi_auth->db_column('assignment', 'enddate')] );
+	      					echo date_format($enddate, 'd-m-Y H:i');
+	      				?>
+	      			</td>
+	      			<td> </td>
+					<?php } ?>
+	      		</tr>	
+      			<?php } ?>		
+      			</tbody>
+				</table>
+		</div>				
 				
-				
+	<!--			
 			<div class="dashboard">
 				<table class="tablesorter">
   				<thead>
@@ -145,7 +188,7 @@
       			</tbody>
 				</table>
 		</div>
-
+-->
 				
 				<div id="graph"> </div>
 				

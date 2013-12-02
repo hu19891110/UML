@@ -7,7 +7,7 @@
 		</div>
 	<?php } ?>
 	
-			<div class="upcomingass large-5 columns">
+			<div class="dashboard large-6 columns">
 				<table>
   				<thead>
     				<tr>
@@ -44,7 +44,7 @@
 				</table>
 		</div>		
 				
-		<div class="grades large-5 columns">		
+		<div class="dashboard large-6 columns">		
 				<table>
   				<thead>
     				<tr>

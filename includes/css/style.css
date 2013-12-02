@@ -201,23 +201,13 @@ input, textarea{
 	overflow-y: scroll;
 }
 
-.upcomingass{
-	height: 380px;
+.dashboard{
+	max-height: 450px;
 	overflow-y: scroll;
 }
 
-.grades{
-	height: 380px;
-	overflow-y: scroll;
-}
-
-.upcomingass table thead, .grades table thead{
-	background: transparent;
-}
-
-.upcomingass table thead th, .grades table thead th{
-	color: #435B77;
-	font-weight: bold !important;
+.dashboard.large-6{
+	margin-bottom: 10px;
 }
 
 
