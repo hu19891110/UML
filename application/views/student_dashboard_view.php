@@ -24,7 +24,8 @@
       			{ ?>
       			<tr>
 	      			<td><a href="<?php echo $base_url . 'dashboard/assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>"><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></a></td>
-	      			<td><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'enddate')];?></td>
+	      			<td><?php $date = $assignment[$this->flexi_auth->db_column('assignment', 'enddate')];
+							echo date('d-m-Y H:i', strtotime($date));?></td>
 	      			<td> Upload assignment </td>
 	      		</tr>	
       			<?php } ?>		

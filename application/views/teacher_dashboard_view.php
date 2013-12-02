@@ -135,7 +135,7 @@
 	      			<td>
 	      				<?php  
 	      					$enddate = date_create( $assignment[$this->flexi_auth->db_column('assignment', 'enddate')] );
-	      					echo date_format($enddate, 'd-m-Y H:i:s');
+	      					echo date_format($enddate, 'd-m-Y H:i');
 	      				?>
 	      			</td>
 	      			<td> <a href="<?php echo $base_url . 'dashboard/assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">View details</a> </td>

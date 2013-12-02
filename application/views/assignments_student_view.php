@@ -83,7 +83,7 @@
 						<tbody>
 							<?php foreach ($handed_in_assignments as $assignment) { ?> <!-- for each assignment -->
 							<tr>
-								<td style="width: 500px;">
+								<td>
 									<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?>
 								</td>
 								
@@ -140,7 +140,7 @@
 									<?php echo $checked_assignment[$this->flexi_auth->db_column('assignment', 'name')];?>
 								</td>
 								
-								<td style="width: 320px;">
+								<td style="width: 500px;">
 									<a href="<?php echo $base_url.'dashboard/checked_assignment_per_student/'.$checked_assignment[$this->flexi_auth->db_column('assignment', 'id')].'/' .$user['uacc_id'];?>"> 
 									View details
 									</a> 
