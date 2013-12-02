@@ -69,7 +69,7 @@ class Assignments extends CI_Controller {
 		
 	}
 
-	function do_upload()
+	function do_upload($assignment_id)
 	{
 		
 		/*$rows = $this->flexi_auth->get_student_class($this->flexi_auth->get_user_id());
@@ -83,7 +83,7 @@ class Assignments extends CI_Controller {
 		$config['max_size']	= '2000';
 		$config['max_width']  = '1024';
 		$config['max_height']  = '768';
-		$config['file_name'] = $this->flexi_auth->get_user_id(). '-3';
+		$config['file_name'] = $this->flexi_auth->get_user_id().'-'.$assignment_id;
 
 		$this->load->library('upload', $config);
 		
@@ -97,7 +97,7 @@ class Assignments extends CI_Controller {
 		else
 		{
 			$this->load->model('demo_auth_model');
-			$la = $this->demo_auth_model->add_file_by_student();
+			$la = $this->demo_auth_model->add_file_by_student($assignment_id);
 			print_r($la);
 			/*if($la) {
 				echo 'GLUKT<br />';

@@ -31,7 +31,7 @@
 								<td>
 									<?php echo form_open_multipart('assignments/do_upload');?>
 										<input type="file" name="userfile" size="20" />
-										<input type="submit" value="Upload" class = "small button"/>
+										<input type="submit" value="Upload" assignment_id="98" class = "small button"/>
 									</form>
 								</td>
 								<td>

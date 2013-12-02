@@ -2071,6 +2071,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			'student_id' => $student_id,
 			'deadline_id' => $deadline_id,
 			'grade' => 0,
+			'faults' => 999,
 			'Type' => 1,
 			'upload_date' => $this->db->database_date_time()
 		);
