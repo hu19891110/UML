@@ -989,9 +989,10 @@ class Dashboard extends CI_Controller {
 		$assignment_classes = $this->flexi_auth->get_classes_for_assignment($assignment_id);
 		$this->data['assignment_classes'] = $assignment_classes;
 		
-	/*	$class_names = $this->flexi_auth->get_classnames_for_assignment($assignment_id);
+		/*
+		$class_names = $this->flexi_auth->get_classnames_for_class_id($assignment_id);
 		$this->data['class_names'] = $class_names;
-	*/	
+		*/
 		if ($this->input->post('update_assignment')) {
 		
 			$this->load->model('demo_auth_admin_model');

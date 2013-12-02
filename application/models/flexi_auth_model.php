@@ -1902,27 +1902,16 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	}
 	
 
-/*
-	public function get_classnames_for_assignment($assignment_id) {
-		$assignments = $this->db->get_where('class_assignments', array('assignment_id_fk' => $assignment_id));
-		$assignments = $assignments->result_array();
+
+	public function get_classname_for_class_id($class_id) {
 		
-		$class_names = $this->db->get_where('student_classes', array('studentclass_name' => $class_name));
+		$classes = $this->db->get_where('student_classes', array('studentclass_id' => $class_id));
+		$class = $classes->row_array();
+		$class_name = $class['studentclass_name'];
+		return $class_name;
 		
-		$class_ids = $this->db->get_where('student_classes', array('studentclass_id' => $class_id));
-		$class_assignments_ids = $this->db->get_where('class_assignments', array('class_id_fk' => $class_assignments_id));
-		
-		
-		$resultaat = array();
-		
-		foreach ($assignments as $assignment) {
-			
-			if ($class_id == $class_assignments_id)
-				array_push($resultaat, $class_names);
-		}
-		return $resultaat;
 	}
-*/	
+
 	
 	public function get_uploads($sql_select, $sql_where)
 	{

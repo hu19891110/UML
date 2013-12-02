@@ -18,8 +18,16 @@
 	      		?>
 				</p>
 				<p>
-				Assignment class:
-				<?php echo $assignment_classes[$this->flexi_auth->db_column('class_assignments', 'id')];?>
+				Assignment classes: 
+				<?php 
+				
+					foreach ($assignment_classes as $assignment_class) {
+						$class_id = $assignment_classes[$this->flexi_auth->db_column('class_assignments', 'id')];
+						$class_name = $this->flexi_auth->get_classname_for_class_id($class_id);
+						echo $class_name;
+					}
+					
+				?>
 				
 				<!-- <?php echo $class_names[$this->flexi_auth->db_column('student_classes', 'studentclass_name')];?> -->
 				</p>
