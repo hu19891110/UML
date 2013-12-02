@@ -3,11 +3,11 @@
 	<div class="h2bg">
 		<h2>
 			<?php 
-			$user_id = $user['uacc_id'];
+			$user_id = $currentuser['uacc_id'];
 			$assignment_grade = $this->flexi_auth->calculate_grade($user_id, $assignment_id);
 			?>
 			<span class="cijfer"><?php echo $assignment_grade;?> </span>
-	 		Student <?php echo $user['uacc_username'];?> 	
+	 		Student <?php echo $currentuser['uacc_username'];?> 	
 	 		<!--<span class="backtoass"><a
 	 			href="<?php echo $base_url.'dashboard/assignments_per_student/'.$user['uacc_id'];?>"> 
 	 			Back to all assignments of the student</a>

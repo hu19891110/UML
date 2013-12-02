@@ -61,12 +61,11 @@
 				</thead>
 					<tbody>
 					<?php 
-					print_r($current_user);
 					 if (!empty($checked_assignments)) { ?>
 					<?php foreach ($checked_assignments as $checked_assignment) { ?> 
 					<?php 
 							$assignment_id = $checked_assignment[$this->flexi_auth->db_column('assignment', 'id')];
-							$student_id = $current_user['uacc_id'];
+							$student_id = $currentuser['uacc_id'];
 							$grade = $this->flexi_auth->get_grade_for_assignment_by_student($assignment_id, $student_id);
 							if ($grade != FALSE) {
 							?>
@@ -74,7 +73,7 @@
 								<tr>
 									<td><?php echo $checked_assignment[$this->flexi_auth->db_column('assignment', 'name')];?></td>
 									<td><?php echo $grade; ?></td>
-									<td><a href="<?php echo $base_url.'dashboard/checked_assignment_per_student/'.$checked_assignment[$this->flexi_auth->db_column('assignment', 'id')].'/' .$current_user['uacc_id'];?>">details</a></td>
+									<td><a href="<?php echo $base_url.'dashboard/checked_assignment_per_student/'.$checked_assignment[$this->flexi_auth->db_column('assignment', 'id')].'/' .$currentuser['uacc_id'];?>">details</a></td>
 								</tr>
 							
 								<?php } ?>
