@@ -1155,6 +1155,33 @@ class Dashboard extends CI_Controller {
 	
 	}
 
+	//function to check all the assignments as checked
+	function mark_all_assignments_as_checked()
+	{
+		echo "mark_all_assignments_as_checked";
+		//checks if a user is the admin
+		if (!$this->flexi_auth->is_admin()) {
+			$this->flexi_auth->set_error_message('You are not priviliged to view this area.', TRUE);
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+			redirect('dashboard');
+		}
+
+		$this->load->model('flexi_auth_model');
+
+		$sql_where = array($this->login->tbl_col_assignment['checked'] => '0');
+		$assignments = $this->flexi_auth_model->get_assignments(FALSE, $sql_where);
+		//hierdoor krijg je een hele hoop gegevens uit de tabel
+		$this->data['assignments'] = $assignments->result_array();
+	
+		foreach ($assignments as $assignments)
+		{
+			//hier zou ik van de tabel assignments de entries assignment_id ophalen?
+    		$assignment_id = $assignments['assignment_id'];
+    		//dit werkt gewoon
+    		$this->flexi_auth_model->mark_assignment_as_checked($assignment_id);
+		}
+	}
+
 	
 	function do_upload($assignment_id)
 	{
