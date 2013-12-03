@@ -30,7 +30,7 @@ class Dashboard extends CI_Controller {
 			redirect('dashboard/change_password/'. $currentuser_id);
 		}
 
-		//$this->output->enable_profiler(TRUE);
+		$this->output->enable_profiler(TRUE);
 		
 		$this->data = null;
 		
