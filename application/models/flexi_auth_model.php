@@ -1974,10 +1974,10 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		foreach($assignment_ids as $assignment_id_array) {
 			$assignment_id = $assignment_id_array['deadline_id'];
 			if ($i > 0) {
-				$sql_where = $sql_where . " AND assignment_id_fk != $assignment_id";
+				$sql_where = $sql_where . " AND `assignment_id_fk` != $assignment_id";
 			} else {
 				$sql_where = $sql_where . "class_id_fk = $class_id AND ";
-				$sql_where = $sql_where . "( assignment_id_fk != $assignment_id";
+				$sql_where = $sql_where . "( `assignment_id_fk` != $assignment_id";
 			}
 			
 			$i++;
@@ -1996,7 +1996,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		foreach ($assignments as $assignment) {
 			$assignment_id = $assignment['assignment_id_fk'];
 			if ($i > 0) {
-				$sql_where = $sql_where . " OR 'assignment_id' = $assignment_id";
+				$sql_where = $sql_where . " OR `assignment_id` = $assignment_id";
 			} else {
 				$sql_where = $sql_where . "assignment_id = $assignment_id";
 			}
