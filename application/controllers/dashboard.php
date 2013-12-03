@@ -18,7 +18,6 @@ class Dashboard extends CI_Controller {
 		
 		if (! $this->flexi_auth->is_logged_in_via_password()) 
 		{
-		
 			$this->flexi_auth->set_error_message('You must be logged in to access this area.', TRUE);
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			redirect('login');
