@@ -30,7 +30,7 @@
 							<li>
 								<label for="submit">Send Email:</label>
 								<input type="submit" name="send_forgotten_password" id="submit" value="Submit" class="link_button large"/>
-								<small>Note: By default, this demo is set so that the password must be reset within 15 minutes of the 'forgotten password' email being sent.</small>
+			
 							</li>
 						</ul>
 					</div>	

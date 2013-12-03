@@ -229,7 +229,7 @@ class Login extends CI_Controller {
 		// Get any status message that may have been set.
 		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
 
-		$this->load->view('demo/public_examples/resend_activation_token_view', $this->data);		
+		$this->load->view('resend_activation_token_view', $this->data);		
 	}
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
