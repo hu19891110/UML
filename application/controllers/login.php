@@ -249,14 +249,14 @@ class Login extends CI_Controller {
 		// If the 'Forgotten Password' form has been submitted, then email the user a link to reset their password.
 		if ($this->input->post('send_forgotten_password')) 
 		{
-			$this->load->model('flexi_auth_model');
-			$this->flexi_auth_model->forgotten_password();
+			$this->load->model('demo_auth_model');
+			$this->demo_auth_model->forgotten_password();
 		}
 		
 		// Get any status message that may have been set.
 		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
 
-		$this->load->view('demo/public_examples/forgot_password_view', $this->data);		
+		$this->load->view('forgot_password_view', $this->data);		
 	}
 	
 	/**
@@ -270,14 +270,14 @@ class Login extends CI_Controller {
 		// If the 'Change Forgotten Password' form has been submitted, then update the users password.
 		if ($this->input->post('change_forgotten_password')) 
 		{
-			$this->load->model('flexi_auth_model');
-			$this->flexi_auth_model->manual_reset_forgotten_password($user_id, $token);
+			$this->load->model('demo_auth_model');
+			$this->demo_auth_model->manual_reset_forgotten_password($user_id, $token);
 		}
 		
 		// Get any status message that may have been set.
 		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
 
-		$this->load->view('demo/public_examples/forgot_password_update_view', $this->data);
+		$this->load->view('forgot_password_update_view', $this->data);
 	}
 
 	/**
