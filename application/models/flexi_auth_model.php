@@ -2103,6 +2103,29 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 	}
 	
+	public function set_teacher_file_on_deadline($teacher_id, $deadline_id) {
+		
+		$sql_insert = array(
+			'student_id' => $teacher_id,
+			'deadline_id' => $deadline_id,
+			'grade' => 0,
+			'Type' => 2,
+			'upload_date' => $this->database_date_time()
+		);
+		
+		$this->db->insert('uploads', $sql_insert);
+		
+		$upload_id = $this->db->insert_id();
+		
+		if ($this->db->affected_rows() > 0)
+	    {
+			return TRUE;
+	    } else {
+			return FALSE;
+		}
+		
+	}
+	
 	public function get_upload_id($assignment_id, $student_id)
 	{
 		$upload = $this->db->get_where('uploads', array('student_id' => $student_id, 'deadline_id' => $assignment_id));

@@ -51,8 +51,10 @@
 				<?php } ?>	
 				<br/><br/>
 				<h3>Upload correction model</h3>				
-				<?php echo form_open_multipart('assignments/do_upload');?>
-			<input type="file" name="userfile" size="20"> <br/> <br/>
-			<input type="submit" name="add_answer_sheet" value="Upload" class="small button"> <br/> <br/>
+				<?php echo form_open_multipart('dashboard/do_upload');?>
+			<input type="file" name="assignment_file" size="20"> <br/> <br/>
+			<input type="hidden" id="assignmentID" name="assignmentID" value="<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>" />
+			<input type="submit" value="Upload" class="small button"> <br/> <br/>
+				<?php echo form_close(); ?>
 
 </div> <!-- end 12 columns --> 

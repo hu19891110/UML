@@ -1383,6 +1383,11 @@ class Flexi_auth extends Flexi_auth_lite
 	
 	}
 	
+	public function set_teacher_file_on_deadline($teacher_id, $deadline_id) {
+		
+		return $this->CI->flexi_auth_model->set_teacher_file_on_deadline($teacher_id, $deadline_id);
+	}
+	
 	public function upload_too_late($upload_id, $assignment_id)
 	{
 		return $this->CI->flexi_auth_model->upload_too_late($upload_id, $assignment_id);

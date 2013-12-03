@@ -1209,12 +1209,17 @@ class Dashboard extends CI_Controller {
 			
 			$this->session->set_flashdata('message', '<p class="error_msg">Unable to upload.</p>');
 			redirect('dashboard/assignments');
+			
 		}
 		else
 		{
+		if (!$this->flexi_auth->is_admin()) { 
 			$student_id = $this->flexi_auth->get_user_id();
 			$this->flexi_auth->set_student_file_on_deadline($student_id, $assignment_id);
-			
+		} else {
+			$teacher_id = $this->flexi_auth->get_user_id();
+			$this->flexi_auth->set_teacher_file_on_deadline($teacher_id, $assignment_id);
+		}
 			$data = array('upload_data' => $this->upload->data());
 			
 			$this->session->set_flashdata('message', '<p class="status_msg">Upload has been saved.</p>');
