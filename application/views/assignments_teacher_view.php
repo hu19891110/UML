@@ -202,6 +202,7 @@
       			<th>Assignment</th>
       			<th>Deadline of assignment</th>
       			<th>View details</th>
+      			<th>View grades</th>
       			<th></th>
       			<th></th>
     				</tr>
@@ -220,6 +221,7 @@
 	      				?>
 	      			</td>
 	      			<td> <a href="<?php echo $base_url . 'dashboard/assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">View details</a> </td>
+	      			<td> <a href="<?php echo $base_url . 'dashboard/grade_overview/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">View grades</a> </td>
 	      			<td> <a class="modify" href="<?php echo $base_url . 'dashboard/assignments/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">Modify</a> </td>
 	      			<td>
 		      			<input type="hidden" id="assignmentID" name="assignmentID" value="<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>" />
