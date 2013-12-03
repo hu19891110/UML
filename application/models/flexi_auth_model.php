@@ -1940,7 +1940,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$datetime1 = strtotime($assignment_time);
 		$datetime2 = strtotime($upload_time);
 		$datediff = $datetime2 - $datetime1;
-		$days = floor($datediff/(60*60*24));
+		$days = ceil($datediff/(60*60*24));
 		return $days;
 	}
 	
@@ -2067,33 +2067,32 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	}
 	
 	public function set_student_file_on_deadline($student_id, $deadline_id) {
+		
 		$sql_insert = array(
 			'student_id' => $student_id,
 			'deadline_id' => $deadline_id,
 			'grade' => 0,
-			'faults' => 999,
 			'Type' => 1,
-			'upload_date' => $this->db->database_date_time()
+			'upload_date' => $this->database_date_time()
 		);
 		
 		$this->db->insert('uploads', $sql_insert);
 		
 		$upload_id = $this->db->insert_id();
 		
-		$days_late = upload_too_late($upload_id, $deadline_id);
-		$substraction_late = $days_late * 0.5;
-		
-		$sql_update = array (
-			'substraction_late' => $substraction_late
-		);
-		
-		$sql_where = array(
-			'student_id' => $student_id,
-			'deadline_id' => $deadline_id
-		);
+		$days_late = $this->upload_too_late($upload_id, $deadline_id);
 
-		$this->db->update('uploads', $sql_update, $sql_where);
-		
+		if ($days_late > 0) {
+			$substraction_late = $days_late * 0.5;
+			
+			// Set the comments
+			$sql_update = array( $this->login->tbl_col_uploads['substraction'] => $substraction_late);
+			$sql_where = array(	$this->login->tbl_col_uploads['student_id'] => $student_id,
+								$this->login->tbl_col_uploads['deadline_id'] => $deadline_id);
+			
+			// Insert the comments
+			$this->db->update($this->login->tbl_uploads, $sql_update, $sql_where);
+		}
 		
 		if ($this->db->affected_rows() > 0)
 	    {
@@ -2101,7 +2100,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	    } else {
 			return FALSE;
 		}
-	
+		
 	}
 	
 	public function get_upload_id($assignment_id, $student_id)

@@ -1,15 +1,17 @@
 <div class="large-12 columns">
 
-		<?php if (! empty($message)) { ?>
-		<div id="message">
-			<?php echo $message; ?>
-		</div>
-	<?php } ?>
 
 	<div class="h2bg">
 	<h2> Student <?php echo $user['uacc_username'];?> </h2>
 	<h4> Assignments overview </h4>
 	</div>	
+	
+	
+	<?php if (! empty($message)) { ?>
+		<div id="message">
+			<?php echo $message; ?>
+		</div>
+	<?php } ?>
 		
 	<table style="width: 1000px;" class="assignmentstudents responsive">
 			
@@ -29,11 +31,13 @@
 									<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?>
 								</td>
 								<td>
-									<?php echo form_open_multipart('assignments/do_upload');?>
-										<input type="file" name="userfile" size="20" />
+									
+									<?php echo form_open_multipart('dashboard/do_upload');?>
+										<input type="file" name="assignment_file" size="200" />
 										<input type="hidden" id="assignmentID" name="assignmentID" value="<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>" />
 										<input type="submit" value="Upload" assignmentID="<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>" class = "small button"/>
-									</form>
+										<?php form_close(); ?>
+								
 								</td>
 								<td>
 									<?php 

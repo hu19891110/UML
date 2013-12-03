@@ -951,6 +951,7 @@ class Dashboard extends CI_Controller {
 		
 		$this->data['classes'] = $this->flexi_auth->get_classes_array();
 		if (!$this->flexi_auth->is_admin()) {
+			
 			$user_id = $this->flexi_auth->get_user_id();
 			$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
 			$this->data['user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
@@ -1183,7 +1184,7 @@ class Dashboard extends CI_Controller {
 	}
 
 	
-	function do_upload($assignment_id)
+	function do_upload()
 	{
 		
 		/*$rows = $this->flexi_auth->get_student_class($this->flexi_auth->get_user_id());
@@ -1191,6 +1192,7 @@ class Dashboard extends CI_Controller {
 		//print_r($rows);
 		$class_id = $rows[0]['uacc_class_fk'];
 		*/
+		$assignment_id = $this->input->post('assignmentID');
 		
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types'] = '*';
@@ -1201,21 +1203,22 @@ class Dashboard extends CI_Controller {
 
 		$this->load->library('upload', $config);
 		
-		if ( ! $this->upload->do_upload($assignment_id))
+		if ( ! $this->upload->do_upload('assignment_file'))
 		{
-			$this->data['error'] = array('error' => $this->upload->display_errors());
+			$error = array('error' => $this->upload->display_errors());
 			
-			$this->data['maincontent'] = $this->load->view('student_assignments_view', $this->data, TRUE);
-			$this->load->view('template-student', $this->data);
+			$this->session->set_flashdata('message', '<p class="error_msg">Unable to upload.</p>');
+			redirect('dashboard/assignments');
 		}
 		else
 		{
-			$this->load->model('demo_auth_model');
-			$this->demo_auth_model->add_file_by_student($assignment_id);
+			$student_id = $this->flexi_auth->get_user_id();
+			$this->flexi_auth->set_student_file_on_deadline($student_id, $assignment_id);
 			
 			$data = array('upload_data' => $this->upload->data());
 			
-			redirect('assignment/' . $assignment_id);
+			$this->session->set_flashdata('message', '<p class="status_msg">Upload has been saved.</p>');
+			redirect('dashboard/assignments');
 		}
 	}
 

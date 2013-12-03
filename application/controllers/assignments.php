@@ -69,7 +69,7 @@ class Assignments extends CI_Controller {
 		
 	}
 
-	function do_upload($assignment_id)
+	function do_upload($assignment_id = FALSE)
 	{
 		
 		/*$rows = $this->flexi_auth->get_student_class($this->flexi_auth->get_user_id());
@@ -77,7 +77,10 @@ class Assignments extends CI_Controller {
 		//print_r($rows);
 		$class_id = $rows[0]['uacc_class_fk'];
 		*/
-		$assignment_id = '999'; //test
+		if (!$assignment_id) {
+			$assignment_id = $this->input->post('assignmentID');
+		}
+
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types'] = '*';
 		$config['max_size']	= '2000';
@@ -93,6 +96,7 @@ class Assignments extends CI_Controller {
 			
 			$this->data['maincontent'] = $this->load->view('student_assignments_view', $this->data, TRUE);
 			$this->load->view('template-student', $this->data);
+			redirect('dashboard/assignments');
 		}
 		else
 		{
@@ -105,9 +109,11 @@ class Assignments extends CI_Controller {
 				echo 'kk<br />';
 			}*/
 			$data = array('upload_data' => $this->upload->data());
-
+			/*
 			$this->data['maincontent'] = $this->load->view('upload_success', $data, TRUE);
 			$this->load->view('template-student', $this->data);
+			*/
+			redirect('dashboard');
 		}
 	}
 }

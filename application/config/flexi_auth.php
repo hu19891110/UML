@@ -212,8 +212,8 @@
 	$config['database']['uploads']['columns']['student_id'] = 'student_id';
 	$config['database']['uploads']['columns']['deadline_id'] = 'deadline_id';
 	$config['database']['uploads']['columns']['grade'] = 'grade';
-	$config['database']['uploads']['columns']['faults'] = 'faults';
 	$config['database']['uploads']['columns']['comments'] = 'comments';
+	$config['database']['uploads']['columns']['substraction'] = 'substraction_late';
 	
 	
 	
