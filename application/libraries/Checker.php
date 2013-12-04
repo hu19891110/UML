@@ -755,12 +755,12 @@ class Checker
 	
 	function mark_student_upload_as_checked($student_id, $deadline_id) {
 		// Set update and where.
-		$sql_update = array( $this->login->tbl_col_uploads['checked'] => 1);
-		$sql_where = array(	$this->login->tbl_col_uploads['student_id'] => $student_id,
-							$this->login->tbl_col_uploads['deadline_id'] => $deadline_id);
+		$sql_update = array('checked' => 1);
+		$sql_where = array(	'student_id' => $student_id,
+							'deadline_id' => $deadline_id);
 			
 		// Update checked
-		$this->db->update($this->login->tbl_uploads, $sql_update, $sql_where);
+		$this->CI->db->update('uploads', $sql_update, $sql_where);
 	}
 
 }

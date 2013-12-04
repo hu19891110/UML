@@ -1411,6 +1411,10 @@ class Flexi_auth extends Flexi_auth_lite
 		return $this->CI->flexi_auth_model->get_grade_for_assignment_by_student($assignment_id, $student_id);
 	}
 	
+	public function get_grades_for_assignment($assignment_id) {
+		return $this->CI->flexi_auth_model->get_grades_for_assignment($assignment_id);
+	}
+	
 	public function get_comment($user_id, $assignment_id) {
 		return $this->CI->flexi_auth_model->get_comment($user_id, $assignment_id);
 	}
@@ -1485,6 +1489,14 @@ class Flexi_auth extends Flexi_auth_lite
 	public function answers_already_uploaded($user_id, $assignment_id) {
 		return $this->CI->flexi_auth_model->answers_already_uploaded($user_id, $assignment_id);
 	}
+	public function answers_already_checked($user_id, $assignment_id) {
+		return $this->CI->flexi_auth_model->answers_already_checked($user_id, $assignment_id);
+	}
+	
+	public function get_assignments_not_completely_checked() {
+		return $this->CI->flexi_auth_model->get_assignments_not_completely_checked();
+	}
+	
 	
 }
 
