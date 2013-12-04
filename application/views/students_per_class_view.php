@@ -16,15 +16,14 @@
 							<tr>
 								<th class="spacer_150 tooltip_trigger" 
 									title="Student first name">
-									Student Username
+									Username
 								</th>
 								<th class="tooltip_trigger" 
 									title="Student last name">
-									Student Email
+									Email
 								</th>
 								<th class="tooltip_trigger" 
 									title="Student last name">
-									Update user account
 								</th>
 							</tr>
 						</thead>
@@ -36,7 +35,7 @@
 								
 								<td><?php echo $user[$this->flexi_auth->db_column('user_acc', 'email')];?></td>
 								
-								<td><a href="<?php echo $base_url.'dashboard/update_user_account/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>">Update</a>
+								<td><a class="modify" href="<?php echo $base_url.'dashboard/update_user_account/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>">Update</a>
 							</tr>
 							<?php } ?>
 						<?php } ?>	

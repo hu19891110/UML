@@ -1,13 +1,14 @@
 <!-- Main Content -->
 	<div class="large-12 columns padding">
-				<h2>Manage Student Classes</h2> 
+				<h2>Add new class</h2> 
 
 			<?php if (! empty($message)) { ?>
 				<div id="message">
 					<?php echo $message; ?>
 				</div>
 			<?php } ?>
-				
+		
+		<?php if ($update_class_info == 0) { ?>		
 				<div class="large-6 columns">
 					<?php echo form_open(current_url());	?>  	
 				
@@ -31,9 +32,38 @@
 			
 				<?php echo form_close();?>
 				</div> <!--large-6 columns -->
+		<?php } ?>		
+		
+		
+		<?php if ($update_class_info == 1) { ?>
+			<div class="large-6 columns">
+			<?php echo form_open(current_url());	?>  	
+						<h3>Class Details</h3>
+						<ul>
+							<li class="info_req">
+								<label for="class">Class Name:</label>
+								<input type="text" id="class" name="update_class_name" value="<?php echo set_value('update_class_name', $class[$this->flexi_auth->db_column('student_class', 'name')]);?>" class="tooltip_trigger"
+									title="The name of the user class."/>
+							</li>
+							<li>
+								<label for="description">Class Description:</label>
+								<textarea id="description" name="update_class_description" class="width_400 tooltip_trigger"
+									title="A short description of the purpose of the user class."><?php echo set_value('update_class_description', $class[$this->flexi_auth->db_column('student_class', 'description')]);?></textarea>
+							</li>
+						</ul>
+
+					<a class="button small" href="<?php echo $base_url;?>dashboard/add_student_to_class/<?php echo $class_id; ?>">Add/remove students</a>
 				
+					<input type="submit" name="update_student_class" id="submit" value="Save" class="button small"/>
+			
+				<?php echo form_close();?>
+			</div>
+		<?php } ?>
 				
 			<div class="classes large-6 columns"> 	
+				<?php if ($update_class_info == 1) { ?>
+				<a href="<?php echo $base_url . 'dashboard/classes/'?>" class="small button">Add new class</a>			
+				<?php } ?>
 				<?php echo form_open(current_url());	?>  	
 					<table>
 						<thead>
@@ -67,7 +97,7 @@
 								<td><?php echo $class[$this->flexi_auth->db_column('student_class', 'description')];?></td>
 								<td><a href="<?php echo $base_url;?>dashboard/students_per_class/<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>">View list of students</a></td>
 								<td>
-								<a class="modify" href="<?php echo $base_url;?>dashboard/update_student_class/<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>">
+								<a class="modify" href="<?php echo $base_url;?>dashboard/classes/<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>">
 								Modify
 								</a>
 								</td>

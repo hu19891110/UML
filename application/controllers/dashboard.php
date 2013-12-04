@@ -385,8 +385,37 @@ class Dashboard extends CI_Controller {
 		redirect('dashboard/classes');
  	}
  	
-    function classes()
+    function classes($class_id = FALSE)
     {
+    
+    	if ($class_id != FALSE) {
+				// Check user has privileges to update user groups, else display a message to notify the user they do not have valid privileges.
+			if (! $this->flexi_auth->is_privileged('Update Student Class'))
+			{
+				$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to update student classes.</p>');
+				redirect('dashboard/manage_student_classes');		
+			}
+
+			// If 'Update student class' form has been submitted, update the user group details.
+			if ($this->input->post('update_student_class')) 
+			{
+				$this->load->model('demo_auth_admin_model');
+				$this->demo_auth_admin_model->update_student_class($class_id);
+			}
+
+			// Get user groups current data.
+			$sql_where = array($this->flexi_auth->db_column('student_class', 'id') => $class_id);
+			$this->data['class'] = $this->flexi_auth->get_classes_row_array(FALSE, $sql_where);
+		
+			$this->data['class_id'] = $class_id;
+			// Set any returned status/error messages.
+			$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];	
+			
+			$this->data['update_class_info'] = 1;
+		} else {
+			$this->data['update_class_info'] = 0;
+		}
+    
 		// Check user has privileges to view user groups, else display a message to notify the user they do not have valid privileges.
 		if (! $this->flexi_auth->is_admin())
 		{
@@ -438,12 +467,12 @@ class Dashboard extends CI_Controller {
 			$this->demo_auth_admin_model->insert_student_class();
 		}
 		
-    }
+   }
 	
  	/**
  	 * update_student_class
  	 * Update the details of a specific student class.
- 	 */
+ 	 
 	function update_student_class($class_id)
 	{
 		// Check user has privileges to update user groups, else display a message to notify the user they do not have valid privileges.
@@ -471,7 +500,7 @@ class Dashboard extends CI_Controller {
 		$data['maincontent'] = $this->load->view('student_class_update_view', $this->data, TRUE);
 		$this->load->view('template-teacher', $data);	
 	}
-	
+*/	
 	function add_student_to_class($class_id) 
 	{
 		// Check user has privileges to update user groups, else display a message to notify the user they do not have valid privileges.

@@ -7,7 +7,7 @@
 	
 		
 		<?php if ($update_user_info == 0) { ?>
-			<h2> Add a new student </h2>			
+			<h2> Add new student </h2>			
 			<div class="large-5 columns">
 				<?php echo form_open('register/register_account'); ?>  	
 					

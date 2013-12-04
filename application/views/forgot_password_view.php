@@ -19,17 +19,16 @@
 			<?php } ?>
 				
 				<?php echo form_open(current_url());	?>  	
-					<div class="w100 frame">
+					<div class="forgotbox">
 						<ul>
 							<li class="info_req">
-								<label for="identity">Email or Username:</label>
-								<input type="text" id="identity" name="forgot_password_identity" value="" class="tooltip_trigger"
+								<label for="identity">Email or Username:</label> <br/>
+								<input type="text" id="identity" name="forgot_password_identity" value="" class="forgot tooltip_trigger"
 									title="Please enter either your email address or username defined during registration."
 								/>
 							</li>
 							<li>
-								<label for="submit">Send Email:</label>
-								<input type="submit" name="send_forgotten_password" id="submit" value="Submit" class="link_button large"/>
+								<input type="submit" name="send_forgotten_password" id="submit" value="Send" class="link_button large"/>
 			
 							</li>
 						</ul>

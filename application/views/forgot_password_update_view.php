@@ -23,20 +23,19 @@
 						<ul>
 							<li>
 								<small>
-									<strong>For this demo, the following validation settings have been defined:</strong><br/>
-									Password length must be more than <?php echo $this->flexi_auth->min_password_length(); ?> characters in length.<br/>Only alpha-numeric, dashes, underscores, periods and comma characters are allowed.
-								</small>
+									Password length must be more than <?php echo $this->flexi_auth->min_password_length(); ?> characters in length.<br/>
+									Only alpha-numeric, dashes, underscores, periods and comma characters are allowed.
+								</small> <br/><br/>
 							</li>
 							<li class="info_req">
-								<label for="new_password">New Password:</label>
-								<input type="password" id="new_password" name="new_password" value=""/>
+								<label for="new_password">New Password:</label> <br/>
+								<input class="forgot" type="password" id="new_password" name="new_password" value=""/>
 							</li>
 							<li class="info_req">
 								<label for="confirm_new_password">Confirm New Password:</label>
-								<input type="password" id="confirm_new_password" name="confirm_new_password" value=""/>
+								<input class="forgot" type="password" id="confirm_new_password" name="confirm_new_password" value=""/>
 							</li>
 							<li class="info_req">
-								<label for="submit">Change Password:</label>
 								<input type="submit" name="change_forgotten_password" id="submit" value="Submit" class="link_button large"/>
 							</li>
 						</ul>
