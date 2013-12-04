@@ -46,7 +46,7 @@
 	 		 <?php } ?>
 			 <span class="mistake"><?php echo $error_value;?></span>
 			 <?
-			 if ($error_id == 1) {
+			 			 if ($error_id == 1) {
 				 ?>
 				 <p>Relationship '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': The relationship exists in the handed in model but has <strong>another</strong> name.</p>
 				 <?php
@@ -72,15 +72,15 @@
 				 <?php
 			 } else if ($error_id == 7) {
 				 ?>
-				 
+				 <p>Class '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'class')];?>', operation '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'operation')];?>': the datatype (<?php echo $error[$this->flexi_auth->db_column('checker_error', 'datatype')];?>) does not match. </p>
 				 <?php
 			 } else if ($error_id == 8) {
 				 ?>
-				 
+				 <p>Parameter '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'parameter')];?>' is missing from the operation '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'operation')];?>' </p>
 				 <?php
 			 } else if ($error_id == 9) {
 				 ?>
-				 
+				 <p>Operation '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'operation')];?>' is missing from the class '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'class')];?>' </p>
 				 <?php
 			 } else if ($error_id == 10) {
 				 ?>
@@ -89,19 +89,19 @@
 				 <?php
 			 } else if ($error_id == 11) {
 				 ?>
-				 
+				 <p>The sterotype from the class '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'class')];?>' is incorrect. </p>
 				 <?php
 			 } else if ($error_id == 12) {
 				 ?>
-				 
+				 <p>The returntype from the operation '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'operation')];?>' is incorrect. </p>
 				 <?php
 			 } else if ($error_id == 13) {
 				 ?>
-				 
+				 <p>The following part(s) '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'eigenschappen')];?>' from the operation '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'operation')];?>' is/are incorrect. </p>
 				 <?php
 			 } else if ($error_id == 14) {
 				 ?>
-				 
+				 <p>The following part(s) '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'eigenschappen')];?>' from the attribute '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'attribute')];?>' is/are incorrect. </p>
 				 <?php
 			 } else if ($error_id == 15) {
 				 ?>
@@ -109,10 +109,14 @@
 				 <?php
 			 } else if ($error_id == 16) {
 				 ?>
-				 
+				 <p>The relation '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>' is missing in the handed in model. </p>
 				 <?php
+			} else if ($error_id = 17) {
+				?>
+				<p>The student handed in his assignment <?php echo $error[$this->flexi_auth->db_column('checker_error', 'eigenschappen')];?> after the deadline. </p>
+				<?php
 			}
-			echo '<br/><br/>';
+			echo '<br/><br/>';		
 		}
 		
 	?>	

@@ -56,21 +56,28 @@ class Checker
 
 	function checkFile($correctfile, $handed_in_file) {
 		$config['upload_path'] = './uploads/';
+		$this->CI->load->model('flexi_auth_model');
+		$filename = $handed_in_file;
+		$info = explode("-", $filename);
+		$student_id = $info[0];
+		$deadline_id = $info[1];
+		$days_late = $this->CI->flexi_auth_model->get_days_late($student_id, $deadline_id);
+		$substraction_late = $this->CI->flexi_auth_model->get_substraction_late($student_id, $deadline_id);
+		
+		if ($substraction_late > 0) {
+			$this->add_error($filename, 17, '', '' , '', '', '', '', $days_late);
+		}
 		
 		$correctfile = file_get_contents('./uploads/' . $correctfile);
 		$correctfile = simplexml_load_string($correctfile);
-		$filename = $handed_in_file;
+
 		$handed_in_file = file_get_contents('./uploads/' . $handed_in_file);
 		$handed_in_file = simplexml_load_string($handed_in_file);
 		
 		$this->checkModels($correctfile, $handed_in_file, $filename);
 		
-		$this->CI->load->model('flexi_auth_model');
 		$this->CI->flexi_auth_model->set_status_message('assignment_checked', 'config');
-		$this->CI->load->model('flexi_auth_model');
-		$info = explode("-", $filename);
-		$student_id = $info[0];
-		$deadline_id = $info[1];
+
 		$this->mark_student_upload_as_checked($student_id, $deadline_id);
 		
 		$this->CI->session->set_flashdata('message', $this->CI->flexi_auth->get_messages());

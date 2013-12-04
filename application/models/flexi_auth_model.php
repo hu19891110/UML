@@ -2932,6 +2932,28 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		}
 		return $student_assignments;
 	}
+	
+	public function get_days_late($user_id, $assignment_id) {
+		$upload = $this->db->get_where('uploads', array('student_id' => $user_id, 'deadline_id' => $assignment_id));
+		$upload = $upload->row_array();
+		
+		$assignment = $this->db->get_where('assignments', array('assignment_id' => $assignment_id));
+		$assignment = $assignment->row_array();
+		$upload_time = $upload['upload_date'];
+		$assignment_time = $assignment['assignment_enddate'];
+		$datetime1 = strtotime($assignment_time);
+		$datetime2 = strtotime($upload_time);
+		$datediff = $datetime2 - $datetime1;
+		$days = ceil($datediff/(60*60*24));
+		return $days;
+	}
+	
+	public function get_substraction_late($user_id, $assignment_id) {
+		$upload = $this->db->get_where('uploads', array('student_id' => $user_id, 'deadline_id' => $assignment_id));
+		$upload = $upload->row_array();
+		$substraction = $upload['substraction_late'];
+		return $substraction;
+	}
 }
 
 
