@@ -22,6 +22,7 @@ class Dashboard extends CI_Controller {
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			redirect('login');
 		}
+		
 		$currentuser_id = $this->flexi_auth->get_user_id();
 		$this->load->model('flexi_auth_model');
 		$first_time = $this->flexi_auth_model->first_login($currentuser_id);
@@ -79,29 +80,21 @@ class Dashboard extends CI_Controller {
 
 
 	}
-	/*
-	function test_model () 
-	{
-	foreach ($this->login->database_config['custom'] as $custom_table => $table_data)
-		{
-
-			// Update user custom data table
-			if (! empty($table_data['custom_columns']))
-			{
-				// Match submitted data with the custom data columns set via the config file
-				foreach ($table_data['custom_columns'] as $key => $column)
-				{
-					echo $column;
-					echo $key;
-				}
-				
-			}
-		}
-	}
-	*/
+	function manage_user_accounts($update_user_id = FALSE)
+    {
+    	if (!$this->flexi_auth->is_admin()) {
+    		$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to view user accounts.</p>');
+	    	redirect('dashboard');
+    	}
+    	if ($update_user_id != FALSE) {
+    		redirect('dashboard/users/'.$update_user_id);
+    	} else {
+    		redirect('dashboard/users');
+    	}
+    }
 	
 		
-	function manage_user_accounts($update_user_id = FALSE)
+	function users($update_user_id = FALSE)
     {
     	if (!$this->flexi_auth->is_admin()) {
     		$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to view user accounts.</p>');
@@ -112,6 +105,10 @@ class Dashboard extends CI_Controller {
 		$this->data['classes'] = $this->flexi_auth->get_classes_array();
 
 		if ($update_user_id != FALSE) {
+			if (!$this->flexi_auth->user_id_exist($update_user_id)) {
+				$this->session->set_flashdata('message', '<p class="error_msg">Requested user does not exist.</p>');
+				redirect('dashboard/users');
+			}
 			$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $update_user_id);
 			$this->data['update_user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
 			$this->data['update_user_info'] = 1;
@@ -163,6 +160,7 @@ class Dashboard extends CI_Controller {
 		$data['maincontent'] =  $this->load->view('userlist_view', $this->data , TRUE);
 		$this->load->view('template-teacher', $data);		
     }
+
 
     function update_user_account($user_id)
 	{
@@ -222,7 +220,7 @@ class Dashboard extends CI_Controller {
  	/**
  	 * manage_user_groups
  	 * View and manage a table of all user groups.
- 	 */
+ 	 
     function manage_user_groups()
     {
 		// Check user has privileges to view user groups, else display a message to notify the user they do not have valid privileges.
@@ -256,11 +254,12 @@ class Dashboard extends CI_Controller {
 		$data['maincontent'] = $this->load->view('user_groups_view', $this->data, TRUE);	
 		$this->load->view('template-teacher', $data);		
     }
+    */
 	
  	/**
  	 * insert_user_group
  	 * Insert a new user group.
- 	 */
+ 	 
 	function insert_user_group()
 	{
 		// Check user has privileges to insert user groups, else display a message to notify the user they do not have valid privileges.
@@ -283,11 +282,12 @@ class Dashboard extends CI_Controller {
 		$data['maincontent'] = $this->load->view('user_group_insert_view', $this->data, TRUE);
 		$this->load->view('template-teacher', $data);
 	}
+	*/
 	
  	/**
  	 * update_user_group
  	 * Update the details of a specific user group.
- 	 */
+ 	 
 	function update_user_group($group_id)
 	{
 		// Check user has privileges to update user groups, else display a message to notify the user they do not have valid privileges.
@@ -314,7 +314,7 @@ class Dashboard extends CI_Controller {
 		$data['maincontent'] = $this->load->view('user_group_update_view', $this->data, TRUE);
 		$this->load->view('template-teacher', $data);	
 	}
-
+	*/
 
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
@@ -330,10 +330,15 @@ class Dashboard extends CI_Controller {
  	 {
  	 
  	 	// Check user has privileges to view user groups, else display a message to notify the user they do not have valid privileges.
-		if (! $this->flexi_auth->is_privileged('View Student Classes'))
+		if (! $this->flexi_auth->is_admin())
 		{
 			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to view student classes.</p>');
 			redirect('dashboard');		
+		}
+		
+		if (!$this->flexi_auth->class_id_exist($class_id)) {
+			$this->session->set_flashdata('message', '<p class="error_msg">Requested class does not exist.</p>');
+			redirect('dashboard');
 		}
 		
 		$sql_select = array(
@@ -368,11 +373,22 @@ class Dashboard extends CI_Controller {
  	 	$data['maincontent'] = $this->load->view('students_per_class_view', $this->data, TRUE);	
 		$this->load->view('template-teacher', $data);	
  	 }
- 	 
-    function manage_student_classes()
+
+ 	function manage_student_classes()
     {
 		// Check user has privileges to view user groups, else display a message to notify the user they do not have valid privileges.
-		if (! $this->flexi_auth->is_privileged('View Student Classes'))
+		if (! $this->flexi_auth->is_admin())
+		{
+			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to view student classes.</p>');
+			redirect('dashboard');		
+		}
+		redirect('dashboard/classes');
+ 	}
+ 	
+    function classes()
+    {
+		// Check user has privileges to view user groups, else display a message to notify the user they do not have valid privileges.
+		if (! $this->flexi_auth->is_admin())
 		{
 			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to view student classes.</p>');
 			redirect('dashboard');		
@@ -423,35 +439,6 @@ class Dashboard extends CI_Controller {
 		}
 		
     }
-
-	
- 	/**
- 	 * insert_student_class
- 	 * Insert a new student class.
- 	 
-	function insert_student_class()
-	{
-		// Check user has privileges to insert user groups, else display a message to notify the user they do not have valid privileges.
-		if (! $this->flexi_auth->is_privileged('Insert Student Class'))
-		{
-			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to insert new student classes.</p>');
-			redirect('dashboard/manage_student_classes');		
-		}
-
-		// If 'Add Student Class' form has been submitted, insert the new user group.
-		if ($this->input->post('insert_student_class')) 
-		{
-			$this->load->model('demo_auth_admin_model');
-			$this->demo_auth_admin_model->insert_student_class();
-		}
-		
-		// Set any returned status/error messages.
-		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
-
-		$data['maincontent'] = $this->load->view('student_class_insert_view', $this->data, TRUE);
-		$this->load->view('template-teacher', $data);
-	}
-	*/
 	
  	/**
  	 * update_student_class
@@ -485,14 +472,18 @@ class Dashboard extends CI_Controller {
 		$this->load->view('template-teacher', $data);	
 	}
 	
-	
 	function add_student_to_class($class_id) 
 	{
 		// Check user has privileges to update user groups, else display a message to notify the user they do not have valid privileges.
-		if (! $this->flexi_auth->is_privileged('Update Student Class'))
+		if (!$this->flexi_auth->is_admin())
 		{
 			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to update student classes.</p>');
 			redirect('dashboard/manage_student_classes');		
+		}
+		
+		if (!$this->flexi_auth->class_id_exist($class_id)) {
+			$this->session->set_flashdata('message', '<p class="error_msg">Requested class does not exist.</p>');
+			redirect('dashboard');
 		}
 		
 		if (!empty($_POST)) {	
@@ -552,7 +543,7 @@ class Dashboard extends CI_Controller {
  	 * manage_privileges
  	 * View and manage a table of all user privileges.
  	 * This example allows user privileges to be deleted via checkoxes within the page.
- 	 */
+ 	 
     function manage_privileges()
     {
 		// Check user has privileges to view user privileges, else display a message to notify the user they do not have valid privileges.
@@ -585,11 +576,12 @@ class Dashboard extends CI_Controller {
 		$data['maincontent'] = $this->load->view('privileges_view', $this->data, TRUE);
 		$this->load->view('template-teacher', $data);	
 	}
+	*/
 	
  	/**
  	 * insert_privilege
  	 * Insert a new user privilege.
- 	 */
+ 	 
 	function insert_privilege()
 	{
 		// Check user has privileges to insert user privileges, else display a message to notify the user they do not have valid privileges.
@@ -612,11 +604,12 @@ class Dashboard extends CI_Controller {
 		$data['maincontent'] = $this->load->view('privilege_insert_view', $this->data, TRUE);
 		$this->load->view('template-teacher', $data);	
 	}
+	*/
 	
  	/**
  	 * update_privilege
  	 * Update the details of a specific user privilege.
- 	 */
+ 	 
 	function update_privilege($privilege_id)
 	{
 		// Check user has privileges to update user privileges, else display a message to notify the user they do not have valid privileges.
@@ -643,184 +636,7 @@ class Dashboard extends CI_Controller {
 		$data['maincontent'] = $this->load->view('privilege_update_view', $this->data, TRUE);
 		$this->load->view('template-teacher', $data);	
 	}
-	
- 	/**
- 	 * update_user_privileges
- 	 * Update the access privileges of a specific user.
- 	 */
-    function update_user_privileges($user_id)
-    {
-		// Check user has privileges to update user privileges, else display a message to notify the user they do not have valid privileges.
-		if (! $this->flexi_auth->is_privileged('Update Privileges'))
-		{
-			$this->session->set_flashdata('message', '<p class="error_msg">You do not have access privileges to update user privileges.</p>');
-			redirect('dashboard/manage_user_accounts');		
-		}
-
-		// If 'Update User Privilege' form has been submitted, update the user privileges.
-		if ($this->input->post('update_user_privilege')) 
-		{
-			$this->load->model('demo_auth_admin_model');
-			$this->demo_auth_admin_model->update_user_privileges($user_id);
-		}
-
-		// Get users profile data.
-		$sql_select = array(
-			'upro_uacc_fk', 
-			'upro_first_name', 
-			'upro_last_name',
-			$this->flexi_auth->db_column('user_acc', 'group_id'),
-			$this->flexi_auth->db_column('user_group', 'name')
-        );
-		$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
-		$this->data['user'] = $this->flexi_auth->get_users_row_array($sql_select, $sql_where);		
-
-		// Get all privilege data. 
-		$sql_select = array(
-			$this->flexi_auth->db_column('user_privileges', 'id'),
-			$this->flexi_auth->db_column('user_privileges', 'name'),
-			$this->flexi_auth->db_column('user_privileges', 'description')
-		);
-		$this->data['privileges'] = $this->flexi_auth->get_privileges_array($sql_select);
-		
-		// Get user groups current privilege data.
-		$sql_select = array($this->flexi_auth->db_column('user_privilege_groups', 'privilege_id'));
-		$sql_where = array($this->flexi_auth->db_column('user_privilege_groups', 'group_id') => $this->data['user'][$this->flexi_auth->db_column('user_acc', 'group_id')]);
-		$group_privileges = $this->flexi_auth->get_user_group_privileges_array($sql_select, $sql_where);
-                
-        $this->data['group_privileges'] = array();
-        foreach($group_privileges as $privilege)
-        {
-            $this->data['group_privileges'][] = $privilege[$this->flexi_auth->db_column('user_privilege_groups', 'privilege_id')];
-        }
-                
-		// Get users current privilege data.
-		$sql_select = array($this->flexi_auth->db_column('user_privilege_users', 'privilege_id'));
-		$sql_where = array($this->flexi_auth->db_column('user_privilege_users', 'user_id') => $user_id);
-		$user_privileges = $this->flexi_auth->get_user_privileges_array($sql_select, $sql_where);
-	
-		// For the purposes of the example demo view, create an array of ids for all the users assigned privileges.
-		// The array can then be used within the view to check whether the user has a specific privilege, this data allows us to then format form input values accordingly. 
-		$this->data['user_privileges'] = array();
-		foreach($user_privileges as $privilege)
-		{
-			$this->data['user_privileges'][] = $privilege[$this->flexi_auth->db_column('user_privilege_users', 'privilege_id')];
-		}
-	
-		// Set any returned status/error messages.
-		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
-
-        // For demo purposes of demonstrate whether the current defined user privilege source is getting privilege data from either individual user 
-        // privileges or user group privileges, load the settings array containing the current privilege sources. 
-		$this->data['privilege_sources'] = $this->login->auth_settings['privilege_sources'];
-                
-		$data['maincontent'] = $this->load->view('user_privileges_update_view', $this->data, TRUE);	
-		$this->load->view('template-teacher', $data);		
-    }
-    
- 	/**
- 	 * update_group_privileges 
- 	 * Update the access privileges of a specific user group.
- 	 */
-    function update_group_privileges($group_id)
-    {
-		// Check user has privileges to update group privileges, else display a message to notify the user they do not have valid privileges.
-		if (! $this->flexi_auth->is_privileged('Update Privileges'))
-		{
-			$this->session->set_flashdata('message', '<p class="error_msg">You do not have access privileges to update group privileges.</p>');
-			redirect('dashboard/manage_user_accounts');		
-		}
-
-		// If 'Update Group Privilege' form has been submitted, update the privileges of the user group.
-		if ($this->input->post('update_group_privilege')) 
-		{
-			$this->load->model('demo_auth_admin_model');
-			$this->demo_auth_admin_model->update_group_privileges($group_id);
-		}
-		
-		// Get data for the current user group.
-		$sql_where = array($this->flexi_auth->db_column('user_group', 'id') => $group_id);
-		$this->data['group'] = $this->flexi_auth->get_groups_row_array(FALSE, $sql_where);
-                
-		// Get all privilege data. 
-		$sql_select = array(
-			$this->flexi_auth->db_column('user_privileges', 'id'),
-			$this->flexi_auth->db_column('user_privileges', 'name'),
-			$this->flexi_auth->db_column('user_privileges', 'description')
-		);
-		$this->data['privileges'] = $this->flexi_auth->get_privileges_array($sql_select);
-		
-		// Get data for the current privilege group.
-		$sql_select = array($this->flexi_auth->db_column('user_privilege_groups', 'privilege_id'));
-		$sql_where = array($this->flexi_auth->db_column('user_privilege_groups', 'group_id') => $group_id);
-		$group_privileges = $this->flexi_auth->get_user_group_privileges_array($sql_select, $sql_where);
-                
-		// For the purposes of the example demo view, create an array of ids for all the privileges that have been assigned to a privilege group.
-		// The array can then be used within the view to check whether the group has a specific privilege, this data allows us to then format form input values accordingly. 
-		$this->data['group_privileges'] = array();
-		foreach($group_privileges as $privilege)
-		{
-			$this->data['group_privileges'][] = $privilege[$this->flexi_auth->db_column('user_privilege_groups', 'privilege_id')];
-		}
-	
-		// Set any returned status/error messages.
-		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];		
-
-        // For demo purposes of demonstrate whether the current defined user privilege source is getting privilege data from either individual user 
-        // privileges or user group privileges, load the settings array containing the current privilege sources. 
-        $this->data['privilege_sources'] = $this->login->auth_settings['privilege_sources'];
-                
-		$data['maincontent'] = $this->load->view('user_group_privileges_update_view', $this->data, TRUE);
-		$this->load->view('template-teacher', $data);			
-    }
-    
-    function deadline($deadline_id)
-    {
-    	$sql_where = array($this->flexi_auth->db_column('deadline', 'id') => $deadline_id);
-    	$deadline = $this->flexi_auth->get_deadlines(FALSE , $sql_where);
-		$this->data['deadline'] = $deadline->row_array();
-		
-		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
-		
-		if($this->flexi_auth->is_admin())
-		{
-			$data['maincontent'] = $this->load->view('deadline_view_teacher', $this->data, TRUE);
-			$this->load->view('template-teacher', $data);
-		} else {
-			$data['maincontent'] = $this->load->view('deadline_view_student', $this->data, TRUE);
-			$this->load->view('template-student', $data);
-		}
-    }
-    
-    function manage_deadlines()
-    {
-	    if ($this->input->post('add_deadline')) 
-		{
-			$this->load->model('demo_auth_admin_model');
-			$this->demo_auth_admin_model->add_deadline();
-		}
-		if ($this->input->post('delete_deadline')) 
-		{
-			$this->load->model('demo_auth_admin_model');
-			$this->demo_auth_admin_model->delete_deadline();
-		}
-		$deadlines = $this->flexi_auth->get_deadlines();
-		$this->data['deadlines'] = $deadlines->result_array();
-		
-		$this->data['classes'] = $this->flexi_auth->get_classes_array();
-		
-		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
-		
-		if($this->flexi_auth->is_admin())
-		{
-			$data['maincontent'] = $this->load->view('manage_deadlines_view', $this->data, TRUE);
-			$this->load->view('template-teacher', $data);
-		} else {
-			$data['maincontent'] = $this->load->view('manage_deadlines_view_student', $this->data, TRUE);
-			$this->load->view('template-student', $data);
-		}	
-    }
-    
+	*/
     
     function change_password($user_id)
 	{
@@ -829,6 +645,12 @@ class Dashboard extends CI_Controller {
 			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to update user accounts.</p>');
 			redirect('dashboard');		
 		}
+		
+		if (!$this->flexi_auth->user_id_exist($user_id)) {
+			$this->session->set_flashdata('message', '<p class="error_msg">Requested user does not exist.</p>');
+			redirect('dashboard');
+		}
+		
 		// If the 'Change Forgotten Password' form has been submitted, then update the users password.
 		if ($this->input->post('change_password')) 
 		{
@@ -846,67 +668,10 @@ class Dashboard extends CI_Controller {
 			$this->load->view('template-student', $data);
 		}
 	}
-	/*
-	function assignments() {
-		if ($this->input->post('add_assignment')) {
-		
-			$this->load->model('demo_auth_admin_model');
-			$this->demo_auth_admin_model->add_assignment();
 
-		}
-		if ($this->flexi_auth->is_admin()) {
-			$assignments = $this->flexi_auth->get_assignments();
-			$this->data['assignments'] = $assignments->result_array();
-			
-			$this->data['classes'] = $this->flexi_auth->get_classes_array();
-			
-			$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
-		} else {			
-			
-			$user_id = $this->flexi_auth->get_user_id();
-			$assignments = $this->flexi_auth->get_assignments();
-			$assignments = $assignments->result_array();
-			$this->data['assignments'] = $assignments;
-			
-			$handed_in_assignments = $this->flexi_auth->get_assignments_handed_in_by_user($user_id);
-			$this->data['handed_in_assignments'] = $handed_in_assignments;
-			
-			
-			$not_handed_in_assignments = $this->flexi_auth->get_assignments_not_handed_in_by_user($user_id);
-			$this->data['not_handed_in_assignments'] = $not_handed_in_assignments;
-			
-			$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
-			$checked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
-			$this->data['checked_assignments'] = $checked_assignments->result_array();
-			
-			$sql_where = array($this->login->tbl_col_assignment['checked'] => 0);
-			$notchecked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
-			$this->data['notchecked_assignments'] = $notchecked_assignments->result_array();
-	
-			$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
-			$this->data['user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
-			
-			// Set any returned status/error messages.
-			$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
-			
-		
-		}
-		
-		
-		if ($this->flexi_auth->is_admin()) {
-			$data['maincontent'] = $this->load->view('assignments_teacher_view', $this->data, TRUE);
-			$this->load->view('template-teacher', $data);
-		} else {
-			$data['maincontent'] = $this->load->view('assignments_student_view', $this->data, TRUE);
-			$this->load->view('template-student', $data);
-		}
-		
-		
-	}
-	*/
+
 	function assignments($update_assignment_id = FALSE) {
 
-		
 		if ($update_assignment_id != FALSE) {
 			if (!$this->flexi_auth->is_admin()) {
 				$this->flexi_auth->set_error_message('You are not privliged to view this area.', TRUE);
@@ -965,22 +730,15 @@ class Dashboard extends CI_Controller {
 			
 			$handed_in_assignments = $this->flexi_auth->get_assignments_handed_in_by_user($user_id);
 			$this->data['handed_in_assignments'] = $handed_in_assignments;
-			
+				
 			
 			$not_handed_in_assignments = $this->flexi_auth->get_assignments_not_handed_in_by_user($user_id);
 			$this->data['not_handed_in_assignments'] = $not_handed_in_assignments;
-			/*
-			$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
-			$checked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
-			$this->data['checked_assignments'] = $checked_assignments->result_array();
-			*/
-			
+
+
 			$this->data['checked_assignments'] = $this->flexi_auth->get_checked_assignments_per_student($user_id);
-			
-			$sql_where = array($this->login->tbl_col_assignment['checked'] => 0);
-			$notchecked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
-			$this->data['notchecked_assignments'] = $notchecked_assignments->result_array();
-	
+
+			$this->data['notchecked_assignments'] = $this->flexi_auth->get_not_checked_assignments_per_student($user_id);
 		}
 		
 		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
@@ -994,7 +752,12 @@ class Dashboard extends CI_Controller {
 		}
 	}
 	
-	function assignment($assignment_id) {
+	function assignment($assignment_id = FALSE) {
+		if (!$assignment_id) {
+			$this->session->set_flashdata('message', '<p class="error_msg">Invalid assignment ID.</p>');
+			redirect('dashboard/assignments');
+		}
+	
 		$assignment_classes = $this->flexi_auth->get_classes_for_assignment($assignment_id);
 		$this->data['assignment_classes'] = $assignment_classes;
 		
@@ -1050,6 +813,11 @@ class Dashboard extends CI_Controller {
 			redirect('dashboard');
 		}
 		
+		if (!$this->flexi_auth->user_id_exist($user_id)) {
+			$this->session->set_flashdata('message', '<p class="error_msg">Requested user does not exist.</p>');
+			redirect('dashboard');
+		}
+		
 		$this->load->model('demo_auth_admin_model');
 		$this->load->library('flexi_auth');	
 		
@@ -1064,21 +832,7 @@ class Dashboard extends CI_Controller {
 		$not_handed_in_assignments = $this->flexi_auth->get_assignments_not_handed_in_by_user($user_id);
 		$this->data['not_handed_in_assignments'] = $not_handed_in_assignments;
 		
-		$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
-		$checked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
-		$this->data['checked_assignments'] = $checked_assignments->result_array();
-		
-		/*
-		$sql_where = array($this->login->tbl_col_assignment['checked'] => 0);
-		$notchecked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
-		$this->data['notchecked_assignments'] = $notchecked_assignments->result_array();
-		*/
-		
 		$this->data['checked_assignments'] = $this->flexi_auth->get_checked_assignments_per_student($user_id);
-		
-		//$checked = array($this->flexi_auth->db_column('assignment', 'checked'));
-		//$data = array('assignment_checked' => '1');
-		//$checked =  $this->flexi_auth->get_assignments($data);
 
 		$this->demo_auth_admin_model->get_user_accounts();		
 	
@@ -1151,15 +905,7 @@ class Dashboard extends CI_Controller {
 			//echo $comment;
 			
 			$added = $this->flexi_auth->add_comment($comment, $user_id, $assignment_id);
-			/*
-			if ($added) {
-				$this->flexi_auth->set_status_message('The comment has been added.', TRUE);
-				$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-			} else {
-				$this->flexi_auth->set_error_message('The comment has not been added.', TRUE);
-				$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-			}
-			*/
+
 			$this->session->set_flashdata('message', '<p class="status_msg">The comment has been saved.</p>');
 			
 			redirect('dashboard/checked_assignment_per_student/'. $assignment_id . '/' . $user_id);
@@ -1206,10 +952,11 @@ class Dashboard extends CI_Controller {
 		$assignment_id = $this->input->post('assignmentID');
 		
 		$config['upload_path'] = './uploads/';
-		$config['allowed_types'] = '*';
+		$config['allowed_types'] = 'xml';
 		$config['max_size']	= '2000';
 		$config['max_width']  = '1024';
 		$config['max_height']  = '768';
+		$config['overwrite'] = TRUE;
 		$config['file_name'] = $this->flexi_auth->get_user_id(). '-' . $assignment_id;
 
 		$this->load->library('upload', $config);
@@ -1218,7 +965,11 @@ class Dashboard extends CI_Controller {
 		{
 			$error = array('error' => $this->upload->display_errors());
 			
-			$this->session->set_flashdata('message', '<p class="error_msg">Unable to upload.</p>');
+			$error_msg = strip_tags($error['error']);
+			
+			
+			$this->flexi_auth->set_error_message($error_msg , TRUE);
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			redirect('dashboard/assignments');
 			
 		}
@@ -1258,6 +1009,12 @@ class Dashboard extends CI_Controller {
 	
 	function checker()
 	{
+		if (!$this->flexi_auth->is_admin()) {
+			$this->flexi_auth->set_error_message('You are not priviliged to view this area.', TRUE);
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+			redirect('dashboard');
+		}
+		
 		$this->load->library('checker');
 		$this->load->library('flexi_auth');	
 		
@@ -1315,15 +1072,5 @@ class Dashboard extends CI_Controller {
 
 	}
 
-	/*
-	function grades_overview_student(){
-		$this->load->model('demo_auth_admin_model');
-		$this->load->library('flexi_auth');	
-		
-		foreach($assignments as $assignment){
-			$grade = $this->flexi_auth->get_grade_for_assignment_by_student($assignment,$this->flexi_auth->get_user_id());
-		}
-	}
-	*/
 }
 ?>

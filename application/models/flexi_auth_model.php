@@ -2036,6 +2036,30 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		return $student_assignments;
 	}
 	
+	public function get_not_checked_assignments_per_student($user_id) {
+		$assignment_ids = $this->db->get_where('uploads', array('student_id' => $user_id, 'checked' => 0));
+		$assignment_ids = $assignment_ids->result_array();
+		$i = 0;
+		$sql_where = '';
+		foreach ($assignment_ids as $assignment) {
+			$assignment_id = $assignment['deadline_id'];
+			if ($i > 0) {
+				$sql_where = $sql_where . " OR `assignment_id` = $assignment_id";
+			} else {
+				$sql_where = $sql_where . "assignment_id = $assignment_id";
+			}
+			$i++;
+		}
+		
+		if ($sql_where != '') { 
+			$student_assignments = $this->db->get_where('assignments', $sql_where);
+			$student_assignments = $student_assignments->result_array();
+		} else {
+			$student_assignments = '';
+		}
+		return $student_assignments;
+	}
+	
 	public function get_errors_for_assignment_of_student($assignment_id, $student_id)
 	{
 		$errors = $this->db->get_where('checker_errors', array('ce_student_id' => $student_id, 'ce_deadline_id' => $assignment_id));
@@ -3170,6 +3194,35 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		} else {
 			return FALSE;
 		}
+	}
+	
+	public function class_id_exist($class_id) {
+		$sql_where = array (
+			$this->login->tbl_col_student_class['id'] => $class_id
+		);
+		$class = $this->db->get_where($this->login->tbl_student_class, $sql_where);
+		$class = $class->result_array();
+		if (!empty($class)) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+	
+	public function answers_already_uploaded($user_id, $assignment_id) {
+		$sql_where = array(	
+			$this->login->tbl_col_uploads['student_id'] => $user_id,
+			$this->login->tbl_col_uploads['deadline_id'] => $assignment_id
+		);
+		
+		$upload = $this->db->get_where($this->login->tbl_uploads, $sql_where);
+		$upload = $upload->result_array();
+		if (!empty($upload)) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+		
 	}
 }
 

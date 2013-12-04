@@ -1361,6 +1361,10 @@ class Flexi_auth extends Flexi_auth_lite
 		return $this->CI->flexi_auth_model->get_checked_assignments_per_student($student_id);
 	}
 	
+	public function get_not_checked_assignments_per_student($student_id) {
+		return $this->CI->flexi_auth_model->get_not_checked_assignments_per_student($student_id);
+	}
+	
 	public function get_errors_for_assignment_of_student($assignment_id, $student_id)
 	{
 		return $this->CI->flexi_auth_model->get_errors_for_assignment_of_student($assignment_id, $student_id);
@@ -1472,6 +1476,14 @@ class Flexi_auth extends Flexi_auth_lite
 	
 	public function user_id_exist($user_id) {
 		return $this->CI->flexi_auth_model->user_id_exist($user_id);
+	}
+		
+	public function class_id_exist($class_id) {
+		return $this->CI->flexi_auth_model->class_id_exist($class_id);
+	}
+	
+	public function answers_already_uploaded($user_id, $assignment_id) {
+		return $this->CI->flexi_auth_model->answers_already_uploaded($user_id, $assignment_id);
 	}
 	
 }

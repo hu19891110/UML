@@ -33,10 +33,10 @@
 								<td>
 									
 									<?php echo form_open_multipart('dashboard/do_upload');?>
-										<input type="file" name="assignment_file" size="200" />
 										<input type="hidden" id="assignmentID" name="assignmentID" value="<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>" />
+										<input type="file" name="assignment_file" size="20" />
 										<input type="submit" value="Upload" assignmentID="<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>" class = "small button"/>
-										<?php form_close(); ?>
+										</form>
 								
 								</td>
 								<td>
