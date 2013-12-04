@@ -1750,6 +1750,10 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$substraction_late = $this->get_substraction_late($student_id, $assignment_id);
 		
 		$grade = $grade - $substraction_late;
+		
+		if ($grade < 1) {
+			$grade = 1;
+		}
 
 		return $grade;
 	}

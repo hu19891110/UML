@@ -727,10 +727,7 @@ function update_assignment($assignment_id)
 			redirect('dashboard/assignments/'. $assignment_id);	
 		}
 	}
-	
-	public function archiveer_assignment() {
-		$this->input->post('');
-	}
+
 }
 
 /* End of file demo_auth_admin_model.php */

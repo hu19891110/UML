@@ -1505,6 +1505,10 @@ class Flexi_auth extends Flexi_auth_lite
 		return $this->CI->flexi_auth_model->get_amount_students_not_handed_in($assignment_id);
 	}
 	
+	public function get_substraction_late($user_id, $assignment_id) {
+		return $this->CI->flexi_auth_model->get_substraction_late($user_id, $assignment_id);
+	}
+	
 }
 
 
