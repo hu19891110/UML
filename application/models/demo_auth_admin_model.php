@@ -556,12 +556,13 @@ class Demo_auth_admin_model extends CI_Model {
 		redirect('dashboard/manage_user_groups');			
     }
     
-    	public function get_uploaddata_for_assignment_of_student($assignment_id, $student_id)
+    public function get_uploaddata_for_assignment_of_student($assignment_id, $student_id)
 	{
 		$upload = $this->db->get_where('uploads', array('student_id' => $student_id, 'deadline_id' => $assignment_id));
 		
 		return $upload;
 	}
+
     function add_deadline()
 	{
 		$this->load->library('form_validation');
@@ -604,7 +605,6 @@ class Demo_auth_admin_model extends CI_Model {
 	function delete_deadline()
     {
 		// Get post data
-		
 		
 		foreach($this->input->post('delete') as $row)
 		{

@@ -90,7 +90,7 @@
     <ul class="right">
       <li class="divider hide-for-small"></li>
       <li class="divider"></li>
-      <li><a href="#">Archive</a></li>
+      <li><a href="<?php echo site_url('dashboard/archive') ?>">Archive</a></li>
       <li class="divider"></li>
     	<li><a href="<?php echo $base_url;?>dashboard/update_user_account/<?php echo $currentuser['uacc_id']; ?>">User Details</a></li>
       <li class="divider"></li>
