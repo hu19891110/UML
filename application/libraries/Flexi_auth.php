@@ -1489,6 +1489,10 @@ class Flexi_auth extends Flexi_auth_lite
 		return $this->CI->flexi_auth_model->answers_already_checked($user_id, $assignment_id);
 	}
 	
+	public function get_assignments_not_completely_checked() {
+		return $this->CI->flexi_auth_model->get_assignments_not_completely_checked();
+	}
+	
 	
 }
 

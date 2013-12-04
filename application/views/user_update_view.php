@@ -41,6 +41,8 @@
 								<label for="password">Password:</label>
 								<a href="<?php echo $base_url.'dashboard/change_password/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>" class="tooltip_trigger small button" title="Manage a users access privileges."> Change password</a>
 							</li>
+							
+							<?php if ($this->flexi_auth->is_admin()) { ?>
 
 							<li class="info_req">
 								<label for="group">Group:</label>
@@ -67,12 +69,10 @@
 								</select>
 							</li>
 						</ul>
+						
+						<?php } ?>
 
-								<input type="submit" name="update_users_account" id="submit" value="Save" class="small button"/>
-								<a href="<?php echo $base_url.'dashboard/update_user_privileges/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>" class="tooltip_trigger small button" title="Manage a users access privileges."> Manage User Privileges</a>
-								
-								<input type="submit" name="delete_users_account" id="delete" value="Delete" class="small button"/>
-				
+								<input type="submit" name="update_users_account" id="submit" value="Save" class="small button"/>				
 			
 				<?php echo form_close();?>
 	</div> <!-- end large 12 columns -->

@@ -639,335 +639,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		return $this->db->affected_rows() == 1;	
 	}
 	
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
-	
-	/**
-	 * insert_group
-	 * Inserts a new user group to the database. If the group has admin privileges this can be set using $is_admin = TRUE.
-	 *
-	 * @return bool
-	 * @author Rob Hussey
-	 */
-	public function insert_group($name, $description = NULL, $is_admin = FALSE, $custom_data = array())
-  	{
-		if (empty($name))
-		{
-			return FALSE;
-		}
-		
-		// Set any custom data that may have been submitted.
-		$sql_insert = (is_array($custom_data)) ? $custom_data : array();
-		
-		// Set standard group data.
-		$sql_insert[$this->login->tbl_col_user_group['name']] = $name;
-		$sql_insert[$this->login->tbl_col_user_group['description']] = $description;
-		$sql_insert[$this->login->tbl_col_user_group['admin']] = (int)$is_admin;
-
-		$this->db->insert($this->login->tbl_user_group, $sql_insert);
-		
-		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
-	}
-
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-
-	/**
-	 * update_group
-	 * Updates a user group with any submitted data.
-	 *
-	 * @return bool
-	 * @author Rob Hussey
-	 */
-	public function update_group($group_id, $group_data)
-  	{
-		if (!is_numeric($group_id) || !is_array($group_data))
-		{
-			return FALSE;
-		}
-		
-		$sql_update = array();		
-		foreach ($this->login->database_config['user_group']['columns'] as $key => $column)
-		{
-			if (isset($group_data[$column]))
-			{
-				$sql_update[$this->login->tbl_col_user_group[$key]] = $group_data[$column];
-				unset($group_data[$column]);
-			}
-		}
-
-		$sql_where = array($this->login->tbl_col_user_group['id'] => $group_id);
-		
-		$this->db->update($this->login->tbl_user_group, $sql_update, $sql_where);
-		
-		return $this->db->affected_rows() == 1;	
-	}
-
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-
-	/**
-	 * delete_group
-	 * Deletes a group from the user group table.
-	 *
-	 * @return bool
-	 * @author Rob Hussey
-	 */
-	public function delete_group($sql_where)
-  	{
-		if (is_numeric($sql_where))
-		{
-			$sql_where = array($this->login->tbl_col_user_group['id'] => $sql_where);
-		}
-				
-		$this->db->delete($this->login->tbl_user_group, $sql_where);
-		
-		return $this->db->affected_rows() == 1;	
-	}
-
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
-		
-	/**
-	 * insert_privilege
-	 * Inserts a new user privilege to the database.
-	 *
-	 * @return bool
-	 * @author Rob Hussey
-	 */
-	public function insert_privilege($name, $description = NULL, $custom_data = array())
-  	{
-		if (empty($name))
-		{
-			return FALSE;
-		}
-		
-		// Set any custom data that may have been submitted.
-		$sql_insert = (is_array($custom_data)) ? $custom_data : array();
-		
-		// Set standard privilege data.
-		$sql_insert[$this->login->tbl_col_user_privilege['name']] = $name;
-		$sql_insert[$this->login->tbl_col_user_privilege['description']] = $description;
-
-		$this->db->insert($this->login->tbl_user_privilege, $sql_insert);
-		
-		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
-	}
-
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-
-	/**
-	 * update_privilege
-	 * Updates a user privilege with any submitted data.
-	 *
-	 * @return bool
-	 * @author Rob Hussey
-	 */
-	public function update_privilege($privilege_id, $privilege_data)
-  	{
-		if (!is_numeric($privilege_id) || !is_array($privilege_data))
-		{
-			return FALSE;
-		}
-		
-		$sql_update = array();		
-		foreach ($this->login->database_config['user_privileges']['columns'] as $key => $column)
-		{
-			if (isset($privilege_data[$column]))
-			{
-				$sql_update[$this->login->tbl_col_user_privilege[$key]] = $privilege_data[$column];
-				unset($privilege_data[$column]);
-			}
-		}
-		
-		$sql_where = array($this->login->tbl_col_user_privilege['id'] => $privilege_id);
-		
-		$this->db->update($this->login->tbl_user_privilege, $sql_update, $sql_where);
-		
-		return $this->db->affected_rows() == 1;	
-	}
-
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-
-	/**
-	 * delete_privilege
-	 * Deletes a privilege from the user privilege table.
-	 *
-	 * @return bool
-	 * @author Rob Hussey
-	 */
-	public function delete_privilege($sql_where)
-  	{
-		if (is_numeric($sql_where))
-		{
-			$sql_where = array($this->login->tbl_col_user_privilege['id'] => $sql_where);
-		}
-		
-		// Get a the ids of all rows that are to be deleted.
-		$query = $this->db->get_where($this->login->tbl_user_privilege, $sql_where);
-
-		if ($query->num_rows() > 0)
-		{
-			// Delete privileges.
-			$this->db->delete($this->login->tbl_user_privilege, $sql_where);
-			
-			// Loop through deleted privilege ids and then deleted related user privileges.
-			foreach($query->result_array() as $row)
-			{
-				$sql_where = array($this->login->tbl_col_user_privilege_users['privilege_id'] => $row[$this->login->database_config['user_privileges']['columns']['id']]);
-				
-				$this->db->delete($this->login->tbl_user_privilege_users, $sql_where);
-			}
-			
-			return TRUE;	
-		}
-		
-		return FALSE;
-	}
-
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-	
-	/**
-	 * insert_privilege_user
-	 * Inserts a new user privilege user to the database.
-	 *
-	 * @return bool
-	 * @author Rob Hussey
-	 */
-	public function insert_privilege_user($user_id, $privilege_id)
-  	{
-		if (!is_numeric($user_id) || !is_numeric($privilege_id))
-		{
-			return FALSE;
-		}
-		
-		// Set standard privilege data.
-		$sql_insert = array(
-			$this->login->tbl_col_user_privilege_users['user_id'] => $user_id,
-			$this->login->tbl_col_user_privilege_users['privilege_id'] => $privilege_id
-		);
-
-		$this->db->insert($this->login->tbl_user_privilege_users, $sql_insert);
-		
-		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
-	}
-        
-        
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-	
-	/**
-	 * delete_privilege_user
-	 * Deletes a privilege user from the privilege user table.
-	 *
-	 * @return bool
-	 * @author Rob Hussey
-	 */
-	public function delete_privilege_user($sql_where)
-  	{
-		if (is_numeric($sql_where))
-		{
-			$sql_where = array($this->login->tbl_col_user_privilege_users['id'] => $sql_where);
-		}
-		
-		$this->db->delete($this->login->tbl_user_privilege_users, $sql_where);
-
-		return $this->db->affected_rows() == 1;	
-	}
-        
-        
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-
-	/**
-	 * insert_user_group_privilege
-	 * Inserts a new user group privilege to the database.
-	 *
-	 * @return void
-	 * @author Rob Hussey / Filou Tschiemer
-	 */
-	public function insert_user_group_privilege($group_id, $privilege_id)
-  	{
-		if (!is_numeric($group_id) || !is_numeric($privilege_id))
-		{
-			return FALSE;
-		}
-		
-		// Set standard privilege data.
-		$sql_insert = array(
-			$this->login->tbl_col_user_privilege_groups['group_id'] => $group_id,
-			$this->login->tbl_col_user_privilege_groups['privilege_id'] => $privilege_id
-		);
-
-		$this->db->insert($this->login->tbl_user_privilege_groups, $sql_insert);
-		
-		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
-	}
-
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-
-	/**
-	 * delete_user_group_privilege
-	 * Deletes a user group privilege from the user privilege group table.
-	 *
-	 * @return bool
-	 * @author Rob Hussey / Filou Tschiemer
-	 */
-	public function delete_user_group_privilege($sql_where)
-  	{
-		if (is_numeric($sql_where))
-		{
-			$sql_where = array($this->login->tbl_col_user_privilege_groups['id'] => $sql_where);
-		}
-		
-		$this->db->delete($this->login->tbl_user_privilege_groups, $sql_where);
-
-		return $this->db->affected_rows() == 1;	
-	}
-	
-
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-	###DEADLINES
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-	
-	/*	
-	public function add_deadline($deadline_desc, $deadline_enddate)
-	{
-		$sql_insert = array(
-			$this->login->tbl_col_deadline['desc'] => $deadline_desc,
-			$this->login->tbl_col_deadline['enddate'] => $deadline_enddate,
-			$this->login->tbl_col_deadline['date_added'] => $this->database_date_time()
-		);
-
-		$this->db->insert($this->login->tbl_deadline, $sql_insert);
-		
-		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
-	}
-	
-	public function delete_deadline($sql_where)
-	{
-		if (is_numeric($sql_where))
-		{
-			$sql_where = array($this->login->tbl_col_deadline['id'] => $sql_where);
-		}
-		
-		$this->db->delete($this->login->tbl_deadline, $sql_where);
-
-		return $this->db->affected_rows() == 1;
-	}
-	
-	
-	public function unassign_deadline($sql_where)
-	{
-		if (is_numeric($sql_where))
-		{
-			$sql_where = array($this->login->tbl_col_class_deadline['deadline_id'] => $sql_where);
-		}
-		
-		$this->db->delete($this->login->tbl_class_deadline, $sql_where);
-
-		return $this->db->affected_rows() == 1;
-	}
-	*/
 	
 	public function add_assignment($assignment_name, $assignment_desc, $assignment_enddate)
 	{
@@ -1019,28 +691,6 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		
 		return $this->db->affected_rows() == 1;	
 	}
-	
-	
-	
-	/*
-	public function assign_assignment($assignment_id, $class_id)
-	{
-		if (!is_numeric($assignment_id) || !is_numeric($class_id))
-		{
-			return FALSE;
-		}
-		
-		// Set standard privilege data.
-		$sql_insert = array(
-			$this->login->tbl_col_assignment['deadline_id'] => $assignment_id,
-			$this->login->tbl_col_assignment['id'] => $assignment_id
-		);
-
-		$this->db->insert($this->login->tbl_assignment, $sql_insert);
-		
-		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
-	}
-	*/
 	
 	public function get_assignments($sql_select = FALSE, $sql_where = FALSE)
   	{
@@ -1946,7 +1596,6 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	
 	public function get_correct_file_by_deadline($deadline_id)
 	{
-		
 		return $this->db->get_where('uploads', array('type' => 2, 'deadline_id' => $deadline_id));
 	}
 	
@@ -2198,10 +1847,10 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	public function get_comment($user_id, $assignment_id) {
 		$upload_info = $this->db->get_where('uploads', array('deadline_id' => $assignment_id, 'student_id' => $user_id));
 		$upload_info = $upload_info->row_array();
-		print_r($upload_info);
 		$comment = $upload_info['comments'];
 		return $comment;
 	}
+	
 	/*
 	public function set_assignment_to_checked($assignment_id, $student_id)
 	{
@@ -3244,6 +2893,33 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			return FALSE;
 		}
 		
+	}
+	
+	public function get_assignments_not_completely_checked() {
+		$sql_where = array (
+			'checked' => 0
+		);
+		$uploads = $this->db->get_where($this->login->tbl_uploads, $sql_where);
+		$uploads = $uploads->result_array();
+		$i = 0;
+		$sql_where = '';
+		foreach ($uploads as $assignment) {
+			$assignment_id = $assignment['deadline_id'];
+			if ($i > 0) {
+				$sql_where = $sql_where . " OR `assignment_id` = $assignment_id";
+			} else {
+				$sql_where = $sql_where . "assignment_id = $assignment_id";
+			}
+			$i++;
+		}
+		
+		if ($sql_where != '') { 
+			$student_assignments = $this->db->get_where('assignments', $sql_where);
+			$student_assignments = $student_assignments->result_array();
+		} else {
+			$student_assignments = '';
+		}
+		return $student_assignments;
 	}
 }
 

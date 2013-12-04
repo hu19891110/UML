@@ -168,7 +168,7 @@ class Demo_auth_model extends CI_Model {
 				// This is an example of how to log the user into their account immeadiately after registering.
 				// This example would only be used if users do not have to authenticate their account via email upon registration.
 				
-				redirect('dashboard/manage_user_accounts');
+				redirect('dashboard/users');
 			}
 		}
 

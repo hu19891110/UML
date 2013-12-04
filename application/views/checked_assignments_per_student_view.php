@@ -1,48 +1,37 @@
-
 <div class="large-12 columns" >
 
 	<div class="h2bg">
 		<h2>
 			<?php 
-			$user_id = $user['uacc_id'];
+			if ($this->flexi_auth->is_admin()) {
+				$user_id = $user['uacc_id'];
+				$user_name = $user['uacc_username'];
+			} else {
+				$user_id = $currentuser['uacc_id'];
+				$user_name = $currentuser['uacc_username'];
+			}
+			
 			$assignment_grade = $this->flexi_auth->calculate_grade($user_id, $assignment_id);
 			?>
 			<span class="cijfer"><?php echo $assignment_grade;?> </span>
-	 		Student <?php echo $user['uacc_username'];?> 	
+	 		Student <?php echo $user_name; ?> 	
+	 		<?php if ($this->flexi_auth->is_admin()) { ?>
 	 		<span class="backtoass"><a
-	 			href="<?php echo $base_url.'dashboard/assignments_per_student/'.$user['uacc_id'];?>"> 
+	 			href="<?php echo $base_url.'dashboard/assignments_per_student/'.$user_id;?>"> 
 	 			Back to all assignments of the student</a>
 	 		</span>
+	 		<?php } ?>
 		</h2>
 	
 		<h4>
 			<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?>	
 			
-			<?php //  if($uploads->num_rows()) { echo $uploads->row()->comment; } ?>
-
-			<span class="goedkeuren"> Approve all | Disapprove all </span>
-		</h4>
-	</div> <!-- end h2bg --> 
-	
-	<?php if (! empty($message)) { ?>
-		<div id="message">
-			<?php echo $message; ?>
-		</div>
-	<?php } ?>
-	<!--
-	<p>
-		<b> Line 15:</b> The name of the class should be 'student' in stead of 'students' <br/>
-		<small> For this mistake 1 point is substracted </small>
-	</p>
-	
-	<p> <b> Line 19:</b> The attribute of the class Student should be 'name' in stead of 'id' <br/>
-	<small> For this mistake 2 points are substracted </small>
-	</p>
-	
-	<p> <b> Line 20:</b> The method of the class Mario should be 'getDirection(position)' in stead of 'getDirection()' <br/>
-	<small> For this mistake 2 points are substracted </small>
-	</p>
-	-->
+			<?php if ($this->flexi_auth->is_admin()) { ?>
+	 		<span class="goedkeuren"> Approve all | Disapprove all </span>
+	 		<?php } ?>
+			
+		</h4>	
+	</div>
 	<? 
 	
 		foreach ($errors as $error) {
@@ -51,8 +40,10 @@
 			 $error_value = $this->flexi_auth->get_error_value($error_id);
 			 $error_value = round($error_value, 1);
 			 ?>
+			 <?php if ($this->flexi_auth->is_admin()) { ?>
 			 <span class="notcheckedbutton"></span>
 			 <span class="checkedbutton"></span>
+	 		 <?php } ?>
 			 <span class="mistake"><?php echo $error_value;?></span>
 			 <?
 			 if ($error_id == 1) {
@@ -126,7 +117,9 @@
 		
 	?>	
 		
-		<!--comment section-->
+		<h2>Comments</h2>
+		 <?php if ($this->flexi_auth->is_admin()) { ?>
+		<!--Teacher comment section-->
 		<?php echo form_open(); ?>
 		<li>
 			<label for="comments">Comments:</label>
@@ -139,7 +132,16 @@
 			<input type="submit" name="add_comment" id="add_comment" value="Update comment" class="button small"/>
 		<?php } ?> 
 		<?php echo form_close(); ?>
+		<?php } else { ?>
 		
+		<!--Student comment section-->
+		<?php if ($comment == '') {
+			echo '<p>The teacher did not make any comments on your assignment.</p>';
+		} else {
+			echo '<p>'. $comment . '</p>';
+		}
+		?>
+		<?php } ?>
 		
 	 
 	
