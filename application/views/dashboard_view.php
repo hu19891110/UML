@@ -229,7 +229,7 @@
 		</div>
 	<?php } ?>
 	
-			<div class="dashboard large-6 columns">
+			<div class="dashboard large-4 columns">
 				<table>
   				<thead>
     				<tr>
@@ -240,7 +240,6 @@
   				<tr>
       			<th>Assignment</th>
       			<th>Date of deadline</th>
-      			<th>Upload</th>
     			</tr>
       			<?php 
       			foreach ($assignments as $assignment)
@@ -258,7 +257,6 @@
 	      			<td><a href="<?php echo $base_url . 'dashboard/assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>"><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></a></td>
 	      			<td><?php $date = $assignment[$this->flexi_auth->db_column('assignment', 'enddate')];
 							echo date('d-m-Y H:i', strtotime($date));?></td>
-	      			<td> Upload assignment </td>
 	      		<?php } ?>	
 	      		</tr>	
       			<?php } ?>		
@@ -266,7 +264,7 @@
 				</table>
 		</div>		
 				
-		<div class="dashboard large-6 columns">		
+		<div class="dashboard large-5 columns">		
 				<table>
   				<thead>
     				<tr>
