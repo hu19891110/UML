@@ -46,6 +46,10 @@ body{
 	}
 }	
 
+.checker:hover{
+	color: black !important;
+}
+
 .cijfer{
 	background-image:url('../images/cijfer.jpg');
 	width: 50px;
@@ -88,6 +92,17 @@ body{
 	height: 40px;
 	background-repeat: no-repeat;
 	float:right;
+}
+
+.delete{
+	background-image:url('../images/notchecked.jpg');
+	background-size: 30px 30px;
+	width: 30px;
+	height: 30px;
+	background-repeat: no-repeat;
+	text-indent: -999px;
+	display: block;
+	border: none;
 }
 
 .modify{

@@ -73,7 +73,7 @@
 								</td>
 								<td class="align_ctr">
 								<?php if ($this->flexi_auth->is_privileged('Delete Student Class')) { ?>
-								<input type="submit" name="delete_class[<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>]" value="Delete" class="button" />
+								<input type="submit" name="delete_class[<?php echo $class[$this->flexi_auth->db_column('student_class', 'id')];?>]" value="Delete" class="delete" />
 								<?php } ?>
 								<!-- 
 									<?php if ($this->flexi_auth->is_privileged('Delete Student Class')) { ?>

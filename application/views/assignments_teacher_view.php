@@ -225,7 +225,7 @@
 	      			<td> <a class="modify" href="<?php echo $base_url . 'dashboard/assignments/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">Modify</a> </td>
 	      			<td>
 		      			<input type="hidden" id="assignmentID" name="assignmentID" value="<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>" />
-						<input type="submit" name="delete_assignment" assignmentID="<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>" value="Delete" class="small button"/>
+						<input type="submit" name="delete_assignment" assignmentID="<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>" value="Delete" class="delete"/>
 		      			
 	      			</td>
 	      			

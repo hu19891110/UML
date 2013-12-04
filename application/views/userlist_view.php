@@ -207,7 +207,7 @@
 								</td>
 								<td>
 									<input type="hidden" id="userID" name="userID" value="<?php echo $user[$this->flexi_auth->db_column('user_acc', 'id')];?>" />
-									<input type="submit" name="delete_users_account" userID="<?php echo $user[$this->flexi_auth->db_column('user_acc', 'id')];?>" value="Delete" class="small button"/>
+									<input type="submit" name="delete_users_account" userID="<?php echo $user[$this->flexi_auth->db_column('user_acc', 'id')];?>" value="Delete" class="delete"/>
 								
 								</td>
 							</tr>

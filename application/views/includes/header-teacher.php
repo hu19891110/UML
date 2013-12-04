@@ -43,6 +43,8 @@
       	<li><a href="<?php echo site_url('dashboard/manage_user_accounts') ?>">Users</a></li>
       	<li class="divider"></li>
       	<li><a href="<?php echo site_url('dashboard/assignments') ?>">Assignments</a></li>
+      	<li class="divider"></li>
+      	<li><a class="checker" style="color:white; background: blue; border: 1px solid black;" href="<?php echo site_url('dashboard/checker') ?>">Checker</a></li>
       	
       
       <!-- 
