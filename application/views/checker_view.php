@@ -8,8 +8,8 @@
 		</div>
 	<?php } ?>
 	
+<?php if(!empty($assignments)) { ?>	
 	<h3> Which assignment do you want to check? </h3>
-	
 	<?php echo form_open(current_url()); ?> 
 	<ul>
 		<li>
@@ -27,7 +27,10 @@
 			<input type="submit" name="check_assignment" id="submit" value="Check assignment" class="small button"/>
 		</li>
 	</ul>
-		
+<?php } ?>
 
+<?php if(empty($assignments)) { ?>
+	<?php echo "No assignments to be checked"; ?>
+<?php } ?>	
 
 </div> <!-- end large 12 columns --> 

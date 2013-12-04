@@ -1,7 +1,7 @@
 <div class="large-12 columns">
 
 	<div class="h2bg">
-	<h4> Grades overview</h4>
+	<h2> Grades overview</h2>
 	</div>		
 
 	<?php if ($this->flexi_auth->is_admin()) { ?>
