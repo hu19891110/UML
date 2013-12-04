@@ -72,13 +72,9 @@
 						
 						<?php } ?>
 
-<<<<<<< HEAD:application/views/user_account_update_view.php
 						<input type="submit" name="update_users_account" id="submit" value="Save" class="small button"/>								
 						<input type="submit" name="delete_users_account" id="delete" value="Delete" class="small button"/>
-				
-=======
-								<input type="submit" name="update_users_account" id="submit" value="Save" class="small button"/>				
->>>>>>> 8f8e51b0600b6ab6aa802a62223beee4ef441221:application/views/user_update_view.php
+			
 			
 				<?php echo form_close();?>
 	</div> <!-- end large 12 columns -->
