@@ -67,6 +67,12 @@ class Checker
 		
 		$this->CI->load->model('flexi_auth_model');
 		$this->CI->flexi_auth_model->set_status_message('assignment_checked', 'config');
+		$this->CI->load->model('flexi_auth_model');
+		$info = explode("-", $filename);
+		$student_id = $info[0];
+		$deadline_id = $info[1];
+		$this->mark_student_upload_as_checked($student_id, $deadline_id);
+		
 		$this->CI->session->set_flashdata('message', $this->CI->flexi_auth->get_messages());
 	}
 	
@@ -745,6 +751,16 @@ class Checker
 		
 		$this->CI->flexi_auth_model->add_error($student_id, $deadline_id, $error_id, $class_name, $operation_name, $attribute_name, $parameter_name, $datatype, $relation_name, $eigenschappen);
 		
+	}
+	
+	function mark_student_upload_as_checked($student_id, $deadline_id) {
+		// Set update and where.
+		$sql_update = array( $this->login->tbl_col_uploads['checked'] => 1);
+		$sql_where = array(	$this->login->tbl_col_uploads['student_id'] => $student_id,
+							$this->login->tbl_col_uploads['deadline_id'] => $deadline_id);
+			
+		// Update checked
+		$this->db->update($this->login->tbl_uploads, $sql_update, $sql_where);
 	}
 
 }

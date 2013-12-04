@@ -238,7 +238,7 @@ class Demo_auth_model extends CI_Model {
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			
 			// Redirect user.
-			redirect('auth');
+			redirect('login');
 		}
 		else
 		{
@@ -261,7 +261,7 @@ class Demo_auth_model extends CI_Model {
 		// Set validation rules
 		// The custom rule 'validate_password' can be found in '../libaries/MY_Form_validation.php'.
 		$validation_rules = array(
-			array('field' => 'new_password', 'label' => 'New Password', 'rules' => 'required|validate_password|matches[confirm_new_password]'),
+			array('field' => 'new_password', 'label' => 'New Password', 'rules' => 'required|matches[confirm_new_password]'),
 			array('field' => 'confirm_new_password', 'label' => 'Confirm Password', 'rules' => 'required')
 		);
 		
@@ -281,7 +281,7 @@ class Demo_auth_model extends CI_Model {
 			// Save any public status or error messages (Whilst suppressing any admin messages) to CI's flash session data.
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			
-			redirect('auth');
+			redirect('login');
 		}
 		else
 		{		

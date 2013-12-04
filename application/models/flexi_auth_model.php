@@ -2012,6 +2012,30 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		return $class_assignments;
 	}
 	
+	public function get_checked_assignments_per_student($student_id) {
+		$assignment_ids = $this->db->get_where('uploads', array('student_id' => $student_id, 'checked' => 1));
+		$assignment_ids = $assignment_ids->result_array();
+		$i = 0;
+		$sql_where = '';
+		foreach ($assignment_ids as $assignment) {
+			$assignment_id = $assignment['deadline_id'];
+			if ($i > 0) {
+				$sql_where = $sql_where . " OR `assignment_id` = $assignment_id";
+			} else {
+				$sql_where = $sql_where . "assignment_id = $assignment_id";
+			}
+			$i++;
+		}
+		
+		if ($sql_where != '') { 
+			$student_assignments = $this->db->get_where('assignments', $sql_where);
+			$student_assignments = $student_assignments->result_array();
+		} else {
+			$student_assignments = '';
+		}
+		return $student_assignments;
+	}
+	
 	public function get_errors_for_assignment_of_student($assignment_id, $student_id)
 	{
 		$errors = $this->db->get_where('checker_errors', array('ce_student_id' => $student_id, 'ce_deadline_id' => $assignment_id));
@@ -2150,6 +2174,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	public function get_comment($user_id, $assignment_id) {
 		$upload_info = $this->db->get_where('uploads', array('deadline_id' => $assignment_id, 'student_id' => $user_id));
 		$upload_info = $upload_info->row_array();
+		print_r($upload_info);
 		$comment = $upload_info['comments'];
 		return $comment;
 	}
@@ -3132,6 +3157,19 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		//->where($sql_where);
 		
 		return ($this->db->affected_rows() == 1) ? $this->db->insert_id() : FALSE;
+	}
+	public function user_id_exist($user_id) {
+		
+		$sql_where = array (
+			'uacc_id' => $user_id
+		);
+		$user = $this->db->get_where($this->login->tbl_user_account, $sql_where);
+		$user = $user->result_array();
+		if (!empty($user)) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
 	}
 }
 

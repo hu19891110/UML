@@ -168,11 +168,16 @@ class Dashboard extends CI_Controller {
 	{
 		// Check user has privileges to update user accounts, else display a message to notify the user they do not have valid privileges.
 	
-		/* if ( $this->flexi_auth->is_privileged('Update Users') && ($user_id != $this->flexi_auth->get_user_id()))
+		if ( !$this->flexi_auth->is_admin() && ($user_id != $this->flexi_auth->get_user_id()))
 		{
 			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to update user accounts.</p>');
 			redirect('dashboard');		
-		}*/
+		}
+		
+		if (!$this->flexi_auth->user_id_exist($user_id)) {
+			$this->session->set_flashdata('message', '<p class="error_msg">Requested user does not exist.</p>');
+			redirect('dashboard');
+		}
 
 		// If 'Update User Account' form has been submitted, update the users account details.
 		if ($this->input->post('update_users_account')) 
@@ -964,10 +969,13 @@ class Dashboard extends CI_Controller {
 			
 			$not_handed_in_assignments = $this->flexi_auth->get_assignments_not_handed_in_by_user($user_id);
 			$this->data['not_handed_in_assignments'] = $not_handed_in_assignments;
-			
+			/*
 			$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
 			$checked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
 			$this->data['checked_assignments'] = $checked_assignments->result_array();
+			*/
+			
+			$this->data['checked_assignments'] = $this->flexi_auth->get_checked_assignments_per_student($user_id);
 			
 			$sql_where = array($this->login->tbl_col_assignment['checked'] => 0);
 			$notchecked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
@@ -1060,9 +1068,13 @@ class Dashboard extends CI_Controller {
 		$checked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
 		$this->data['checked_assignments'] = $checked_assignments->result_array();
 		
+		/*
 		$sql_where = array($this->login->tbl_col_assignment['checked'] => 0);
 		$notchecked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
 		$this->data['notchecked_assignments'] = $notchecked_assignments->result_array();
+		*/
+		
+		$this->data['checked_assignments'] = $this->flexi_auth->get_checked_assignments_per_student($user_id);
 		
 		//$checked = array($this->flexi_auth->db_column('assignment', 'checked'));
 		//$data = array('assignment_checked' => '1');
