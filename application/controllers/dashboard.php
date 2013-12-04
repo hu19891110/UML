@@ -258,8 +258,7 @@ class Dashboard extends CI_Controller {
 			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to view student classes.</p>');
 			redirect('dashboard');
 		}
-
-
+		
 		if (!empty($_POST)) {
 			foreach($_POST as $key => $value)
 			{
