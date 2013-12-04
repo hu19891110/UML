@@ -1411,6 +1411,10 @@ class Flexi_auth extends Flexi_auth_lite
 		return $this->CI->flexi_auth_model->get_grade_for_assignment_by_student($assignment_id, $student_id);
 	}
 	
+	public function get_grades_for_assignment($assignment_id) {
+		return $this->CI->flexi_auth_model->get_grades_for_assignment($assignment_id);
+	}
+	
 	public function get_comment($user_id, $assignment_id) {
 		return $this->CI->flexi_auth_model->get_comment($user_id, $assignment_id);
 	}

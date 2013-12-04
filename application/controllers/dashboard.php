@@ -790,6 +790,49 @@ class Dashboard extends CI_Controller {
 
 	}
 	
+	function topdf($assignment_id) {	
+		if (!$this->flexi_auth->is_admin()) {
+			$this->flexi_auth->set_error_message('You are not privileged to view this area.', TRUE);
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+			redirect('dashboard');
+		}
+		
+		$this->load->library('cezpdf');
+		
+		$grade_overview = $this->flexi_auth->get_grades_for_assignment($assignment_id);
+		
+		$data_table = array();
+		foreach($grade_overview->result_array() as $row) {
+			$data_table[] = $row;
+		}
+		
+		$titlecolumn = array(	'upro_first_name' => 'First Name',
+								'upro_last_name' => 'Last Name',
+								'grade' => 'Grade'
+		);
+		
+		$this->cezpdf->ezTable($data_table, $titlecolumn, 'Grades Overview');
+		$this->cezpdf->ezStream(array('Content-Disposition'=>'assignment.pdf'));
+	}
+	
+	function toexcel($assignment_id) {
+		if (!$this->flexi_auth->is_admin()) {
+			$this->flexi_auth->set_error_message('You are not privileged to view this area.', TRUE);
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+			redirect('dashboard');
+		}
+		
+		$grade_overview = $this->flexi_auth->get_grades_for_assignment($assignment_id);
+		
+		header('Content-type: text/csv');
+		header('Content-disposition: attachment;filename=Grades Assignment '. $assignment_id . '.csv');
+		echo "First Name;Last Name;Grade".PHP_EOL;
+		foreach($grade_overview->result_array() as $row) {
+			echo $row['upro_first_name'] . ';' . $row['upro_last_name'] . ';' . $row['grade'].PHP_EOL;
+		}
+		
+	}
+	
 	function checker()
 	{
 		if (!$this->flexi_auth->is_admin()) {

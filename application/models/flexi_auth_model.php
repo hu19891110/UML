@@ -1844,6 +1844,16 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		return $grade;	
 	}
 	
+	public function get_grades_for_assignment($assignment_id) {
+		$this->db->select('p.upro_first_name, p.upro_last_name, u.grade');
+		$this->db->from('uploads u, user_profiles p');
+		$this->db->where('u.deadline_id = ' . $assignment_id);
+		$this->db->where('u.student_id = p.upro_id');
+		$grades = $this->db->get();
+		
+		return $grades;
+	}
+	
 	public function get_comment($user_id, $assignment_id) {
 		$upload_info = $this->db->get_where('uploads', array('deadline_id' => $assignment_id, 'student_id' => $user_id));
 		$upload_info = $upload_info->row_array();
