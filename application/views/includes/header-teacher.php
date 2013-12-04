@@ -38,9 +38,9 @@
 			<li class="divider"></li>
       	<li><a href="<?php echo site_url('dashboard') ?>">Dashboard</a></li>
       	<li class="divider"></li>
-      	<li><a href="<?php echo site_url('dashboard/manage_student_classes') ?>">Classes</a></li>
+      	<li><a href="<?php echo site_url('dashboard/classes') ?>">Classes</a></li>
      		<li class="divider"></li>
-      	<li><a href="<?php echo site_url('dashboard/manage_user_accounts') ?>">Users</a></li>
+      	<li><a href="<?php echo site_url('dashboard/users') ?>">Users</a></li>
       	<li class="divider"></li>
       	<li><a href="<?php echo site_url('dashboard/assignments') ?>">Assignments</a></li>
       	<li class="divider"></li>

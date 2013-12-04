@@ -143,7 +143,7 @@
 
 			<div class="users">
 			<?php if ($update_user_info == 1) { ?>
-			<a class="button small" href="<?php echo $base_url.'dashboard/manage_user_accounts' ?>">Add new student</a>
+			<a class="button small" href="<?php echo $base_url.'dashboard/users' ?>">Add new student</a>
 			<?php } ?>
 			<?php echo form_open(); ?>
 					<table class="responsive">
@@ -201,7 +201,7 @@
 								<a href="<?php echo $base_url.'dashboard/assignments_per_student/' . $user[$this->flexi_auth->db_column('user_acc', 'id')];?>">View assignments</a>
 								</td>
 								<td>
-									<a class="modify" href="<?php echo $base_url.'dashboard/manage_user_accounts/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>">
+									<a class="modify" href="<?php echo $base_url.'dashboard/users/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>">
 									Modify
 									</a>
 								</td>

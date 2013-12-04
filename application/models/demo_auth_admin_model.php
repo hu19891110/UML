@@ -52,7 +52,7 @@ class Demo_auth_admin_model extends CI_Model {
 		if (array_key_exists('search', $uri))
 		{
 			// Set pagination url to include search query.
-			$pagination_url = 'dashboard/manage_user_accounts/search/'.$uri['search'].'/';
+			$pagination_url = 'dashboard/users/search/'.$uri['search'].'/';
 			$config['uri_segment'] = 6; // Changing to 6 will select the 6th segment, example 'controller/function/search/query/page/10'.
 
 			// Convert uri '-' back to ' ' spacing.
@@ -69,7 +69,7 @@ class Demo_auth_admin_model extends CI_Model {
 		else
 		{
 			// Set some defaults.
-			$pagination_url = 'dashboard/manage_user_accounts/';
+			$pagination_url = 'dashboard/users/';
 			$search_query = FALSE;
 			$config['uri_segment'] = 4; // Changing to 4 will select the 4th segment, example 'controller/function/page/10'.
 			
@@ -142,7 +142,7 @@ class Demo_auth_admin_model extends CI_Model {
 		$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 		
 		// Redirect user.
-		redirect('dashboard/manage_user_accounts');		
+		redirect('dashboard/users');		
 	}
 
  	/**
@@ -200,7 +200,7 @@ class Demo_auth_admin_model extends CI_Model {
 				redirect('dashboard/update_user_account/'.$user);
 			}
 			else 
-				redirect('dashboard/manage_user_accounts');	
+				redirect('dashboard/users');	
 			
 			
 		}
@@ -221,7 +221,7 @@ class Demo_auth_admin_model extends CI_Model {
 		$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 		
 		// Redirect user.
-		redirect('dashboard/manage_user_accounts');			
+		redirect('dashboard/users');			
 	}
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
@@ -352,7 +352,7 @@ class Demo_auth_admin_model extends CI_Model {
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			
 			// Redirect user.
-			redirect('dashboard/manage_student_classes');			
+			redirect('dashboard/classes');			
 		}
 	}
 	
@@ -385,7 +385,7 @@ class Demo_auth_admin_model extends CI_Model {
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			
 			// Redirect user.
-			redirect('dashboard/manage_student_classes');			
+			redirect('dashboard/classes');			
 		}
 	}
 	
