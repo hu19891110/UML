@@ -2985,7 +2985,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
       AND C.class_id_fk = A.uacc_class_fk
       AND A.uacc_id NOT IN (
        SELECT U.student_id
-       FROM Uploads U
+       FROM uploads U
        WHERE U.deadline_id = ' . $assignment_id . '
        )');
 		$amounts = $amounts->result_array();
