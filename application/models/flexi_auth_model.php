@@ -2974,6 +2974,8 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$sql_where = array('assignment_id' => $assignment_id );
 
 		$this->db->update('assignments', $data, $sql_where);
+		
+		return $this->db->affected_rows() == 1;
 	}
 
 	public function get_amount_students_not_handed_in($assignment_id) {

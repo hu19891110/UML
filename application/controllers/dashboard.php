@@ -818,12 +818,16 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
-	function grade_overview()
+	function grade_overview($assignment_id = FALSE)
 	{
 		$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
 		$checked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
 		$this->data['checked_assignments'] = $checked_assignments->result_array();
 
+		$sql_where = array($this->login->tbl_col_assignment['checked'] => 1, );
+		$checked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
+		$this->data['checked_assignments'] = $checked_assignments->result_array();
+		
 		$this->load->model('demo_auth_admin_model');
 		$this->demo_auth_admin_model->get_user_accounts();
 
@@ -990,6 +994,34 @@ class Dashboard extends CI_Controller {
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			redirect('dashboard/assignments');
 		}
+	}
+	
+	function change_substraction($id = NULL){
+		$this->load->library('form_validation');
+		$this->load->model('demo_auth_admin_model');
+		$this->output->enable_profiler(TRUE);
+		if (!$this->flexi_auth->is_admin()) {
+			$this->flexi_auth->set_error_message('You are not privileged to view this area.', TRUE);
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+			redirect('dashboard');
+		}
+		
+		if(!empty($this->input->post('substraction'))){//post
+			$newSubstraction = $this->input->post('substraction');
+			$this->demo_auth_admin_model->editSubstraction($id,$newSubstraction);
+			$id = NULL;
+		}
+		
+			
+			$this->data['substraction'] = $this->demo_auth_admin_model->getSubstractionOverview();
+			$this->data['id'] = $id;
+
+			if(isset($id)){
+				$this->data['edit'] = $this->demo_auth_admin_model->getSubstraction($id)->row();
+			}
+			$data['maincontent'] = $this->load->view('substraction_overview', $this->data, TRUE);
+			$this->load->view('template-teacher', $data);
+		
 	}
 
 }

@@ -44,20 +44,23 @@
 			
 				
 				
-				<?php $checked = ($assignment[$this->flexi_auth->db_column('assignment', 'checked')] == 1) ? 'Yes' : 'No';  ?>
+				<?php $checked = ($assignment[$this->flexi_auth->db_column('assignment', 'checked')] == 1) ? 'Yes' : 'No'; ?>
 				<h3> Is the assignment already checked? </h3> <?php echo $checked;?>
 					
-				<?php if($checked == 'No'){ ?>	
+				<?php if($checked == 'No') { ?>	
 	<br/> <br/>			
 		<a class="small button" href="<?php echo $base_url . 'dashboard/checker/';?>">Check assignment </a>
 				<?php } ?>	
 				<br/><br/>
+				<?php $gearchiveerd = $assignment['assignment_archief']; ?>
+	      		<?php if ($gearchiveerd == 0) { ?>
 				<h3>Upload correction model</h3>				
 				<?php echo form_open_multipart('dashboard/do_upload');?>
 			<input type="file" name="assignment_file" size="20"> <br/> <br/>
 			<input type="hidden" id="assignmentID" name="assignmentID" value="<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>" />
 			<input type="submit" value="Upload" class="small button"> <br/> <br/>
 				<?php echo form_close(); ?>
+				<?php } ?>
 
 </div> <!-- end 12 columns --> 
 
