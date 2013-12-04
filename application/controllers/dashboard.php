@@ -510,13 +510,10 @@ class Dashboard extends CI_Controller {
 		{
 			$this->demo_auth_admin_model->update_assignment($update_assignment_id);
 		}
+		
+		$sql_where = array ('assignment_archief' => 0);
 
-		if ($this->input->post('archiveer_assignment')) {
-			$this->demo_auth_admin_model->archiveer_assignment();
-		}
-
-
-		$assignments = $this->flexi_auth->get_assignments();
+		$assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
 		$this->data['assignments'] = $assignments->result_array();
 
 		$this->data['classes'] = $this->flexi_auth->get_classes_array();
@@ -732,10 +729,9 @@ class Dashboard extends CI_Controller {
 
 	function archive(){
 		if ($this->flexi_auth->is_admin()) {
-			$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
+			$sql_where = array('assignment_archief' => 1);
 		} else {
-			echo "Alleen de assignments laten zien die deze students heeft gemaakt";
-			$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);//TODO,
+			$sql_where = array('assignment_archief' => 1);//TODO
 		}
 
 		$assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
@@ -917,11 +913,11 @@ class Dashboard extends CI_Controller {
 			$uploads = $uploads->result_array();
 
 			foreach($uploads as $upload) {
-
-				$handed_in_file = (string) $upload['student_id'] . '-' . (string)$upload['deadline_id'] . '.xml';
-				$this->checker->checkFile($correctfile_name, $handed_in_file);
-				$this->flexi_auth->update_grade($upload['student_id'], $upload['deadline_id']);
-
+				if ($upload['checked'] == 0) {
+					$handed_in_file = (string) $upload['student_id'] . '-' . (string)$upload['deadline_id'] . '.xml';
+					$this->checker->checkFile($correctfile_name, $handed_in_file);
+					$this->flexi_auth->update_grade($upload['student_id'], $upload['deadline_id']);
+				}
 			}
 
 			$this->flexi_auth_model->mark_assignment_as_checked($assignment_id);
@@ -982,6 +978,18 @@ class Dashboard extends CI_Controller {
 		$this->flexi_auth_model->mark_assignment_as_checked($assignment_id);
 		redirect('dashboard/assignment/' . $assignment_id);
 
+	}
+	
+	function archiveer_assignment($assignment_id) {
+		if ($this->flexi_auth->archiveer_assignment($assignment_id)) {
+			$this->flexi_auth->set_status_message('Assignment has been put into the archive.', TRUE);
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+			redirect('dashboard/archive');
+		} else {
+			$this->flexi_auth->set_error_message('Assignment has not been put into the archive.', TRUE);
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+			redirect('dashboard/assignments');
+		}
 	}
 
 }

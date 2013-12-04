@@ -339,7 +339,7 @@ CREATE TABLE `uml_errors` (
   `ue_id` int(11) NOT NULL AUTO_INCREMENT,
   `ue_name` varchar(40) NOT NULL DEFAULT '',
   `ue_desc` varchar(60) NOT NULL DEFAULT '',
-  `ue_error_value` smallint(2) NOT NULL DEFAULT '0',
+  `ue_error_value` float(2) NOT NULL DEFAULT '0',
 
   PRIMARY KEY (`ue_id`),
   UNIQUE KEY `ue_id` (`ue_id`)
@@ -363,6 +363,6 @@ INSERT INTO `uml_errors` (`ue_id`, `ue_name`,`ue_desc`,`ue_error_value`) VALUES
 (13, 'Operatie variabelen fout', 'Variabelen van de operatie zijn fout' , '0.1'),
 (14, 'Attribuut Variable fout', 'Variabelen van attribuut zijn fout' , '0.3'),
 (15, 'Class fout', 'Class is niet aanwezig' , '0.5'),
-(16, 'Relatie afwezig', 'Relatie is niet aanwezig' , '0.5');
+(16, 'Relatie afwezig', 'Relatie is niet aanwezig' , '0.5'),
 (17, 'Te laat', 'Student heeft assignment te laat ingeleverd' , '0.5');
 
