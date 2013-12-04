@@ -46,10 +46,6 @@ body{
 	}
 }	
 
-.checker:hover{
-	color: black !important;
-}
-
 .cijfer{
 	background-image:url('../images/cijfer.jpg');
 	width: 50px;
