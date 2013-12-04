@@ -729,6 +729,7 @@ class Dashboard extends CI_Controller {
 	function mark_all_assignments_as_checked()
 	{
 		echo "mark_all_assignments_as_checked";
+	
 		//checks if a user is the admin
 		if (!$this->flexi_auth->is_admin()) {
 			$this->flexi_auth->set_error_message('You are not priviliged to view this area.', TRUE);
@@ -738,18 +739,49 @@ class Dashboard extends CI_Controller {
 
 		$this->load->model('flexi_auth_model');
 
-		$sql_where = array($this->login->tbl_col_assignment['checked'] => '0');
-		$assignments = $this->flexi_auth_model->get_assignments(FALSE, $sql_where);
-		//hierdoor krijg je een hele hoop gegevens uit de tabel
-		$this->data['assignments'] = $assignments->result_array();
-	
-		foreach ($assignments as $assignments)
-		{
-			//hier zou ik van de tabel assignments de entries assignment_id ophalen?
-    		$assignment_id = $assignments['assignment_id'];
-    		//dit werkt gewoon
-    		$this->flexi_auth_model->mark_assignment_as_checked($assignment_id);
+		$assignment_ids = $this->flexi_auth_model->get_assignments(FALSE, FALSE);
+		$assignment_ids = $assignment_ids->result_array();
+
+		foreach ($assignment_ids as $assignment) {
+			$assignment_id = $assignment['assignment_id'];
+			$this->flexi_auth_model->mark_assignment_as_checked($assignment_id);
 		}
+
+		//sql_where = array($this->login->tbl_col_assignment['checked'] => '0');
+		//$assignments = $this->flexi_auth_model->get_assignments(FALSE, FALSE);
+		//hierdoor krijg je een hele hoop gegevens uit de tabel
+		//$assignments = $assignments->result_array();
+		//$select = array();
+
+
+		/*foreach ($assignments as $assignment) {
+			//echo '$assignment['assignment_id']';
+			echo "string";
+			$assignments[] = $assignment;
+		}*/
+
+		//print_r($assignments);
+		//$select = $assignments;
+		//print_r($select)
+
+		//$assignment_id = $assignments['assignment_id'] ;
+
+		//echo "$assignment_id";
+	
+		/*foreach ($assignments as $assignment/* => $assignment_id)
+		{
+			echo '$assignments->$assignment_id';
+			/*$assignment = [$assignments['assignment_id'];
+
+			//hier zou ik van de tabel assignments de entries assignment_id ophalen?
+    		//$assignment_id = $assignment['assignment_id'];
+    		//dit werkt gewoon
+    		$this->flexi_auth_model->mark_assignment_as_checked($assignments);
+
+    		/*$handed_in_file = (string) $upload['student_id'] . '-' . (string)$upload['deadline_id'] . '.xml';
+			$this->checker->checkFile($correctfile_name, $handed_in_file);
+			$this->flexi_auth->update_grade($upload['student_id'], $upload['deadline_id']);
+		}*/
 	}
 
 	
