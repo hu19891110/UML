@@ -259,6 +259,7 @@ CREATE TABLE `assignments` (
 	`assignment_desc` varchar(50) NOT NULL DEFAULT '',
 	`assignment_name` varchar(50) NOT NULL DEFAULT '',
 	`assignment_checked` smallint(5) NOT NULL DEFAULT '0',
+  `assignment_archief` smallint(5) NOT NULL DEFAULT '0',
 	`assignment_enddate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
 	`assignment_date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
 	PRIMARY KEY (`assignment_id`)

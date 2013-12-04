@@ -1497,6 +1497,13 @@ class Flexi_auth extends Flexi_auth_lite
 		return $this->CI->flexi_auth_model->get_assignments_not_completely_checked();
 	}
 	
+	public function archiveer_assignment($assignment_id) {
+		return  $this->CI->flexi_auth_model->archiveer_assignment($assignment_id);
+	}
+	
+	public function get_amount_students_not_handed_in($assignment_id) {
+		return $this->CI->flexi_auth_model->get_amount_students_not_handed_in($assignment_id);
+	}
 	
 }
 
