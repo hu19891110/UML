@@ -248,28 +248,74 @@
       			</tbody>
 				</table>
 		</div>
--->
+-->			
+
+				<?php
+				foreach ($assignments as $assignment)
+      			{
+					$ass_id = $assignment[$this->flexi_auth->db_column('assignment', 'id')];
+					$ass_name = $assignment[$this->flexi_auth->db_column('assignment', 'name')];
+					
+					//$gem = $this->flexi_auth->db_column('uploads', 'grade');
+					
+					if ( $this->login->tbl_col_uploads['grade'] != '' ) {
+						//$this->db->select('uploads.grade');
+						$this->db->from('uploads');
+						$this->db->where('deadline_id = ' . $ass_id);
+						$bla = $this->db->get();
+						$bla = $bla->result_array();
+						
+						$total = 0;
+						$i = 0;
+						foreach($bla as $bl) {
+							$total += $bl['grade'];
+							$i++;
+						}
+						$gem = $total / $i;
+						
+						//avg array, vullen per assignment
+						$avg[] = $gem;
+						$name[] = $ass_name;
+					}
+
+				}
+				
+				if ( empty ($avg[0])  )
+					$avg[0] = 0;
+				if ( empty ($avg[1]) )
+					$avg[1] = 0;
+				if ( empty ($avg[2]) )
+					$avg[2] = 0;
+					
+				if ( empty ($name[0]) )
+					$name[0] = 'nog geen assignment';
+				if ( empty ($name[1]) )
+					$name[1] = 'nog geen assignment';
+				if ( empty ($name[2]) )
+					$name[2] = 'nog geen assignment';
+				?>
 				<div class="dashboard large-6 columns">
 				<div id="graph"> </div>
 				
 				<script>
 				graphResolutionByYear = new Array(
-				[[3, 8],'Test 1'],
-				[[4, 9],'Test 2'],
-				[[1, 9],'Test 3']
+				[[<?php echo $avg[0]; ?>], '<?php echo $name[0]; ?>'],
+				[[<?php echo $avg[1]; ?>], '<?php echo $name[1]; ?>'],
+				[[<?php echo $avg[2]; ?>], '<?php echo $name[2]; ?>']
+
 				);
 
-				$("#graph").jqBarGraph({
-				data: graphResolutionByYear,
-				colors: ['#435B77','#000'],
-				legends: ['Lowest grade','Highest grade'],
-				legend: true,
-				width: 350,
-				color: '#ffffff',
-				type: 'multi',
-				postfix: '',
-				title: '<h3> Highest and lowest grades per test</h3>'
-				});
+ 				$("#graph").jqBarGraph({
+ 				data: graphResolutionByYear,
+ 				colors: ['#435B77','#000'],
+				legends: ['Average grade per test'],
+				legend: false,
+ 				width: 350,
+ 				color: '#ffffff',
+ 				type: 'multi',
+ 				postfix: '',
+				title: '<h3> Average grades per test</h3>'
+ 				});
 				</script>
 				
 				</div> <!-- row -->			

@@ -785,9 +785,11 @@ class Dashboard extends CI_Controller {
 		$assignment_id = $this->input->post('assignmentID');
 
 		$config['upload_path'] = './uploads/';
-		//if (!$this->flexi_auth->is_admin()) {
+		if (!$this->flexi_auth->is_admin()) {
 			$config['allowed_types'] = 'xml';
-		//}
+		} else {
+			$config['allowed_types'] = '*';
+		}
 		$config['max_size'] = '2000';
 		$config['max_width']  = '1024';
 		$config['max_height']  = '768';
