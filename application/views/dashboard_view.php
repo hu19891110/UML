@@ -176,8 +176,10 @@
       			<th>Date Deadline</th>
       			<th></th>
     			</tr>
+				</thead>
   				<tbody>
-				
+				<tr>
+				</tr>
       			<?php 
       			foreach ($assignments as $assignment)
       			{ ?>
@@ -208,7 +210,7 @@
 					<?php } ?>
 	      			
       			<?php } ?>		
-
+				
       			</tbody>
 				</table>
 		</div>
