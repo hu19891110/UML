@@ -2897,7 +2897,8 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	
 	public function get_assignments_not_completely_checked() {
 		$sql_where = array (
-			'checked' => 0
+			'checked' => 0,
+			'Type' => 1
 		);
 		$uploads = $this->db->get_where($this->login->tbl_uploads, $sql_where);
 		$uploads = $uploads->result_array();
