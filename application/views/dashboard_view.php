@@ -271,8 +271,11 @@
 							$total += $bl['grade'];
 							$i++;
 						}
-						$gem = $total / $i;
-						
+						if($i == 0) {
+							$gem = 0;
+						} else {
+							$gem = $total / $i;
+						}
 						//avg array, vullen per assignment
 						$avg[] = $gem;
 						$name[] = $ass_name;
