@@ -28,7 +28,8 @@
 							<?php foreach ($not_handed_in_assignments as $assignment) { ?> <!-- for each assignment -->
 							<tr>
 								<td style="width: 500px;">
-									<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?>
+								<a href="<?php echo $base_url.'dashboard/assignment/'.$assignment[$this->flexi_auth->db_column('assignment', 'id')];?>"> 
+									<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></a>
 								</td>
 								<td>
 									
@@ -89,7 +90,8 @@
 							<?php foreach ($handed_in_assignments as $assignment) { ?> <!-- for each assignment -->
 							<tr>
 								<td>
-									<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?>
+									<a href="<?php echo $base_url.'dashboard/assignment/'.$assignment[$this->flexi_auth->db_column('assignment', 'id')];?>"> 
+									<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></a>
 								</td>
 								
 								<td>

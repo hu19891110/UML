@@ -1485,6 +1485,10 @@ class Flexi_auth extends Flexi_auth_lite
 	public function answers_already_uploaded($user_id, $assignment_id) {
 		return $this->CI->flexi_auth_model->answers_already_uploaded($user_id, $assignment_id);
 	}
+	public function answers_already_checked($user_id, $assignment_id) {
+		return $this->CI->flexi_auth_model->answers_already_checked($user_id, $assignment_id);
+	}
+	
 	
 }
 

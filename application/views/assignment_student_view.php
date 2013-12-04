@@ -16,8 +16,8 @@
 				<h3> Date of deadline: </h3> 
 					<?php $enddate = date_create( $assignment[$this->flexi_auth->db_column('assignment', 'enddate')] );
 	      		echo date_format($enddate, 'd-m-Y H:i'); ?>
-	      		
-	      		
+	      		<?php $already_checked = $this->flexi_auth->answers_already_checked($currentuser['uacc_id'], $assignment[$this->flexi_auth->db_column('assignment', 'id')]); ?>
+	      		<?php if (!$already_checked) { ?>
 	      		<h3>Upload your answers</h3>
 	      		<?php $already_uploaded = $this->flexi_auth->answers_already_uploaded($currentuser['uacc_id'], $assignment[$this->flexi_auth->db_column('assignment', 'id')]); ?>
 	      		<?php if ($already_uploaded) { ?>
@@ -29,6 +29,7 @@
 				<br />
 				<input type="submit" value="Upload" assignmentID="<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>" class = "small button"/>
 				</form>
+				<?php } ?>
 									
 
 

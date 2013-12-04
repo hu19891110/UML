@@ -3224,6 +3224,27 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		}
 		
 	}
+	
+	public function answers_already_checked($user_id, $assignment_id) {
+		$sql_where = array(	
+			$this->login->tbl_col_uploads['student_id'] => $user_id,
+			$this->login->tbl_col_uploads['deadline_id'] => $assignment_id
+		);
+		
+		$upload = $this->db->get_where($this->login->tbl_uploads, $sql_where);
+		$upload = $upload->result_array();
+		if (!empty($upload)) {
+			$upload = $upload[0];
+			if ($upload['checked'] == 0) {
+				return FALSE;
+			} else {
+				return TRUE;
+			}
+		} else {
+			return FALSE;
+		}
+		
+	}
 }
 
 
