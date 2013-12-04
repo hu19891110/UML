@@ -1,5 +1,32 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+
+global $faults;
+global $GRADE;
+//-----------Puntenaftrek------------
+global $ModelIsNietAanwezig; //er ontbreekt een classe in de handed-in model (of de naam is verkeerd)
+
+global $RelatieNaamAnders;
+global $RelatieHeeftAnderBegin;
+global $RelatieHeeftAnderEind;
+global $RelatieAndereSoort;
+global $RelatieMPFout; //er is een fout gemaakt bij de multiplicity van een relatie, danwel bij het begin danwel bij de eindbestemming
+
+global $DatatypeAttribuutFout;
+global $DataTypeParameterFout;
+global $ParameterMissing;
+global $OperationMissing;
+global $AttribuutMissing;
+
+global $StereotypeFout;
+global $returnTypeFout;
+
+global $OperatieVariabelenFout; //(leaf/scope/unique/visibility/static) waarde * aantalvarsfout = totale_aftrek
+global $AttribuutVariabelenFout; //(leaf/scope/unique/visibility/static) waarde * aantalvarsfout = totale_aftrek
+//-----------Puntenaftrek------------
+
+
+
 class Checker 
 {
 	public function __construct()
