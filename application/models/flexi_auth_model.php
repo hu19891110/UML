@@ -1739,12 +1739,17 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 
 		foreach ($errors as $error) {
 			$error_id = $error['ce_error_id'];
-			$error_substraction = $this->get_error_value($error_id);
-			$substraction = $substraction + $error_substraction;
-
+			if ($error_id != 16) {
+				$error_substraction = $this->get_error_value($error_id);
+				$substraction = $substraction + $error_substraction;
+			}
 		}
 
 		$grade = 10 - $substraction;
+		
+		$substraction_late = $this->get_substraction_late($student_id, $assignment_id);
+		
+		$grade = $grade - $substraction_late;
 
 		return $grade;
 	}
@@ -1752,12 +1757,15 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	public function update_grade($student_id, $assignment_id)
 	{
 		$grade = $this->calculate_grade($student_id, $assignment_id);
+		
+		
+		
 		$sql_update = array('grade' => $grade);
 		$sql_where = array(
 			$this->login->tbl_col_uploads['deadline_id'] => $assignment_id,
 			$this->login->tbl_col_uploads['student_id'] => $student_id
 		);
-
+		
 		$this->db->update($this->login->tbl_uploads, $sql_update, $sql_where);
 
 		return $this->db->affected_rows() == 1;

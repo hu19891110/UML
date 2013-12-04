@@ -364,4 +364,5 @@ INSERT INTO `uml_errors` (`ue_id`, `ue_name`,`ue_desc`,`ue_error_value`) VALUES
 (14, 'Attribuut Variable fout', 'Variabelen van attribuut zijn fout' , '0.3'),
 (15, 'Class fout', 'Class is niet aanwezig' , '0.5'),
 (16, 'Relatie afwezig', 'Relatie is niet aanwezig' , '0.5');
+(17, 'Te laat', 'Student heeft assignment te laat ingeleverd' , '0.5');
 
