@@ -192,7 +192,6 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
-
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 	// Student class
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
@@ -201,7 +200,6 @@ class Dashboard extends CI_Controller {
 	 * manage_student_classes
 	 * View and manage a table of all user groups.
 	 */
-
 	function students_per_class($class_id)
 	{
 
@@ -339,39 +337,7 @@ class Dashboard extends CI_Controller {
 		}
 
 	}
-
-	/**
-	 * update_student_class
-	 * Update the details of a specific student class.
-
-	 function update_student_class($class_id)
-	 {
-	 // Check user has privileges to update user groups, else display a message to notify the user they do not have valid privileges.
-	 if (! $this->flexi_auth->is_admin())
-	 {
-	 $this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to update student classes.</p>');
-	 redirect('dashboard/manage_student_classes');
-	 }
-
-	 // If 'Update student class' form has been submitted, update the user group details.
-	 if ($this->input->post('update_student_class'))
-	 {
-	 $this->load->model('demo_auth_admin_model');
-	 $this->demo_auth_admin_model->update_student_class($class_id);
-	 }
-
-	 // Get user groups current data.
-	 $sql_where = array($this->flexi_auth->db_column('student_class', 'id') => $class_id);
-	 $this->data['class'] = $this->flexi_auth->get_classes_row_array(FALSE, $sql_where);
-
-	 $this->data['class_id'] = $class_id;
-	 // Set any returned status/error messages.
-	 $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
-
-	 $data['maincontent'] = $this->load->view('class_update_view', $this->data, TRUE);
-	 $this->load->view('template-teacher', $data);
-	 }
-	 */
+	
 	function add_student_to_class($class_id)
 	{
 		// Check user has privileges to update user groups, else display a message to notify the user they do not have valid privileges.
@@ -433,8 +399,7 @@ class Dashboard extends CI_Controller {
 		$data['maincontent'] = $this->load->view('add_student_to_class_view', $this->data, TRUE);
 		$this->load->view('template-teacher', $data);
 	}
-
-
+	
 
 	function change_password($user_id)
 	{
@@ -705,7 +670,7 @@ class Dashboard extends CI_Controller {
 		}
 
 	}
-
+	/*
 	//function to check all the assignments as checked
 	function mark_all_assignments_as_checked()
 	{
@@ -726,6 +691,7 @@ class Dashboard extends CI_Controller {
 			$this->flexi_auth_model->mark_assignment_as_checked($assignment_id);
 		}
 	}
+	*/
 
 	function archive(){
 		if ($this->flexi_auth->is_admin()) {
@@ -780,7 +746,7 @@ class Dashboard extends CI_Controller {
 			$this->load->view('template-student', $data);
 		}
 	}
-
+	/*
 	function archive_assignment($assignment_id = FALSE) {
 		if (!$assignment_id) {
 			$this->session->set_flashdata('message', '<p class="error_msg">Invalid assignment ID.</p>');
@@ -805,7 +771,7 @@ class Dashboard extends CI_Controller {
 			$this->load->view('template-student', $data);
 		}
 	}
-
+	*/
 	function do_upload()
 	{
 
@@ -853,7 +819,7 @@ class Dashboard extends CI_Controller {
 			redirect('dashboard/assignments');
 		}
 	}
-
+	
 	function grade_overview($assignment_id = FALSE)
 	{
 		$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
@@ -875,7 +841,7 @@ class Dashboard extends CI_Controller {
 		}
 
 	}
-
+	
 	function topdf($assignment_id) {
 		if (!$this->flexi_auth->is_admin()) {
 			$this->flexi_auth->set_error_message('You are not privileged to view this area.', TRUE);
@@ -977,7 +943,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('template-teacher', $data);
 
 	}
-
+	
 	function checkassignment($assignment_id) {
 		if (!$this->flexi_auth->is_admin()) {
 			$this->flexi_auth->set_error_message('You are not priviliged to view this area.', TRUE);
@@ -1041,7 +1007,7 @@ class Dashboard extends CI_Controller {
 			redirect('dashboard');
 		}
 		
-		if(!empty($this->input->post('substraction'))){//post
+		if($this->input->post('substraction')) {//post
 			$newSubstraction = $this->input->post('substraction');
 			$this->demo_auth_admin_model->editSubstraction($id,$newSubstraction);
 			$id = NULL;
@@ -1058,6 +1024,7 @@ class Dashboard extends CI_Controller {
 			$this->load->view('template-teacher', $data);
 		
 	}
+	
 
 }
 ?>

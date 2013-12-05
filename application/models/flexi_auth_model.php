@@ -3007,6 +3007,8 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		}
 		return $i;
 	}
+	
+	
 
 >>>>>>> 5283d74c1615033272e59be7e4051d504d56068a
 }
