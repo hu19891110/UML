@@ -326,6 +326,8 @@
 					$avg[1] = 0;
 				if ( empty ($avg[2]) )
 					$avg[2] = 0;
+				if ( empty ($avg[3]) )
+					$avg[3] = 0;
 					
 				if ( empty ($name[0]) )
 					$name[0] = 'nog geen assignment';
@@ -333,15 +335,20 @@
 					$name[1] = 'nog geen assignment';
 				if ( empty ($name[2]) )
 					$name[2] = 'nog geen assignment';
+				if ( empty ($name[3]) )
+					$name[3] = 'nog geen assignment';
+					
+					
 				?>
 				<div class="dashboard large-6 columns">
 				<div id="graph"> </div>
 				
 				<script>
 				graphResolutionByYear = new Array(
-				[[<?php echo $avg[count($avg) - 3]; ?>], '<?php echo $name[count($avg) - 3]; ?>'],
-				[[<?php echo $avg[count($avg) - 2]; ?>], '<?php echo $name[count($avg) - 2]; ?>'],
-				[[<?php echo $avg[count($avg) - 1]; ?>], '<?php echo $name[count($avg) - 1]; ?>']
+				[[<?php echo $avg[count($avg) - 4]; ?>], '<?php $i = $name[count($avg) - 4]; while(strlen($i) > 12) $i = substr($i, 0, -1);  echo $i; ?>'],
+				[[<?php echo $avg[count($avg) - 3]; ?>], '<?php $i = $name[count($avg) - 3]; while(strlen($i) > 12) $i = substr($i, 0, -1);  echo $i; ?>'],
+				[[<?php echo $avg[count($avg) - 2]; ?>], '<?php $i = $name[count($avg) - 2]; while(strlen($i) > 12) $i = substr($i, 0, -1);  echo $i; ?>'],
+				[[<?php echo $avg[count($avg) - 1]; ?>], '<?php $i = $name[count($avg) - 1]; while(strlen($i) > 12) $i = substr($i, 0, -1);  echo $i; ?>']
 
 				);
 
