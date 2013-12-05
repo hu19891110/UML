@@ -32,7 +32,7 @@
 			
 		</h4>	
 	</div>
-	<? 
+	<?php
 	
 		foreach ($errors as $error) {
 			
@@ -48,7 +48,7 @@
 	 		 $error_value = $this->flexi_auth->get_substraction_late($user_id, $assignment_id);
 			  } ?>
 			 <span class="mistake"><?php echo $error_value;?></span>
-			 <?
+			 <?php
 			 			 if ($error_id == 1) {
 				 ?>
 				 <p>Relationship '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': The relationship exists in the handed in model but has <strong>another</strong> name.</p>
