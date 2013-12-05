@@ -1,4 +1,4 @@
-<!--<?php if ($this->flexi_auth->is_admin()) { ?>-->
+<?php  { ?>
 <!-- main content -->
 <div class="large-12 columns padding">
 	

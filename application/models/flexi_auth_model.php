@@ -2954,6 +2954,17 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$substraction = $upload['substraction_late'];
 		return $substraction;
 	}
+
+	function get_assignments_for_class($class_id) {
+		$class_assignments = $this->db->get_where('class_assignments', array('class_id_fk' => $class_id));
+		$class_assignments = $class_assignments->result_array();
+		$assignments = array();
+		foreach ($class_assignments as $class_assignment) {
+			$assignment_id = $class_assignment['assignment_id_fk'];
+			array_push($assignments, $assignment_id);
+		}
+		return $assignments;
+	}
 }
 
 

@@ -730,15 +730,38 @@ class Dashboard extends CI_Controller {
 	function archive(){
 		if ($this->flexi_auth->is_admin()) {
 			$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
+			$assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
+			$this->data['assignments'] = $assignments->result_array();
+			$data['maincontent'] = $this->load->view('archive_view', $this->data, TRUE);
 		} else {
-			echo "Alleen de assignments laten zien die deze students heeft gemaakt";
-			$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);//TODO, 
+			/*//get the class which belongs to this user
+			$current_user = $this->flexi_auth->get_user_id();
+			$current_classes = $this->flexi_auth->get_student_class($current_user);
+			$current_classes = $current_classes->result_array();
+			foreach ($current_classes as $current_class) {
+				$current_class_id = $current_class['uacc_class_fk'];
+			}
+			echo "class of user: $current_class_id \ ";
+
+			//get the assignments for this user
+			$assignment_classes = $this->flexi_auth_model->get_assignments_for_class($current_class_id);
+
+			echo "contents of assignment_classes: " ;
+			print_r($assignment_classes);
+			echo "\ ";
+
+			$sql_where = array('assignment_id' => $assignment_class);//TODO, 
+			$assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
+			$this->data['assignments'] = $assignments->result_array();
+			$data['maincontent'] = $this->load->view('archive_view', $this->data, TRUE);*/
+
+			$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
+			$assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
+			$this->data['assignments'] = $assignments->result_array();
+			$data['maincontent'] = $this->load->view('archive_view', $this->data, TRUE);
 		}
-		
-		$assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
-		$this->data['assignments'] = $assignments->result_array();
-			
-		$data['maincontent'] = $this->load->view('archive_view', $this->data, TRUE);
+
+		//$data['maincontent'] = $this->load->view('archive_view', $this->data, TRUE);
 		if ($this->flexi_auth->is_admin()) {
 			$this->load->view('template-teacher', $data);
 		} else {
