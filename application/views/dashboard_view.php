@@ -68,36 +68,38 @@
 				<?php
 				foreach ($assignments as $assignment)
       			{
-					$ass_id = $assignment[$this->flexi_auth->db_column('assignment', 'id')];
-					$ass_name = $assignment[$this->flexi_auth->db_column('assignment', 'name')];
-					
-					//$gem = $this->flexi_auth->db_column('uploads', 'grade');
-					
-					if ( $this->login->tbl_col_uploads['grade'] != '' ) {
-						//$this->db->select('uploads.grade');
-						$this->db->from('uploads');
-						$this->db->where('deadline_id = ' . $ass_id);
-						$bla = $this->db->get();
-						$bla = $bla->result_array();
+					$ass_checked = $assignment['assignment_checked'];
+					if($ass_checked == 1) {
+						$ass_id = $assignment[$this->flexi_auth->db_column('assignment', 'id')];
+						$ass_name = $assignment[$this->flexi_auth->db_column('assignment', 'name')];
+						//print_r($assignment);
+						//$gem = $this->flexi_auth->db_column('uploads', 'grade');
 						
-						$total = 0;
-						$i = 0;
-						$j = 0;
-						foreach($bla as $bl) {
-							if ($bl['grade'] >= 5.5){
-								$j++;
+						if ( $this->login->tbl_col_uploads['grade'] != '' ) {
+							//$this->db->select('uploads.grade');
+							$this->db->from('uploads');
+							$this->db->where('deadline_id = ' . $ass_id);
+							$bla = $this->db->get();
+							$bla = $bla->result_array();
+							
+							$total = 0;
+							$i = 0;
+							$j = 0;
+							foreach($bla as $bl) {
+								if ($bl['grade'] >= 5.5){
+									$j++;
+								}
+								else{
+									$i++;
+								}
 							}
-							else{
-								$i++;
-							}
+							
+							//avg array, vullen per assignment
+							$vol[] = $j;
+							$onvol[] = $i;
+							$name[] = $ass_name;
 						}
-						
-						//avg array, vullen per assignment
-						$vol[] = $j;
-						$onvol[] = $i;
-						$name[] = $ass_name;
 					}
-
 				}
 				
 				if ( empty ($vol[0])  )
@@ -290,34 +292,39 @@
 				<?php
 				foreach ($assignments as $assignment)
       			{
-					$ass_id = $assignment[$this->flexi_auth->db_column('assignment', 'id')];
-					$ass_name = $assignment[$this->flexi_auth->db_column('assignment', 'name')];
-					
-					//$gem = $this->flexi_auth->db_column('uploads', 'grade');
-					
-					if ( $this->login->tbl_col_uploads['grade'] != '' ) {
-						//$this->db->select('uploads.grade');
-						$this->db->from('uploads');
-						$this->db->where('deadline_id = ' . $ass_id);
-						$bla = $this->db->get();
-						$bla = $bla->result_array();
+					$ass_checked = $assignment['assignment_checked'];
+					if($ass_checked = 1) {
+						$ass_id = $assignment[$this->flexi_auth->db_column('assignment', 'id')];
+						$ass_name = $assignment[$this->flexi_auth->db_column('assignment', 'name')];
 						
-						$total = 0;
-						$i = 0;
-						foreach($bla as $bl) {
-							$total += $bl['grade'];
-							$i++;
+						//$gem = $this->flexi_auth->db_column('uploads', 'grade');
+						
+						if ( $this->login->tbl_col_uploads['grade'] != '' ) {
+							//$this->db->select('uploads.grade');
+							$this->db->from('uploads');
+							$this->db->where('deadline_id = ' . $ass_id);
+							$bla = $this->db->get();
+							$bla = $bla->result_array();
+						
+							
+							$total = 0;
+							$i = 0;
+							foreach($bla as $bl) {
+								if($bl['Type'] == 1) {
+									$total += $bl['grade'];
+									$i++;
+								}
+							}
+							if($i == 0) {
+								$gem = 0;
+							} else {
+								$gem = $total / $i;
+							}
+							//avg array, vullen per assignment
+							$avg[] = $gem;
+							$name[] = $ass_name;
 						}
-						if($i == 0) {
-							$gem = 0;
-						} else {
-							$gem = $total / $i;
-						}
-						//avg array, vullen per assignment
-						$avg[] = $gem;
-						$name[] = $ass_name;
 					}
-
 				}
 				
 				if ( empty ($avg[0])  )
