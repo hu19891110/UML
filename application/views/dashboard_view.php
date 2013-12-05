@@ -122,23 +122,21 @@
 					$name[2] = 'nog geen assignment';
 				?>
 				
-				
-				
-				
 				<div id="graph1" class="large-4 columns "> </div>
 				<script>
 				graphResolutionByYear2 = new Array(
-				[[<?php echo $vol[0]; ?>, <?php echo $onvol[0]; ?>], '<?php echo $name[0]; ?>'],
-				[[<?php echo $vol[1]; ?>, <?php echo $onvol[1]; ?>], '<?php echo $name[1]; ?>'],
-				[[<?php echo $vol[2]; ?>, <?php echo $onvol[2]; ?>], '<?php echo $name[2]; ?>']
+				[[<?php echo $vol[count($vol) - 3]; ?>, <?php echo $onvol[count($onvol) - 3]; ?>], '<?php echo $name[count($name) - 3]; ?>'],
+				[[<?php echo $vol[count($vol) - 2]; ?>, <?php echo $onvol[count($onvol) - 2]; ?>], '<?php echo $name[count($name) - 2]; ?>'],
+				[[<?php echo $vol[count($vol) - 1]; ?>, <?php echo $onvol[count($onvol) - 1]; ?>], '<?php echo $name[count($name) - 1]; ?>']
 				);
 
+				
 				$("#graph1").jqBarGraph({
 				data: graphResolutionByYear2,
 				colors: ['#435B77','#000'],
 				legends: ['Passing grades', 'Non-Passing grades'],
 				legend: true,
- 				width: 350,
+ 				width: 450,
  				color: '#ffffff',
  				type: 'multi',
  				postfix: '',
@@ -159,12 +157,15 @@
       			<th>Deadline of assignment</th>
       			<th>Amount of students not yet handed in</th>
     			</tr>
+				</thead>
   				<tbody>
-  			
+				<tr>
+				</tr>
+				
       			<?php 
       			foreach ($assignments as $assignment)
       			{ ?>
-      			<tr>
+      			
       			<?php
       				$current_time = date('F d, Y G:i');
 						$assignment_time = $assignment['assignment_enddate'];
@@ -174,7 +175,7 @@
 						$days_left = floor($datediff/(60*60*24)); 
       			?>
       			<?php if ($days_left > 0){ ?>
-      			
+      			<tr>
 	      			<td><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></td>
 	      			<td>
 	      				<?php  
@@ -188,8 +189,9 @@
 							echo $amount;
 						?>
 					</td>
+					</tr>	
 					<?php } ?>
-	      		</tr>	
+	      		
       			<?php } ?>		
       			</tbody>
 				</table>
@@ -337,9 +339,9 @@
 				
 				<script>
 				graphResolutionByYear = new Array(
-				[[<?php echo $avg[0]; ?>], '<?php echo $name[0]; ?>'],
-				[[<?php echo $avg[1]; ?>], '<?php echo $name[1]; ?>'],
-				[[<?php echo $avg[2]; ?>], '<?php echo $name[2]; ?>']
+				[[<?php echo $avg[count($avg) - 3]; ?>], '<?php echo $name[count($avg) - 3]; ?>'],
+				[[<?php echo $avg[count($avg) - 2]; ?>], '<?php echo $name[count($avg) - 2]; ?>'],
+				[[<?php echo $avg[count($avg) - 1]; ?>], '<?php echo $name[count($avg) - 1]; ?>']
 
 				);
 
@@ -348,7 +350,7 @@
  				colors: ['#435B77','#000'],
 				legends: ['Average grade per test'],
 				legend: false,
- 				width: 350,
+ 				width: 450,
  				color: '#ffffff',
  				type: 'multi',
  				postfix: '',
