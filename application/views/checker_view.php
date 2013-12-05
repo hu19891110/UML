@@ -35,7 +35,7 @@
 
 <br /><br /><br /><br />
 
-<a href="<?php site_url('dashboard/substraction_change');?>">Change substractions</a>
+<a href="<?php echo $base_url . 'dashboard/change_substraction'?>">Change substractions</a>
 
 
 </div> <!-- end large 12 columns --> 

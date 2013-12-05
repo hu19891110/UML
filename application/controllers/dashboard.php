@@ -999,7 +999,6 @@ class Dashboard extends CI_Controller {
 	function change_substraction($id = NULL){
 		$this->load->library('form_validation');
 		$this->load->model('demo_auth_admin_model');
-		$this->output->enable_profiler(TRUE);
 		if (!$this->flexi_auth->is_admin()) {
 			$this->flexi_auth->set_error_message('You are not privileged to view this area.', TRUE);
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
