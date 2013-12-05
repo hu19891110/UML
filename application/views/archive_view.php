@@ -16,8 +16,6 @@
 			<th>Deadline of assignment</th>
 			<th>View details</th>
 			<th>View grades</th>
-			<th></th>
-			<th></th>
 			</tr>
 			</thead>
 			<tbody>
@@ -33,9 +31,9 @@
 					echo date_format($enddate, 'd-m-Y H:i');
 					?>
 				</td>
-				<td> <a href="<?php echo $base_url . 'dashboard/archive_assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">View details</a> </td>
+				<td> <a href="<?php echo $base_url . 'dashboard/assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">View details</a> </td>
 				<td> <a href="<?php echo $base_url . 'dashboard/grade_overview/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">View grades</a> </td>	  			
-				</td>
+				
 				
 			</tr>	
 			<?php } ?>	

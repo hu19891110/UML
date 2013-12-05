@@ -727,6 +727,20 @@ function update_assignment($assignment_id)
 			redirect('dashboard/assignments/'. $assignment_id);	
 		}
 	}
+	
+	public function getSubstractionOverview(){
+		return $this->db->get('UML_errors');
+	}
+	public function getSubstraction($id){
+		$this->db->where('ue_id',$id);
+		return $this->db->get('UML_errors');
+	}
+	public function editSubstraction($id,$newSubstraction){
+		$this->db->where('ue_id',$id);
+		$data = array ('ue_error_value' => $newSubstraction);
+		$this->db->update('UML_errors',$data);
+	}
+
 }
 
 /* End of file demo_auth_admin_model.php */

@@ -44,6 +44,9 @@
 			 <span class="notcheckedbutton"></span>
 			 <span class="checkedbutton"></span>
 	 		 <?php } ?>
+	 		 <?php if ($error_id == 17) { 
+	 		 $error_value = $this->flexi_auth->get_substraction_late($user_id, $assignment_id);
+			  } ?>
 			 <span class="mistake"><?php echo $error_value;?></span>
 			 <?
 			 			 if ($error_id == 1) {
@@ -113,7 +116,7 @@
 				 <?php
 			} else if ($error_id = 17) {
 				?>
-				<p>The student handed in his assignment <?php echo $error[$this->flexi_auth->db_column('checker_error', 'eigenschappen')];?> after the deadline. </p>
+				<p>The student handed in his assignment <?php echo $error[$this->flexi_auth->db_column('checker_error', 'eigenschappen')];?> days after the deadline. </p>
 				<?php
 			}
 			echo '<br/><br/>';		

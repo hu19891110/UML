@@ -7,8 +7,10 @@
 	<?php if ($this->flexi_auth->is_admin()) { ?>
 		<?php  if (!empty($checked_assignments)) { ?>
 			<?php foreach ($checked_assignments as $checked_assignment) { ?> <!-- for each assignment -->
-				<h3><?php echo $checked_assignment[$this->flexi_auth->db_column('assignment', 'name')];?><a style="float:right" target="_blank" href="<?php echo $base_url.'dashboard/topdf/' . $checked_assignment['assignment_id'] ?>">
-		<input type="submit" value="PDF" class="small button"><a style="float:right; margin-right: 10px;" href="<?php echo $base_url.'dashboard/toexcel/' . $checked_assignment['assignment_id']  ?>">
+				<h3><?php echo $checked_assignment[$this->flexi_auth->db_column('assignment', 'name')];?>
+				
+		<a style="float:right" target="_blank" href="<?php echo $base_url.'dashboard/topdf/' . $checked_assignment['assignment_id'] ?>">
+		<input type="submit" value="PDF" class="small button"></a><a style="float:right; margin-right: 10px;" href="<?php echo $base_url.'dashboard/toexcel/' . $checked_assignment['assignment_id']  ?>">
 		<input type="submit" value="Excel" class="small button">  </a></h3>
 				<table style="width: 1000px;" class="assignmentstudents responsive">
 				<?php /* ?>

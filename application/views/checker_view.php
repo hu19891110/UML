@@ -33,4 +33,9 @@
 	<?php echo "No assignments to be checked"; ?>
 <?php } ?>	
 
+<br /><br /><br /><br />
+
+<a href="<?php echo $base_url . 'dashboard/change_substraction'?>">Change substractions</a>
+
+
 </div> <!-- end large 12 columns --> 

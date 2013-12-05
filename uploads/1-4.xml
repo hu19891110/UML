@@ -1,0 +1,799 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project Author="thomasprikkel" CommentTableSortAscending="false" CommentTableSortColumn="Date Time" Description="&lt;html&gt;&#10;  &lt;head&gt;&#10;    &lt;style type=&quot;text/css&quot;&gt;&#10;      &lt;!--&#10;        body { color: #000000; font-family: Courier New; font-size: 11px }&#10;      --&gt;&#10;    &lt;/style&gt;&#10;    &#10;  &lt;/head&gt;&#10;  &lt;body&gt;&#10;    &lt;p&gt;&#10;      UML Diagram voor het java programma Happer. Software Engineering college &#10;      2013&#10;    &lt;/p&gt;&#10;  &lt;/body&gt;&#10;&lt;/html&gt;&#10;" DocumentationType="html" ExportedFromDifferentName="false" ExporterVersion="8.2.0" Name="Happer" TextualAnalysisHighlightOptionCaseSensitive="false" UmlVersion="2.x" Xml_structure="simple">
+	<ProjectInfo>
+		<LogicalView/>
+		<ProjectOptions>
+			<DiagramOptions ActivityDiagramControlFlowDisplayOption="\u0000" ActivityDiagramShowActionCallBehaviorOption="\u0000" ActivityDiagramShowObjectNodeType="true" ActivityDiagramShowPartitionHandle="\u0000" AddDataStoresExtEntitiesToDecomposedDFD="\u0002" AlignColumnProperties="true" AlignToGrid="true" AutoGenerateRoleName="false" AutoSetAttributeType="true" AutoSetColumnType="true" AutoSyncRoleName="true" BpdAutoStretchPools="true" BpdConnectGatewayWithFlowObjectInDifferentPool="\u0000" BpdDefaultConnectionPointStyle="\u0001" BpdDefaultConnectorStyle="\u0005" BpdDhowIdOption="\u0000" BpdShowActivitiesTypeIcon="true" BusinessProcessDiagramDefaultLanguage="English" ClassVisibilityStyle="\u0001" ConnectorLabelOrientation="\u0000" CreateOneMessagePerDirection="true" DecisionMergeNodeConnectionPointStyle="\u0000" DefaultAssociationEndNavigable="\u0001" DefaultAssociationEndVisibility="\u0000" DefaultAssociationShowFromMultiplicity="true" DefaultAssociationShowFromRoleName="true" DefaultAssociationShowFromRoleVisibility="true" DefaultAssociationShowStereotypes="true" DefaultAssociationShowToMultiplicity="true" DefaultAssociationShowToRoleName="true" DefaultAssociationShowToRoleVisibility="true" DefaultAttributeMultiplicity="false" DefaultAttributeType="" DefaultAttributeVisibility="\u0001" DefaultClassAttributeMultiplicity="" DefaultClassAttributeMultiplicityOrdered="false" DefaultClassAttributeMultiplicityUnique="true" DefaultClassInterfaceBall="false" DefaultClassVisibility="\u0004" DefaultColumnType="integer(10)" DefaultConnectionPointStyle="\u0000" DefaultConnectorStyle="\u0001" DefaultDiagramBackground="rgb(255, 255, 255)" DefaultDisplayAsRobustnessAnalysisIcon="true" DefaultDisplayAsRobustnessAnalysisIconInSequenceDiagram="true" DefaultDisplayAsStereotypeIcon="false" DefaultFontColor="rgb(0, 0, 0)" DefaultGenDiagramTypeFromScenario="\u0000" DefaultHtmlDocFontColor="rgb(0, 0, 0)" DefaultLineJumps="\u0000" DefaultOperationVisibility="\u0004" DefaultParameterDirection="\u0002" DefaultShowAttributeInitialValue="true" DefaultShowAttributeOption="\u0001" DefaultShowClassMemberStereotype="true" DefaultShowDirection="false" DefaultShowMultiplicityConstraints="false" DefaultShowOperationOption="\u0001" DefaultShowOperationSignature="true" DefaultShowOrderedMultiplicityConstraint="true" DefaultShowOwnedAssociationEndAsAttribute="true" DefaultShowOwner="false" DefaultShowTemplateParameter="true" DefaultShowTypeOption="\u0001" DefaultShowUniqueMultiplicityConstraint="true" DefaultTypeOfSubProcess="\u0000" DefaultWrapClassMember="false" DrawTextAnnotationOpenRectangleFollowConnectorEnd="true" EnableMinimumSize="true" EntityColumnConstraintsPresentation="\u0002" ErdIndexPattern="{table_name}" ErdIndexPatternSyncAutomatically="true" ExpandedSubProcessDiagramContent="\u0001" ForeignKeyArrowHeadSize="\u0002" ForeignKeyConnectorEndPointAssociatedColumn="false" ForeignKeyNamePattern="{reference_table_name}{reference_column_name}" ForeignKeyNamePatternCaseHandling="0" ForeignKeyRelationshipPattern="{association_name}" FractionalMetrics="true" GeneralizationSetNotation="\u0001" GraphicAntiAliasing="true" GridColor="rgb(192, 192, 192)" GridDiagramFontSize="14" GridHeight="10" GridWidth="10" HighlightConnectorsOfSelectedOrMouseOverShape="false" LineJumpSize="\u0000" ModelElementNameAlignment="\u0004" MultipleLineClassName="\u0001" PaintConnectorThroughLabel="true" PrimaryKeyConstraintPattern="" PrimaryKeyNamePattern="ID" RenameConstructorAfterRenameClass="\u0000" RenameExtensionPointToFollowExtendUseCase="\u0000" ShapeAutoFitSize="false" ShowActivationsInSequenceDiagram="true" ShowActivityStateNodeCaption="65535" ShowArtifactOption="\u0002" ShowAssociatedDiagramNameOfInteraction="false" ShowAssociationRoleStereotypes="true" ShowAttributeGetterSetter="false" ShowClassEmptyCompartments="false" ShowColumnType="true" ShowComponentOption="\u0002" ShowExtraColumnProperties="true" ShowGrid="false" ShowMessageOperationSignatureForSequenceAndCommunicationDiagram="true" ShowMessageStereotypeInSequenceAndCommunicationDiagram="true" ShowNumberInCollaborationDiagram="true" ShowNumberInSequenceDiagram="true" ShowPackageNameStyle="\u0000" ShowParameterNameInOperationSignature="true" ShowRowGridLineWithinCompClassDiagram="false" ShowRowGridLineWithinCompERD="true" ShowRowGridLineWithinORMDiagram="true" ShowSchemaNameInERD="true" ShowTransitionTrigger="\u0000" ShowUseCaseExtensionPoint="true" ShowUseCaseID="false" StateShowPrePostConditionAndBodyOfInternalActivities="true" StopTargetLifelineOnCreateDestroyMessage="\u0002" SupportHtmlTaggedValue="false" SupportMultipleLineAttribute="true" SuppressImpliedMultiplicityForAttributeAssociationEnd="false" SyncAssociationNameWithAssociationClass="\u0000" SyncAssociationRoleNameWithReferencedAttributeName="true" SyncDocOfInterfaceToSubClass="\u0000" TextAntiAliasing="true" TextualAnalysisGenerateRequirementTextOption="\u0001" TextualAnalysisHighlightOption="\u0000" UseStateNameTab="false">
+				<DefaultHtmlDocFont Family="Courier New" Size="11" Style="0"/>
+			</DiagramOptions>
+			<GeneralOptions ConfirmSubLevelIdWithDot="true"/>
+			<InstantReverseOptions CalculateGeneralizationAndRealization="false" CreateShapeForParentModelOfDraggedClassPackage="false" ReverseGetterSetter="\u0000" ReverseOperationImplementation="false" ShowPackageForNewDiagram="\u0001" ShowPackageOwner="\u0000"/>
+			<ModelQualityOptions EnableModelQualityChecking="false"/>
+			<OfficeExchangeOptions GenerateBlankModel="false" GenerateTableOfContent="true" InsertPageBreak="true"/>
+			<ORMOptions DecimalPrecision="19" DecimalScale="0" ExportCommentToDatabase="true" FormattedSQL="false" GenerateAssociationWithAttribute="false" GenerateDiagramFromORMWizards="true" GetterSetterVisibility="\u0000" IdGeneratorType="native" MappingFileColumnOrder="\u0000" NumericToClassType="\u0000" QuoteSQLIdentifier="\u0000" RecreateShapeWhenSync="false" SyncToClassDiagramAttributeName="\u0001" SyncToClassDiagramAttributeNamePrefix="" SyncToClassDiagramAttributeNameSuffix="" SyncToClassDiagramClassName="\u0000" SyncToClassDiagramClassNamePrefix="" SyncToClassDiagramClassNameSuffix="" SyncToERDColumnName="\u0000" SyncToERDColumnNamePrefix="" SyncToERDColumnNameSuffix="" SyncToERDTableName="\u0004" SyncToERDTableNamePrefix="" SyncToERDTableNameSuffix="" SynchronizeDefaultValueToColumn="false" SynchronizeName="\u0002" TablePerSubclassFKMapping="\u0000" UpperCaseSQL="true" UseDefaultDecimal="true" WrappingServletRequest="\u0001"/>
+			<RequirementDiagramOptions DefaultWrapMember="false" ShowAttributes="\u0001" SupportHTMLAttribute="false"/>
+			<StateCodeEngineOptions AutoCreateInitialStateInStateDiagram="true" AutoCreateTransitionMethods="true" DefaultInitialStateLocationX="-1" DefaultInitialStateLocationY="-1" GenerateDebugMessage="false" GenerateSample="true" GenerateTryCatch="true" Language="\u0000" RegenerateTransitionMethods="false" SyncTransitionMethods="true"/>
+			<WarningOptions CreateORMClassInDefaultPackage="true"/>
+			<PORepository>
+				<POUserIDFormats>
+					<POUserIDFormat Digits="2" Guid="false" Id="BVkNTIKGAqAACwUb" LastNumericValue="0" ModelType="BPMNElement" Prefix="BP" Suffix=""/>
+					<POUserIDFormat Digits="2" Guid="false" Id="BVkNTIKGAqAACwUc" LastNumericValue="0" ModelType="Actor" Prefix="AC" Suffix=""/>
+					<POUserIDFormat Digits="2" Guid="false" Id="BVkNTIKGAqAACwUd" LastNumericValue="0" ModelType="UseCase" Prefix="UC" Suffix=""/>
+					<POUserIDFormat Digits="3" Guid="false" Id="BVkNTIKGAqAACwUe" LastNumericValue="0" ModelType="Requirement" Prefix="REQ" Suffix=""/>
+					<POUserIDFormat Digits="3" Guid="false" Id="BVkNTIKGAqAACwUf" LastNumericValue="0" ModelType="BusinessRule" Prefix="BR" Suffix=""/>
+				</POUserIDFormats>
+			</PORepository>
+		</ProjectOptions>
+	</ProjectInfo>
+	<Models>
+		<ModelRelationshipContainer Documentation_plain="" Id="iRWHTIKGAqAACwjM" Name="relationships" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:02:31.569" PmLastModified="2013-09-23T18:06:10.618" QualityScore="-1" UserIDLastNumericValue="0">
+			<ModelChildren>
+				<ModelRelationshipContainer Documentation_plain="" Id="4iOEbIKD.AAAAQa2" Name="Usage" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:11:24.615" PmLastModified="2013-09-19T15:49:28.056" QualityScore="-1" UserIDLastNumericValue="0">
+					<ModelChildren>
+						<Usage Documentation_plain="" From="VHZPTIKGAqAACwo4" Id="7.9ibIKEidiijwa0" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:52:02.679" PmLastModified="2013-09-19T15:00:01.440" QualityScore="-1" To="57BdTIKGAqAACwWm" UserIDLastNumericValue="0" Visibility="Unspecified">
+							<Stereotypes>
+								<Stereotype Idref="8gWYbIKD.AAAAQal" Name="parameter"/>
+							</Stereotypes>
+							<MasterView>
+								<Usage Idref="f.9ibIKEidiijwa1"/>
+							</MasterView>
+						</Usage>
+						<Usage Documentation_plain="" From="FZWPTIKGAqAACwoa" Id="SWribIKEidiijwbG" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:52:26.898" PmLastModified="2013-09-19T15:00:01.441" QualityScore="-1" To="57BdTIKGAqAACwWm" UserIDLastNumericValue="0" Visibility="Unspecified">
+							<Stereotypes>
+								<Stereotype Idref="8gWYbIKD.AAAAQal" Name="parameter"/>
+							</Stereotypes>
+							<MasterView>
+								<Usage Idref="6WribIKEidiijwbH"/>
+							</MasterView>
+						</Usage>
+						<Usage Documentation_plain="" From="u.RubIKEidiijwlX" Id="5IDubIKEidiijwlt" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:44:30.759" PmLastModified="2013-09-19T15:49:28.045" QualityScore="-1" To="bg.XTIKGAqAACwle" UserIDLastNumericValue="0" Visibility="Unspecified">
+							<Stereotypes>
+								<Stereotype Idref="8gWYbIKD.AAAAQal" Name="parameter"/>
+							</Stereotypes>
+							<MasterView>
+								<Usage Idref="tIDubIKEidiijwlu"/>
+							</MasterView>
+						</Usage>
+					</ModelChildren>
+				</ModelRelationshipContainer>
+				<ModelRelationshipContainer Documentation_plain="" Id="S3bqbIKEidiijwe8" Name="Association" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:10:01.682" PmLastModified="2013-09-29T22:45:40.361" QualityScore="-1" UserIDLastNumericValue="0">
+					<ModelChildren>
+						<Association Abstract="false" Derived="false" Direction="From To" Documentation_plain="" EndRelationshipFromMetaModelElement="Ba3PTIKGAqAACwpX" EndRelationshipToMetaModelElement="fIU9TIKGAqAACwXZ" Id="UsvObIKEidiijwkr" Leaf="false" Name="gebruikt" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:41:02.410" PmLastModified="2013-09-23T17:41:29.182" QualityScore="-1" UserIDLastNumericValue="0" Visibility="Unspecified">
+							<FromEnd>
+								<AssociationEnd AggregationKind="None" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" EndModelElement="Ba3PTIKGAqAACwpX" Id="UsvObIKEidiijwks" JavaCodeAttributeName="" Leaf="false" Multiplicity="1" Name="" Navigable="Navigable" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:41:02.410" ProvidePropertyGetterMethod="false" ProvidePropertySetterMethod="false" QualityScore="-1" ReadOnly="false" Static="false" TypeModifier="" UserIDLastNumericValue="0" Visibility="Unspecified">
+									<Qualifier>
+										<Qualifier Documentation_plain="" Id="UsvObIKEidiijwkt" Name="" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:41:02.410" QualityScore="-1" UserIDLastNumericValue="0"/>
+									</Qualifier>
+									<Type>
+										<Class Idref="Ba3PTIKGAqAACwpX" Name="GameEventListener"/>
+									</Type>
+								</AssociationEnd>
+							</FromEnd>
+							<ToEnd>
+								<AssociationEnd AggregationKind="None" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" EndModelElement="fIU9TIKGAqAACwXZ" Id="UsvObIKEidiijwku" JavaCodeAttributeName="" Leaf="false" Multiplicity="*" Navigable="Unspecified" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:41:02.410" ProvidePropertyGetterMethod="false" ProvidePropertySetterMethod="false" QualityScore="-1" ReadOnly="false" Static="false" TypeModifier="" UserIDLastNumericValue="0" Visibility="Unspecified">
+									<Qualifier>
+										<Qualifier Documentation_plain="" Id="UsvObIKEidiijwkv" Name="" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:41:02.410" QualityScore="-1" UserIDLastNumericValue="0"/>
+									</Qualifier>
+									<Type>
+										<Class Idref="fIU9TIKGAqAACwXZ" Name="Playground"/>
+									</Type>
+								</AssociationEnd>
+							</ToEnd>
+							<MasterView>
+								<Association Idref="ssvObIKEidiijwkw" Name="gebruikt"/>
+							</MasterView>
+						</Association>
+						<Association Abstract="false" Derived="false" Direction="From To" Documentation_plain="" EndRelationshipFromMetaModelElement="57BdTIKGAqAACwWm" EndRelationshipToMetaModelElement="MDR3TIKGAqAACwnA" Id="Z7iBbIKEidiijwoy" Leaf="false" Name="houdt score bij" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:55:33.478" PmLastModified="2013-09-23T17:38:59.077" QualityScore="-1" UserIDLastNumericValue="0" Visibility="Unspecified">
+							<FromEnd>
+								<AssociationEnd AggregationKind="None" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" EndModelElement="57BdTIKGAqAACwWm" Id="Z7iBbIKEidiijwoz" JavaCodeAttributeName="" Leaf="false" Multiplicity="0..1" Navigable="Navigable" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:55:33.478" ProvidePropertyGetterMethod="false" ProvidePropertySetterMethod="false" QualityScore="-1" ReadOnly="false" Static="false" TypeModifier="" UserIDLastNumericValue="0" Visibility="Unspecified">
+									<Qualifier>
+										<Qualifier Documentation_plain="" Id="Z7iBbIKEidiijwo0" Name="" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:55:33.478" QualityScore="-1" UserIDLastNumericValue="0"/>
+									</Qualifier>
+									<Type>
+										<Class Idref="57BdTIKGAqAACwWm" Name="Game"/>
+									</Type>
+								</AssociationEnd>
+							</FromEnd>
+							<ToEnd>
+								<AssociationEnd AggregationKind="None" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" EndModelElement="MDR3TIKGAqAACwnA" Id="Z7iBbIKEidiijwo1" JavaCodeAttributeName="" Leaf="false" Multiplicity="1" Name="" Navigable="Navigable" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:55:33.478" ProvidePropertyGetterMethod="false" ProvidePropertySetterMethod="false" QualityScore="-1" ReadOnly="false" Static="false" TypeModifier="" UserIDLastNumericValue="0" Visibility="Unspecified">
+									<Qualifier>
+										<Qualifier Documentation_plain="" Id="Z7iBbIKEidiijwo2" Name="" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:55:33.478" QualityScore="-1" UserIDLastNumericValue="0"/>
+									</Qualifier>
+									<Type>
+										<Class Idref="MDR3TIKGAqAACwnA" Name="PlayerStatsKeeper"/>
+									</Type>
+								</AssociationEnd>
+							</ToEnd>
+							<MasterView>
+								<Association Idref="17iBbIKEidiijwo3" Name="houdt score bij"/>
+							</MasterView>
+						</Association>
+					</ModelChildren>
+				</ModelRelationshipContainer>
+				<ModelRelationshipContainer Documentation_plain="" Id="pXkPTIKGAqAACwny" Name="Realization" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:18:52.069" PmLastModified="2013-09-18T23:28:52.099" QualityScore="-1" UserIDLastNumericValue="0">
+					<ModelChildren>
+						<Realization ConnectToCodeModel="1" Documentation_plain="" From="Ba3PTIKGAqAACwpX" Id="GG8vTIKGAqAACwpw" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:23:36.600" PmLastModified="2013-09-18T23:28:52.100" QualityScore="-1" To="57BdTIKGAqAACwWm" UserIDLastNumericValue="0" Visibility="Unspecified">
+							<MasterView>
+								<Realization Idref="uG8vTIKGAqAACwpx"/>
+							</MasterView>
+						</Realization>
+						<Realization ConnectToCodeModel="1" Documentation_plain="" From="EUKvTIKGAqAACwp." Id="5jGvTIKGAqAACwqG" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:24:15.079" PmLastModified="2013-09-18T23:28:52.099" QualityScore="-1" To="57BdTIKGAqAACwWm" UserIDLastNumericValue="0" Visibility="Unspecified">
+							<MasterView>
+								<Realization Idref="NjGvTIKGAqAACwqH"/>
+							</MasterView>
+						</Realization>
+					</ModelChildren>
+				</ModelRelationshipContainer>
+			</ModelChildren>
+		</ModelRelationshipContainer>
+		<Stereotype Abstract="false" BaseType="Usage" Documentation_plain="" Id="8gWYbIKD.AAAAQal" Leaf="false" Name="parameter" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:02:14.150" PmLastModified="2013-09-19T14:11:24.624" QualityScore="-1" Root="false" UserIDLastNumericValue="0"/>
+		<Package Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="m_nNTIKGAqAACwUt" Leaf="false" Name="Happer" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:12:14.681" PmLastModified="2013-09-23T18:06:10.623" QualityScore="-1" Root="false" UserIDLastNumericValue="0" Visibility="public">
+			<SubDiagrams>
+				<ClassDiagram Idref="EL7FNTIKGAqAACwUm"/>
+			</SubDiagrams>
+			<ModelChildren>
+				<Class Abstract="false" Active="false" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="57BdTIKGAqAACwWm" Leaf="false" Name="Games" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:19:16.071" PmLastModified="2013-09-19T16:00:14.269" QualityScore="-1" Root="false" UserIDLastNumericValue="0" Visibility="public">
+					<ModelChildren>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="VPZdTIKGAqAACwWs" Leaf="false" Name="Game" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:19:40.970" PmLastModified="2013-09-19T13:21:12.425" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="ezU3rIKD.AAAAQXV" Multiplicity="Unspecified" Name="userInterface" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T13:13:25.214" PmLastModified="2013-09-19T13:21:12.425" QualityScore="-1" Type="UserInterface" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="VEFdTIKGAqAACwWu" Leaf="false" Name="drawGame" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:19:45.834" PmLastModified="2013-09-19T13:21:12.426" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="QLFdTIKGAqAACwWw" Leaf="false" Name="startGame" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:19:48.610" PmLastModified="2013-09-18T22:28:31.227" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="QFldTIKGAqAACwWy" Leaf="false" Name="stopGame" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:19:51.938" PmLastModified="2013-09-18T22:28:31.227" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="QiVdTIKGAqAACwW0" Leaf="false" Name="resetGame" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:19:54.562" PmLastModified="2013-09-18T22:28:31.227" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="gg1dTIKGAqAACwW2" Leaf="false" Name="pauzeGame" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:19:57.633" PmLastModified="2013-09-18T22:28:31.229" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="hj1dTIKGAqAACwW4" Leaf="false" Name="handleKeyboardInput" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:20:00.737" PmLastModified="2013-09-19T13:21:12.426" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="eAG3rIKD.AAAAQXk" Multiplicity="Unspecified" Name="keyCode" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T13:14:19.294" PmLastModified="2013-09-19T13:21:12.426" QualityScore="-1" TypeModifier="" UserIDLastNumericValue="0">
+									<Type>
+										<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+									</Type>
+								</Parameter>
+								<Parameter Direction="inout" Documentation_plain="" Id="RAG3rIKD.AAAAQXm" Multiplicity="Unspecified" Name="keyState" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T13:14:19.298" PmLastModified="2013-09-19T13:21:12.426" QualityScore="-1" Type="KeyState" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="EBtdTIKGAqAACwW6" Leaf="false" Name="setDifficulty" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:20:07.816" PmLastModified="2013-09-19T13:21:12.426" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="BH.3rIKD.AAAAQXw" Multiplicity="Unspecified" Name="difficulty" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T13:14:51.552" PmLastModified="2013-09-19T13:21:12.426" QualityScore="-1" TypeModifier="" UserIDLastNumericValue="0">
+									<Type>
+										<Class Idref="VHZPTIKGAqAACwo4" Name="GameDifficulty"/>
+									</Type>
+								</Parameter>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="rnddTIKGAqAACwW8" Leaf="false" Name="computerWins" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:20:13.557" PmLastModified="2013-09-18T22:28:31.231" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="rW9dTIKGAqAACwW." Leaf="false" Name="playerWins" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:20:15.669" PmLastModified="2013-09-18T22:28:31.232" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="LsDdTIKGAqAACwXA" Leaf="false" Name="keyTyped" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:20:18.932" PmLastModified="2013-09-19T13:21:12.426" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="aTl3rIKD.AAAAQX3" Multiplicity="Unspecified" Name="e" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T13:15:32.118" PmLastModified="2013-09-19T13:21:12.426" QualityScore="-1" Type="KeyEvent" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="nszdTIKGAqAACwXC" Leaf="false" Name="keyPressed" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:20:31.225" PmLastModified="2013-09-19T13:21:12.426" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="s_t3rIKD.AAAAQX7" Multiplicity="Unspecified" Name="e" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T13:15:49.325" PmLastModified="2013-09-19T13:21:12.426" QualityScore="-1" Type="KeyEvent" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="AgbdTIKGAqAACwXE" Leaf="false" Name="keyReleased" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:20:42.688" PmLastModified="2013-09-18T22:28:31.234" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="7x7dTIKGAqAACwXG" Leaf="false" Name="playerLivesIncreased" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:20:49.015" PmLastModified="2013-09-18T22:28:31.235" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="ZMndTIKGAqAACwXI" Leaf="false" Name="playerLivesDecreased" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:20:55.718" PmLastModified="2013-09-19T13:21:12.426" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ReturnType>
+								<Class Idref="FZWPTIKGAqAACwoa" Name="GameStatus"/>
+							</ReturnType>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="J_XdTIKGAqAACwXK" Leaf="false" Name="playerPointsIncreased" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:21:03.076" PmLastModified="2013-09-18T22:28:31.236" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="XfPdTIKGAqAACwXM" Leaf="false" Name="playerPointsDecreased" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:21:11.226" PmLastModified="2013-09-18T22:28:31.236" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="Y9fdTIKGAqAACwXO" Leaf="false" Name="gameElementPerformedAction" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:21:18.406" PmLastModified="2013-09-18T22:28:31.236" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="IUMBbIKEidiijwop" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="playerStatsKeeper" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:55:10.084" PmLastModified="2013-09-19T16:00:14.272" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<Type>
+								<Class Idref="MDR3TIKGAqAACwnA" Name="PlayerStatsKeeper"/>
+							</Type>
+						</Attribute>
+					</ModelChildren>
+					<ToSimpleRelationships>
+						<Realization Idref="GG8vTIKGAqAACwpw" Name=""/>
+						<Realization Idref="5jGvTIKGAqAACwqG" Name=""/>
+						<Usage Idref="7.9ibIKEidiijwa0" Name=""/>
+						<Usage Idref="SWribIKEidiijwbG" Name=""/>
+					</ToSimpleRelationships>
+					<MasterView>
+						<Class Idref="57BdTIKGAqAACwWl" Name="Game"/>
+					</MasterView>
+				</Class>
+				<Class Abstract="false" Active="false" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="fIU9TIKGAqAACwXZ" Leaf="false" Name="Playground" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:22:04.862" PmLastModified="2013-09-19T15:49:28.047" QualityScore="-1" Root="false" UserIDLastNumericValue="0" Visibility="public">
+					<ModelChildren>
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="Evs9TIKGAqAACwXc" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="CELL_SIZE" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:22:20.744" PmLastModified="2013-09-19T15:30:02.281" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<Type>
+								<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+							</Type>
+						</Attribute>
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="Fgi9TIKGAqAACwXe" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="WIDTH" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:22:33.320" PmLastModified="2013-09-19T15:30:02.281" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<Type>
+								<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+							</Type>
+						</Attribute>
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="b6S9TIKGAqAACwXg" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="HEIGHT" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:22:38.838" PmLastModified="2013-09-19T15:30:02.281" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<Type>
+								<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+							</Type>
+						</Attribute>
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="ium9TIKGAqAACwXo" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="cells" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:23:07.857" PmLastModified="2013-09-19T15:30:02.281" QualityScore="-1" ReadOnly="false" Scope="instance" Type="Arraylist" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="rlu9TIKGAqAACwXw" Leaf="false" Name="Playground" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:23:25.045" PmLastModified="2013-09-19T15:00:01.443" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="NalSbIKEidiijwbb" Multiplicity="Unspecified" Name="gameEventListener" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:55:59.660" PmLastModified="2013-09-19T15:00:01.444" QualityScore="-1" TypeModifier="" UserIDLastNumericValue="0">
+									<Type>
+										<Class Idref="Ba3PTIKGAqAACwpX" Name="GameEventListener"/>
+									</Type>
+								</Parameter>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id=".de9TIKGAqAACwXy" Leaf="false" Name="createCells" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:23:29.439" PmLastModified="2013-09-18T22:28:31.238" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="dO.9TIKGAqAACwX0" Leaf="false" Name="getTimerElements" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:23:32.398" PmLastModified="2013-09-19T15:00:01.444" QualityScore="-1" Query="false" ReturnType="ArrayList" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="c_B9TIKGAqAACwX2" Leaf="false" Name="getCellContainingHuman" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:23:38.702" PmLastModified="2013-09-19T15:00:01.444" QualityScore="-1" Query="false" ReturnType="Cell" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="xox9TIKGAqAACwX4" Leaf="false" Name="getRandomAvailableCell" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:23:47.299" PmLastModified="2013-09-19T15:00:01.444" QualityScore="-1" Query="false" ReturnType="Cell" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="lHJ9TIKGAqAACwX6" Leaf="false" Name="positionNewElement" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:23:54.665" PmLastModified="2013-09-19T15:00:01.444" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="SGUybIKEidiijwbq" Multiplicity="Unspecified" Name="element" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:58:14.930" PmLastModified="2013-09-19T15:00:01.444" QualityScore="-1" Type="Element" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="6WZ9TIKGAqAACwX8" Leaf="false" Name="positionElement" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:24:00.919" PmLastModified="2013-09-19T15:00:01.444" QualityScore="-1" Query="false" ReturnType="Cell" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="ZWsybIKEidiijwbs" Multiplicity="Unspecified" Name="element" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:58:27.366" PmLastModified="2013-09-19T15:00:01.444" QualityScore="-1" Type="Element" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="Yl59TIKGAqAACwX." Leaf="false" Name="generateElements" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:24:05.958" PmLastModified="2013-09-19T15:00:01.445" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="JmaybIKEidiijwbz" Multiplicity="Unspecified" Name="difficulty" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:59:04.164" PmLastModified="2013-09-19T15:00:01.445" QualityScore="-1" TypeModifier="" UserIDLastNumericValue="0">
+									<Type>
+										<Class Idref="VHZPTIKGAqAACwo4" Name="GameDifficulty"/>
+									</Type>
+								</Parameter>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="JOl9TIKGAqAACwYA" Leaf="false" Name="generateElements" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:24:13.348" PmLastModified="2013-09-19T15:10:01.693" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="R6TybIKEidiijwc6" Multiplicity="Unspecified" Name="nHappers" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:00:58.722" PmLastModified="2013-09-19T15:10:01.693" QualityScore="-1" TypeModifier="" UserIDLastNumericValue="0">
+									<Type>
+										<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+									</Type>
+								</Parameter>
+								<Parameter Direction="inout" Documentation_plain="" Id="p6TybIKEidiijwc7" Multiplicity="Unspecified" Name="nPointPickers" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:00:58.725" PmLastModified="2013-09-19T15:10:01.693" QualityScore="-1" TypeModifier="" UserIDLastNumericValue="0">
+									<Type>
+										<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+									</Type>
+								</Parameter>
+								<Parameter Direction="inout" Documentation_plain="" Id="56TybIKEidiijwc8" Multiplicity="Unspecified" Name="nPoints" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:00:58.727" PmLastModified="2013-09-19T15:10:01.694" QualityScore="-1" TypeModifier="" UserIDLastNumericValue="0">
+									<Type>
+										<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+									</Type>
+								</Parameter>
+								<Parameter Direction="inout" Documentation_plain="" Id="l6TybIKEidiijwc9" Multiplicity="Unspecified" Name="nHearts" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:00:58.729" PmLastModified="2013-09-19T15:10:01.694" QualityScore="-1" TypeModifier="" UserIDLastNumericValue="0">
+									<Type>
+										<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+									</Type>
+								</Parameter>
+								<Parameter Direction="inout" Documentation_plain="" Id="N6TybIKEidiijwc." Multiplicity="Unspecified" Name="nTeleporters" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:00:58.732" PmLastModified="2013-09-19T15:10:01.694" QualityScore="-1" TypeModifier="" UserIDLastNumericValue="0">
+									<Type>
+										<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+									</Type>
+								</Parameter>
+								<Parameter Direction="inout" Documentation_plain="" Id="d6TybIKEidiijwc_" Multiplicity="Unspecified" Name="nMoverHV" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:00:58.734" PmLastModified="2013-09-19T15:10:01.694" QualityScore="-1" TypeModifier="" UserIDLastNumericValue="0">
+									<Type>
+										<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+									</Type>
+								</Parameter>
+								<Parameter Direction="inout" Documentation_plain="" Id="j6TybIKEidiijwdA" Multiplicity="Unspecified" Name="nBox" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:00:58.737" PmLastModified="2013-09-19T15:10:01.695" QualityScore="-1" TypeModifier="" UserIDLastNumericValue="0">
+									<Type>
+										<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+									</Type>
+								</Parameter>
+								<Parameter Direction="inout" Documentation_plain="" Id="z6TybIKEidiijwdB" Multiplicity="Unspecified" Name="nPusher" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:00:58.739" PmLastModified="2013-09-19T15:10:01.695" QualityScore="-1" TypeModifier="" UserIDLastNumericValue="0">
+									<Type>
+										<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+									</Type>
+								</Parameter>
+								<Parameter Direction="inout" Documentation_plain="" Id="r6TybIKEidiijwdC" Multiplicity="Unspecified" Name="nBlock" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:00:58.741" PmLastModified="2013-09-19T15:10:01.695" QualityScore="-1" TypeModifier="" UserIDLastNumericValue="0">
+									<Type>
+										<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+									</Type>
+								</Parameter>
+								<Parameter Direction="inout" Documentation_plain="" Id="H6TybIKEidiijwdD" Multiplicity="Unspecified" Name="nBoxHV" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:00:58.744" PmLastModified="2013-09-19T15:10:01.695" QualityScore="-1" TypeModifier="" UserIDLastNumericValue="0">
+									<Type>
+										<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+									</Type>
+								</Parameter>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="lif9TIKGAqAACwYM" Leaf="false" Name="resetPlayground" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:25:38.665" PmLastModified="2013-09-18T22:28:31.239" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="Lc_9TIKGAqAACwYO" Leaf="false" Name="draw" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:25:42.580" PmLastModified="2013-09-19T15:10:01.695" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="Z5XybIKEidiijwdL" Multiplicity="Unspecified" Name="g" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:01:32.518" PmLastModified="2013-09-19T15:10:01.695" QualityScore="-1" Type="Graphics" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="xD_9TIKGAqAACwYQ" Leaf="false" Name="drawWithMessage" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:25:44.739" PmLastModified="2013-09-19T15:10:01.695" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="GUfybIKEidiijwdP" Multiplicity="Unspecified" Name="g" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:01:47.032" PmLastModified="2013-09-19T15:10:01.695" QualityScore="-1" Type="Graphics" TypeModifier="" UserIDLastNumericValue="0"/>
+								<Parameter Direction="inout" Documentation_plain="" Id="eUfybIKEidiijwdQ" Multiplicity="Unspecified" Name="message" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:01:47.038" PmLastModified="2013-09-19T15:10:01.695" QualityScore="-1" Type="String" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="REgDTIKGAqAACwYS" Leaf="false" Name="handleKeyboardInput" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:25:50.370" PmLastModified="2013-09-19T15:10:01.696" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="2YIKbIKEidiijwdS" Multiplicity="Unspecified" Name="keyCode" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:02:11.355" PmLastModified="2013-09-19T15:10:01.696" QualityScore="-1" TypeModifier="" UserIDLastNumericValue="0">
+									<Type>
+										<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+									</Type>
+								</Parameter>
+								<Parameter Direction="inout" Documentation_plain="" Id="eYIKbIKEidiijwdT" Multiplicity="Unspecified" Name="keyState" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:02:11.358" PmLastModified="2013-09-19T15:10:01.696" QualityScore="-1" Type="KeyState" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="4awDTIKGAqAACwYU" Leaf="false" Name="movePlayer" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:25:59.431" PmLastModified="2013-09-19T15:10:01.696" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="sPMKbIKEidiijwdV" Multiplicity="Unspecified" Name="keyCode" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:02:47.565" PmLastModified="2013-09-19T15:10:01.696" QualityScore="-1" TypeModifier="" UserIDLastNumericValue="0">
+									<Type>
+										<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+									</Type>
+								</Parameter>
+								<Parameter Direction="inout" Documentation_plain="" Id="CPMKbIKEidiijwdW" Multiplicity="Unspecified" Name="keyState" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:02:47.568" PmLastModified="2013-09-19T15:10:01.696" QualityScore="-1" Type="KeyState" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="8fwDTIKGAqAACwYW" Leaf="false" Name="humanDestroyed" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:26:01.999" PmLastModified="2013-09-19T15:10:01.696" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="pe8KbIKEidiijwdY" Multiplicity="Unspecified" Name="human" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:02:57.957" PmLastModified="2013-09-19T15:10:01.696" QualityScore="-1" Type="Human" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="aCoDTIKGAqAACwYY" Leaf="false" Name="pushableElementPushed" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:26:07.254" PmLastModified="2013-09-19T15:10:01.696" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="MG4DTIKGAqAACwYa" Leaf="false" Name="checkIfHappersCanMove" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:26:15.948" PmLastModified="2013-09-19T15:10:01.696" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="TskDTIKGAqAACwYc" Leaf="false" Name="stopAllTimerElements" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:26:23.474" PmLastModified="2013-09-18T22:28:31.239" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="7O0DTIKGAqAACwYe" Leaf="false" Name="startAllTimerElements" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:26:32.631" PmLastModified="2013-09-18T22:28:31.239" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="fXMDTIKGAqAACwYg" Leaf="false" Name="pointsPickerDestroyed" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:26:38.654" PmLastModified="2013-09-19T15:10:01.696" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="gPOKbIKEidiijwdj" Multiplicity="Unspecified" Name="pointPicker" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:03:53.089" PmLastModified="2013-09-19T15:10:01.696" QualityScore="-1" Type="PointPicker" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="ITcDTIKGAqAACwYi" Leaf="false" Name="heartPickedUp" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:26:46.276" PmLastModified="2013-09-19T15:10:01.696" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="jReKbIKEidiijwdl" Multiplicity="Unspecified" Name="heart" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:03:59.665" PmLastModified="2013-09-19T15:10:01.696" QualityScore="-1" Type="Heart" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="VHCDTIKGAqAACwYk" Leaf="false" Name="pointPickedUp" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:26:54.890" PmLastModified="2013-09-19T15:10:01.696" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="iuBKbIKEidiijwdp" Multiplicity="Unspecified" Name="point" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:04:07.505" PmLastModified="2013-09-19T15:10:01.696" QualityScore="-1" Type="Point" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="smqDTIKGAqAACwYm" Leaf="false" Name="timerElementPerformedAction" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:27:13.357" PmLastModified="2013-09-19T15:10:01.696" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="85xKbIKEidiijwdt" Multiplicity="Unspecified" Name="timerElement" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:04:20.431" PmLastModified="2013-09-19T15:10:01.696" QualityScore="-1" Type="TimerElement" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+					</ModelChildren>
+					<MasterView>
+						<Class Idref="fIU9TIKGAqAACwXY" Name="Playground"/>
+					</MasterView>
+				</Class>
+				<Class Abstract="false" Active="false" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="bg.XTIKGAqAACwle" Leaf="false" Name="SearchManager" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:11:34.262" PmLastModified="2013-09-19T15:49:28.045" QualityScore="-1" Root="false" UserIDLastNumericValue="0" Visibility="public">
+					<ModelChildren>
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="CJBXTIKGAqAACwlh" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="ArrayList cellsOpen" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:11:40.560" PmLastModified="2013-09-18T23:18:52.077" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true"/>
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="ksRXTIKGAqAACwlj" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="ArrayList cellsClosed" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:11:47.273" PmLastModified="2013-09-18T23:18:52.077" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true"/>
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="8fxXTIKGAqAACwll" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="HashMap pathLength" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:11:54.511" PmLastModified="2013-09-18T23:18:52.077" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true"/>
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="sjpXTIKGAqAACwln" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="HashMap cellPath" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:12:01.869" PmLastModified="2013-09-18T23:18:52.077" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="7hFXTIKGAqAACwlt" Leaf="false" Name="search" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:12:13.175" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Query="false" ReturnType="Cell" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="1zC8bIKEidiijwYX" Multiplicity="Unspecified" Name="cell" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:41:12.683" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Type="Cell" TypeModifier="" UserIDLastNumericValue="0"/>
+								<Parameter Direction="inout" Documentation_plain="" Id="tzC8bIKEidiijwYY" Multiplicity="Unspecified" Name="elementType" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:41:12.685" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Type="ElementToSearch" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="FzlXTIKGAqAACwlv" Leaf="false" Name="initAlgorithm" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:12:18.408" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="Cly8bIKEidiijwYe" Multiplicity="Unspecified" Name="cell" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:41:24.304" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Type="Cell" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="b21XTIKGAqAACwlx" Leaf="false" Name="getPathStartCell" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:12:25.078" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Query="false" ReturnType="Cell" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="fdW8bIKEidiijwYl" Multiplicity="Unspecified" Name="cell" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:41:53.342" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Type="Cell" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="2QdXTIKGAqAACwlz" Leaf="false" Name="setCellPath" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:12:35.739" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="WI.8bIKEidiijwYq" Multiplicity="Unspecified" Name="cell" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:42:11.098" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Type="Cell" TypeModifier="" UserIDLastNumericValue="0"/>
+								<Parameter Direction="inout" Documentation_plain="" Id="17h8bIKEidiijwYt" Multiplicity="Unspecified" Name="cellTarget" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:42:22.571" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Type="Cell" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="UF9XTIKGAqAACwl1" Leaf="false" Name="getCellPath" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:12:42.250" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Query="false" ReturnType="Cell" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="MAl8bIKEidiijwY7" Multiplicity="Unspecified" Name="cell" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:42:51.788" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Type="Cell" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="h5DXTIKGAqAACwl3" Leaf="false" Name="setCellClosed" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:12:46.305" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id=".hN8bIKEidiijwY_" Multiplicity="Unspecified" Name="cell" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:43:06.207" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Type="Cell" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="6dTXTIKGAqAACwl5" Leaf="false" Name="isCellClosed" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:12:54.935" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<ReturnType>
+								<DataType Idref="h5kNTIKGAqAACwNS" Name="boolean"/>
+							</ReturnType>
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="ZHD8bIKEidiijwZC" Multiplicity="Unspecified" Name="cell" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:43:24.070" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Type="Cell" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="chzXTIKGAqAACwl7" Leaf="false" Name="setCellOpen" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:12:58.190" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="y9z8bIKEidiijwZE" Multiplicity="Unspecified" Name="cell" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:43:35.763" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Type="Cell" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="uuLXTIKGAqAACwl9" Leaf="false" Name="isCellOpen" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:13:02.045" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<ReturnType>
+								<DataType Idref="h5kNTIKGAqAACwNS" Name="boolean"/>
+							</ReturnType>
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="gI_8bIKEidiijwZK" Multiplicity="Unspecified" Name="cell" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:44:22.145" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Type="Cell" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="JOrXTIKGAqAACwl_" Leaf="false" Name="setCellPathLength" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:13:06.084" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="KgwCbIKEidiijwZN" Multiplicity="Unspecified" Name="cell" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:44:38.356" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Type="Cell" TypeModifier="" UserIDLastNumericValue="0"/>
+								<Parameter Direction="inout" Documentation_plain="" Id="6gwCbIKEidiijwZO" Multiplicity="Unspecified" Name="length" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:44:38.359" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" TypeModifier="" UserIDLastNumericValue="0">
+									<Type>
+										<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+									</Type>
+								</Parameter>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="0bbXTIKGAqAACwmB" Leaf="false" Name="getCellPathLength" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:13:11.819" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<ReturnType>
+								<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+							</ReturnType>
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="zEECbIKEidiijwZR" Multiplicity="Unspecified" Name="cell" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:44:59.315" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Type="Cell" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="VD7XTIKGAqAACwmD" Leaf="false" Name="getCellWithSmallestPathLength" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:13:15.562" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Query="false" ReturnType="Cell" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="rp3XTIKGAqAACwmF" Leaf="false" Name="calculateShortestPathToElementByElementType" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:13:31.253" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Query="false" ReturnType="Cell" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="AvSCbIKEidiijwZV" Multiplicity="Unspecified" Name="elementType" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:45:43.616" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Type="ElementToSearch" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="mHQ3TIKGAqAACwmM" Leaf="false" Name="isCellElementOfElementType" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:14:01.113" PmLastModified="2013-09-19T14:50:01.171" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<ReturnType>
+								<DataType Idref="h5kNTIKGAqAACwNS" Name="boolean"/>
+							</ReturnType>
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="LM2CbIKEidiijwZW" Multiplicity="Unspecified" Name="cell" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:46:17.396" PmLastModified="2013-09-19T14:50:01.172" QualityScore="-1" Type="Cell" TypeModifier="" UserIDLastNumericValue="0"/>
+								<Parameter Direction="inout" Documentation_plain="" Id="7M2CbIKEidiijwZX" Multiplicity="Unspecified" Name="elementType" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T14:46:17.399" PmLastModified="2013-09-19T14:50:01.172" QualityScore="-1" Type="ElementToSearch" TypeModifier="" UserIDLastNumericValue="0"/>
+							</ModelChildren>
+						</Operation>
+					</ModelChildren>
+					<ToSimpleRelationships>
+						<Usage Idref="5IDubIKEidiijwlt" Name=""/>
+					</ToSimpleRelationships>
+					<MasterView>
+						<Class Idref="bg.XTIKGAqAACwld" Name="SearchManager"/>
+					</MasterView>
+				</Class>
+				<Class Abstract="false" Active="false" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="MDR3TIKGAqAACwnA" Leaf="false" Name="PlayerStatsKeeper" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:16:11.660" PmLastModified="2013-09-19T16:00:14.274" QualityScore="-1" Root="false" UserIDLastNumericValue="0" Visibility="public">
+					<ModelChildren>
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="XFJ3TIKGAqAACwnD" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="lives" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:16:19.386" PmLastModified="2013-09-19T16:00:14.274" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<Type>
+								<DataType Idref="J5kNTIKGAqAACwNX" Name="char"/>
+							</Type>
+						</Attribute>
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="3sp3TIKGAqAACwnF" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="point" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:16:21.755" PmLastModified="2013-09-19T16:00:14.274" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<Type>
+								<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+							</Type>
+						</Attribute>
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="2Xp3TIKGAqAACwnH" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="LIVES_DEFAULT" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:16:24.603" PmLastModified="2013-09-19T16:00:14.274" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+							<Type>
+								<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+							</Type>
+						</Attribute>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="XWV.bIKEidiijwoF" Leaf="false" Name="PlayerStatsKeeper" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:52:51.898" PmLastModified="2013-09-19T16:00:14.274" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="YtF3TIKGAqAACwnP" Leaf="false" Name="resetStats" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:16:36.038" PmLastModified="2013-09-18T23:18:52.076" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="abl3TIKGAqAACwnR" Leaf="false" Name="setLives" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:16:40.726" PmLastModified="2013-09-19T16:00:14.274" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="sNj.bIKEidiijwoR" Multiplicity="Unspecified" Name="lives" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:53:21.677" PmLastModified="2013-09-19T16:00:14.274" QualityScore="-1" TypeModifier="" UserIDLastNumericValue="0">
+									<Type>
+										<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+									</Type>
+								</Parameter>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="eLV3TIKGAqAACwnT" Leaf="false" Name="setPoints" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:16:44.702" PmLastModified="2013-09-19T16:00:14.274" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ModelChildren>
+								<Parameter Direction="inout" Documentation_plain="" Id="6qL.bIKEidiijwoU" Multiplicity="Unspecified" Name="points" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:53:32.503" PmLastModified="2013-09-19T16:00:14.274" QualityScore="-1" TypeModifier="" UserIDLastNumericValue="0">
+									<Type>
+										<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+									</Type>
+								</Parameter>
+							</ModelChildren>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="ry13TIKGAqAACwnV" Leaf="false" Name="getLives" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:16:46.709" PmLastModified="2013-09-19T16:00:14.274" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ReturnType>
+								<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+							</ReturnType>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="PQN3TIKGAqAACwnX" Leaf="false" Name="getPoints" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:16:49.724" PmLastModified="2013-09-19T16:00:14.274" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ReturnType>
+								<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+							</ReturnType>
+						</Operation>
+					</ModelChildren>
+					<MasterView>
+						<Class Idref="MDR3TIKGAqAACwm_" Name="PlayerStatsKeeper"/>
+					</MasterView>
+				</Class>
+				<Class Abstract="false" Active="false" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="FZWPTIKGAqAACwoa" Leaf="false" Name="GameStatus" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:20:00.424" PmLastModified="2013-09-19T15:00:01.448" QualityScore="-1" Root="false" UserIDLastNumericValue="0" Visibility="public">
+					<Stereotypes>
+						<Stereotype Idref="VF73TIKGAqAACwnj" Name="enumeration"/>
+					</Stereotypes>
+					<ModelChildren>
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="YQhPTIKGAqAACwod" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="Startup" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:20:26.758" PmLastModified="2013-09-18T23:28:52.107" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true"/>
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="JZRPTIKGAqAACwoj" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="Playing" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:20:33.188" PmLastModified="2013-09-18T23:28:52.107" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true"/>
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="w9xPTIKGAqAACwon" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="Stopped" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:20:37.827" PmLastModified="2013-09-18T23:28:52.107" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true"/>
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="SJJPTIKGAqAACwor" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="Pauzed" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:20:41.234" PmLastModified="2013-09-18T23:28:52.107" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true"/>
+					</ModelChildren>
+					<FromSimpleRelationships>
+						<Usage Idref="SWribIKEidiijwbG" Name=""/>
+					</FromSimpleRelationships>
+					<MasterView>
+						<Class Idref="5ZWPTIKGAqAACwoZ" Name="GameStatus"/>
+					</MasterView>
+				</Class>
+				<Class Abstract="false" Active="false" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="VHZPTIKGAqAACwo4" Leaf="false" Name="GameDifficulty" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:20:50.730" PmLastModified="2013-09-19T15:00:01.440" QualityScore="-1" Root="false" UserIDLastNumericValue="0" Visibility="public">
+					<Stereotypes>
+						<Stereotype Idref="VF73TIKGAqAACwnj" Name="enumeration"/>
+					</Stereotypes>
+					<ModelChildren>
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="_QdPTIKGAqAACwo7" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="Easy" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:21:20.063" PmLastModified="2013-09-18T23:28:52.099" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true"/>
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="nedPTIKGAqAACwo9" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="Medium" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:21:21.849" PmLastModified="2013-09-18T23:28:52.099" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true"/>
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="KYjPTIKGAqAACwpI" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="Hard" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:21:32.564" PmLastModified="2013-09-18T23:28:52.099" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true"/>
+					</ModelChildren>
+					<FromSimpleRelationships>
+						<Usage Idref="7.9ibIKEidiijwa0" Name=""/>
+					</FromSimpleRelationships>
+					<MasterView>
+						<Class Idref="VHZPTIKGAqAACwo3" Name="GameDifficulty"/>
+					</MasterView>
+				</Class>
+				<Class Abstract="false" Active="false" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="Ba3PTIKGAqAACwpX" Leaf="false" Name="GameEventListener" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:22:14.560" PmLastModified="2013-09-19T15:49:28.044" QualityScore="-1" Root="false" UserIDLastNumericValue="0" Visibility="public">
+					<Stereotypes>
+						<Stereotype Idref="YqBHTIKGAqAACwje" Name="Interface"/>
+					</Stereotypes>
+					<ModelChildren>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="wb_PTIKGAqAACwpa" Leaf="false" Name="computerWins" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:22:32.963" PmLastModified="2013-09-18T23:28:52.101" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="1agvTIKGAqAACwpc" Leaf="false" Name="playerWins" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:22:39.147" PmLastModified="2013-09-18T23:28:52.102" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="QhQvTIKGAqAACwpe" Leaf="false" Name="playerLivesIncreased" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:22:43.906" PmLastModified="2013-09-18T23:28:52.102" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="QOwvTIKGAqAACwpg" Leaf="false" Name="playerLivesDecreased" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:22:47.682" PmLastModified="2013-09-19T13:21:12.430" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+							<ReturnType>
+								<Class Idref="FZWPTIKGAqAACwoa" Name="GameStatus"/>
+							</ReturnType>
+						</Operation>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="8rovTIKGAqAACwpi" Leaf="false" Name="playerPointsIncreased" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:22:57.487" PmLastModified="2013-09-18T23:28:52.103" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="oW4vTIKGAqAACwpk" Leaf="false" Name="PlayerPointsDecreased" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:23:03.941" PmLastModified="2013-09-18T23:28:52.103" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+						<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="sWkvTIKGAqAACwpm" Leaf="false" Name="gameElementPerformedAction" Ordered="false" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:23:12.141" PmLastModified="2013-09-18T23:28:52.103" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true"/>
+					</ModelChildren>
+					<FromSimpleRelationships>
+						<Realization Idref="GG8vTIKGAqAACwpw" Name=""/>
+					</FromSimpleRelationships>
+					<MasterView>
+						<Class Idref="Ba3PTIKGAqAACwpW" Name="GameEventListener"/>
+					</MasterView>
+				</Class>
+				<Class Abstract="false" Active="false" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="EUKvTIKGAqAACwp." Leaf="false" Name="KeyListener" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T23:23:56.168" PmLastModified="2013-09-18T23:28:52.105" QualityScore="-1" Root="false" UserIDLastNumericValue="0" Visibility="public">
+					<Stereotypes>
+						<Stereotype Idref="YqBHTIKGAqAACwje" Name="Interface"/>
+					</Stereotypes>
+					<FromSimpleRelationships>
+						<Realization Idref="5jGvTIKGAqAACwqG" Name=""/>
+					</FromSimpleRelationships>
+					<MasterView>
+						<Class Idref="EUKvTIKGAqAACwp9" Name="KeyListener"/>
+					</MasterView>
+				</Class>
+				<Class Abstract="false" Active="false" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="u.RubIKEidiijwlX" Leaf="false" Name="ElementToSearch" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:43:35.133" PmLastModified="2013-09-19T15:49:28.054" QualityScore="-1" Root="false" UserIDLastNumericValue="0" Visibility="public">
+					<Stereotypes>
+						<Stereotype Idref="VF73TIKGAqAACwnj" Name="enumeration"/>
+					</Stereotypes>
+					<ModelChildren>
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="V8JubIKEidiijwla" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="Player" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:43:42.314" PmLastModified="2013-09-19T15:49:28.054" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true"/>
+						<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="IkpubIKEidiijwlc" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="Point" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-19T15:43:45.988" PmLastModified="2013-09-19T15:49:28.054" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" Visibility="private" Visible="true"/>
+					</ModelChildren>
+					<FromSimpleRelationships>
+						<Usage Idref="5IDubIKEidiijwlt" Name=""/>
+					</FromSimpleRelationships>
+					<MasterView>
+						<Class Idref="u.RubIKEidiijwlW" Name="ElementToSearch"/>
+					</MasterView>
+				</Class>
+			</ModelChildren>
+		</Package>
+		<Stereotype Abstract="false" BaseType="Class" Documentation_plain="" IconPath="" Id="VF73TIKGAqAACwnj" Leaf="false" Name="enumeration" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:07:27.774" PmLastModified="2013-09-18T23:18:52.080" QualityScore="-1" Root="false" UserIDLastNumericValue="0"/>
+		<Stereotype Abstract="false" BaseType="Class" Documentation_plain="" IconPath="" Id="YqBHTIKGAqAACwje" Leaf="false" Name="Interface" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:07:27.773" PmLastModified="2013-09-18T23:08:31.132" QualityScore="-1" Root="false" UserIDLastNumericValue="0"/>
+		<DataType Documentation_plain="" Id="J5kNTIKGAqAACwNX" Name="int" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:08:56.548" PmLastModified="2013-09-18T22:18:31.241" QualityScore="-1" UserIDLastNumericValue="0"/>
+		<DataType Documentation_plain="" Id="h5kNTIKGAqAACwNS" Name="boolean" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:08:56.545" PmLastModified="2013-09-18T22:18:31.248" QualityScore="-1" UserIDLastNumericValue="0"/>
+		<DataType Documentation_plain="" Id="R5kNTIKGAqAACwNT" Name="byte" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:08:56.546" PmLastModified="2013-09-18T22:18:31.257" QualityScore="-1" UserIDLastNumericValue="0"/>
+		<DataType Documentation_plain="" Id="x5kNTIKGAqAACwNU" Name="char" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:08:56.547" PmLastModified="2013-09-18T22:18:31.221" QualityScore="-1" UserIDLastNumericValue="0"/>
+		<DataType Documentation_plain="" Id="x5kNTIKGAqAACwNV" Name="double" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:08:56.547" PmLastModified="2013-09-18T22:18:31.221" QualityScore="-1" UserIDLastNumericValue="0"/>
+		<DataType Documentation_plain="" Id="x5kNTIKGAqAACwNW" Name="float" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:08:56.547" PmLastModified="2013-09-18T22:18:31.220" QualityScore="-1" UserIDLastNumericValue="0"/>
+		<DataType Documentation_plain="" Id="p5kNTIKGAqAACwNY" Name="long" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:08:56.549" PmLastModified="2013-09-18T22:18:31.198" QualityScore="-1" UserIDLastNumericValue="0"/>
+		<DataType Documentation_plain="" Id="p5kNTIKGAqAACwNZ" Name="short" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:08:56.549" PmLastModified="2013-09-18T22:18:31.198" QualityScore="-1" UserIDLastNumericValue="0"/>
+		<DataType Documentation_plain="" Id="p5kNTIKGAqAACwNa" Name="void" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:08:56.549" PmLastModified="2013-09-18T22:18:31.197" QualityScore="-1" UserIDLastNumericValue="0"/>
+		<DataType Documentation_plain="" Id="Z5kNTIKGAqAACwNb" Name="string" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:08:56.550" PmLastModified="2013-09-18T22:18:31.210" QualityScore="-1" UserIDLastNumericValue="0"/>
+	</Models>
+	<Diagrams>
+		<ClassDiagram AlignToGrid="true" AutoFitShapesSize="false" ConnectionPointStyle="0" ConnectorLabelOrientation="0" ConnectorLineJumps="0" ConnectorLineJumpsSize="0" ConnectorStyle="1" DiagramBackground="rgb(255, 255, 255)" DiagramImageFileName="Happer.png" Editable="true" FollowDiagramParentElement="true" GeneralizationSetNotation="2" GridColor="rgb(192, 192, 192)" GridHeight="10" GridVisible="false" GridWidth="10" Height="983" HideEmptyTaggedValues="false" Id="EL7NTIKGAqAACwUm" ImageHeight="1524" ImageScale="1.0" ImageWidth="796" InitializeDiagramForCreate="true" Maximized="false" ModelElementNameAlignment="4" Name="Happer" PaintConnectorThroughLabel="0" ParentModel="m_nNTIKGAqAACwUt" PmAuthor="thomasprikkel" PmCreateDateTime="2013-09-18T22:12:05.768" PmLastModified="2013-11-06T16:50:18.846" QualityScore="-1" RequestValidateSnapToGrid="false" ShowActivityStateNodeCaption="65535" ShowAllocatedFrom="true" ShowAllocatedTo="true" ShowAssociationNavigationArrows="3" ShowAttributeGetterSetter="false" ShowAttributesCodeDetails="2" ShowAttributesPropertyModifiers="2" ShowAttributesType="1" ShowClassEmptyCompartments="2" ShowClassOwner="2" ShowConnectorName="0" ShowConstraints="false" ShowDefaultPackage="true" ShowEllipsisForUnshownClassMembers="2" ShowOperationsCodeDetails="2" ShowOperationsParameters="1" ShowOperationsReturnType="1" ShowPackageNameStyle="0" ShowPackageOwner="2" ShowParametersCodeDetails="2" ShowStereotypes="true" ShowTaggedValues="false" ShowTemplateInfoOfGeneralizationAndRealization="false" SuppressImplied1MultiplicityForAttributeAndAssociationEnd="false" TrimmedHeight="188" TrimmedWidth="58" Width="1702" X="0" Y="0" ZoomRatio="0.9" _alwaysShowReferenceAndSubdiagramResource="false" _globalPaletteOption="true" documentation="&lt;html&gt;&#10;  &lt;head&gt;&#10;    &lt;style type=&quot;text/css&quot;&gt;&#10;      &lt;!--&#10;        body { color: #000000; font-family: Courier New; font-size: 11px }&#10;      --&gt;&#10;    &lt;/style&gt;&#10;    &#10;  &lt;/head&gt;&#10;  &lt;body&gt;&#10;    &lt;p&gt;&#10;      &#10;    &lt;/p&gt;&#10;  &lt;/body&gt;&#10;&lt;/html&gt;&#10;">
+			<Connectors>
+				<Usage Background="rgb(122, 207, 245)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" CreatorDiagramType="ClassDiagram" Foreground="rgb(0, 0, 0)" From="VHZPTIKGAqAACwo3" FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" Height="146" Id="f.9ibIKEidiijwa1" MetaModelElement="7.9ibIKEidiijwa0" Model="7.9ibIKEidiijwa0" PaintThroughLabel="2" RequestRebuild="false" RequestResetCaption="false" RequestResetCaptionSize="false" Selectable="true" ShowConnectorName="2" To="57BdTIKGAqAACwWl" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="100" X="202" Y="515" ZOrder="20">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="14" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="110" X="192" Y="582"/>
+					<Points>
+						<Point X="252.0" Y="611.0"/>
+						<Point X="252.0" Y="565.0"/>
+					</Points>
+				</Usage>
+				<Usage Background="rgb(122, 207, 245)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" CreatorDiagramType="ClassDiagram" Foreground="rgb(0, 0, 0)" From="5ZWPTIKGAqAACwoZ" FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" Height="146" Id="6WribIKEidiijwbH" MetaModelElement="SWribIKEidiijwbG" Model="SWribIKEidiijwbG" PaintThroughLabel="2" RequestRebuild="false" RequestResetCaption="false" RequestResetCaptionSize="false" Selectable="true" ShowConnectorName="2" To="57BdTIKGAqAACwWl" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="100" X="22" Y="515" ZOrder="22">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="14" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="110" X="12" Y="582"/>
+					<Points>
+						<Point X="72.0" Y="611.0"/>
+						<Point X="72.0" Y="565.0"/>
+					</Points>
+				</Usage>
+				<Association AssociationEndPropertyStringsAInternalHeight="-2147483648" AssociationEndPropertyStringsAInternalWidth="-2147483648" AssociationEndPropertyStringsBInternalHeight="-2147483648" AssociationEndPropertyStringsBInternalWidth="-2147483648" Background="rgb(122, 207, 245)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" CreatorDiagramType="ClassDiagram" Foreground="rgb(0, 0, 0)" From="Ba3PTIKGAqAACwpW" FromConnectType="0" FromMultiplicityInternalHeight="-2147483648" FromMultiplicityInternalWidth="-2147483648" FromPinType="1" FromRoleInternalHeight="-2147483648" FromRoleInternalWidth="-2147483648" FromShapeXDiff="0" FromShapeYDiff="0" HasAssociationEndPropertyStringsAShape="false" HasAssociationEndPropertyStringsBShape="false" HasMultiplicityAShape="true" HasMultiplicityBShape="true" HasRoleAShape="false" HasRoleBShape="false" Height="328" Id="ssvObIKEidiijwkw" MetaModelElement="UsvObIKEidiijwkr" Model="UsvObIKEidiijwkr" Name="gebruikt" PaintThroughLabel="2" RequestRebuild="false" RequestResetCaption="false" RequestResetCaptionSize="false" Selectable="true" ShowAssociationEndPropertyStrings="false" ShowConnectorName="2" ShowDirection="false" ShowFromMultiplicity="true" ShowFromRoleName="true" ShowFromRoleVisibility="true" ShowMultiplicityConstraints="false" ShowNavigationArrows="0" ShowOrderedMultiplicityConstraint="true" ShowStereotypes="true" ShowToMultiplicity="true" ShowToRoleName="true" ShowToRoleVisibility="true" ShowUniqueMultiplicityConstraint="true" SuppressImplied1MultiplicityForAssociationEnd="0" To="fIU9TIKGAqAACwXY" ToConnectType="0" ToMultiplicityInternalHeight="-2147483648" ToMultiplicityInternalWidth="-2147483648" ToPinType="1" ToRoleInternalHeight="-2147483648" ToRoleInternalWidth="-2147483648" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="100" X="472" Y="463" ZOrder="30">
+					<MultiplicityBRectangle Height="14" Width="25" X="580" Y="910"/>
+					<MultiplicityARectangle Height="14" Width="27" X="580" Y="710"/>
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="14" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="65" X="522" Y="622"/>
+					<RoleA>
+						<MultiplicityCaption Height="14" Width="27" X="522" Y="522"/>
+					</RoleA>
+					<RoleB>
+						<MultiplicityCaption Height="14" Width="25" X="522" Y="722"/>
+					</RoleB>
+					<Points>
+						<Point X="522.0" Y="513.0"/>
+						<Point X="522.0" Y="741.0"/>
+					</Points>
+				</Association>
+				<Usage Background="rgb(122, 207, 245)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" CreatorDiagramType="ClassDiagram" Foreground="rgb(0, 0, 0)" From="u.RubIKEidiijwlW" FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" Height="100" Id="tIDubIKEidiijwlu" MetaModelElement="5IDubIKEidiijwlt" Model="5IDubIKEidiijwlt" PaintThroughLabel="2" RequestRebuild="false" RequestResetCaption="false" RequestResetCaptionSize="false" Selectable="true" ShowConnectorName="2" To="bg.XTIKGAqAACwld" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="256" X="465" Y="1232" ZOrder="32">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="14" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="110" X="552" Y="1262"/>
+					<Points>
+						<Point X="671.0" Y="1282.0"/>
+						<Point X="515.0" Y="1282.0"/>
+					</Points>
+				</Usage>
+				<Association AssociationEndPropertyStringsAInternalHeight="-2147483648" AssociationEndPropertyStringsAInternalWidth="-2147483648" AssociationEndPropertyStringsBInternalHeight="-2147483648" AssociationEndPropertyStringsBInternalWidth="-2147483648" Background="rgb(122, 207, 245)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" CreatorDiagramType="ClassDiagram" Foreground="rgb(0, 0, 0)" From="57BdTIKGAqAACwWl" FromConnectType="0" FromMultiplicityInternalHeight="-2147483648" FromMultiplicityInternalWidth="-2147483648" FromPinType="1" FromRoleInternalHeight="-2147483648" FromRoleInternalWidth="-2147483648" FromShapeXDiff="0" FromShapeYDiff="0" HasAssociationEndPropertyStringsAShape="false" HasAssociationEndPropertyStringsBShape="false" HasMultiplicityAShape="true" HasMultiplicityBShape="true" HasRoleAShape="false" HasRoleBShape="false" Height="216" Id="17iBbIKEidiijwo3" MetaModelElement="Z7iBbIKEidiijwoy" Model="Z7iBbIKEidiijwoy" Name="houdt score bij" PaintThroughLabel="2" RequestRebuild="false" RequestResetCaption="false" RequestResetCaptionSize="false" Selectable="true" ShowAssociationEndPropertyStrings="false" ShowConnectorName="2" ShowDirection="false" ShowFromMultiplicity="true" ShowFromRoleName="true" ShowFromRoleVisibility="true" ShowMultiplicityConstraints="false" ShowNavigationArrows="0" ShowOrderedMultiplicityConstraint="true" ShowStereotypes="true" ShowToMultiplicity="true" ShowToRoleName="true" ShowToRoleVisibility="true" ShowUniqueMultiplicityConstraint="true" SuppressImplied1MultiplicityForAssociationEnd="0" To="MDR3TIKGAqAACwm_" ToConnectType="0" ToMultiplicityInternalHeight="-2147483648" ToMultiplicityInternalWidth="-2147483648" ToPinType="1" ToRoleInternalHeight="-2147483648" ToRoleInternalWidth="-2147483648" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="100" X="162" Y="105" ZOrder="38">
+					<MultiplicityBRectangle Height="14" Width="27" X="270" Y="350"/>
+					<MultiplicityARectangle Height="14" Width="41" X="220" Y="440"/>
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="14" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="100" X="212" Y="202"/>
+					<RoleA>
+						<MultiplicityCaption Height="14" Width="41" X="162" Y="252"/>
+					</RoleA>
+					<RoleB>
+						<MultiplicityCaption Height="14" Width="27" X="212" Y="162"/>
+					</RoleB>
+					<Points>
+						<Point X="212.0" Y="271.0"/>
+						<Point X="212.0" Y="155.0"/>
+					</Points>
+				</Association>
+				<Realization Background="rgb(122, 207, 245)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" CreatorDiagramType="ClassDiagram" Foreground="rgb(0, 0, 0)" From="Ba3PTIKGAqAACwpW" FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" Height="100" Id="uG8vTIKGAqAACwpx" MetaModelElement="GG8vTIKGAqAACwpw" Model="GG8vTIKGAqAACwpw" PaintThroughLabel="2" RequestRebuild="false" RequestResetCaption="false" RequestResetCaptionSize="false" Selectable="true" ShowConnectorName="2" To="57BdTIKGAqAACwWl" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="196" X="265" Y="382" ZOrder="142">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="352" Y="442"/>
+					<Points>
+						<Point X="411.0" Y="432.0"/>
+						<Point X="315.0" Y="432.0"/>
+					</Points>
+				</Realization>
+				<Realization Background="rgb(122, 207, 245)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" CreatorDiagramType="ClassDiagram" Foreground="rgb(0, 0, 0)" From="EUKvTIKGAqAACwp9" FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" Height="260" Id="NjGvTIKGAqAACwqH" MetaModelElement="5jGvTIKGAqAACwqG" Model="5jGvTIKGAqAACwqG" PaintThroughLabel="2" RequestRebuild="false" RequestResetCaption="false" RequestResetCaptionSize="false" Selectable="true" ShowConnectorName="2" To="57BdTIKGAqAACwWl" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="206" X="265" Y="222" ZOrder="144">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="392" Y="372"/>
+					<Points>
+						<Point X="421.0" Y="272.0"/>
+						<Point X="372.0" Y="272.0"/>
+						<Point X="372.0" Y="432.0"/>
+						<Point X="315.0" Y="432.0"/>
+					</Points>
+				</Realization>
+			</Connectors>
+			<Shapes>
+				<Class AttributeSortType="0" Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" DisplayAsRobustnessAnalysisIcon="true" Foreground="rgb(0, 0, 0)" Height="64" Id="u.RubIKEidiijwlW" InterfaceBall="false" KShDrOp="false" KSwCsMbSt="true" LShCmMl="false" LshRfAts="true" MShDrAt="false" MSwTpPts="true" MetaModelElement="u.RubIKEidiijwlX" Model="u.RubIKEidiijwlX" ModelElementNameAlignment="9" Name="ElementToSearch" OperationSortType="0" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="0" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowAttributeType="1" ShowAttributesCodeDetails="0" ShowAttributesPropertyModifiers="0" ShowAttributesType="0" ShowClassMemberConstraints="true" ShowEllipsisForUnshownMembers="0" ShowEmptyCompartments="0" ShowInitialAttributeValue="true" ShowOperationParameterDirection="false" ShowOperationProperties="false" ShowOperationRaisedExceptions="false" ShowOperationSignature="true" ShowOperationTemplateParameters="false" ShowOperationType="1" ShowOperationsCodeDetails="0" ShowOperationsParameters="0" ShowOperationsReturnType="0" ShowOwnerOption="3" ShowParameterNameInOperationSignature="true" ShowParametersCodeDetails="0" ShowTypeOption="0" SuppressImplied1MultiplicityForAttribute="0" VisibilityStyle="1" Width="120" WpMbs="false" X="672" Y="1242" ZOrder="8">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="28" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="FreeMove" Visible="true" Width="120" X="-58" Y="-188"/>
+					<FillColor Color="rgb(122, 207, 245)" Style="1" Transparency="0" Type="1"/>
+				</Class>
+				<Class AttributeSortType="0" Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" DisplayAsRobustnessAnalysisIcon="true" Foreground="rgb(0, 0, 0)" Height="40" Id="EUKvTIKGAqAACwp9" InterfaceBall="false" KShDrOp="false" KSwCsMbSt="true" LShCmMl="false" LshRfAts="true" MShDrAt="false" MSwTpPts="true" MetaModelElement="EUKvTIKGAqAACwp." Model="EUKvTIKGAqAACwp." ModelElementNameAlignment="9" Name="KeyListener" OperationSortType="0" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="0" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowAttributeType="1" ShowAttributesCodeDetails="0" ShowAttributesPropertyModifiers="0" ShowAttributesType="0" ShowClassMemberConstraints="true" ShowEllipsisForUnshownMembers="0" ShowEmptyCompartments="0" ShowInitialAttributeValue="true" ShowOperationParameterDirection="false" ShowOperationProperties="false" ShowOperationRaisedExceptions="false" ShowOperationSignature="true" ShowOperationTemplateParameters="false" ShowOperationType="1" ShowOperationsCodeDetails="0" ShowOperationsParameters="0" ShowOperationsReturnType="0" ShowOwnerOption="3" ShowParameterNameInOperationSignature="true" ShowParametersCodeDetails="0" ShowTypeOption="0" SuppressImplied1MultiplicityForAttribute="0" VisibilityStyle="1" Width="100" WpMbs="false" X="422" Y="252" ZOrder="10">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="28" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="FreeMove" Visible="true" Width="100" X="-58" Y="-188"/>
+					<FillColor Color="rgb(122, 207, 245)" Style="1" Transparency="0" Type="1"/>
+				</Class>
+				<Class AttributeSortType="0" Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" DisplayAsRobustnessAnalysisIcon="true" Foreground="rgb(0, 0, 0)" Height="140" Id="Ba3PTIKGAqAACwpW" InterfaceBall="false" KShDrOp="false" KSwCsMbSt="true" LShCmMl="false" LshRfAts="true" MShDrAt="false" MSwTpPts="true" MetaModelElement="Ba3PTIKGAqAACwpX" Model="Ba3PTIKGAqAACwpX" ModelElementNameAlignment="9" Name="GameEventListener" OperationSortType="0" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="0" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowAttributeType="1" ShowAttributesCodeDetails="0" ShowAttributesPropertyModifiers="0" ShowAttributesType="0" ShowClassMemberConstraints="true" ShowEllipsisForUnshownMembers="0" ShowEmptyCompartments="0" ShowInitialAttributeValue="true" ShowOperationParameterDirection="false" ShowOperationProperties="false" ShowOperationRaisedExceptions="false" ShowOperationSignature="true" ShowOperationTemplateParameters="false" ShowOperationType="1" ShowOperationsCodeDetails="0" ShowOperationsParameters="0" ShowOperationsReturnType="0" ShowOwnerOption="3" ShowParameterNameInOperationSignature="true" ShowParametersCodeDetails="0" ShowTypeOption="0" SuppressImplied1MultiplicityForAttribute="0" VisibilityStyle="1" Width="211" WpMbs="false" X="412" Y="372" ZOrder="12">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="28" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="FreeMove" Visible="true" Width="211" X="-58" Y="-188"/>
+					<FillColor Color="rgb(122, 207, 245)" Style="1" Transparency="0" Type="1"/>
+				</Class>
+				<Class AttributeSortType="0" Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" DisplayAsRobustnessAnalysisIcon="true" Foreground="rgb(0, 0, 0)" Height="78" Id="VHZPTIKGAqAACwo3" InterfaceBall="false" KShDrOp="false" KSwCsMbSt="true" LShCmMl="false" LshRfAts="true" MShDrAt="false" MSwTpPts="true" MetaModelElement="VHZPTIKGAqAACwo4" Model="VHZPTIKGAqAACwo4" ModelElementNameAlignment="9" Name="GameDifficulty" OperationSortType="0" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="0" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowAttributeType="1" ShowAttributesCodeDetails="0" ShowAttributesPropertyModifiers="0" ShowAttributesType="0" ShowClassMemberConstraints="true" ShowEllipsisForUnshownMembers="0" ShowEmptyCompartments="0" ShowInitialAttributeValue="true" ShowOperationParameterDirection="false" ShowOperationProperties="false" ShowOperationRaisedExceptions="false" ShowOperationSignature="true" ShowOperationTemplateParameters="false" ShowOperationType="1" ShowOperationsCodeDetails="0" ShowOperationsParameters="0" ShowOperationsReturnType="0" ShowOwnerOption="3" ShowParameterNameInOperationSignature="true" ShowParametersCodeDetails="0" ShowTypeOption="0" SuppressImplied1MultiplicityForAttribute="0" VisibilityStyle="1" Width="120" WpMbs="false" X="192" Y="612" ZOrder="14">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="28" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="FreeMove" Visible="true" Width="120" X="-58" Y="-188"/>
+					<FillColor Color="rgb(122, 207, 245)" Style="1" Transparency="0" Type="1"/>
+				</Class>
+				<Class AttributeSortType="0" Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" DisplayAsRobustnessAnalysisIcon="true" Foreground="rgb(0, 0, 0)" Height="92" Id="5ZWPTIKGAqAACwoZ" InterfaceBall="false" KShDrOp="false" KSwCsMbSt="true" LShCmMl="false" LshRfAts="true" MShDrAt="false" MSwTpPts="true" MetaModelElement="FZWPTIKGAqAACwoa" Model="FZWPTIKGAqAACwoa" ModelElementNameAlignment="9" Name="GameStatus" OperationSortType="0" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="0" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowAttributeType="1" ShowAttributesCodeDetails="0" ShowAttributesPropertyModifiers="0" ShowAttributesType="0" ShowClassMemberConstraints="true" ShowEllipsisForUnshownMembers="0" ShowEmptyCompartments="0" ShowInitialAttributeValue="true" ShowOperationParameterDirection="false" ShowOperationProperties="false" ShowOperationRaisedExceptions="false" ShowOperationSignature="true" ShowOperationTemplateParameters="false" ShowOperationType="1" ShowOperationsCodeDetails="0" ShowOperationsParameters="0" ShowOperationsReturnType="0" ShowOwnerOption="3" ShowParameterNameInOperationSignature="true" ShowParametersCodeDetails="0" ShowTypeOption="0" SuppressImplied1MultiplicityForAttribute="0" VisibilityStyle="1" Width="120" WpMbs="false" X="12" Y="612" ZOrder="16">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="28" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="FreeMove" Visible="true" Width="120" X="-58" Y="-188"/>
+					<FillColor Color="rgb(122, 207, 245)" Style="1" Transparency="0" Type="1"/>
+				</Class>
+				<Class AttributeSortType="0" Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CreatorDiagramType="ClassDiagram" DisplayAsRobustnessAnalysisIcon="true" Foreground="rgb(0, 0, 0)" Height="152" Id="MDR3TIKGAqAACwm_" InterfaceBall="false" KShDrOp="false" KSwCsMbSt="true" LShCmMl="false" LshRfAts="true" MShDrAt="false" MSwTpPts="true" MetaModelElement="MDR3TIKGAqAACwnA" Model="MDR3TIKGAqAACwnA" ModelElementNameAlignment="9" Name="PlayerStatsKeeper" OperationSortType="0" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="0" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowAttributeType="1" ShowAttributesCodeDetails="0" ShowAttributesPropertyModifiers="0" ShowAttributesType="0" ShowClassMemberConstraints="true" ShowEllipsisForUnshownMembers="0" ShowEmptyCompartments="0" ShowInitialAttributeValue="true" ShowOperationParameterDirection="false" ShowOperationProperties="false" ShowOperationRaisedExceptions="false" ShowOperationSignature="true" ShowOperationTemplateParameters="false" ShowOperationType="1" ShowOperationsCodeDetails="0" ShowOperationsParameters="0" ShowOperationsReturnType="0" ShowOwnerOption="3" ShowParameterNameInOperationSignature="true" ShowParametersCodeDetails="0" ShowTypeOption="0" SuppressImplied1MultiplicityForAttribute="0" VisibilityStyle="1" Width="139" WpMbs="false" X="172" Y="2" ZOrder="18">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="14" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="FreeMove" Visible="true" Width="139" X="-58" Y="-188"/>
+					<FillColor Color="rgb(122, 207, 245)" Style="1" Transparency="0" Type="1"/>
+				</Class>
+				<Class AttributeSortType="0" Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CreatorDiagramType="ClassDiagram" DisplayAsRobustnessAnalysisIcon="true" Foreground="rgb(0, 0, 0)" Height="278" Id="bg.XTIKGAqAACwld" InterfaceBall="false" KShDrOp="false" KSwCsMbSt="true" LShCmMl="false" LshRfAts="true" MShDrAt="false" MSwTpPts="true" MetaModelElement="bg.XTIKGAqAACwle" Model="bg.XTIKGAqAACwle" ModelElementNameAlignment="9" Name="SearchManager" OperationSortType="0" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="0" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowAttributeType="1" ShowAttributesCodeDetails="0" ShowAttributesPropertyModifiers="0" ShowAttributesType="0" ShowClassMemberConstraints="true" ShowEllipsisForUnshownMembers="0" ShowEmptyCompartments="0" ShowInitialAttributeValue="true" ShowOperationParameterDirection="false" ShowOperationProperties="false" ShowOperationRaisedExceptions="false" ShowOperationSignature="true" ShowOperationTemplateParameters="false" ShowOperationType="1" ShowOperationsCodeDetails="0" ShowOperationsParameters="0" ShowOperationsReturnType="0" ShowOwnerOption="3" ShowParameterNameInOperationSignature="true" ShowParametersCodeDetails="0" ShowTypeOption="0" SuppressImplied1MultiplicityForAttribute="0" VisibilityStyle="1" Width="472" WpMbs="false" X="42" Y="1242" ZOrder="20">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="14" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="FreeMove" Visible="true" Width="472" X="-58" Y="-188"/>
+					<FillColor Color="rgb(122, 207, 245)" Style="1" Transparency="0" Type="1"/>
+				</Class>
+				<Class AttributeSortType="0" Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CreatorDiagramType="ClassDiagram" DisplayAsRobustnessAnalysisIcon="true" Foreground="rgb(0, 0, 0)" Height="410" Id="fIU9TIKGAqAACwXY" InterfaceBall="false" KShDrOp="false" KSwCsMbSt="true" LShCmMl="false" LshRfAts="true" MShDrAt="false" MSwTpPts="true" MetaModelElement="fIU9TIKGAqAACwXZ" Model="fIU9TIKGAqAACwXZ" ModelElementNameAlignment="9" Name="Playground" OperationSortType="0" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="0" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowAttributeType="1" ShowAttributesCodeDetails="0" ShowAttributesPropertyModifiers="0" ShowAttributesType="0" ShowClassMemberConstraints="true" ShowEllipsisForUnshownMembers="0" ShowEmptyCompartments="0" ShowInitialAttributeValue="true" ShowOperationParameterDirection="false" ShowOperationProperties="false" ShowOperationRaisedExceptions="false" ShowOperationSignature="true" ShowOperationTemplateParameters="false" ShowOperationType="1" ShowOperationsCodeDetails="0" ShowOperationsParameters="0" ShowOperationsReturnType="0" ShowOwnerOption="3" ShowParameterNameInOperationSignature="true" ShowParametersCodeDetails="0" ShowTypeOption="0" SuppressImplied1MultiplicityForAttribute="0" VisibilityStyle="1" Width="340" WpMbs="false" X="372" Y="742" ZOrder="22">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="14" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="FreeMove" Visible="true" Width="340" X="-58" Y="-188"/>
+					<FillColor Color="rgb(122, 207, 245)" Style="1" Transparency="0" Type="1"/>
+				</Class>
+				<Class AttributeSortType="0" Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CreatorDiagramType="ClassDiagram" DisplayAsRobustnessAnalysisIcon="true" Foreground="rgb(0, 0, 0)" Height="292" Id="57BdTIKGAqAACwWl" InterfaceBall="false" KShDrOp="false" KSwCsMbSt="true" LShCmMl="false" LshRfAts="true" MShDrAt="false" MSwTpPts="true" MetaModelElement="57BdTIKGAqAACwWm" Model="57BdTIKGAqAACwWm" ModelElementNameAlignment="9" Name="Game" OperationSortType="0" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="0" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowAttributeType="1" ShowAttributesCodeDetails="0" ShowAttributesPropertyModifiers="0" ShowAttributesType="0" ShowClassMemberConstraints="true" ShowEllipsisForUnshownMembers="0" ShowEmptyCompartments="0" ShowInitialAttributeValue="true" ShowOperationParameterDirection="false" ShowOperationProperties="false" ShowOperationRaisedExceptions="false" ShowOperationSignature="true" ShowOperationTemplateParameters="false" ShowOperationType="1" ShowOperationsCodeDetails="0" ShowOperationsParameters="0" ShowOperationsReturnType="0" ShowOwnerOption="3" ShowParameterNameInOperationSignature="true" ShowParametersCodeDetails="0" ShowTypeOption="0" SuppressImplied1MultiplicityForAttribute="0" VisibilityStyle="1" Width="312" WpMbs="false" X="2" Y="272" ZOrder="24">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="14" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="FreeMove" Visible="true" Width="312" X="-58" Y="-188"/>
+					<FillColor Color="rgb(122, 207, 245)" Style="1" Transparency="0" Type="1"/>
+				</Class>
+			</Shapes>
+		</ClassDiagram>
+	</Diagrams>
+</Project>

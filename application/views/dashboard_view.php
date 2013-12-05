@@ -64,57 +64,90 @@
 		</div>
 	-->
 			
-			<div class="dashboard large-6 columns">
-				<table>
-						<thead>
-							<tr>
-								<th colspan="5" style="text-align:center;"> Users </th>
-							</tr>							
-						</thead>
-						<tr>
-
-								<th class="spacer_200">Email</th>
-								<th>First Name</th>
-								<th>Last Name</th>
-								<th>User Group</th>
-								<th>Times logged in </th>
-							</tr>
-						<?php if (!empty($users)) { ?>
-						<tbody>
-							<?php foreach ($users as $user) { ?>
-							<tr>
-								<td>
-									<?php echo $user[$this->flexi_auth->db_column('user_acc', 'email')];?>
-								</td>
-								<td>
-									<?php echo $user['upro_first_name'];?>
-								</td>
-								<td>
-									<?php echo $user['upro_last_name'];?>
-								</td>
-								<td>
-									<?php echo $user[$this->flexi_auth->db_column('user_group', 'name')];?>
-								</td>
-								<td>
-									<?php echo $user['uacc_times_logged_in'];?>
-								</td>
-							</tr>
-						<?php } ?>
-						</tbody>
+			<div class="dashboard large-6 columns" style="min-height: 200px;">
+				<?php
+				foreach ($assignments as $assignment)
+      			{
+					$ass_id = $assignment[$this->flexi_auth->db_column('assignment', 'id')];
+					$ass_name = $assignment[$this->flexi_auth->db_column('assignment', 'name')];
 					
-					<?php } else { ?>
-						<tbody>
-							<tr>
-								<td colspan="7" class="highlight_red">
-									No users are available.
-								</td>
-							</tr>
-						</tbody>
-					<?php } ?>
-					</table>
+					//$gem = $this->flexi_auth->db_column('uploads', 'grade');
+					
+					if ( $this->login->tbl_col_uploads['grade'] != '' ) {
+						//$this->db->select('uploads.grade');
+						$this->db->from('uploads');
+						$this->db->where('deadline_id = ' . $ass_id);
+						$bla = $this->db->get();
+						$bla = $bla->result_array();
+						
+						$total = 0;
+						$i = 0;
+						$j = 0;
+						foreach($bla as $bl) {
+							if ($bl['grade'] >= 5.5){
+								$j++;
+							}
+							else{
+								$i++;
+							}
+						}
+						
+						//avg array, vullen per assignment
+						$vol[] = $j;
+						$onvol[] = $i;
+						$name[] = $ass_name;
+					}
+
+				}
+				
+				if ( empty ($vol[0])  )
+					$vol[0] = 0;
+				if ( empty ($vol[1]) )
+					$vol[1] = 0;
+				if ( empty ($vol[2]) )
+					$vol[2] = 0;
+					
+				if ( empty ($onvol[0])  )
+					$onvol[0] = 0;
+				if ( empty ($onvol[1]) )
+					$onvol[1] = 0;
+				if ( empty ($onvol[2]) )
+					$onvol[2] = 0;
+					
+				if ( empty ($name[0]) )
+					$name[0] = 'nog geen assignment';
+				if ( empty ($name[1]) )
+					$name[1] = 'nog geen assignment';
+				if ( empty ($name[2]) )
+					$name[2] = 'nog geen assignment';
+				?>
+				
+				
+				
+				
+				<div id="graph1" class="large-4 columns "> </div>
+				<script>
+				graphResolutionByYear2 = new Array(
+				[[<?php echo $vol[0]; ?>, <?php echo $onvol[0]; ?>], '<?php echo $name[0]; ?>'],
+				[[<?php echo $vol[1]; ?>, <?php echo $onvol[1]; ?>], '<?php echo $name[1]; ?>'],
+				[[<?php echo $vol[2]; ?>, <?php echo $onvol[2]; ?>], '<?php echo $name[2]; ?>']
+				);
+
+				$("#graph1").jqBarGraph({
+				data: graphResolutionByYear2,
+				colors: ['#435B77','#000'],
+				legends: ['Passing grades', 'Non-Passing grades'],
+				legend: true,
+ 				width: 350,
+ 				color: '#ffffff',
+ 				type: 'multi',
+ 				postfix: '',
+				title: '<h3>Amount of passing and non-passing grades.</h3>'
+ 				});
+				</script>
 			</div>
 						
-			<div class="dashboard large-6 columns">
+			<div class="dashboard large-6 columns" style="min-height: 200px;">
 				<table class="tablesorter">
   				<thead>
   					<tr>
@@ -149,13 +182,73 @@
 	      					echo date_format($enddate, 'd-m-Y H:i');
 	      				?>
 	      			</td>
-	      			<td> </td>
+	      			<td> 
+						<?php
+							$amount = $this->flexi_auth->get_amount_students_not_handed_in($assignment[$this->flexi_auth->db_column('assignment', 'id')]);
+							echo $amount;
+						?>
+					</td>
 					<?php } ?>
 	      		</tr>	
       			<?php } ?>		
       			</tbody>
 				</table>
-		</div>				
+				</div>
+		</div>
+		
+		<div class="row">
+		<div class="dashboard large-6 columns">
+				<table class="tablesorter">
+  				<thead>
+  					<tr>
+						<th colspan="3" style="text-align:center;"> Assignments to be checked </th>
+					</tr>	
+  				</thead>
+  				<tr>
+      			<th>Assignment</th>
+      			<th>Date Deadline</th>
+      			<th></th>
+    			</tr>
+				</thead>
+  				<tbody>
+				<tr>
+				</tr>
+      			<?php 
+      			foreach ($assignments as $assignment)
+      			{ ?>
+      			
+      			<?php
+      				$current_time = date('F d, Y G:i');
+						$assignment_time = $assignment['assignment_enddate'];
+						$datetime2 = strtotime($assignment_time);
+						$datetime1 = strtotime($current_time);
+						$datediff = $datetime2 - $datetime1;
+						$days_left = floor($datediff/(60*60*24)); 
+      			?>
+				
+      			<?php if ($days_left < 0 && $assignment['assignment_checked'] == 0){ ?>
+					<tr>
+	      			<td><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></td>
+	      			<td>
+	      				<?php  
+	      					$enddate = date_create( $assignment[$this->flexi_auth->db_column('assignment', 'enddate')] );
+	      					echo date_format($enddate, 'd-m-Y H:i');
+	      				?>
+	      			</td>
+	      			<td> 
+						<a style="float:left; margin-top:10px;" href="<?php echo $base_url.'dashboard/checkassignment/' . $assignment['assignment_id'] ?>">
+						<input type="submit" value="Check" class="small button"></a>
+					</td>
+					</tr>
+					<?php } ?>
+	      			
+      			<?php } ?>		
+				
+      			</tbody>
+				</table>
+		</div>
+		
+		
 				
 	<!--			
 			<div class="dashboard">
@@ -190,7 +283,8 @@
       			</tbody>
 				</table>
 		</div>
--->
+-->			
+
 				<?php
 				foreach ($assignments as $assignment)
       			{
@@ -212,8 +306,11 @@
 							$total += $bl['grade'];
 							$i++;
 						}
-						$gem = $total / $i;
-						
+						if($i == 0) {
+							$gem = 0;
+						} else {
+							$gem = $total / $i;
+						}
 						//avg array, vullen per assignment
 						$avg[] = $gem;
 						$name[] = $ass_name;
@@ -234,10 +331,8 @@
 					$name[1] = 'nog geen assignment';
 				if ( empty ($name[2]) )
 					$name[2] = 'nog geen assignment';
-				
-				
 				?>
-				
+				<div class="dashboard large-6 columns">
 				<div id="graph"> </div>
 				
 				<script>
@@ -245,25 +340,30 @@
 				[[<?php echo $avg[0]; ?>], '<?php echo $name[0]; ?>'],
 				[[<?php echo $avg[1]; ?>], '<?php echo $name[1]; ?>'],
 				[[<?php echo $avg[2]; ?>], '<?php echo $name[2]; ?>']
+
 				);
 
-				$("#graph").jqBarGraph({
-				data: graphResolutionByYear,
-				colors: ['#435B77','#000'],
+ 				$("#graph").jqBarGraph({
+ 				data: graphResolutionByYear,
+ 				colors: ['#435B77','#000'],
 				legends: ['Average grade per test'],
 				legend: false,
-				width: 350,
-				color: '#ffffff',
-				type: 'multi',
-				postfix: '',
+ 				width: 350,
+ 				color: '#ffffff',
+ 				type: 'multi',
+ 				postfix: '',
 				title: '<h3> Average grades per test</h3>'
-				});
+ 				});
 				</script>
 				
 				</div> <!-- row -->			
 			</div> <!-- mainwrapper --> 	
-				
+				</div>
 		</div> <!-- end 12 columns --> 
+		</div>
+		</div>
+		
+		
 
 <?php } else { ?>
 
@@ -356,6 +456,7 @@
 				});
 				</script>
 
+				
 
 </div> <!-- end 12 columns --> 
 

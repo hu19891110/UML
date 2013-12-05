@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project>
+<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="Yl59TIKGAqAACwX." Leaf="false" Name="generateElements" Ordered="false" PmAuthor="" PmCreateDateTime="2013-09-18T22:24:05.958" PmLastModified="2013-09-19T15:00:01.445" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="public" Visible="true">
+	<ModelChildren>
+		<Parameter Direction="inout" Documentation_plain="" Id="JmaybIKEidiijwbz" Multiplicity="Unspecified" Name="difficulty" PmAuthor="" PmCreateDateTime="2013-09-19T14:59:04.164" PmLastModified="2013-10-16T17:34:24.951" QualityScore="-1" Type="GameDifficulty" TypeModifier="" UserIDLastNumericValue="0"/>
+	</ModelChildren>
+</Operation>
+<Operation Abstract="false" ConnectToCodeModel="1" Documentation_plain="" Id="JOl9TIKGAqAACwYA" Leaf="false" Name="generateElements" Ordered="false" PmAuthor="" PmCreateDateTime="2013-09-18T22:24:13.348" PmLastModified="2013-09-19T15:10:01.693" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" UserIDLastNumericValue="0" Visibility="private" Visible="true">
+	<ModelChildren>
+		<Parameter Direction="inout" Documentation_plain="" Id="R6TybIKEidiijwc6" Multiplicity="Unspecified" Name="nHappers" PmAuthor="" PmCreateDateTime="2013-09-19T15:00:58.722" PmLastModified="2013-09-19T15:10:01.693" QualityScore="-1" TypeModifier="" UserIDLastNumericValue="0">
+			<Type>
+				<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+			</Type>
+		</Parameter>
+		<Parameter Direction="inout" Documentation_plain="" Id="p6TybIKEidiijwc7" Multiplicity="Unspecified" Name="nPointPickers" PmAuthor="" PmCreateDateTime="2013-09-19T15:00:58.725" PmLastModified="2013-09-19T15:10:01.693" QualityScore="-1" TypeModifier="" UserIDLastNumericValue="0">
+			<Type>
+				<DataType Idref="J5kNTIKGAqAACwNX" Name="int"/>
+			</Type>
+		</Parameter>
+	</ModelChildren>
+</Operation>
+
+</Project>
