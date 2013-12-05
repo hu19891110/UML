@@ -2967,7 +2967,6 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		return $substraction;
 	}
 
-<<<<<<< HEAD
 	function get_assignments_for_class($class_id) {
 		$class_assignments = $this->db->get_where('class_assignments', array('class_id_fk' => $class_id));
 		$class_assignments = $class_assignments->result_array();
@@ -2978,7 +2977,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		}
 		return $assignments;
 	}
-=======
+	
 	public function archiveer_assignment($assignment_id)
 	{
 		$data = array('assignment_archief' => '1');
@@ -3007,10 +3006,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		}
 		return $i;
 	}
-	
-	
 
->>>>>>> 5283d74c1615033272e59be7e4051d504d56068a
 }
 
 

@@ -692,7 +692,25 @@ class Dashboard extends CI_Controller {
 		}
 	}
 	*/
+	
+	function archive(){
+		if ($this->flexi_auth->is_admin()) {
+			$sql_where = array('assignment_archief' => 1);
+		} else {
+			$sql_where = array('assignment_archief' => 1);//TODO
+		}
 
+		$assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
+		$this->data['assignments'] = $assignments->result_array();
+
+		$data['maincontent'] = $this->load->view('archive_view', $this->data, TRUE);
+		if ($this->flexi_auth->is_admin()) {
+			$this->load->view('template-teacher', $data);
+		} else {
+			$this->load->view('template-student', $data);
+		}
+	}
+/*
 	function archive(){
 		if ($this->flexi_auth->is_admin()) {
 <<<<<<< HEAD
@@ -701,7 +719,7 @@ class Dashboard extends CI_Controller {
 			$this->data['assignments'] = $assignments->result_array();
 			$data['maincontent'] = $this->load->view('archive_view', $this->data, TRUE);
 		} else {
-			/*//get the class which belongs to this user
+			//get the class which belongs to this user
 			$current_user = $this->flexi_auth->get_user_id();
 			$current_classes = $this->flexi_auth->get_student_class($current_user);
 			$current_classes = $current_classes->result_array();
@@ -720,7 +738,7 @@ class Dashboard extends CI_Controller {
 			$sql_where = array('assignment_id' => $assignment_class);//TODO, 
 			$assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
 			$this->data['assignments'] = $assignments->result_array();
-			$data['maincontent'] = $this->load->view('archive_view', $this->data, TRUE);*/
+			$data['maincontent'] = $this->load->view('archive_view', $this->data, TRUE);
 
 			$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
 			$assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
@@ -746,7 +764,7 @@ class Dashboard extends CI_Controller {
 			$this->load->view('template-student', $data);
 		}
 	}
-	/*
+	
 	function archive_assignment($assignment_id = FALSE) {
 		if (!$assignment_id) {
 			$this->session->set_flashdata('message', '<p class="error_msg">Invalid assignment ID.</p>');
