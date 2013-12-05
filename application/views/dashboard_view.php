@@ -86,11 +86,13 @@
 							$i = 0;
 							$j = 0;
 							foreach($bla as $bl) {
-								if ($bl['grade'] >= 5.5){
-									$j++;
-								}
-								else{
-									$i++;
+								if($bl['Type'] == 1) {
+									if ($bl['grade'] >= 5.5){
+										$j++;
+									}
+									else{
+										$i++;
+									}
 								}
 							}
 							
