@@ -55,15 +55,15 @@
 				 <?php
 			 } else if ($error_id == 2) {
 				 ?>
-				 <p>Relationship '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': This relationship does NOT have the same <strong>start destination. 
+				 <p>Relationship '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': This relationship does NOT have the same <strong>start</strong> destination.</p>
 				 <?php
 			 } else if ($error_id == 3) {
 				 ?>
-				 <p>Relationship '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': This relationship does NOT have the same <strong>destination.  
+				 <p>Relationship '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': This relationship does NOT have the same <strong>destination</strong>.</p>
 				 <?php
 			 } else if ($error_id == 4) {
 				 ?>
-				 <p>Relationship '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': This relationship is NOT of the same type.
+				 <p>Relationship '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': This relationship is NOT of the same type.</p>
 				 <?php
 			 } else if ($error_id == 5) {
 				 ?>
