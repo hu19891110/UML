@@ -76,3 +76,4 @@ $lang['form_validation_current_password'] 			= "The %s field is invalid.";
 // Checker
 $lang['correctfile_missing']						= 'The correction file has not been uploaded yet.';
 $lang['assignment_checked']							= 'The assignment has been checked.';
+$lang['deadline_not_over']							= 'The assignments deadline is not over yet.';

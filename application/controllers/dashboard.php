@@ -885,11 +885,13 @@ class Dashboard extends CI_Controller {
 	
 	function grade_overview($assignment_id = FALSE)
 	{
-		$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
+		/*$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
 		$checked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
-		$this->data['checked_assignments'] = $checked_assignments->result_array();
+		$this->data['checked_assignments'] = $checked_assignments->result_array();*/
 
-		$sql_where = array($this->login->tbl_col_assignment['checked'] => 1, );
+		$sql_where = array($this->login->tbl_col_assignment['checked'] => 1,
+						$this->login->tbl_col_assignment['id'] => $assignment_id
+		);
 		$checked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
 		$this->data['checked_assignments'] = $checked_assignments->result_array();
 		
@@ -1020,15 +1022,36 @@ class Dashboard extends CI_Controller {
 		$this->data['error'] = '';
 
 		$this->data['assignments'] = '';
+		
+		$sql_where = array('assignment_id' => $assignment_id);
+		$assignment = $this->flexi_auth->get_assignments(FALSE, $sql_where);
+		$assignment = $assignment->row_array();
+		
+		$current_time = date('F d, Y G:i');
+		$assignment_time = $assignment['assignment_enddate'];
+		$datetime2 = strtotime($assignment_time);
+		$datetime1 = strtotime($current_time);
+		$datediff = $datetime2 - $datetime1;
+		$days_left = floor($datediff/(60*60*24)); 
+		
+		if($days_left > 0) {
+			echo 'WAAAAH';
+			$this->load->model('flexi_auth_model');
+			$this->flexi_auth_model->set_error_message('Assignment\'s deadline not over yet.', 'public', true);
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+			redirect('dashboard/assignment/' . $assignment_id);
+		}
 
 		$correctfile = $this->flexi_auth->get_correct_file_by_deadline($assignment_id);
 		$correctfile = $correctfile->result_array();
+		
 		if (empty($correctfile)) {
 			$this->load->model('flexi_auth_model');
 			$this->flexi_auth_model->set_error_message('correctfile_missing', 'config');
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			redirect('dashboard/assignment/' . $assignment_id);
-		}
+		}	
+		
 		$correctfile = $correctfile[0];
 
 		$correctfile_name = (string) $correctfile['student_id'] . '-' . (string)$correctfile['deadline_id'] . '.xml';
@@ -1043,8 +1066,11 @@ class Dashboard extends CI_Controller {
 			$this->flexi_auth->update_grade($upload['student_id'], $upload['deadline_id']);
 
 		}
-
+		
 		$this->flexi_auth_model->mark_assignment_as_checked($assignment_id);
+		
+		$this->flexi_auth_model->set_status_message('The assignment has been checked.', 'public', TRUE);
+		$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 		redirect('dashboard/assignment/' . $assignment_id);
 
 	}
