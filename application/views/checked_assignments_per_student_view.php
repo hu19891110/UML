@@ -114,9 +114,13 @@
 				 ?>
 				 <p>The relation '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>' is missing in the handed in model. </p>
 				 <?php
-			} else if ($error_id = 17) {
+			} else if ($error_id == 17) {
 				?>
 				<p>The student handed in his assignment <?php echo $error[$this->flexi_auth->db_column('checker_error', 'eigenschappen')];?> days after the deadline. </p>
+				<?php
+			} else if ($error_id == 18) {
+				?>
+				<p>The attribute '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'attribute')];?>' is too much in the handed in model. </p>
 				<?php
 			}
 			echo '<br/><br/>';		
