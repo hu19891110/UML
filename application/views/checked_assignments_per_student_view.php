@@ -122,6 +122,18 @@
 				?>
 				<p>The attribute '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'attribute')];?>' is too much in the handed in model. </p>
 				<?php
+			} else if ($error_id == 19) {
+				?>
+				<p>The parameter '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'parameter')];?>' is too much in the handed in model. </p>
+				<?php
+			} else if ($error_id == 20) {
+				?>
+				<p>The operation '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'operation')];?>' is too much in the handed in model. </p>
+				<?php
+			} else if ($error_id == 21) {
+				?>
+				<p>The relationship '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>' is too much in the handed in model. </p>
+				<?php
 			}
 			echo '<br/><br/>';		
 		}

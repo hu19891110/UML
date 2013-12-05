@@ -386,7 +386,7 @@ class Checker
 										*/
 										$operation_name = (string)$operations1->attributes()->Name;
 										$parameter_name = (string)$parameters1->attributes()->Name;
-										$error_id = 8;
+										$error_id = 19;
 										$this->add_error($filename, $error_id, '', $operation_name, '', $parameter_name, '', '', '');
 									}
 								}
@@ -478,7 +478,7 @@ class Checker
 				*/
 				$class_name = (string)$class1->attributes()->Name;
 				$operation_name = (string)$operations1->attributes()->Name;
-				$error_id = 9;
+				$error_id = 20;
 				$this->add_error($filename, $error_id, $class_name, $operation_name, '', '', '', '', '');
 			}			
 		}
@@ -652,7 +652,7 @@ class Checker
 								
 								
 								$relation_name = $naam1;
-								$error_id = 16;
+								$error_id = 21;
 								$this->add_error($filename, $error_id, '', '', '', '', '', $relation_name, '');
 								
 							}
