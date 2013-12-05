@@ -840,11 +840,12 @@ class Dashboard extends CI_Controller {
 	
 	function grade_overview($assignment_id = FALSE)
 	{
-		$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
+		/*$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
 		$checked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
-		$this->data['checked_assignments'] = $checked_assignments->result_array();
+		$this->data['checked_assignments'] = $checked_assignments->result_array();*/
 
-		$sql_where = array($this->login->tbl_col_assignment['checked'] => 1, );
+		$sql_where = array($this->login->tbl_col_assignment['checked'] => 1,
+							$this->login->tbl_col_assignment['id'] => $assignment_id);
 		$checked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
 		$this->data['checked_assignments'] = $checked_assignments->result_array();
 		

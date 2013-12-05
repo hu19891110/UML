@@ -1860,6 +1860,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		$this->db->select('p.upro_first_name, p.upro_last_name, u.grade');
 		$this->db->from('uploads u, user_profiles p');
 		$this->db->where('u.deadline_id = ' . $assignment_id);
+		$this->db->where('u.Type = 1');
 		$this->db->where('u.student_id = p.upro_id');
 		$grades = $this->db->get();
 

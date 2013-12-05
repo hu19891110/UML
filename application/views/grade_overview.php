@@ -6,7 +6,9 @@
 
 	<?php if ($this->flexi_auth->is_admin()) { ?>
 		<?php  if (!empty($checked_assignments)) { ?>
-			<?php foreach ($checked_assignments as $checked_assignment) { ?> <!-- for each assignment -->
+			<?php foreach ($checked_assignments as $checked_assignment) { 
+			
+			?> <!-- for each assignment -->
 				<h3><?php echo $checked_assignment[$this->flexi_auth->db_column('assignment', 'name')];?>
 				
 		<a style="float:right" target="_blank" href="<?php echo $base_url.'dashboard/topdf/' . $checked_assignment['assignment_id'] ?>">
