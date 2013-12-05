@@ -1034,14 +1034,6 @@ class Dashboard extends CI_Controller {
 		$datediff = $datetime2 - $datetime1;
 		$days_left = floor($datediff/(60*60*24)); 
 		
-		if($days_left > 0) {
-			echo 'WAAAAH';
-			$this->load->model('flexi_auth_model');
-			$this->flexi_auth_model->set_error_message('Assignment\'s deadline not over yet.', 'public', true);
-			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-			redirect('dashboard/assignment/' . $assignment_id);
-		}
-
 		$correctfile = $this->flexi_auth->get_correct_file_by_deadline($assignment_id);
 		$correctfile = $correctfile->result_array();
 		
@@ -1051,6 +1043,12 @@ class Dashboard extends CI_Controller {
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			redirect('dashboard/assignment/' . $assignment_id);
 		}	
+		if($days_left > 0) {
+			$this->load->model('flexi_auth_model');
+			$this->flexi_auth_model->set_error_message('Assignment\'s deadline not over yet.', 'public', true);
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+			redirect('dashboard/assignment/' . $assignment_id);
+		}
 		
 		$correctfile = $correctfile[0];
 
