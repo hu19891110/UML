@@ -49,7 +49,7 @@
 					
 				<?php if($checked == 'No') { ?>	
 	<br/> <br/>			
-		<a class="small button" href="<?php echo $base_url . 'dashboard/checker/';?>">Check assignment </a>
+		<a class="small button" href="<?php echo $base_url . 'dashboard/checkassignment/' . $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">Check assignment </a>
 				<?php } ?>	
 				<br/><br/>
 				<?php $gearchiveerd = $assignment['assignment_archief']; ?>
