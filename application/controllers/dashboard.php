@@ -1032,8 +1032,8 @@ class Dashboard extends CI_Controller {
 
 	}
 	
-	function archiveer_assignment($assignment_id) {
-		if ($this->flexi_auth->archiveer_assignment($assignment_id)) {
+	function archive_assignment($assignment_id) {
+		if ($this->flexi_auth->archive_assignment($assignment_id)) {
 			$this->flexi_auth->set_status_message('Assignment has been put into the archive.','public', TRUE);
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			redirect('dashboard/assignments');

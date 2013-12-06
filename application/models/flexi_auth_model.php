@@ -2979,7 +2979,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		return $assignments;
 	}
 	
-	public function archiveer_assignment($assignment_id)
+	public function archive_assignment($assignment_id)
 	{
 		$data = array('assignment_archief' => '1');
 

@@ -205,10 +205,10 @@
   				<thead>
     				<tr>
       			<th>Assignment</th>
-      			<th>Deadline of assignment</th>
-      			<th>View details</th>
-      			<th>View grades</th>
-      			<th>Archiveer</th>
+      			<th>Deadline</th>
+      			<th>Details</th>
+      			<th>Grades</th>
+      			<th>Archive</th>
       			<th></th>
       			<th></th>
     				</tr>
@@ -229,7 +229,7 @@
 	      			<td> <a href="<?php echo $base_url . 'dashboard/assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">View details</a> </td>
 	      			<td> <a href="<?php echo $base_url . 'dashboard/grade_overview/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">View grades</a> </td>
 	      			<?php if ($assignment['assignment_checked'] == 1) { ?>
-	      			<td> <a href="<?php echo $base_url . 'dashboard/archiveer_assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">archiveer</a></td>
+	      			<td> <a href="<?php echo $base_url . 'dashboard/archive_assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">Archive</a></td>
 	      			<?php } else { ?>
 	      			<td></td>
 	      			<?php } ?>
