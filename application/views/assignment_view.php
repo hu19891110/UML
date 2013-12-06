@@ -51,11 +51,11 @@
 				<?php $checked = ($assignment[$this->flexi_auth->db_column('assignment', 'checked')] == 1) ? 'Yes' : 'No'; ?>
 				<h3> Is the assignment already checked? </h3> <?php echo $checked;?>
 					
-				<?php if($checked == 'No') { ?>	
+				<!-- <?php if($checked == 'No') { ?>	
 				<br/> <br/>			
 					<a class="small button" href="<?php echo $base_url . 'dashboard/checkassignment/' . $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">Check assignment </a>
-				<?php } ?>	
-			</div>	
+				<?php } ?>	-->
+			</div> 
 				
 			<div class="large-6 columns">	
 				<?php $archived = $assignment['assignment_archief']; ?>
