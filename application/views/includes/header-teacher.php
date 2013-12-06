@@ -23,6 +23,7 @@
 <div id="container">	
 	<div class="row">
 		<nav class="top-bar">
+<<<<<<< HEAD
   			<ul class="title-area">
    			 <!-- Title Area -->
     		<li class="menutitel name">
@@ -33,6 +34,9 @@
   			</ul>
 
   		<section class="top-bar-section">
+=======
+		<section class="top-bar-section">
+>>>>>>> 25473e7a52b3a04851af99a6b57dcf8245263477
     		<!-- Left Nav Section -->
     		<ul class="left">
 			<li class="divider"></li>
@@ -46,44 +50,6 @@
       	<li class="divider"></li>
       	<li><a href="<?php echo site_url('dashboard/checker') ?>">Checker</a></li>
       	
-      
-      <!-- 
-      <li class="has-dropdown"><a href="#">Main Item 3</a>
-
-        <ul class="dropdown">
-          <li class="has-dropdown"><a href="#">Dropdown Level 1a</a>
-
-            <ul class="dropdown">
-              <li><label>Dropdown Level 2 Label</label></li>
-              <li><a href="#">Dropdown Level 2a</a></li>
-              <li><a href="#">Dropdown Level 2b</a></li>
-              <li class="has-dropdown"><a href="#">Dropdown Level 2c</a>
-
-                <ul class="dropdown">
-                  <li><label>Dropdown Level 3 Label</label></li>
-                  <li><a href="#">Dropdown Level 3a</a></li>
-                  <li><a href="#">Dropdown Level 3b</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">Dropdown Level 3c</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Dropdown Level 2d</a></li>
-              <li><a href="#">Dropdown Level 2e</a></li>
-              <li><a href="#">Dropdown Level 2f</a></li>
-            </ul>
-          </li>
-          <li><a href="#">Dropdown Level 1b</a></li>
-          <li><a href="#">Dropdown Level 1c</a></li>
-          <li class="divider"></li>
-          <li><a href="#">Dropdown Level 1d</a></li>
-          <li><a href="#">Dropdown Level 1e</a></li>
-          <li><a href="#">Dropdown Level 1f</a></li>
-          <li class="divider"></li>
-          <li><a href="#">See all &rarr;</a></li>
-        </ul>
-      </li>
-      <li class="divider"></li>
-      -->
     </ul>
 
     <!-- Right Nav Section -->
@@ -95,59 +61,7 @@
     	<li><a href="<?php echo $base_url;?>dashboard/update_user_account/<?php echo $currentuser['uacc_id']; ?>">User Details</a></li>
       <li class="divider"></li>
       
-      <!--  
-      <li class="has-dropdown"><a href="#">Main Item 4</a>
-
-        <ul class="dropdown">
-          <li><label>Dropdown Level 1 Label</label></li>
-          <li class="has-dropdown"><a href="#" class="">Dropdown Level 1a</a>
-
-            <ul class="dropdown">
-              <li><a href="#">Dropdown Level 2a</a></li>
-              <li><a href="#">Dropdown Level 2b</a></li>
-              <li class="has-dropdown"><a href="#">Dropdown Level 2c</a>
-
-                <ul class="dropdown">
-                  <li><a href="#">Dropdown Level 3a</a></li>
-                  <li><a href="#">Dropdown Level 3b</a></li>
-                  <li><a href="#">Dropdown Level 3c</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Dropdown Level 2d</a></li>
-              <li><a href="#">Dropdown Level 2e</a></li>
-              <li><a href="#">Dropdown Level 2f</a></li>
-            </ul>
-          </li>
-          <li><a href="#">Dropdown Level 1b</a></li>
-          <li><a href="#">Dropdown Level 1c</a></li>
-          <li class="divider"></li>
-          <li><label>Dropdown Level 1 Label</label></li>
-          <li><a href="#">Dropdown Level 1d</a></li>
-          <li><a href="#">Dropdown Level 1e</a></li>
-          <li><a href="#">Dropdown Level 1f</a></li>
-          <li class="divider"></li>
-          <li><a href="#">See all &rarr;</a></li>
-        </ul>
-      </li>
-      <li class="divider"></li>
-      <li class="has-form">
-        <form>
-          <div class="row collapse">
-            <div class="small-8 columns">
-              <input type="text">
-            </div>
-            <div class="small-4 columns">
-              <a href="#" class="alert button">Search</a>
-            </div>
-          </div>
-        </form>
-      </li>
-      <li class="divider show-for-small"></li>
-      <li class="has-form">
-        <a class="button" href="#">Button!</a>
-      </li>
-      -->
-    </ul>
+     </ul>
     <!-- end right nav section -->
   </section>
 </nav>
