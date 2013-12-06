@@ -43,19 +43,7 @@
 							</li>
 							
 							<?php if ($this->flexi_auth->is_admin()) { ?>
-
-							<li class="info_req">
-								<label for="group">Group:</label>
-								<select id="group" name="update_group" class="tooltip_trigger"
-									title="Set the users group, that can define them as an admin, public, moderator etc.">
-								<?php foreach($groups as $group) { ?>
-									<?php $user_group = ($group[$this->flexi_auth->db_column('user_group', 'id')] == $user[$this->flexi_auth->db_column('user_acc', 'group_id')]) ? TRUE : FALSE;?>
-									<option value="<?php echo $group[$this->flexi_auth->db_column('user_group', 'id')];?>" <?php echo set_select('update_group', $group[$this->flexi_auth->db_column('user_group', 'id')], $user_group);?>>
-										<?php echo $group[$this->flexi_auth->db_column('user_group', 'name')];?>
-									</option>
-								<?php } ?>
-								</select>
-							</li>
+							<? if ($user['uacc_id'] != $currentuser['uacc_id']) { ?>
 							<li class="info_req">
 								<label for="class">Student Class:</label>
 								<select id="class" name="update_class" class="tooltip_trigger"
@@ -68,6 +56,7 @@
 								<?php } ?>
 								</select>
 							</li>
+							<?php } ?>
 						</ul>
 						
 						<?php } ?>

@@ -104,24 +104,7 @@
 								<label for="password">Password:</label>
 								<a href="<?php echo $base_url.'dashboard/change_password/'.$update_user[$this->flexi_auth->db_column('user_acc', 'id')];?>" class="tooltip_trigger small button" title="Manage a users access privileges."> Change password</a>
 							</li>
-							
-							<li class="info_req">
-								<label for="group">Group:</label>
-								<select id="group" name="update_group" class="tooltip_trigger"
-									title="Set the users group, that can define them as an admin, public, moderator etc.">
-								<?php foreach($groups as $group) { ?>
-									<?php if ($group[$this->flexi_auth->db_column('user_group', 'id')] == $update_user[$this->flexi_auth->db_column('user_acc', 'group_id')]) {
-										$group_status = "selected";
-									} else {
-										$group_status = NULL;
-									}
-									?>
-									<option value="<?php echo $group[$this->flexi_auth->db_column('user_group', 'id')];?>" <?php echo $group_status; ?>>
-										<?php echo $group[$this->flexi_auth->db_column('user_group', 'name')];?>
-									</option>
-								<?php } ?>
-								</select>
-							</li>
+
 							<li class="info_req">
 								<label for="class">Student Class:</label>
 								<select id="class" name="update_class" class="tooltip_trigger"

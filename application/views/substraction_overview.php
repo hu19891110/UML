@@ -1,6 +1,9 @@
 <div class="large-12 columns">
 
-<h2>Substraction overview </h2>
+				<div class="h2bg">
+					<h2>Change substractions</h2>
+					<a href="<?php echo $refered_from; ?>">Back</a> 
+				</div>
 <?php if(isset($id)){?>
 						<?php echo form_open(current_url());	?>  	
 					<div class="w100 frame">
