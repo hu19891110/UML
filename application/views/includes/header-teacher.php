@@ -43,9 +43,6 @@
       	<li><a href="<?php echo site_url('dashboard/users') ?>">Students</a></li>
       	<li class="divider"></li>
       	<li><a href="<?php echo site_url('dashboard/assignments') ?>">Assignments</a></li>
-      	<li class="divider"></li>
-      	<li><a href="<?php echo site_url('dashboard/checker') ?>">Checker</a></li>
-      	
     </ul>
 
     <!-- Right Nav Section -->
