@@ -2840,8 +2840,13 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		return $assignments;
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 	public function archiveer_assignment($assignment_id)
+=======
+	
+	public function archive_assignment($assignment_id)
+>>>>>>> 0ac0771d62d591d42d4afdd40ddb1789ead72856
 =======
 	
 	public function archive_assignment($assignment_id)

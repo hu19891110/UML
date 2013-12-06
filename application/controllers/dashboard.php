@@ -282,6 +282,7 @@ class Dashboard extends CI_Controller {
 		}
 		
 <<<<<<< HEAD
+<<<<<<< HEAD
 		//get post info and update user account
 		if (!empty($_POST)) {
 			foreach($_POST as $key => $value)
@@ -324,6 +325,8 @@ class Dashboard extends CI_Controller {
 		}
 
 
+=======
+>>>>>>> 0ac0771d62d591d42d4afdd40ddb1789ead72856
 =======
 >>>>>>> 0ac0771d62d591d42d4afdd40ddb1789ead72856
 		if ($class_id != FALSE) {
