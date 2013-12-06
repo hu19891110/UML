@@ -280,9 +280,7 @@ class Dashboard extends CI_Controller {
 			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to view student classes.</p>');
 			redirect('dashboard');
 		}
-		
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 		//get post info and update user account
 		if (!empty($_POST)) {
 			foreach($_POST as $key => $value)
@@ -324,11 +322,6 @@ class Dashboard extends CI_Controller {
 			$this->data['class_users'][] = $class_user[$this->flexi_auth->db_column('user_acc', 'id')];
 		}
 
-
-=======
->>>>>>> 0ac0771d62d591d42d4afdd40ddb1789ead72856
-=======
->>>>>>> 0ac0771d62d591d42d4afdd40ddb1789ead72856
 		if ($class_id != FALSE) {
 			// Check user has privileges to classes, else display a message to notify the user they do not have valid privileges.
 			if (!$this->flexi_auth->is_admin())
