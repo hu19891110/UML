@@ -257,6 +257,10 @@ class Demo_auth_admin_model extends CI_Model {
 			
 			// Redirect user.
 			redirect('dashboard/classes');			
+		} else {
+			$this->flexi_auth_model->set_error_message('There are fields not filled in.', 'public', true);
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+			redirect('dashboard/classes');
 		}
 	}
 	
@@ -342,6 +346,14 @@ class Demo_auth_admin_model extends CI_Model {
 		} else {
 			$this->load->model('flexi_auth_model');
 			$this->flexi_auth_model->set_error_message('add_assignment_unsuccessful', 'config');
+			
+			if(!$this->input->post('add_assignment_name')) {
+				$this->flexi_auth_model->set_error_message('The Assignment Name is empty.', 'public', true);
+			}
+			if(!$this->input->post('add_assignment_enddate')) {
+				$this->flexi_auth_model->set_error_message('The Enddate Name is empty.', 'public', false);
+			}
+			
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			redirect('dashboard/assignments');
 		}

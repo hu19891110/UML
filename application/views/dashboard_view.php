@@ -178,7 +178,8 @@
 						$datediff = $datetime2 - $datetime1;
 						$days_left = floor($datediff/(60*60*24)); 
       			?>
-      			<?php if ($days_left > 0){ ?>
+      			<?php $i = 0;
+				if ($days_left > 0){ if($i < 10) { ?>
       			<tr>
 	      			<td><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></td>
 	      			<td>
@@ -194,7 +195,7 @@
 						?>
 					</td>
 					</tr>	
-					<?php } ?>
+					<?php $i++; } } ?>
 	      		
       			<?php } ?>		
       			</tbody>
@@ -412,6 +413,7 @@
       			<th>Upload</th>
     			</tr>
       			<?php 
+				$i = 0;
       			foreach ($assignments as $assignment)
       			{ ?>
       			<tr>
@@ -423,12 +425,12 @@
 						$datediff = $datetime2 - $datetime1;
 						$days_left = floor($datediff/(60*60*24)); 
       			?>
-      			<?php if ($days_left > 0){ ?>
+      			<?php if ($days_left > 0){ if($i < 10) {?>
 	      			<td><a href="<?php echo $base_url . 'dashboard/assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>"><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></a></td>
 	      			<td><?php $date = $assignment[$this->flexi_auth->db_column('assignment', 'enddate')];
 							echo date('d-m-Y H:i', strtotime($date));?></td>
 	      			<td> Upload assignment </td>
-	      		<?php } ?>	
+	      		<?php $i++;} } ?>	
 	      		</tr>	
       			<?php } ?>		
       			</tbody>
