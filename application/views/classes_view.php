@@ -58,10 +58,9 @@
 							</li>
 						</ul>					
 			
+					<input type="submit" name="update_student_class" id="submit" value="Save" class="button small"/>
 				<?php echo form_close();?>
 			
-			
-			<input type="submit" name="update_student_class" id="submit" value="Save" class="button small"/>
 			</div>
 		<?php } ?>
 				
