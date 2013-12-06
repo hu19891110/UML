@@ -233,11 +233,6 @@ input, textarea{
 	overflow-y: scroll;
 }
 
-.dashboard{
-	max-height: 450px;
-	overflow-y: scroll;
-}
-
 .dashboard.large-6{
 	margin-bottom: 10px;
 }
