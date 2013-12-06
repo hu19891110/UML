@@ -23,6 +23,13 @@
 <div id="container">	
 	<div class="row">
 		<nav class="top-bar">
+  			<ul class="title-area">
+   			 <!-- Title Area -->
+    		<li class="name">
+      	<h1><a href="<?php echo $base_url; ?>">UML Checker </a></h1>
+      		</li>
+   		     <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+  			</ul>
 
   			<section class="top-bar-section">
     		<!-- Left Nav Section -->
