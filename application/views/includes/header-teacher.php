@@ -23,7 +23,6 @@
 <div id="container">	
 	<div class="row">
 		<nav class="top-bar">
-<<<<<<< HEAD
   			<ul class="title-area">
    			 <!-- Title Area -->
     		<li class="menutitel name">
@@ -33,10 +32,7 @@
    		 <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
   			</ul>
 
-  		<section class="top-bar-section">
-=======
 		<section class="top-bar-section">
->>>>>>> 25473e7a52b3a04851af99a6b57dcf8245263477
     		<!-- Left Nav Section -->
     		<ul class="left">
 			<li class="divider"></li>
