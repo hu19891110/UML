@@ -666,6 +666,10 @@ class Flexi_auth extends Flexi_auth_lite
 	public function update_file_by_deadline($student_id, $deadline_id, $grade, $faults) {
 		$this->CI->flexi_auth_model->update_file_by_deadline($student_id, $deadline_id, $grade, $faults);
 	}
+	
+	public function get_correct_file_by_deadline($deadline_id) {
+		return $this->CI->flexi_auth_model->get_correct_file_by_deadline($deadline_id);
+	}
 
 	public function delete_class($sql_where)
 	{
