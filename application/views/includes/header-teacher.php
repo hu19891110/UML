@@ -23,6 +23,15 @@
 <div id="container">	
 	<div class="row">
 		<nav class="top-bar">
+  			<ul class="title-area">
+   			 <!-- Title Area -->
+    		<li class="menutitel name">
+      	<h1><a href="#"> UML Checker </a></h1>
+    		</li>
+   		 <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+   		 <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+  			</ul>
+
 		<section class="top-bar-section">
     		<!-- Left Nav Section -->
     		<ul class="left">
@@ -31,12 +40,9 @@
       	<li class="divider"></li>
       	<li><a href="<?php echo site_url('dashboard/classes') ?>">Classes</a></li>
      		<li class="divider"></li>
-      	<li><a href="<?php echo site_url('dashboard/users') ?>">Users</a></li>
+      	<li><a href="<?php echo site_url('dashboard/users') ?>">Students</a></li>
       	<li class="divider"></li>
       	<li><a href="<?php echo site_url('dashboard/assignments') ?>">Assignments</a></li>
-      	<li class="divider"></li>
-      	<li><a href="<?php echo site_url('dashboard/checker') ?>">Checker</a></li>
-      	
     </ul>
 
     <!-- Right Nav Section -->

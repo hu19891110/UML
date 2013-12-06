@@ -118,44 +118,6 @@
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 	
 	/**
-	 * User Privilege Table
-	 * The user privilege table is used to allocate role privileges to users.
-	 * Whilst very similar to user groups, multiple privileges can be assigned to a user, the users privilege (and group if desired) can then be 
-	 *  looked up to verify if a user has permission to perform an action or access specific data.
-	 * For example, 2 users could be in an 'Moderator' group, 1 of the users could be allowed to update data, whilst the other could only view the data. 
-	 * 
-	 * All columns are required.
-	*/ 
-	$config['database']['user_privileges']['table'] = 'user_privileges';
-	$config['database']['user_privileges']['columns']['id'] = 'upriv_id';
-	$config['database']['user_privileges']['columns']['name'] = 'upriv_name';
-	$config['database']['user_privileges']['columns']['description'] = 'upriv_desc';
-	
-	/**
-	 * User Privilege Users Table
-	 * The user privilege user table is used to assign privileges to users. Multiple privileges can be assigned to a user.
-	 * 
-	 * All columns are required.
-	*/ 
-	$config['database']['user_privilege_users']['table'] = 'user_privilege_users';
-	$config['database']['user_privilege_users']['columns']['id'] = 'upriv_users_id';
-	$config['database']['user_privilege_users']['columns']['user_id'] = 'upriv_users_uacc_fk';
-	$config['database']['user_privilege_users']['columns']['privilege_id'] = 'upriv_users_upriv_fk';
-	
-	/**
-	 * User Privilege Groups Table
-	 * The user privilege group table is used to assign privileges to user groups. Multiple privileges can be assigned to a user group.
-	 * 
-	 * All columns are required.
-	*/ 
-	$config['database']['user_privilege_groups']['table'] = 'user_privilege_groups';
-	$config['database']['user_privilege_groups']['columns']['id'] = 'upriv_groups_id';
-	$config['database']['user_privilege_groups']['columns']['group_id'] = 'upriv_groups_ugrp_fk';
-	$config['database']['user_privilege_groups']['columns']['privilege_id'] = 'upriv_groups_upriv_fk';
-
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-	
-	/**
 	 * User Login Session Table
 	 * The user login session table is used to validate user login credentials. For security purposes, if a users credentitals do not match those  
 	 * stored within the table, the user is automatically logged out.
@@ -215,30 +177,6 @@
 	$config['database']['uploads']['columns']['comments'] = 'comments';
 	$config['database']['uploads']['columns']['substraction'] = 'substraction_late';
 	
-	
-	
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-	// Custom User Related Tables
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-
-	/**
-	 * Additional custom tables that are directly related to the user account table can be included in flexi auth CRUD functions by 
-	 * setting their database structure via the the $config['database'] array. 
-	 * 
-	 * Typically, such examples of a custom table you may wish to link to the user account table would be a user profile table listing the 
-	 * users name and contact details etc. 
-	 * 
-	 * You are not limited to the number of different custom tables you can define.
-	 * 
-	 * ### Example Custom Table Template ###
-	 * $config['database']['custom']['#Array Alias#']['table'] = '#Actual table name#';
-	 * $config['database']['custom']['#Array Alias#']['primary_key'] = '#Table primary key#';
-	 * $config['database']['custom']['#Array Alias#']['foreign_key'] = '#Table foreign key (Usually the table join column)#';
-	 * $config['database']['custom']['#Array Alias#']['join'] = '#Actual table name#.#Foreign key column to main user table "user_acc"#';
-	 * $config['database']['custom']['#Array Alias#']['custom_columns'] = array('#Column1#','#Column2#');
-	 *
-	 * Note: No custom tables are required to use flexi auth, see the demo config file for examples of including custom tables.
-	*/
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 

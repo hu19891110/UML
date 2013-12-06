@@ -505,12 +505,6 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		return TRUE;
 	}
 
-	public function get_deadlines_data() {
-
-
-
-	}
-
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 
 	/**
@@ -547,7 +541,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	 * Inserts a new student class to the database.
 	 *
 	 * @return bool
-	 *  customized by Thomas Prikkel
+	 * Written by Thomas Prikkel
 	 */
 	public function insert_class($name, $description = NULL, $custom_data = array())
 	{
@@ -575,7 +569,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	 * Updates a student class with any submitted data.
 	 *
 	 * @return bool
-	 *  customized by Thomas Prikkel
+	 * Written by Thomas Prikkel
 	 */
 	public function update_class($class_id, $class_data)
 	{
@@ -625,7 +619,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	 * Deletes a class from the student class table.
 	 *
 	 * @return bool
-	 *  customized by Thomas Prikkel
+	 * Written by Thomas Prikkel
 	 */
 	public function delete_class($sql_where)
 	{
@@ -1370,77 +1364,6 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		}
 	}
 
-
-	/**
-	 * get_unactivated_users
-	 * Cleanup function to get unactivated users from database within expiry period.
-	 * These can then be deleted using the library delete_unactivated_users() function.
-	 *
-	 * @return bool
-	 * @author Rob Hussey
-	 */
-	public function get_unactivated_users($inactive_days = 28, $sql_select = FALSE, $sql_where = FALSE)
-	{
-		if (!is_numeric($inactive_days))
-		{
-			return FALSE;
-		}
-
-		// SQL SELECT columns.
-		if (!empty($sql_select))
-		{
-			$this->db->select($sql_select);
-		}
-
-		// SQL WHERE columns.
-		if (!empty($sql_where))
-		{
-			$this->db->where($sql_where);
-		}
-
-		// Do not delete accounts added within set $inactive_days.
-		$inactive_days = (60 * 60 * $inactive_days);
-		$expire_date = $this->database_date_time(-$inactive_days);
-
-		$sql_where = array(
-			$this->login->tbl_col_user_account['active'] => 0,
-			$this->login->tbl_col_user_account['date_added'].' < ' => $expire_date
-		);
-
-		$this->db->where($sql_where);
-
-		return $this->get_users($sql_select);
-	}
-
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-
-	/**
-	 * get_groups
-	 * Returns a list of user groups matching the $sql_where condition.
-	 *
-	 * @return object
-	 * @author Rob Hussey
-	 */
-	public function get_groups($sql_select = FALSE, $sql_where = FALSE)
-	{
-		// Set any custom defined SQL statements.
-		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
-
-		return $this->db->get($this->login->tbl_user_group);
-	}
-
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-
-
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-
-	/**
-	 * get_classes
-	 * Returns a list of user groups matching the $sql_where condition.
-	 *
-	 * @return object
-	 * @author Rob Hussey
-	 */
 	public function get_classes($sql_select = FALSE, $sql_where = FALSE)
 	{
 		// Set any custom defined SQL statements.
@@ -1466,68 +1389,6 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			array_push($array, $deadline[0]);
 		}
 		return $array;
-	}
-
-
-
-
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-
-
-	/**
-	 * get_privileges
-	 * Returns a list of all privileges matching the $sql_where condition.
-	 *
-	 * @return void
-	 * @author Rob Hussey
-	 */
-	public function get_privileges($sql_select, $sql_where)
-	{
-		// Set any custom defined SQL statements.
-		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
-
-		return $this->db->get($this->login->tbl_user_privilege);
-	}
-
-	/**
-	 * get_user_privileges
-	 * Returns a list of user privileges matching the $sql_where condition.
-	 *
-	 * @return void
-	 * @author Rob Hussey
-	 */
-	public function get_user_privileges($sql_select, $sql_where)
-	{
-		// Set any custom defined SQL statements.
-		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
-
-		return $this->db->from($this->login->tbl_user_privilege)
-		->join($this->login->tbl_user_privilege_users, $this->login->tbl_col_user_privilege['id'].' = '.$this->login->tbl_col_user_privilege_users['privilege_id'])
-		->get();
-	}
-
-	/**
-	 * get_user_group_privileges
-	 * Returns a list of user group privileges matching the $sql_where condition.
-	 *
-	 * @return void
-	 * @author Rob Hussey / Filou Tschiemer
-	 */
-	public function get_user_group_privileges($sql_select, $sql_where)
-	{
-		// Set any custom defined SQL statements.
-		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
-
-		return $this->db->from($this->login->tbl_user_privilege)
-		->join($this->login->tbl_user_privilege_groups, $this->login->tbl_col_user_privilege['id'].' = '.$this->login->tbl_col_user_privilege_groups['privilege_id'])
-		->get();
-	}
-
-	public function get_deadlines($sql_select, $sql_where)
-	{
-		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
-
-		return $this->db->get($this->login->tbl_deadline);
 	}
 
 	public function get_uploads_by_deadline($deadline_id)
@@ -2978,8 +2839,13 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		}
 		return $assignments;
 	}
+<<<<<<< HEAD
 	
 	public function archiveer_assignment($assignment_id)
+=======
+	
+	public function archive_assignment($assignment_id)
+>>>>>>> 0ac0771d62d591d42d4afdd40ddb1789ead72856
 	{
 		$data = array('assignment_archief' => '1');
 
@@ -3009,7 +2875,6 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	}
 
 }
-
 
 /* End of file flexi_auth_model.php */
 /* Location: ./application/controllers/flexi_auth_model.php */

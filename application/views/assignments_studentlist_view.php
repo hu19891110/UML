@@ -36,16 +36,6 @@
 							</tr>
 						<?php } ?>
 						</tbody>
-						<!--
-						<tfoot>
-							<tr>
-								<td colspan="7">
-									<?php $disable = (! $this->flexi_auth->is_privileged('Update Users') && ! $this->flexi_auth->is_privileged('Delete Users')) ? 'disabled="disabled"' : NULL;?>
-									<input type="submit" name="update_users" value="Update / Delete Users" class="link_button large" <?php echo $disable; ?>/>
-								</td>
-							</tr>
-						</tfoot>
-						-->
 					<?php } else { ?>
 						<tbody>
 							<tr>

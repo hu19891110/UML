@@ -235,41 +235,6 @@ class Flexi_auth_lite
 
 		return ((is_numeric($groups) && $groups == key($user_group)) || strtolower($groups) == strtolower(current($user_group)));
 	}
-
-	/**
-	 * is_privileged
-	 * Verifies whether a user has a specific privilege, by comparing by either privilege id or name.
-	 *
-	 * @return bool
-	 * @author Rob Hussey
-	 */
-	public function is_privileged($privileges = FALSE)
-	{
-		// Get users privileges and convert names to lowercase for comparison.
-		$user_privileges = array();
-		if (! empty($this->CI->login->session_data[$this->CI->login->session_name['privileges']]))
-		{
-			foreach($this->CI->login->session_data[$this->CI->login->session_name['privileges']] as $id => $name)
-			{
-				$user_privileges[$id] = strtolower($name);
-			}
-		}
-
-		// If multiple groups submitted as an array, loop through each.
-		if (is_array($privileges))
-		{
-			foreach($privileges as $privilege)
-			{
-				if ((is_numeric($privilege) && array_key_exists($privilege, $user_privileges)) || in_array(strtolower($privilege), $user_privileges))
-				{
-					return TRUE;
-				}
-			}
-			return FALSE;
-		}
-
-		return ((is_numeric($privileges) && array_key_exists($privileges, $user_privileges)) || in_array(strtolower($privileges), $user_privileges));
-	}
 	
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	

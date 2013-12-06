@@ -17,6 +17,12 @@ body{
     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
 
+@media only screen and (min-width: 400px){
+	.menutitel{
+		display: none;
+	}
+}	
+
 .h2bg{
 	background: #DFDFDF;
 	height: 70px;
@@ -224,11 +230,6 @@ input, textarea{
 
 .users{
 	height: 500px;
-	overflow-y: scroll;
-}
-
-.dashboard{
-	max-height: 450px;
 	overflow-y: scroll;
 }
 

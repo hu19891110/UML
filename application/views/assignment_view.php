@@ -3,7 +3,7 @@
 <!-- main content -->
 <div class="large-12 columns">
 	
-	
+		
 				<div class="h2bg" style="height: 85px !important;">
 					<h2><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></h2>
 					<h4>Assignment details</h4>
@@ -14,6 +14,8 @@
 						<?php echo $message; ?>
 					</div>
 				<?php } ?>
+				
+			<div class="large-6 columns">		
 				<h3> Description of the assignment:</h3> <?php echo $assignment[$this->flexi_auth->db_column('assignment', 'desc')];?> 
 				<h3>Date of deadline:</h3>
 					<?php  
@@ -49,20 +51,23 @@
 				<?php $checked = ($assignment[$this->flexi_auth->db_column('assignment', 'checked')] == 1) ? 'Yes' : 'No'; ?>
 				<h3> Is the assignment already checked? </h3> <?php echo $checked;?>
 					
-				<?php if($checked == 'No') { ?>	
-	<br/> <br/>			
-		<a class="small button" href="<?php echo $base_url . 'dashboard/checkassignment/' . $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">Check assignment </a>
-				<?php } ?>	
-				<br/><br/>
-				<?php $gearchiveerd = $assignment['assignment_archief']; ?>
-	      		<?php if ($gearchiveerd == 0) { ?>
-				<h3>Upload correction model</h3>				
-				<?php echo form_open_multipart('dashboard/do_upload');?>
-			<input type="file" name="assignment_file" size="20"> <br/> <br/>
-			<input type="hidden" id="assignmentID" name="assignmentID" value="<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>" />
-			<input type="submit" value="Upload" class="small button"> <br/> <br/>
+				<!-- <?php if($checked == 'No') { ?>	
+				<br/> <br/>			
+					<a class="small button" href="<?php echo $base_url . 'dashboard/checkassignment/' . $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">Check assignment </a>
+				<?php } ?>	-->
+			</div> 
+				
+			<div class="large-6 columns">	
+				<?php $archived = $assignment['assignment_archief']; ?>
+	      		<?php if ($archived == 0) { ?>
+						<h3>Upload correction model</h3>				
+						<?php echo form_open_multipart('dashboard/do_upload');?>
+						<input type="file" name="assignment_file" size="20">
+						<input type="hidden" id="assignmentID" name="assignmentID" value="<?php echo $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>" />
+						<input type="submit" value="Upload" class="small button"> 
 				<?php echo form_close(); ?>
 				<?php } ?>
+			</div>	
 
 </div> <!-- end 12 columns --> 
 

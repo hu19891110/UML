@@ -194,25 +194,6 @@ class Flexi_auth extends Flexi_auth_lite
 	}
 
 	/**
-	 * deactivate_user
-	 * Deactivates a users account, preventing them from logging in.
-	 *
-	 * @return void
-	 * @author Mathew Davies
-	 */
-	public function deactivate_user($user_id)
-	{
-		if ($this->CI->flexi_auth_model->deactivate_user($user_id))
-		{
-			$this->CI->flexi_auth_model->set_status_message('deactivate_successful', 'config');
-			return TRUE;
-		}
-
-		$this->CI->flexi_auth_model->set_error_message('deactivate_unsuccessful', 'config');
-		return FALSE;
-	}
-
-	/**
 	 * resend_activation_token
 	 * Resends user a new activation token incase they have lost the previous one.
 	 *
@@ -449,87 +430,6 @@ class Flexi_auth extends Flexi_auth_lite
 		return FALSE;
 	}
 	
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-	
-	/**
-	 * update_email_via_verification
-	 * Sends the user a verification email to their new email address, the user must then click a link within the email to update their accounts email address.
-	 * This will help prevent a user accidentally locking themselves out of their account if they forget their password, as they can request a new password
-	 * to be sent to their 'verified' email address rather than a misspelt email address.
-	 *
-	 * @return bool
-	 * @author Rob Hussey
-	 */
-	public function update_email_via_verification($user_id, $new_email) 
-	{
-		if ($this->CI->flexi_auth_model->set_update_email_token($user_id, $new_email))
-		{
-			// Get user information.
-			$sql_select = array(
-				$this->CI->login->tbl_col_user_account['email'],
-				$this->CI->login->tbl_col_user_account['update_email_token']
-			);
-			$sql_where[$this->CI->login->tbl_col_user_account['id']] = $user_id;
-			
-			$user = $this->CI->flexi_auth_model->get_users($sql_select, $sql_where)->row();
-
-			if (!is_object($user))
-			{
-				$this->CI->flexi_auth_model->set_error_message('update_unsuccessful', 'config');
-				return FALSE;
-			}
-			
-			$current_email = $user->{$this->CI->login->database_config['user_acc']['columns']['email']};
-			$update_email_token = $user->{$this->CI->login->database_config['user_acc']['columns']['update_email_token']};
-			
-			// Send email activation email.
-			$email_to = $new_email;
-			$email_title = ' - Email Change Verification';
-		
-			$user_data = array(
-				'user_id' => $user_id,
-				'current_email' => $current_email,
-				'new_email' => $new_email,
-				'update_email_token' => $update_email_token
-			);
-			
-			$template = $this->CI->login->email_settings['email_template_directory'].$this->CI->login->email_settings['email_template_update_email'];
-			
-			if ($this->CI->flexi_auth_model->send_email($email_to, $email_title, $user_data, $template))
-			{
-				$this->CI->flexi_auth_model->set_status_message('email_activation_email_successful', 'config');
-				return TRUE;
-			}
-			else
-			{
-				$this->CI->flexi_auth_model->set_error_message('email_activation_email_unsuccessful', 'config');
-				return FALSE;
-			}
-		}
-		
-		$this->CI->flexi_auth_model->set_error_message('update_unsuccessful', 'config');
-		return FALSE;
-	}
-	
-	/**
-	 * verify_updated_email
-	 * Verifies a submitted $update_email_token and updates their account with the new email address.
-	 *
-	 * @return bool
-	 * @author Rob Hussey
-	 */
-	public function verify_updated_email($user_id, $update_email_token)
-	{
-		if ($this->CI->flexi_auth_model->verify_updated_email($user_id, $update_email_token))
-		{
-			$this->CI->flexi_auth_model->set_status_message('update_successful', 'config');
-			return TRUE;
-		}
-		
-		$this->CI->flexi_auth_model->set_error_message('update_unsuccessful', 'config');
-		return FALSE;
-	}
-	
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	// USER MANAGEMENT / CRUD FUNCTIONS
@@ -678,7 +578,6 @@ class Flexi_auth extends Flexi_auth_lite
 	}
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-
 	/**
 	 * insert_custom_user_data
 	 * Inserts data into a custom user table and returns the table name and row id of each record inserted.
@@ -739,77 +638,7 @@ class Flexi_auth extends Flexi_auth_lite
 		$this->CI->flexi_auth_model->set_error_message('delete_unsuccessful', 'config');
 		return FALSE;
 	}
-	
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-	
-	/**
-	 * insert_group
-	 * Inserts a new user group to the database. If the group has admin privileges this can be set using $is_admin = TRUE.
-	 *
-	 * @return void
-	 * @author Rob Hussey
-	 */
-	public function insert_group($name, $description = NULL, $is_admin = FALSE, $custom_data = array())
-	{
-		if ($group_id = $this->CI->flexi_auth_model->insert_group($name, $description, $is_admin, $custom_data));
-		{
-			$this->CI->flexi_auth_model->set_status_message('update_successful','config');
-			return $group_id;
-		}
 
-		$this->CI->flexi_auth_model->set_error_message('update_unsuccessful', 'config');
-		return FALSE;
-	}
-	
-	/**
-	 * update_group
-	 * Updates a user group with any submitted data.
-	 *
-	 * @return bool
-	 * @author Rob Hussey
-	 */
-	public function update_group($group_id, $group_data)
-	{
-		if ($this->CI->flexi_auth_model->update_group($group_id, $group_data))
-		{
-			$this->CI->flexi_auth_model->set_status_message('update_successful', 'config');
-			return TRUE;
-		}
-
-		$this->CI->flexi_auth_model->set_error_message('update_unsuccessful', 'config');
-		return FALSE;
-	}
-
-	/**
-	 * delete_group
-	 * Deletes a group from the user group table.
-	 *
-	 * @return bool
-	 * @author Rob Hussey
-	 */
-	public function delete_group($sql_where)
-	{
-		if ($this->CI->flexi_auth_model->delete_group($sql_where))
-		{
-			$this->CI->flexi_auth_model->set_status_message('delete_successful', 'config');
-			return TRUE;
-		}
-
-		$this->CI->flexi_auth_model->set_error_message('delete_unsuccessful', 'config');
-		return FALSE;
-	}
-	
-	
-	
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-	
-	/**
-	 * insert_class
-	 * Inserts a new student class to the database. 
-	 *
-	 * @return void
-	 * @author Rob Hussey - customized by Thomas Prikkel
-	 */
 	public function insert_class($name, $description = NULL, $custom_data = array())
 	{
 		if ($class_id = $this->CI->flexi_auth_model->insert_class($name, $description, $custom_data));
@@ -821,14 +650,7 @@ class Flexi_auth extends Flexi_auth_lite
 		$this->CI->flexi_auth_model->set_error_message('update_unsuccessful', 'config');
 		return FALSE;
 	}
-	
-	/**
-	 * update_class
-	 * Updates a student class with any submitted data.
-	 *
-	 * @return bool
-	 * @author Rob Hussey - customized by Thomas Prikkel
-	 */
+
 	public function update_class($class_id, $class_data)
 	{
 		if ($this->CI->flexi_auth_model->update_class($class_id, $class_data))
@@ -845,13 +667,6 @@ class Flexi_auth extends Flexi_auth_lite
 		$this->CI->flexi_auth_model->update_file_by_deadline($student_id, $deadline_id, $grade, $faults);
 	}
 
-	/**
-	 * delete_class
-	 * Deletes a group from the student class table.
-	 *
-	 * @return bool
-	 * @author Rob Hussey - customized by Thomas Prikkel
-	 */
 	public function delete_class($sql_where)
 	{
 		if ($this->CI->flexi_auth_model->delete_class($sql_where))
@@ -874,185 +689,6 @@ class Flexi_auth extends Flexi_auth_lite
 		}
 
 		$this->CI->flexi_auth_model->set_error_message('update_unsuccessful', 'config');
-		return FALSE;
-	}
-	
-	
-	
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-	
-	/**
-	 * insert_privilege
-	 * Inserts a new user privilege to the database.
-	 *
-	 * @return void
-	 * @author Rob Hussey
-	 */
-	public function insert_privilege($name, $description = NULL, $custom_data = array())
-	{
-		if ($privilege_id = $this->CI->flexi_auth_model->insert_privilege($name, $description, $custom_data));
-		{
-			$this->CI->flexi_auth_model->set_status_message('update_successful', 'config');
-			return $privilege_id;
-		}
-
-		$this->CI->flexi_auth_model->set_error_message('update_unsuccessful', 'config');
-		return FALSE;
-	}
-	
-	/**
-	 * update_privilege
-	 * Updates a user privilege with any submitted data.
-	 *
-	 * @return bool
-	 * @author Rob Hussey
-	 */
-	public function update_privilege($privilege_id, $privilege_data)
-	{
-		if ($this->CI->flexi_auth_model->update_privilege($privilege_id, $privilege_data))
-		{
-			$this->CI->flexi_auth_model->set_status_message('update_successful', 'config');
-			return TRUE;
-		}
-
-		$this->CI->flexi_auth_model->set_error_message('update_unsuccessful', 'config');
-		return FALSE;
-	}
-
-	/**
-	 * delete_privilege
-	 * Deletes a privilege from the user privilege table.
-	 *
-	 * @return bool
-	 * @author Rob Hussey
-	 */
-	public function delete_privilege($sql_where)
-	{
-		if ($this->CI->flexi_auth_model->delete_privilege($sql_where))
-		{
-			$this->CI->flexi_auth_model->set_status_message('delete_successful', 'config');
-			return TRUE;
-		}
-
-		$this->CI->flexi_auth_model->set_error_message('delete_unsuccessful', 'config');
-		return FALSE;
-	}
-	
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-
-	/**
-	 * insert_privilege_user
-	 * Inserts a new user privilege user to the database.
-	 *
-	 * @return void
-	 * @author Rob Hussey
-	 */
-	public function insert_privilege_user($user_id, $privilege_id)
-	{
-		if ($privilege_id = $this->CI->flexi_auth_model->insert_privilege_user($user_id, $privilege_id));
-		{
-			$this->CI->flexi_auth_model->set_status_message('update_successful', 'config');
-			return $privilege_id;
-		}
-
-		$this->CI->flexi_auth_model->set_error_message('update_unsuccessful', 'config');
-		return FALSE;
-	}
-	
-	/**
-	 * delete_privilege_user
-	 * Deletes a user from the user privilege user table.
-	 *
-	 * @return bool
-	 * @author Rob Hussey
-	 */
-	public function delete_privilege_user($sql_where)
-	{
-		if ($this->CI->flexi_auth_model->delete_privilege_user($sql_where))
-		{
-			$this->CI->flexi_auth_model->set_status_message('delete_successful', 'config');
-			return TRUE;
-		}
-
-		$this->CI->flexi_auth_model->set_error_message('delete_unsuccessful', 'config');
-		return FALSE;
-	}
-        
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-        
-	/**
-	 * insert_user_group_privilege
-	 * Inserts a new user group privilege to the database.
-	 *
-	 * @return void
-	 * @author Rob Hussey / Filou Tschiemer
-	 */
-	public function insert_user_group_privilege($group_id, $privilege_id)
-	{
-		if ($privilege_id = $this->CI->flexi_auth_model->insert_user_group_privilege($group_id, $privilege_id));
-		{
-			$this->CI->flexi_auth_model->set_status_message('update_successful', 'config');
-			return $privilege_id;
-		}
-
-		$this->CI->flexi_auth_model->set_error_message('update_unsuccessful', 'config');
-		return FALSE;
-	}
-       
-	/**
-	 * delete_user_group_privilege
-	 * Deletes a user group privilege from the user privilege group table.
-	 *
-	 * @return bool
-	 * @author Rob Hussey / Filou Tschiemer
-	 */
-	public function delete_user_group_privilege($sql_where)
-	{
-		if ($this->CI->flexi_auth_model->delete_user_group_privilege($sql_where))
-		{
-			$this->CI->flexi_auth_model->set_status_message('delete_successful', 'config');
-			return TRUE;
-		}
-
-		$this->CI->flexi_auth_model->set_error_message('delete_unsuccessful', 'config');
-		return FALSE;
-	}
-	
-	
-	
-	public function add_deadline($deadline_desc, $deadline_enddate)
-	{	
-		$deadline_id = $this->CI->flexi_auth_model->add_deadline($deadline_desc, $deadline_enddate);
-		if ($deadline_id != FALSE)
-		{
-			$this->CI->flexi_auth_model->set_status_message('add_deadline_successful', 'config');
-			return $deadline_id;
-		}
-
-		$this->CI->flexi_auth_model->set_error_message('add_deadline_unsuccessful', 'config');
-		return FALSE;
-	}
-	
-	public function assign_deadline($deadline_id, $class_id)
-	{
-		if ($this->CI->flexi_auth_model->assign_deadline($deadline_id, $class_id))
-		{
-			$this->CI->flexi_auth_model->set_status_message('add_deadline_successful', 'config');
-			return TRUE;
-		}
-
-		$this->CI->flexi_auth_model->set_error_message('add_deadline_unsuccessful', 'config');
-		return FALSE;
-	}
-	public function unassign_deadline($sql_where)
-	{
-		if ($this->CI->flexi_auth_model->unassign_deadline($sql_where))
-		{
-			$this->CI->flexi_auth_model->set_status_message('delete_deadline_successful', 'config');
-			return TRUE;
-		}
-
-		$this->CI->flexi_auth_model->set_error_message('delete_deadline_unsuccessful', 'config');
 		return FALSE;
 	}
 	
@@ -1088,8 +724,6 @@ class Flexi_auth extends Flexi_auth_lite
 			$this->CI->flexi_auth_model->set_status_message('update_assignment_successful', 'config');
 			return TRUE;
 		}
-		
-		//$this->CI->flexi_auth_model->set_error_message('update_assignment_unsuccessful', 'config');
 		return FALSE;
 	}
 	
@@ -1117,21 +751,11 @@ class Flexi_auth extends Flexi_auth_lite
 		return FALSE;
 	}
 	
-	function get_classes_for_assignment($assignment_id) {
-	
-		return $this->CI->flexi_auth_model->get_classes_for_assignment($assignment_id);
-		
-	}
-	
 	public function	add_comment($comments, $student_id, $deadline_id) {
 		
 		return $this->CI->flexi_auth_model->add_comments($comments, $student_id, $deadline_id);
 			
 	}
-	
-
-	
-	
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 	
@@ -1172,9 +796,53 @@ class Flexi_auth extends Flexi_auth_lite
 		return $this->CI->flexi_auth_model->username_available($username, $user_id);
 	}
 	
+		/**
+	 * template_data
+	 * flexi auth sends emails for a number of functions, this function can set additional data variables that can then be used by the template files.
+	 *
+	 * @return void
+	 * @author Rob Hussey
+	 */
+	public function template_data($template, $template_data)
+	{
+		if (empty($template) && empty($template_data))
+		{
+			return FALSE;
+		}
+
+		// Set template data placeholder.
+		$data = $this->CI->login->template_data;
+
+		// Change default template if set
+		if (!empty($template))
+		{
+			$data['template'] = $template;
+		}
+
+		// Add additional template data if set
+		if (!empty($template_data))
+		{
+			$data['template_data'] = $template_data;
+		}
+		
+		$this->CI->login->template_data = $data;
+	}
+	
+	public function send_email($email_to = FALSE, $email_title = FALSE, $template = FALSE, $email_data = array())
+	{
+		if (!$email_to || !$template || empty($email_data))
+		{
+			return FALSE;
+		}
+	
+		$template = $this->CI->login->email_settings['email_template_directory'].$template;
+
+		return $this->CI->flexi_auth_model->send_email($email_to, $email_title, $email_data, $template);
+	}
+	
 	
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
-	// GET USER / GROUP / PRIVILEGE FUNCTIONS
+	// GET USER FUNCTIONS
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 		
 	/**
@@ -1211,33 +879,6 @@ class Flexi_auth extends Flexi_auth_lite
 		return $this->CI->flexi_auth_model->get_users($sql_select, $sql_where);
 	}
 	
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-	
-	/**
-	 * get_unactivated_users_query
-	 * Get users that have not activated their account within a set time period.
-	 *
-	 * @return bool
-	 * @author Rob Hussey
-	 */
-	public function get_unactivated_users_query($inactive_days = 28, $sql_select = FALSE, $sql_where = FALSE)
-	{
-		return $this->CI->flexi_auth_model->get_unactivated_users($inactive_days, $sql_select, $sql_where);
-	}
-	
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-		
-	/**
-	 * get_groups_query
-	 * Returns a list of user groups matching the $sql_where condition.
-	 *
-	 * @return object
-	 * @author Rob Hussey
-	 */
-	public function get_groups_query($sql_select = FALSE, $sql_where = FALSE)
-	{
-		return $this->CI->flexi_auth_model->get_groups($sql_select, $sql_where);
-	}
 	
 	public function get_student_class($user_id) {
 		return $this->CI->flexi_auth_model->get_student_class($user_id);
@@ -1246,88 +887,15 @@ class Flexi_auth extends Flexi_auth_lite
 	public function get_deadlines_by_class($class_id) {
 		return $this->CI->flexi_auth_model->get_deadlines_by_class($class_id);
 	}
-		
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-		
-	/**
-	 * get_classes_query
-	 * Returns a list of user groups matching the $sql_where condition.
-	 *
-	 * @return object
-	 * @author Rob Hussey
-	 */
+
 	public function get_classes_query($sql_select = FALSE, $sql_where = FALSE)
 	{
 		return $this->CI->flexi_auth_model->get_classes($sql_select, $sql_where);
 	}
 	
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
-		
-	/**
-	 * get_privileges_query
-	 * Returns a list of user privileges matching the $sql_where condition.
-	 *
-	 * @return object
-	 * @author Rob Hussey
-	 */
-	public function get_privileges_query($sql_select = FALSE, $sql_where = FALSE)
-	{
-		return $this->CI->flexi_auth_model->get_privileges($sql_select, $sql_where);
-	}
-	
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
+	function get_classes_for_assignment($assignment_id) {
+		return $this->CI->flexi_auth_model->get_classes_for_assignment($assignment_id);
 
-	/**
-	 * get_user_privileges_query
-	 * Returns a users privileges using their session user_id by default.
-	 *
-	 * @return object
-	 * @author Rob Hussey
-	 */
-	public function get_user_privileges_query($sql_select = FALSE, $sql_where = FALSE)
-	{
-		if (! $sql_where)
-		{
-			$sql_where = array($this->CI->login->tbl_col_user_privilege_users['user_id'] => 
-				$this->CI->login->session_data[$this->CI->login->session_name['user_id']]);
-		}
-	
-		return $this->CI->flexi_auth_model->get_user_privileges($sql_select, $sql_where);
-	}
-        
-        
-	/**
-	 * get_user_group_privileges_query
-	 * Returns a user groups privileges using a users session group_id by default.
-	 *
-	 * @return object
-	 * @author Rob Hussey / Filou Tschiemer
-	 */
-	public function get_user_group_privileges_query($sql_select = FALSE, $sql_where = FALSE)
-	{
-		if (! $sql_where)
-		{
-			$sql_where = array($this->CI->login->tbl_col_user_privilege_groups['group_id'] => 
-				key($this->CI->login->session_data[$this->CI->login->session_name['group']]));
-		}
-	
-		return $this->CI->flexi_auth_model->get_user_group_privileges($sql_select, $sql_where);
-	}
-	
-	
-	public function get_uploads_by_deadline($deadline_id) {
-		return $this->CI->flexi_auth_model->get_uploads_by_deadline($deadline_id);
-	}
-	
-	public function get_correct_file_by_deadline($deadline_id) {
-		return $this->CI->flexi_auth_model->get_correct_file_by_deadline($deadline_id);
-	}
-	
-	
-	
-	public function get_deadlines($sql_select = FALSE, $sql_where = FALSE)
-	{
-		return $this->CI->flexi_auth_model->get_deadlines($sql_select, $sql_where);
 	}
 	
 	public function get_uploads($sql_select = FALSE, $sql_where = FALSE)
@@ -1354,7 +922,7 @@ class Flexi_auth extends Flexi_auth_lite
 	public function get_assignments_not_handed_in_by_user($user_id) {
 	
 		return $this->CI->flexi_auth_model->get_assignments_not_handed_in_by_user($user_id);
-	
+			
 	}
 	
 	public function get_checked_assignments_per_student($student_id) {
@@ -1423,61 +991,6 @@ class Flexi_auth extends Flexi_auth_lite
 		return $this->CI->flexi_auth_model->get_classname_for_class_id($class_id);
 	}
 	
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
-	// EMAIL FUNCTIONS
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
-
-	/**
-	 * send_email
-	 * Emails a user a predefined email template.
-	 *
-	 * @return bool
-	 * @author Rob Hussey
-	 */
-	public function send_email($email_to = FALSE, $email_title = FALSE, $template = FALSE, $email_data = array())
-	{
-		if (!$email_to || !$template || empty($email_data))
-		{
-			return FALSE;
-		}
-	
-		$template = $this->CI->login->email_settings['email_template_directory'].$template;
-
-		return $this->CI->flexi_auth_model->send_email($email_to, $email_title, $email_data, $template);
-	}
-	
-	/**
-	 * template_data
-	 * flexi auth sends emails for a number of functions, this function can set additional data variables that can then be used by the template files.
-	 *
-	 * @return void
-	 * @author Rob Hussey
-	 */
-	public function template_data($template, $template_data)
-	{
-		if (empty($template) && empty($template_data))
-		{
-			return FALSE;
-		}
-
-		// Set template data placeholder.
-		$data = $this->CI->login->template_data;
-
-		// Change default template if set
-		if (!empty($template))
-		{
-			$data['template'] = $template;
-		}
-
-		// Add additional template data if set
-		if (!empty($template_data))
-		{
-			$data['template_data'] = $template_data;
-		}
-		
-		$this->CI->login->template_data = $data;
-	}
-	
 	public function user_id_exist($user_id) {
 		return $this->CI->flexi_auth_model->user_id_exist($user_id);
 	}
@@ -1497,8 +1010,8 @@ class Flexi_auth extends Flexi_auth_lite
 		return $this->CI->flexi_auth_model->get_assignments_not_completely_checked();
 	}
 	
-	public function archiveer_assignment($assignment_id) {
-		return  $this->CI->flexi_auth_model->archiveer_assignment($assignment_id);
+	public function archive_assignment($assignment_id) {
+		return  $this->CI->flexi_auth_model->archive_assignment($assignment_id);
 	}
 	
 	public function get_amount_students_not_handed_in($assignment_id) {

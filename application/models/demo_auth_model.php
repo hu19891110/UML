@@ -78,11 +78,6 @@ class Demo_auth_model extends CI_Model {
 		}
 	}
 	
-	public function add_file_by_student($assignment_id) {
-		$student_id = $this->flexi_auth->get_user_id();
-		return $this->flexi_auth->set_student_file_on_deadline($student_id, $assignment_id);
-		
-	}
 
 	/**
 	 * login_via_ajax
@@ -360,7 +355,7 @@ class Demo_auth_model extends CI_Model {
 	 */
 	function change_password($user_id)
 	{
-		if (! $this->flexi_auth->is_privileged('Update Users') && ($user_id != $this->flexi_auth->get_user_id()))
+		if (! $this->flexi_auth->is_admin() && ($user_id != $this->flexi_auth->get_user_id()))
 		{
 			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to update user accounts.</p>');
 			redirect('dashboard');		
@@ -412,238 +407,11 @@ class Demo_auth_model extends CI_Model {
 			return FALSE;
 		}
 	}
-	
-	/**
-	 * send_new_email_activation
-	 * This demo has 2 methods of updating a logged in users email address.
-	 * The first option simply allows the users to change their email address along with the rest of their account data via entering it into a form fields.
-	 * The second option requires users to verify their email address via clicking a link that is sent to that same email address.
-	 * The purpose of the second option is to prevent users entering a mispelt email address, which would then prevent the user from logging back in.
-	 */
-	function send_new_email_activation()
-	{
-		$this->load->library('form_validation');
 
-		// Set validation rules.
-		// The custom rule 'identity_available' can be found in '../libaries/MY_Form_validation.php'.
-		$validation_rules = array(
-			array('field' => 'email_address', 'label' => 'Email', 'rules' => 'required|valid_email|identity_available'),
-		);
+	public function add_file_by_student($assignment_id) {
+		$student_id = $this->flexi_auth->get_user_id();
+		return $this->flexi_auth->set_student_file_on_deadline($student_id, $assignment_id);
 		
-		$this->form_validation->set_rules($validation_rules);
-
-		// Run the validation.
-		if ($this->form_validation->run())
-		{
-			$user_id = $this->flexi_auth->get_user_id();
-			
-			// The 'update_email_via_verification()' function generates a verification token that is then emailed to the user.
-			$this->flexi_auth->update_email_via_verification($user_id, $this->input->post('email_address'));
-			
-			// Save any public status or error messages (Whilst suppressing any admin messages) to CI's flash session data.
-			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-			
-			redirect('auth_public/dashboard');
-		}
-		else
-		{		
-			// Set validation errors.
-			$this->data['message'] = validation_errors('<p class="error_msg">', '</p>');
-			
-			return FALSE;
-		}
-	}
-	
-	/**
-	 * verify_updated_email
-	 * Verifies a token within the current url and updates a users email address. 
-	 */
-	function verify_updated_email($user_id, $token)
-	{
-		// Verify the update email token and if valid, update their email address.
-		$this->flexi_auth->verify_updated_email($user_id, $token);
-		
-		// Save any public status or error messages (Whilst suppressing any admin messages) to CI's flash session data.
-		$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-		
-		// Redirect user.
-		// Logged in users are redirected to the restricted public user dashboard, otherwise the user is redirected to the login page.
-		if ($this->flexi_auth->is_logged_in())
-		{
-			redirect('auth_public/dashboard');
-		}
-		else
-		{
-			redirect('auth/login');
-		}
-	}
-	
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
-	// Manage User Address Book
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
-
-	/**
-	 * manage_address_book
-	 * Loops through a POST array of all address IDs that where checked, and then proceeds to delete the addresses from the users address book.
-	 * Note: The address book table ('demo_user_address') is used in this demo as an example of relating additional user data to the auth libraries account tables. 
-	 */
-	function manage_address_book()
-	{
-		// Delete addresses.
-		if ($delete_addresses = $this->input->post('delete_address'))
-		{
-			foreach($delete_addresses as $address_id => $delete)
-			{
-				// Note: As the 'delete_address' input is a checkbox, it will only be present in the $_POST data if it has been checked,
-				// therefore we don't need to check the submitted value.
-				$this->flexi_auth->delete_custom_user_data('demo_user_address', $address_id);
-			}
-		}
-
-		// Save any public status or error messages (Whilst suppressing any admin messages) to CI's flash session data.
-		$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-		
-		// Redirect user.
-		redirect('auth_public/manage_address_book');
-	}
-	
-	/**
-	 * insert_address
-	 * Inserts a new address to the users address book.
-	 * Note: The address book table ('demo_user_address') is used in this demo as an example of relating additional user data to the auth libraries account tables. 
-	 */
-	function insert_address()
-	{
-		$this->load->library('form_validation');
-
-		// Set validation rules.
-		$validation_rules = array(
-			array('field' => 'insert_alias', 'label' => 'Address Alias', 'rules' => 'required'),
-			array('field' => 'insert_recipient', 'label' => 'Recipient', 'rules' => 'required'),
-			array('field' => 'insert_phone_number', 'label' => 'Phone Number', 'rules' => 'required'),
-			array('field' => 'insert_address_01', 'label' => 'Address Line #1', 'rules' => 'required'),
-			array('field' => 'insert_city', 'label' => 'City / Town', 'rules' => 'required'),
-			array('field' => 'insert_county', 'label' => 'County', 'rules' => 'required'),
-			array('field' => 'insert_post_code', 'label' => 'Post Code', 'rules' => 'required'),
-			array('field' => 'insert_country', 'label' => 'Country', 'rules' => 'required'),
-			array('field' => 'insert_company', 'label' => '', 'rules' => ''),
-			array('field' => 'insert_address_02', 'label' => '', 'rules' => '')
-		);
-		
-		$this->form_validation->set_rules($validation_rules);
-
-		// Run the validation.
-		if ($this->form_validation->run())
-		{
-			// Get user id from session to use in the insert function as a primary key.
-			$user_id = $this->flexi_auth->get_user_id();
-			
-			// Get user address data from input.
-			// You can add whatever columns you need to custom user tables.
-			$address_data = array(
-				'uadd_alias' => $this->input->post('insert_alias'),
-				'uadd_recipient' => $this->input->post('insert_recipient'),
-				'uadd_phone' => $this->input->post('insert_phone_number'),
-				'uadd_company' => $this->input->post('insert_company'),
-				'uadd_address_01' => $this->input->post('insert_address_01'),
-				'uadd_address_02' => $this->input->post('insert_address_02'),
-				'uadd_city' => $this->input->post('insert_city'),
-				'uadd_county' => $this->input->post('insert_county'),
-				'uadd_post_code' => $this->input->post('insert_post_code'),
-				'uadd_country' => $this->input->post('insert_country')
-			);		
-	
-			$response = $this->flexi_auth->insert_custom_user_data($user_id, $address_data);
-			
-			// Save any public status or error messages (Whilst suppressing any admin messages) to CI's flash session data.
-			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-			
-			// Redirect user.
-			($response) ? redirect('auth_public/manage_address_book') : redirect('auth_public/insert_address');
-		}
-		else
-		{		
-			// Set validation errors.
-			$this->data['message'] = validation_errors('<p class="error_msg">', '</p>');
-			
-			return FALSE;
-		}
-	}
-	
-	/**
-	 * update_address
-	 * Updates an address from the users address book.
-	 * Note: The address book table ('demo_user_address') is used in this demo as an example of relating additional user data to the auth libraries account tables. 
-	 */
-	function update_address($address_id)
-	{
-		$this->load->library('form_validation');
-
-		// Set validation rules.
-		$validation_rules = array(
-			array('field' => 'update_alias', 'label' => 'Address Alias', 'rules' => 'required'),
-			array('field' => 'update_recipient', 'label' => 'Recipient', 'rules' => 'required'),
-			array('field' => 'update_phone_number', 'label' => 'Phone Number', 'rules' => 'required'),
-			array('field' => 'update_address_01', 'label' => 'Address Line #1', 'rules' => 'required'),
-			array('field' => 'update_city', 'label' => 'City / Town', 'rules' => 'required'),
-			array('field' => 'update_county', 'label' => 'County', 'rules' => 'required'),
-			array('field' => 'update_post_code', 'label' => 'Post Code', 'rules' => 'required'),
-			array('field' => 'update_country', 'label' => 'Country', 'rules' => 'required'),
-			array('field' => 'update_company', 'label' => '', 'rules' => ''),
-			array('field' => 'update_address_02', 'label' => '', 'rules' => '')
-		);
-		
-		$this->form_validation->set_rules($validation_rules);
-
-		// Run the validation.
-		if ($this->form_validation->run())
-		{
-			// Get user address data from input.
-			// You can add whatever columns you need to custom user tables.
-			$address_id = $this->input->post('update_address_id');
-			
-			$address_data = array(
-				'uadd_alias' => $this->input->post('update_alias'),
-				'uadd_recipient' => $this->input->post('update_recipient'),
-				'uadd_phone' => $this->input->post('update_phone_number'),
-				'uadd_company' => $this->input->post('update_company'),
-				'uadd_address_01' => $this->input->post('update_address_01'),
-				'uadd_address_02' => $this->input->post('update_address_02'),
-				'uadd_city' => $this->input->post('update_city'),
-				'uadd_county' => $this->input->post('update_county'),
-				'uadd_post_code' => $this->input->post('update_post_code'),
-				'uadd_country' => $this->input->post('update_country')
-			);		
-	
-			// For added flexibility, to identify the table and row to update, you can either submit the table name and row id via the 
-			// first 2 function arguments, or alternatively, submit the primary column name and row id value via the '$address_data' array.
-			// An example of this is commented out just below. When using the second method, the function identifies the table automatically.
-			$response = $this->flexi_auth->update_custom_user_data('demo_user_address', $address_id, $address_data);
-			
-			/**
-			 *  Example of updating custom tables using just data within an array.
-			 * 	$address_data = array(
-			 * 		'uadd_id' => $address_id,
-			 *		'uadd_alias' => $this->input->post('update_alias'),
-			 *		'uadd_recipient' => $this->input->post('update_recipient')
-			 * 		// ... etc ... // 
-			 *	);
-			 * 	$response = $this->flexi_auth->update_custom_user_data(FALSE, FALSE, $address_data);
-			*/
-							
-			// Save any public status or error messages (Whilst suppressing any admin messages) to CI's flash session data.
-			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-			
-			// Redirect user.
-			($response) ? redirect('auth_public/manage_address_book') : redirect('auth_public/update_address');
-		}
-		else
-		{		
-			// Set validation errors.
-			$this->data['message'] = validation_errors('<p class="error_msg">', '</p>');
-			
-			return FALSE;
-		}
 	}
 
 }

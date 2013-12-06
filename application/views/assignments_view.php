@@ -13,7 +13,7 @@
 	<?php } ?>
 		<?php if ($update_assignment_info == 0) { ?>
 			<h2>Add new assignment</h2> 
-			<div class="large-5 columns">
+			<div class="large-4 columns">
 					<?php
 					$form_name = array('name' => 'deadline');
 					echo form_open(current_url(), $form_name);	?>
@@ -100,7 +100,7 @@
 				</div><!--large-5 columns -->
 				<?php } else if($update_assignment_info == 1) { ?>
 				<h2> Update assignment </h2>			
-				<div class="large-5 columns">
+				<div class="large-4 columns">
 				<?php
 					$form_name = array('name' => 'deadline');
 					echo form_open(current_url(), $form_name);	?>
@@ -195,7 +195,7 @@
 				<?php } ?>
 				
 				
-			<div class="assignments large-7 columns">	
+			<div class="assignments large-8 columns">	
 				<?php if ($update_assignment_info == 1) { ?>
 				<a href="<?php echo $base_url . 'dashboard/assignments/'?>" class="small button">Add new assignment</a>			
 				<?php } ?>
@@ -205,19 +205,32 @@
   				<thead>
     				<tr>
       			<th>Assignment</th>
-      			<th>Deadline of assignment</th>
-      			<th>View details</th>
-      			<th>View grades</th>
-      			<th>Archiveer</th>
+      			<th>Deadline</th>
+      			<th>Details</th>
+      			<th>Upload</th>
+      			<th>Check</th>
+      			<th>Grades</th>
+      			<th>Archive</th>
       			<th></th>
       			<th></th>
+      			
     				</tr>
   				</thead>
   				<tbody>
   			
+  			
       			<?php 
       			foreach ($assignments as $assignment)
       			{ ?>
+      			
+      			<?php
+      				$current_time = date('F d, Y G:i');
+						$assignment_time = $assignment['assignment_enddate'];
+						$datetime2 = strtotime($assignment_time);
+						$datetime1 = strtotime($current_time);
+						$datediff = $datetime2 - $datetime1;
+						$days_left = floor($datediff/(60*60*24)); 
+      			?>
       			<tr>
 	      			<td><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></td>
 	      			<td>
@@ -227,10 +240,17 @@
 	      				?>
 	      			</td>
 	      			<td> <a href="<?php echo $base_url . 'dashboard/assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">View details</a> </td>
-	      			<td> <a href="<?php echo $base_url . 'dashboard/grade_overview/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">View grades</a> </td>
-	      			<?php if ($assignment['assignment_checked'] == 1) { ?>
-	      			<td> <a href="<?php echo $base_url . 'dashboard/archiveer_assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">archiveer</a></td>
+	      			<td><a href="<?php echo $base_url . 'dashboard/assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>"> Upload </a> </td>
+	      			<?php if ($days_left < 0 && $assignment['assignment_checked'] == 0) { ?>
+	      			<td> <a href="<?php echo $base_url.'dashboard/checkassignment/' . $assignment['assignment_id'] ?>" value="Check">Check</a> </td>
 	      			<?php } else { ?>
+	      			<td> </td>
+	      			<?php } ?>
+	      			<?php if ($assignment['assignment_checked'] == 1) { ?>
+	      			<td> <a href="<?php echo $base_url . 'dashboard/grade_overview/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">Grades</a> </td>
+	      			<td> <a href="<?php echo $base_url . 'dashboard/archive_assignment/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">Archive</a></td>
+	      			<?php } else { ?>
+	      			<td></td>
 	      			<td></td>
 	      			<?php } ?>
 	      			<td> <a class="modify" href="<?php echo $base_url . 'dashboard/assignments/'. $assignment[$this->flexi_auth->db_column('assignment', 'id')];?>">Modify</a> </td>

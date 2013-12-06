@@ -119,16 +119,6 @@ class Flexi_auth_lite_model extends CI_Model
 		$this->login->tbl_join_student_class = $database_config['student_class']['join'];
 		$this->login->tbl_col_student_class = $database_config['student_class']['columns'];
 		
-		// User privilege tables
-		$this->login->tbl_user_privilege = $database_config['user_privileges']['table'];
-		$this->login->tbl_col_user_privilege = $database_config['user_privileges']['columns'];
-		$this->login->tbl_user_privilege_users = $database_config['user_privilege_users']['table'];
-		$this->login->tbl_col_user_privilege_users = $database_config['user_privilege_users']['columns'];
-		
-		// User group privilege tables
-		$this->login->tbl_user_privilege_groups = $database_config['user_privilege_groups']['table'];
-		$this->login->tbl_col_user_privilege_groups = $database_config['user_privilege_groups']['columns'];
-		
 		// User main account table
 		$this->login->tbl_user_account = $database_config['user_acc']['table'];
 		$this->login->tbl_join_user_account = $database_config['user_acc']['join'];
