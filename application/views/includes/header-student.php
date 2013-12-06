@@ -26,7 +26,7 @@
   			<ul class="title-area">
    			 <!-- Title Area -->
     		<li class="name">
-      	<h1><a href="<?php echo $base_url; ?>">UML Checker </a></h1>
+      	<h1><a href="<?php echo $base_url; ?>"> </a></h1>
       		</li>
    		     <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
   			</ul>
