@@ -37,7 +37,11 @@ class Dashboard extends CI_Controller {
 		$this->load->vars('base_url', 'http://'.$_SERVER['HTTP_HOST'].'/');
 		$this->load->vars('includes_dir', 'http://'.$_SERVER['HTTP_HOST'].'/includes/');
 		$this->load->vars('current_url', $this->uri->uri_to_assoc(1));
-		$this->load->vars('refered_from', $_SERVER['HTTP_REFERER']);
+		if (isset($_SERVER['HTTP_REFERER'])) {
+			$this->load->vars('refered_from', $_SERVER['HTTP_REFERER']);
+		} else {
+			$this->data['refered_from'] = 'http://'.$_SERVER['HTTP_HOST'].'/dashboard';
+		}
 
 		$currentuser_id = $this->flexi_auth->get_user_id();
 		$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $currentuser_id);
@@ -53,12 +57,17 @@ class Dashboard extends CI_Controller {
 
 	function dashboard()
 	{
+		//Load model to perform actions
 		$this->load->model('demo_auth_admin_model');
 
+		//get all classes
 		$this->data['classes'] = $this->flexi_auth->get_classes_array();
+		
+		//Get all assignments as an array
 		$assignments = $this->flexi_auth->get_assignments();
 		$this->data['assignments'] = $assignments->result_array();
 
+		//get all classes id, name and description.
 		$sql_select = array(
 			$this->flexi_auth->db_column('student_class', 'id'),
 			$this->flexi_auth->db_column('student_class', 'name'),
@@ -66,10 +75,13 @@ class Dashboard extends CI_Controller {
 		);
 		$this->data['student_classes'] = $this->flexi_auth->get_classes_array($sql_select);
 
+		//get all user accounts and matching user profiles.
 		$this->demo_auth_admin_model->get_user_accounts();
 
+		//set error message from session data.
 		$this->data['message'] = $this->session->flashdata('message');
 
+		//load dashboard view and load into the correct template.
 		$data['maincontent'] = $this->load->view('dashboard_view', $this->data, TRUE);
 		if ($this->flexi_auth->is_admin()) {
 			$this->load->view('template-teacher', $data);
@@ -80,65 +92,74 @@ class Dashboard extends CI_Controller {
 
 	function users($update_user_id = FALSE)
 	{
+		//check whether user is admin (teacher).
 		if (!$this->flexi_auth->is_admin()) {
 			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to view user accounts.</p>');
 			redirect('dashboard');
 		}
+		
+		//load model and library
 		$this->load->model('demo_auth_admin_model');
 		$this->load->library('flexi_auth');
+		
+		//get all classes
 		$this->data['classes'] = $this->flexi_auth->get_classes_array();
 
+		//checks whether a update_user_id is passed in the url.
+		//if so, the view changes to update user view.
 		if ($update_user_id != FALSE) {
+			//checks whether passed update_user_id exists.
 			if (!$this->flexi_auth->user_id_exist($update_user_id)) {
 				$this->session->set_flashdata('message', '<p class="error_msg">Requested user does not exist.</p>');
 				redirect('dashboard/users');
 			}
+			
+			//get information of user to be updated
 			$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $update_user_id);
 			$this->data['update_user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
-			$this->data['update_user_info'] = 1;
+			
+			$this->data['update_user_info'] = 1; //user update view will load.
 		} else {
-			$this->data['update_user_info'] = 0;
+			$this->data['update_user_info'] = 0; //add user view will load.
 		}
-		// If 'Registration' form has been submitted, attempt to register their details as a new account.
+		// If 'add_user' form has been submitted, attempt to register their details as a new account.
 		if ($this->input->post('register_user'))
 		{
 			$this->load->model('demo_auth_model');
 			$this->demo_auth_model->register_account();
 		}
 
-		// If 'Update User Account' form has been submitted, update the users account details.
+		// If 'Update User' form has been submitted, update the users account details.
 		if ($this->input->post('update_users_account'))
 		{
 			$this->load->model('demo_auth_admin_model');
-			$this->demo_auth_admin_model->update_user_account($update_user_id);
+			$this->demo_auth_admin_model->update_user_account($update_user_id); //update user
 
 		}
 
-
+		// If 'Delete User' button is pressed, delete the user account.
 		if ($this->input->post('delete_users_account'))
 		{
+			//get user id from hidden input field.
 			$delete_user_id = $this->input->post('userID');
 			$this->flexi_auth->delete_user($delete_user_id);
-			$this->session->set_flashdata('message', '<p class="status_msg">The student account has been deleted.</p>');
+			$this->flexi_auth->set_status_message('The student account has been deleted.','public', TRUE);
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			redirect('dashboard/users');
 		}
 
-		// Get users current data.
+		// Get current users data.
 		$user_id = $this->flexi_auth->get_user_id();
 		$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
 		$this->data['user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
-
-		// Get user groups.
-		$this->data['groups'] = $this->flexi_auth->get_groups_array();
-
-		// Set any returned status/error messages.
-		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
-
+		
+		//get all user accounts as $users
 		$this->demo_auth_admin_model->get_user_accounts();
 
 		// Set any returned status/error messages.
 		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
 
+		//load users view and load into the correct template.
 		$data['maincontent'] =  $this->load->view('users_view', $this->data , TRUE);
 		$this->load->view('template-teacher', $data);
 	}
@@ -147,25 +168,27 @@ class Dashboard extends CI_Controller {
 	function update_user_account($user_id)
 	{
 		// Check user has privileges to update user accounts, else display a message to notify the user they do not have valid privileges.
-
 		if ( !$this->flexi_auth->is_admin() && ($user_id != $this->flexi_auth->get_user_id()))
 		{
 			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to update user accounts.</p>');
 			redirect('dashboard');
 		}
-
+		
+		// Check whether user_id exists or not.
 		if (!$this->flexi_auth->user_id_exist($user_id)) {
 			$this->session->set_flashdata('message', '<p class="error_msg">Requested user does not exist.</p>');
 			redirect('dashboard');
 		}
 
-		// If 'Update User Account' form has been submitted, update the users account details.
+		// If 'Update User' form has been submitted, update the users account details.
 		if ($this->input->post('update_users_account'))
 		{
 			$this->load->model('demo_auth_admin_model');
 			$this->demo_auth_admin_model->update_user_account($user_id);
 
 		}
+		
+		// If 'Delete User' button is pressed, delete the user account.
 		if ($this->input->post('delete_users_account'))
 		{
 			$this->flexi_auth->delete_user($user_id);
@@ -177,14 +200,12 @@ class Dashboard extends CI_Controller {
 		$this->data['user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
 
 		// Get user groups.
-		$this->data['groups'] = $this->flexi_auth->get_groups_array();
-
-		// Get user groups.
 		$this->data['classes'] = $this->flexi_auth->get_classes_array();
 
 		// Set any returned status/error messages.
 		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
 
+		//load user update view and load into the correct template.
 		$data['maincontent'] = $this->load->view('user_update_view', $this->data, TRUE);
 		if ($this->flexi_auth->is_admin()) {
 			$this->load->view('template-teacher', $data);
@@ -210,12 +231,13 @@ class Dashboard extends CI_Controller {
 			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to view student classes.</p>');
 			redirect('dashboard');
 		}
-
+		//check whether class exists.
 		if (!$this->flexi_auth->class_id_exist($class_id)) {
 			$this->session->set_flashdata('message', '<p class="error_msg">Requested class does not exist.</p>');
 			redirect('dashboard');
 		}
 
+		//select users id, username and email
 		$sql_select = array(
 			$this->flexi_auth->db_column('user_acc', 'id'),
 			$this->flexi_auth->db_column('user_acc', 'username'),
@@ -228,36 +250,39 @@ class Dashboard extends CI_Controller {
 		$sql_where = array($this->flexi_auth->db_column('user_acc', 'class_id') => $class_id);
 		$class_users = $this->flexi_auth->get_users_array($sql_select, $sql_where);
 
-		// For the purposes of the example demo view, create an array of ids for all the privileges that have been assigned to a privilege group.
-		// The array can then be used within the view to check whether the group has a specific privilege, this data allows us to then format form input values accordingly.
+		//get all users in the class
 		$this->data['class_users'] = array();
-
 		foreach($class_users as $class_user)
 		{
 			$this->data['class_users'][] = $class_user[$this->flexi_auth->db_column('user_acc', 'id')];
 		}
-
+		
+		//get the student class
 		$sql_where = array($this->flexi_auth->db_column('student_class', 'id') => $class_id);
 		$this->data['class'] = $this->flexi_auth->get_classes_row_array(FALSE, $sql_where);
-
+		
+		//set the class id
 		$this->data['class_id'] = $class_id;
 
 		// Set any returned status/error messages.
 		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
-
+		
+		//load students per class view and load into the correct template.
 		$data['maincontent'] = $this->load->view('students_per_class_view', $this->data, TRUE);
 		$this->load->view('template-teacher', $data);
 	}
 
 	function classes($class_id = FALSE)
 	{
-		// Check user has privileges to view user groups, else display a message to notify the user they do not have valid privileges.
+		// Check user has privileges to view classes, else display a message to notify the user they do not have valid privileges.
 		if (! $this->flexi_auth->is_admin())
 		{
 			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to view student classes.</p>');
 			redirect('dashboard');
 		}
 		
+<<<<<<< HEAD
+		//get post info and update user account
 		if (!empty($_POST)) {
 			foreach($_POST as $key => $value)
 			{
@@ -279,7 +304,7 @@ class Dashboard extends CI_Controller {
 			}
 		}
 
-		// Get all privilege data.
+		// Get all users.
 		$sql_select = array(
 			$this->flexi_auth->db_column('user_acc', 'id'),
 			$this->flexi_auth->db_column('user_acc', 'username'),
@@ -287,28 +312,32 @@ class Dashboard extends CI_Controller {
 		);
 		$this->data['users'] = $this->flexi_auth->get_users_array($sql_select);
 
-		// Get data for the current privilege group.
+		//get all class users
 		$sql_select = array($this->flexi_auth->db_column('user_acc', 'id'));
 		$sql_where = array($this->flexi_auth->db_column('user_acc', 'class_id') => $class_id);
 		$class_users = $this->flexi_auth->get_users_array($sql_select, $sql_where);
-
-		// For the purposes of the example demo view, create an array of ids for all the privileges that have been assigned to a privilege group.
-		// The array can then be used within the view to check whether the group has a specific privilege, this data allows us to then format form input values accordingly.
 		$this->data['class_users'] = array();
-
+		
 		foreach($class_users as $class_user)
 		{
-			echo
 			$this->data['class_users'][] = $class_user[$this->flexi_auth->db_column('user_acc', 'id')];
 		}
 
 
+=======
+>>>>>>> 0ac0771d62d591d42d4afdd40ddb1789ead72856
 		if ($class_id != FALSE) {
-			// Check user has privileges to update user groups, else display a message to notify the user they do not have valid privileges.
-			if (! $this->flexi_auth->is_privileged('Update Student Class'))
+			// Check user has privileges to classes, else display a message to notify the user they do not have valid privileges.
+			if (!$this->flexi_auth->is_admin())
 			{
 				$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to update student classes.</p>');
 				redirect('dashboard/classes');
+			}
+			
+			//check whether class exists.
+			if (!$this->flexi_auth->class_id_exist($class_id)) {
+				$this->session->set_flashdata('message', '<p class="error_msg">Requested class does not exist.</p>');
+				redirect('dashboard');
 			}
 
 			// If 'Update student class' form has been submitted, update the user group details.
@@ -318,43 +347,49 @@ class Dashboard extends CI_Controller {
 				$this->demo_auth_admin_model->update_student_class($class_id);
 			}
 
-			// Get user groups current data.
+			// Get classes current data.
 			$sql_where = array($this->flexi_auth->db_column('student_class', 'id') => $class_id);
 			$this->data['class'] = $this->flexi_auth->get_classes_row_array(FALSE, $sql_where);
 
+			//get class_id
 			$this->data['class_id'] = $class_id;
 			// Set any returned status/error messages.
 			$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
 
-			$this->data['update_class_info'] = 1;
+			$this->data['update_class_info'] = 1; //update class view is loaded
 		} else {
-			$this->data['update_class_info'] = 0;
+			$this->data['update_class_info'] = 0; //add new class view is loaded
 		}
 
-		// Check user has privileges to view user groups, else display a message to notify the user they do not have valid privileges.
+		// Check user has privileges to view classes, else display a message to notify the user they do not have valid privileges.
 		if (! $this->flexi_auth->is_admin())
 		{
 			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to view student classes.</p>');
 			redirect('dashboard');
 		}
+		
+		// If 'Add Student Class' form has been submitted, insert the new user group.
+		if ($this->input->post('insert_student_class'))
+		{
+			$this->load->model('demo_auth_admin_model');
+			$this->demo_auth_admin_model->insert_student_class();
+		}
 
-		if ($this->input->post('delete_class') && $this->flexi_auth->is_privileged('Delete Student Class'))
+		// If 'Delete class' is posted, delete the class
+		if ($this->input->post('delete_class') && $this->flexi_auth->is_admin())
 		{
 			if ($delete_classes = $this->input->post('delete_class'))
 			{
 				foreach($delete_classes as $class_id => $delete)
 				{
-					// Note: As the 'delete_class' input is a checkbox, it will only be present in the $_POST data if it has been checked,
-					// therefore we don't need to check the submitted value.
 					$this->flexi_auth->delete_class($class_id);
 					$this->session->set_flashdata('message', '<p class="status_msg">The class has been deleted.</p>');
 					redirect('dashboard/classes');
 				}
 			}
 		}
-		// Define the group data columns to use on the view page.
-		// Note: The columns defined using the 'db_column()' functions are native table columns to the auth library.
-		// Read more on 'db_column()' functions in the quick help section near the top of this controller.
+		
+		//get all student classes
 		$sql_select = array(
 			$this->flexi_auth->db_column('student_class', 'id'),
 			$this->flexi_auth->db_column('student_class', 'name'),
@@ -365,34 +400,21 @@ class Dashboard extends CI_Controller {
 		// Set any returned status/error messages.
 		$this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
 
+		//Load classes view and load into the correct template.
 		$data['maincontent'] = $this->load->view('classes_view', $this->data, TRUE);
 		$this->load->view('template-teacher', $data);
-
-		// Check user has privileges to insert user groups, else display a message to notify the user they do not have valid privileges.
-		if (! $this->flexi_auth->is_admin())
-		{
-			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to insert new student classes.</p>');
-			redirect('dashboard/classes');
-		}
-
-		// If 'Add Student Class' form has been submitted, insert the new user group.
-		if ($this->input->post('insert_student_class'))
-		{
-			$this->load->model('demo_auth_admin_model');
-			$this->demo_auth_admin_model->insert_student_class();
-		}
-
 	}
 	
 	function add_student_to_class($class_id)
 	{
-		// Check user has privileges to update user groups, else display a message to notify the user they do not have valid privileges.
+		// Check user has privileges to add students to classes, else display a message to notify the user they do not have valid privileges.
 		if (!$this->flexi_auth->is_admin())
 		{
 			$this->session->set_flashdata('message', '<p class="error_msg">You do not have privileges to update student classes.</p>');
 			redirect('dashboard/classes');
 		}
-
+		
+		//check whether class exists.
 		if (!$this->flexi_auth->class_id_exist($class_id)) {
 			$this->session->set_flashdata('message', '<p class="error_msg">Requested class does not exist.</p>');
 			redirect('dashboard');
@@ -719,28 +741,6 @@ class Dashboard extends CI_Controller {
 		}
 
 	}
-	/*
-	//function to check all the assignments as checked
-	function mark_all_assignments_as_checked()
-	{
-		//checks if a user is the admin
-		if (!$this->flexi_auth->is_admin()) {
-			$this->flexi_auth->set_error_message('You are not priviliged to view this area.', TRUE);
-			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-			redirect('dashboard');
-		}
-
-		$this->load->model('flexi_auth_model');
-
-		$assignment_ids = $this->flexi_auth_model->get_assignments(FALSE, FALSE);
-		$assignment_ids = $assignment_ids->result_array();
-
-		foreach ($assignment_ids as $assignment) {
-			$assignment_id = $assignment['assignment_id'];
-			$this->flexi_auth_model->mark_assignment_as_checked($assignment_id);
-		}
-	}
-	*/
 	
 	function archive(){
 		if ($this->flexi_auth->is_admin()) {
@@ -759,113 +759,27 @@ class Dashboard extends CI_Controller {
 			$this->load->view('template-student', $data);
 		}
 	}
-/*
-	function archive(){
-		if ($this->flexi_auth->is_admin()) {
-<<<<<<< HEAD
-			$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
-			$assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
-			$this->data['assignments'] = $assignments->result_array();
-			$data['maincontent'] = $this->load->view('archive_view', $this->data, TRUE);
-		} else {
-			//get the class which belongs to this user
-			$current_user = $this->flexi_auth->get_user_id();
-			$current_classes = $this->flexi_auth->get_student_class($current_user);
-			$current_classes = $current_classes->result_array();
-			foreach ($current_classes as $current_class) {
-				$current_class_id = $current_class['uacc_class_fk'];
-			}
-			echo "class of user: $current_class_id \ ";
 
-			//get the assignments for this user
-			$assignment_classes = $this->flexi_auth_model->get_assignments_for_class($current_class_id);
-
-			echo "contents of assignment_classes: " ;
-			print_r($assignment_classes);
-			echo "\ ";
-
-			$sql_where = array('assignment_id' => $assignment_class);//TODO, 
-			$assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
-			$this->data['assignments'] = $assignments->result_array();
-			$data['maincontent'] = $this->load->view('archive_view', $this->data, TRUE);
-
-			$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
-			$assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
-			$this->data['assignments'] = $assignments->result_array();
-			$data['maincontent'] = $this->load->view('archive_view', $this->data, TRUE);
-		}
-
-		//$data['maincontent'] = $this->load->view('archive_view', $this->data, TRUE);
-=======
-			$sql_where = array('assignment_archief' => 1);
-		} else {
-			$sql_where = array('assignment_archief' => 1);//TODO
-		}
-
-		$assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
-		$this->data['assignments'] = $assignments->result_array();
-
-		$data['maincontent'] = $this->load->view('archive_view', $this->data, TRUE);
->>>>>>> 5283d74c1615033272e59be7e4051d504d56068a
-		if ($this->flexi_auth->is_admin()) {
-			$this->load->view('template-teacher', $data);
-		} else {
-			$this->load->view('template-student', $data);
-		}
-	}
-	
-	function archive_assignment($assignment_id = FALSE) {
-		if (!$assignment_id) {
-			$this->session->set_flashdata('message', '<p class="error_msg">Invalid assignment ID.</p>');
-			redirect('dashboard/assignments');
-		}
-
-		$assignment_classes = $this->flexi_auth->get_classes_for_assignment($assignment_id);
-		$this->data['assignment_classes'] = $assignment_classes;
-
-		$sql_where = array($this->login->tbl_col_assignment['id'] => $assignment_id);
-		$assignment = $this->flexi_auth->get_assignments(FALSE, $sql_where);
-		$this->data['assignment'] = $assignment->row_array();
-
-		$this->data['classes'] = $this->flexi_auth->get_classes_array();
-
-		$this->data['message'] = $this->session->flashdata('message');
-
-		$data['maincontent'] = $this->load->view('archive_assignment_view', $this->data, TRUE);
-		if ($this->flexi_auth->is_admin()) {
-			$this->load->view('template-teacher', $data);
-		} else {
-			$this->load->view('template-student', $data);
-		}
-	}
-	*/
 	function do_upload()
 	{
-
-		/*$rows = $this->flexi_auth->get_student_class($this->flexi_auth->get_user_id());
-		$rows = $rows->result_array();
-		//print_r($rows);
-		$class_id = $rows[0]['uacc_class_fk'];
-		*/
+		//get assignment id from hidden input field.
 		$assignment_id = $this->input->post('assignmentID');
 
 		$config['upload_path'] = './uploads/';
-		$config['allowed_types'] = 'xml';
+		$config['allowed_types'] = 'xml'; //only xml files allowed to be uploaded
 		$config['max_size'] = '2000';
 		$config['max_width']  = '1024';
 		$config['max_height']  = '768';
-		$config['overwrite'] = TRUE;
+		$config['overwrite'] = TRUE; //overwrite existing uploads
 		$config['file_name'] = $this->flexi_auth->get_user_id(). '-' . $assignment_id;
 
 		$this->load->library('upload', $config);
 
 		if ( ! $this->upload->do_upload('assignment_file'))
 		{
+			//Upload not correct, handle error message.
 			$error = array('error' => $this->upload->display_errors());
-
 			$error_msg = strip_tags($error['error']);
-
-
 			$this->flexi_auth->set_error_message($error_msg , TRUE);
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			redirect('dashboard/assignments');
@@ -873,12 +787,13 @@ class Dashboard extends CI_Controller {
 		}
 		else
 		{
+			//check whether uploader is admin or not
 			if (!$this->flexi_auth->is_admin()) {
 				$student_id = $this->flexi_auth->get_user_id();
-				$this->flexi_auth->set_student_file_on_deadline($student_id, $assignment_id);
+				$this->flexi_auth->set_student_file_on_deadline($student_id, $assignment_id); //handed in answers
 			} else {
 				$teacher_id = $this->flexi_auth->get_user_id();
-				$this->flexi_auth->set_teacher_file_on_deadline($teacher_id, $assignment_id);
+				$this->flexi_auth->set_teacher_file_on_deadline($teacher_id, $assignment_id);//correction file
 			}
 			$data = array('upload_data' => $this->upload->data());
 
@@ -889,19 +804,18 @@ class Dashboard extends CI_Controller {
 	
 	function grade_overview($assignment_id = FALSE)
 	{
-		/*$sql_where = array($this->login->tbl_col_assignment['checked'] => 1);
-		$checked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
-		$this->data['checked_assignments'] = $checked_assignments->result_array();*/
-
+		//get all checked assignments
 		$sql_where = array($this->login->tbl_col_assignment['checked'] => 1,
 						$this->login->tbl_col_assignment['id'] => $assignment_id
 		);
 		$checked_assignments = $this->flexi_auth->get_assignments(FALSE, $sql_where);
 		$this->data['checked_assignments'] = $checked_assignments->result_array();
 		
+		//load model and get all users
 		$this->load->model('demo_auth_admin_model');
 		$this->demo_auth_admin_model->get_user_accounts();
 
+		//load grade overview view and load into correct template
 		$data['maincontent'] = $this->load->view('grade_overview', $this->data, TRUE);
 		if ($this->flexi_auth->is_admin()) {
 			$this->load->view('template-teacher', $data);
@@ -912,14 +826,17 @@ class Dashboard extends CI_Controller {
 	}
 	
 	function topdf($assignment_id) {
+		//check user is privileged to see this part of the dashboard, of not redirect to dashboard and set message.
 		if (!$this->flexi_auth->is_admin()) {
 			$this->flexi_auth->set_error_message('You are not privileged to view this area.', TRUE);
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			redirect('dashboard');
 		}
-
+		
+		//load pdf library
 		$this->load->library('cezpdf');
-
+		
+		//get grades for assignment
 		$grade_overview = $this->flexi_auth->get_grades_for_assignment($assignment_id);
 
 		$data_table = array();
@@ -931,20 +848,24 @@ class Dashboard extends CI_Controller {
 			'upro_last_name' => 'Last Name',
 			'grade' => 'Grade'
 		);
-
+		
+		//export to pdf
 		$this->cezpdf->ezTable($data_table, $titlecolumn, 'Grades Overview');
 		$this->cezpdf->ezStream(array('Content-Disposition'=>'assignment.pdf'));
 	}
 
 	function toexcel($assignment_id) {
+		//check user is privileged to see this part of the dashboard, of not redirect to dashboard and set message.
 		if (!$this->flexi_auth->is_admin()) {
 			$this->flexi_auth->set_error_message('You are not privileged to view this area.', TRUE);
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			redirect('dashboard');
 		}
 
+		//get grades for assignment
 		$grade_overview = $this->flexi_auth->get_grades_for_assignment($assignment_id);
-
+		
+		//export to excel
 		header('Content-type: text/csv');
 		header('Content-disposition: attachment;filename=Grades Assignment '. $assignment_id . '.csv');
 		echo "First Name;Last Name;Grade".PHP_EOL;
@@ -956,21 +877,23 @@ class Dashboard extends CI_Controller {
 
 	function checker()
 	{
+		//check user is privileged to see this part of the dashboard, of not redirect to dashboard and set message.
 		if (!$this->flexi_auth->is_admin()) {
 			$this->flexi_auth->set_error_message('You are not priviliged to view this area.', TRUE);
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			redirect('dashboard');
 		}
 
+		//load libraries
 		$this->load->library('checker');
 		$this->load->library('flexi_auth');
 
+		//reset vars
 		$this->data['error'] = '';
-
 		$this->data['assignments'] = '';
 
+		//if check assignment is pressed.
 		if ($this->input->post('check_assignment')) {
-
 			$assignment_id = $this->input->post('assignment_id');
 			$correctfile = $this->flexi_auth->get_correct_file_by_deadline($assignment_id);
 			$correctfile = $correctfile->result_array();
@@ -980,8 +903,9 @@ class Dashboard extends CI_Controller {
 				$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 				redirect('dashboard/checker');
 			}
+			
 			$correctfile = $correctfile[0];
-
+			
 			$correctfile_name = (string) $correctfile['student_id'] . '-' . (string)$correctfile['deadline_id'] . '.xml';
 
 			$uploads = $this->flexi_auth->get_uploads_by_deadline($assignment_id);
@@ -1077,8 +1001,8 @@ class Dashboard extends CI_Controller {
 
 	}
 	
-	function archiveer_assignment($assignment_id) {
-		if ($this->flexi_auth->archiveer_assignment($assignment_id)) {
+	function archive_assignment($assignment_id) {
+		if ($this->flexi_auth->archive_assignment($assignment_id)) {
 			$this->flexi_auth->set_status_message('Assignment has been put into the archive.','public', TRUE);
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			redirect('dashboard/assignments');
