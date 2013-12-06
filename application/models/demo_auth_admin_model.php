@@ -628,7 +628,7 @@ class Demo_auth_admin_model extends CI_Model {
 		// Set validation rules.
 		$validation_rules = array(
 			array('field' => 'add_assignment_name', 'label' => 'Assignment Name', 'rules' => 'required'),
-			array('field' => 'add_assignment_desc', 'label' => 'Assignment description', 'rules' => 'required'),
+			/* array('field' => 'add_assignment_desc', 'label' => 'Assignment description', 'rules' => 'required'), */
 			array('field' => 'add_assignment_enddate', 'label' => 'Assignment enddate', 'rules' => 'required')
 		);
 		
@@ -638,7 +638,7 @@ class Demo_auth_admin_model extends CI_Model {
 		{
 			// Get deadline data from input.
 			$assignment_name = $this->input->post('add_assignment_name');
-			$assignment_desc = $this->input->post('add_assignment_desc');
+			$assignment_desc = $this->input->post('add_assignment_desc'); 
 			$assignment_enddate = $this->input->post('add_assignment_enddate');
 
 			$assignment_id = $this->flexi_auth->add_assignment($assignment_name, $assignment_desc, $assignment_enddate);			
@@ -674,7 +674,7 @@ function update_assignment($assignment_id)
 		// Set validation rules.
 		$validation_rules = array(
 			array('field' => 'update_assignment_name', 'label' => 'Assignment Name', 'rules' => 'required'),
-			array('field' => 'update_assignment_desc', 'label' => 'Assignment description', 'rules' => 'required'),
+			/* array('field' => 'update_assignment_desc', 'label' => 'Assignment description', 'rules' => 'required'), */
 			array('field' => 'update_assignment_enddate', 'label' => 'Assignment enddate', 'rules' => 'required')
 		);
 		
@@ -686,7 +686,7 @@ function update_assignment($assignment_id)
 			
 			$data = array(
 				$this->flexi_auth->db_column('assignment', 'name') => $this->input->post('update_assignment_name'),
-				$this->flexi_auth->db_column('assignment', 'desc') => $this->input->post('update_assignment_desc'),
+				$this->flexi_auth->db_column('assignment', 'desc') => $this->input->post('update_assignment_desc'), 
 				$this->flexi_auth->db_column('assignment', 'enddate') => $this->input->post('update_assignment_enddate')
 			);
 
