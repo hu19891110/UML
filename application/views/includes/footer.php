@@ -61,3 +61,9 @@
   <script>
     $(document).foundation();
   </script>
+  
+  <script>
+  setTimeout(function() {
+    $('#message').fadeOut('fast');
+    }, 2000); // <-- time in milliseconds
+  </script>

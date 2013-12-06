@@ -1,6 +1,12 @@
 <!-- Main Content -->
-	<div class="large-12 columns padding">
-				<h2>Studentlist for <?php echo $class[$this->flexi_auth->db_column('student_class', 'name')];?></h2> 
+	<div class="large-12 columns">
+	
+				<div class="h2bg" style="height: 85px !important;">
+					<h2>Studentlist</h2>
+					<h4>for <?php echo $class[$this->flexi_auth->db_column('student_class', 'name')];?></h4>
+					<a href="<?php echo $refered_from; ?>">Back</a> 
+				</div>
+				<h2></h2> 
 
 			<?php if (! empty($message)) { ?>
 				<div id="message">
@@ -35,7 +41,7 @@
 								
 								<td><?php echo $user[$this->flexi_auth->db_column('user_acc', 'email')];?></td>
 								
-								<td><a class="modify" href="<?php echo $base_url.'dashboard/update_user_account/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>">Update</a>
+								<td><a class="modify" href="<?php echo $base_url.'dashboard/users/'.$user[$this->flexi_auth->db_column('user_acc', 'id')];?>">Update</a>
 							</tr>
 							<?php } ?>
 						<?php } ?>	
@@ -44,5 +50,4 @@
 
 					
 				<?php echo form_close();?>
-				<a class="button small" href="<?php echo $base_url.'dashboard/classes' ?>">Back</a>
 	</div>	

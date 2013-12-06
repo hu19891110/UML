@@ -4,9 +4,10 @@
 <div class="large-12 columns">
 	
 	
-				<div class="h2bg" style="height: 70px !important;">
+				<div class="h2bg" style="height: 85px !important;">
 					<h2><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></h2>
 					<h4>Assignment details</h4>
+					<a href="<?php echo $refered_from; ?>">Back</a> 
 				</div>
 				<?php if (! empty($message)) { ?>
 					<div id="message">
@@ -69,16 +70,19 @@
 	
 <!-- main content -->
 <div class="large-12 columns">
-	<?php if (! empty($message)) { ?>
-		<div id="message">
-			<?php echo $message; ?>
-		</div>
-	<?php } ?>
+
+		
+		<?php if (! empty($message)) { ?>
+			<div id="message">
+				<?php echo $message; ?>
+			</div>
+		<?php } ?>
 	
 		
-				<div class="h2bg" style="height: 70px !important;">
+				<div class="h2bg" style="height: 85px !important;">
 					<h2><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'name')];?></h2>
 					<h4>Assignment details</h4>
+					<a href="<?php echo $refered_from; ?>">Back</a> 
 				</div>
 				
 				<h3> Description: </h3><?php echo $assignment[$this->flexi_auth->db_column('assignment', 'desc')];?>

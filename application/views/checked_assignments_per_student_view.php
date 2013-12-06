@@ -1,6 +1,6 @@
 <div class="large-12 columns" >
 
-	<div class="h2bg">
+	<div class="h2bg" style="height: 90px !important;">
 		<h2>
 			<?php 
 			if ($this->flexi_auth->is_admin()) {
@@ -15,12 +15,6 @@
 			?>
 			<span class="cijfer"><?php echo $assignment_grade;?> </span>
 	 		Student <?php echo $user_name; ?> 	
-	 		<?php if ($this->flexi_auth->is_admin()) { ?>
-	 		<span class="backtoass"><a
-	 			href="<?php echo $base_url.'dashboard/assignments_per_student/'.$user_id;?>"> 
-	 			Back to all assignments of the student</a>
-	 		</span>
-	 		<?php } ?>
 		</h2>
 	
 		<h4>
@@ -30,9 +24,15 @@
 	 		<span class="goedkeuren"> Approve all | Disapprove all </span>
 	 		<?php } ?>
 			
-		</h4>	
+		</h4>
+		<a href="<?php echo $refered_from; ?>">Back</a>	
 	</div>
 	<?php
+			if (! empty($message)) { ?>
+				<div id="message">
+					<?php echo $message; ?>
+				</div>
+			<?php } 
 	
 		foreach ($errors as $error) {
 			
@@ -144,15 +144,16 @@
 		 <?php if ($this->flexi_auth->is_admin()) { ?>
 		<!--Teacher comment section-->
 		<?php echo form_open(); ?>
-		<li>
-			<label for="comments">Comments:</label>
+		
+			
 			<textarea id="comment" name="comment" class="width_400 tooltip_trigger"
 				title="Optional comments on the handed in file for the student."><?php echo $comment;?></textarea>
-		</li>
+		
+		<br />
 		<?php if ($comment == '') { ?>
-			<input type="submit" name="add_comment" id="add_comment" value="Add comment" class="button small"/> 
+			<input type="submit" name="add_comment" id="add_comment" value="Add" class="button small"/> 
 		<?php } else { ?>
-			<input type="submit" name="add_comment" id="add_comment" value="Update comment" class="button small"/>
+			<input type="submit" name="add_comment" id="add_comment" value="Update" class="button small"/>
 		<?php } ?> 
 		<?php echo form_close(); ?>
 		<?php } else { ?>

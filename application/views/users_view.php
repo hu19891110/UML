@@ -1,4 +1,11 @@
-<div class="large-12 columns padding">
+<div class="large-12 columns">
+		
+		<div class="h2bg">
+			<h2>Students</h2>
+			<h4>Manage your students</h4>
+		</div>
+
+		
 		<?php if (! empty($message)) { ?>
 		<div id="message">
 			<?php echo $message; ?>

@@ -1,5 +1,11 @@
 <!-- Main Content -->
-	<div class="large-12 columns padding">
+	<div class="large-12 columns">
+	
+				<div class="h2bg">
+					<h2>Classes</h2>
+					<h4>Manage your classes</h4>
+				</div>
+
 				<h2>Add new class</h2> 
 
 			<?php if (! empty($message)) { ?>

@@ -1,8 +1,12 @@
-	<div class="large-12 columns padding">
+	<div class="large-12 columns">
 	
 	<!-- Main Content -->
 
-				<h2>Change Password</h2>
+				<div class="h2bg" style="height: 85px !important;">
+					<h2>Change password</h2>
+					<h4>for <?php echo $user['upro_first_name'] . ' ' . $user['upro_last_name']; ?></h4>
+					<a href="<?php echo $refered_from; ?>">Back</a> 
+				</div>
 				
 
 			<?php if (! empty($message)) { ?>

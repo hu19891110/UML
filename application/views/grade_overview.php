@@ -2,6 +2,7 @@
 
 	<div class="h2bg">
 	<h2> Grades overview</h2>
+	<a href="<?php echo $refered_from; ?>">Back</a>
 	</div>		
 
 	<?php if ($this->flexi_auth->is_admin()) { ?>

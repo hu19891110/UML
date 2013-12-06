@@ -37,6 +37,7 @@ class Dashboard extends CI_Controller {
 		$this->load->vars('base_url', 'http://'.$_SERVER['HTTP_HOST'].'/');
 		$this->load->vars('includes_dir', 'http://'.$_SERVER['HTTP_HOST'].'/includes/');
 		$this->load->vars('current_url', $this->uri->uri_to_assoc(1));
+		$this->load->vars('refered_from', $_SERVER['HTTP_REFERER']);
 
 		$currentuser_id = $this->flexi_auth->get_user_id();
 		$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $currentuser_id);
@@ -465,6 +466,9 @@ class Dashboard extends CI_Controller {
 			$this->load->model('demo_auth_model');
 			$this->demo_auth_model->change_password($user_id);
 		}
+		
+		$sql_where = array($this->flexi_auth->db_column('user_acc', 'id') => $user_id);
+		$this->data['user'] = $this->flexi_auth->get_users_row_array(FALSE, $sql_where);
 
 		// Get any status message that may have been set.
 		$this->data['message'] = (! isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
@@ -709,8 +713,8 @@ class Dashboard extends CI_Controller {
 
 			$added = $this->flexi_auth->add_comment($comment, $user_id, $assignment_id);
 
-			$this->session->set_flashdata('message', '<p class="status_msg">The comment has been saved.</p>');
-
+			$this->flexi_auth_model->set_status_message('The comment has been saved.', 'public', TRUE);
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			redirect('dashboard/checked_assignment_per_student/'. $assignment_id . '/' . $user_id);
 		}
 

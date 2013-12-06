@@ -27,6 +27,11 @@ body{
 	padding: 10px;
 }
 
+.h2bg a {
+	display: inline-block;
+	margin-top: 5px;
+}
+
 .backtoass{
 	float: right;
 	font-size: 0.8em;

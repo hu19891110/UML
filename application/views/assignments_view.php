@@ -1,7 +1,11 @@
 <?php if ($this->flexi_auth->is_admin()) { ?>
 <!-- main content -->
-<div class="large-12 columns padding">
-	
+<div class="large-12 columns">
+		<div class="h2bg">
+			<h2>Assignments</h2>
+			<h4>Manage your assignments</h4>
+		</div>
+
 	<?php if (! empty($message)) { ?>
 		<div id="message">
 			<?php echo $message; ?>
