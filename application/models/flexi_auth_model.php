@@ -1375,7 +1375,16 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	public function get_student_class($user_id) {
 
 		return $this->db->get_where('user_accounts', array('uacc_id' => $user_id));
+	}
 
+
+
+public function get_groups($sql_select = FALSE, $sql_where = FALSE)
+	{
+		// Set any custom defined SQL statements.
+		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
+
+		return $this->db->get($this->login->tbl_user_group);
 	}
 
 	public function get_deadlines_by_class($class_id) {
@@ -2029,7 +2038,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			array($group->{$this->login->database_config['user_group']['columns']['id']} => $group->{$this->login->database_config['user_group']['columns']['name']});
 
 		###+++++++++++++++++++++++++++++++++###
-
+		/*
 		$privilege_sources = $this->login->auth_settings['privilege_sources'];
 		$privileges = array();
 
@@ -2081,7 +2090,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 
 		// Set user privileges to session.
 		$this->login->session_data[$this->login->session_name['privileges']] = $privileges;
-
+		*/
 		###+++++++++++++++++++++++++++++++++###
 
 		$this->session->set_userdata(array($this->login->session_name['name'] => $this->login->session_data));
