@@ -309,6 +309,7 @@ class Demo_auth_admin_model extends CI_Model {
 	function add_assignment()
 	{
 		$this->load->library('form_validation');
+		$linked_to_class = false;
 
 		// Set validation rules.
 		$validation_rules = array(
@@ -325,8 +326,7 @@ class Demo_auth_admin_model extends CI_Model {
 			$assignment_name = $this->input->post('add_assignment_name');
 			$assignment_desc = $this->input->post('add_assignment_desc'); 
 			$assignment_enddate = $this->input->post('add_assignment_enddate');
-
-			$assignment_id = $this->flexi_auth->add_assignment($assignment_name, $assignment_desc, $assignment_enddate);			
+		
 			foreach($this->input->post('add') as $row)
 			{
 				if ($row['current_status'] != $row['new_status'])
@@ -334,19 +334,30 @@ class Demo_auth_admin_model extends CI_Model {
 					// Assign deadline to class.
 					if ($row['new_status'] == 1)
 					{
+						$assignment_id = $this->flexi_auth->add_assignment($assignment_name, $assignment_desc, $assignment_enddate);
 						$this->flexi_auth->link_assignment_to_class($assignment_id, $row['id']);	
+						$linked_to_class = true;
 					}
 				}
 			}
-			// Save any public or admin status or error messages to CI's flash session data.
-			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-			$this->session->set_flashdata('message', '<p class="status_msg">You heve succesfully added a new assignment.</p>');
+			if($linked_to_class)
+			{
+				// Save any public or admin status or error messages to CI's flash session data.
+				$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+				$this->session->set_flashdata('message', '<p class="status_msg">You have succesfully added a new assignment.</p>');
+				
+			}
+			else{
+				// Save any public or admin status or error messages to CI's flash session data.
+				$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+				$this->session->set_flashdata('message', '<p class="error_msg">The Assignment Class is empty.</p>');
+			}
 			// Redirect user.
-			redirect('dashboard/assignments');			
+			redirect('dashboard/assignments');	
 		} else {
 			$this->load->model('flexi_auth_model');
 			$this->flexi_auth_model->set_error_message('add_assignment_unsuccessful', 'config');
-			
+
 			if(!$this->input->post('add_assignment_name')) {
 				$this->flexi_auth_model->set_error_message('The Assignment Name is empty.', 'public', true);
 			}
@@ -354,6 +365,9 @@ class Demo_auth_admin_model extends CI_Model {
 				$this->flexi_auth_model->set_error_message('The Enddate Name is empty.', 'public', false);
 			}
 			
+			if(!$linked_to_class){
+				$this->flexi_auth_model->set_error_message('The Assignment Class is empty.', 'public', false);
+			}
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			redirect('dashboard/assignments');
 		}
