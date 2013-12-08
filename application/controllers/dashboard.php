@@ -272,6 +272,19 @@ class Dashboard extends CI_Controller {
 		$this->load->view('template-teacher', $data);
 	}
 
+	//validation to make sure a class name cannot start with a non-alpha numeric character
+	public function classnameRegex() {
+		$className = $this->input->post('insert_class_name');
+	
+		if ( ($className[0] == '-') || ($className[0] == '_' ) ) {
+			$this->form_validation->set_message('classname_startcheck', 'The %s field can not start with an "-" or an "_".');
+			return FALSE;
+		}
+		else {
+			return TRUE;
+		}
+	}
+	
 	function classes($class_id = FALSE)
 	{
 		// Check user has privileges to view classes, else display a message to notify the user they do not have valid privileges.

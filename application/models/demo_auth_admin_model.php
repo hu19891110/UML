@@ -227,7 +227,6 @@ class Demo_auth_admin_model extends CI_Model {
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	// Student Classes
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
-
 	
   	/**
 	 * insert_student_class
@@ -239,7 +238,7 @@ class Demo_auth_admin_model extends CI_Model {
 
 		// Set validation rules.
 		$validation_rules = array(
-			array('field' => 'insert_class_name', 'label' => 'Class Name', 'rules' => 'required'),
+			array('field' => 'insert_class_name', 'label' => 'Class Name', 'rules' => 'required|alpha_dash|min_length[2]|callback_classnameRegex'),
 		);
 		
 		$this->form_validation->set_rules($validation_rules);

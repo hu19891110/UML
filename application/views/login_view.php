@@ -46,7 +46,7 @@
 								<input type="submit" name="login_user" id="submit" value="Sign in" class="link_button large"/>
 							</li>
 						</ul>
-										<div class="forgotpassword"> <a href="<?php echo $base_url . 'login/forgotten_password'?>">Lost your password?</a></div>
+										<div class="forgotpassword"> <a href="<?php echo $base_url . 'login/forgotten_password'?>">Forgot your password?</a></div>
 
 				<?php echo form_close();?>
 	</div> <!-- einde loginbox --> 
