@@ -102,7 +102,7 @@ class Demo_auth_admin_model extends CI_Model {
 	function update_user_accounts()
     {
 		// If user has privileges, delete users.
-		if ($this->flexi_auth->is_privileged('Delete Users')) 
+		if ($this->flexi_auth->is_admin()) 
 		{
 			if ($delete_users = $this->input->post('delete_user'))
 			{
@@ -225,105 +225,8 @@ class Demo_auth_admin_model extends CI_Model {
 	}
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
-	// User Groups
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
-
-  	/**
-	 * manage_user_groups
-	 * The function loops through all POST data checking the 'Delete' checkboxes that have been checked, and deletes the associated user groups.
-	 */
-   function manage_user_groups()
-    {
-		// Delete groups.
-		if ($delete_groups = $this->input->post('delete_group'))
-		{
-			foreach($delete_groups as $group_id => $delete)
-			{
-				// Note: As the 'delete_group' input is a checkbox, it will only be present in the $_POST data if it has been checked,
-				// therefore we don't need to check the submitted value.
-				$this->flexi_auth->delete_group($group_id);
-			}
-		}
-
-		// Save any public or admin status or error messages to CI's flash session data.
-		$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-		
-		// Redirect user.
-		redirect('dashboard/manage_user_groups');			
-	}
-	
-  	/**
-	 * insert_user_group
-	 * Inserts a new user group.
-	 */
-	function insert_user_group()
-	{
-		$this->load->library('form_validation');
-
-		// Set validation rules.
-		$validation_rules = array(
-			array('field' => 'insert_group_name', 'label' => 'Group Name', 'rules' => 'required'),
-			array('field' => 'insert_group_admin', 'label' => 'Admin Status', 'rules' => 'integer')
-		);
-		
-		$this->form_validation->set_rules($validation_rules);
-		
-		if ($this->form_validation->run())
-		{
-			// Get user group data from input.
-			$group_name = $this->input->post('insert_group_name');
-			$group_desc = $this->input->post('insert_group_description');
-			$group_admin = ($this->input->post('insert_group_admin')) ? 1 : 0;
-
-			$this->flexi_auth->insert_group($group_name, $group_desc, $group_admin);
-				
-			// Save any public or admin status or error messages to CI's flash session data.
-			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-			
-			// Redirect user.
-			redirect('dashboard/manage_user_groups');			
-		}
-	}
-	
-  	/**
-	 * update_user_group
-	 * Updates a specific user group.
-	 */
-	function update_user_group($group_id)
-	{
-		$this->load->library('form_validation');
-
-		// Set validation rules.
-		$validation_rules = array(
-			array('field' => 'update_group_name', 'label' => 'Group Name', 'rules' => 'required'),
-			array('field' => 'update_group_admin', 'label' => 'Admin Status', 'rules' => 'integer')
-		);
-		
-		$this->form_validation->set_rules($validation_rules);
-		
-		if ($this->form_validation->run())
-		{
-			// Get user group data from input.
-			$data = array(
-				$this->flexi_auth->db_column('user_group', 'name') => $this->input->post('update_group_name'),
-				$this->flexi_auth->db_column('user_group', 'description') => $this->input->post('update_group_description'),
-				$this->flexi_auth->db_column('user_group', 'admin') => $this->input->post('update_group_admin')
-			);			
-
-			$this->flexi_auth->update_group($group_id, $data);
-				
-			// Save any public or admin status or error messages to CI's flash session data.
-			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-			
-			// Redirect user.
-			redirect('dashboard/manage_user_groups');			
-		}
-	}
-
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
 	// Student Classes
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
-
 	
   	/**
 	 * insert_student_class
@@ -335,7 +238,7 @@ class Demo_auth_admin_model extends CI_Model {
 
 		// Set validation rules.
 		$validation_rules = array(
-			array('field' => 'insert_class_name', 'label' => 'Class Name', 'rules' => 'required'),
+			array('field' => 'insert_class_name', 'label' => 'Class Name', 'rules' => 'required|alpha_dash|min_length[2]|callback_classnameRegex'),
 		);
 		
 		$this->form_validation->set_rules($validation_rules);
@@ -353,6 +256,10 @@ class Demo_auth_admin_model extends CI_Model {
 			
 			// Redirect user.
 			redirect('dashboard/classes');			
+		} else {
+			$this->flexi_auth_model->set_error_message('There are fields not filled in.', 'public', true);
+			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+			redirect('dashboard/classes');
 		}
 	}
 	
@@ -389,172 +296,6 @@ class Demo_auth_admin_model extends CI_Model {
 		}
 	}
 	
-
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
-	// Privileges
-	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###	
-
-  	/**
-	 * manage_privileges
-	 * The function loops through all POST data checking the 'Delete' checkboxes that have been checked, and deletes the associated privileges.
-	 */
-    function manage_privileges()
-    {
-		// Delete privileges.
-		if ($delete_privileges = $this->input->post('delete_privilege'))
-		{
-			foreach($delete_privileges as $privilege_id => $delete)
-			{
-				// Note: As the 'delete_privilege' input is a checkbox, it will only be present in the $_POST data if it has been checked,
-				// therefore we don't need to check the submitted value.
-				$this->flexi_auth->delete_privilege($privilege_id);
-			}
-		}
-
-		// Save any public or admin status or error messages to CI's flash session data.
-		$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-		
-		// Redirect user.
-		redirect('dashboard/manage_privileges');			
-	}
-
-  	/**
-	 * insert_privilege
-	 * Inserts a new privilege.
-	 */
-	function insert_privilege()
-	{
-		$this->load->library('form_validation');
-
-		// Set validation rules.
-		$validation_rules = array(
-			array('field' => 'insert_privilege_name', 'label' => 'Privilege Name', 'rules' => 'required')
-		);
-		
-		$this->form_validation->set_rules($validation_rules);
-		
-		if ($this->form_validation->run())
-		{
-			// Get privilege data from input.
-			$privilege_name = $this->input->post('insert_privilege_name');
-			$privilege_desc = $this->input->post('insert_privilege_description');
-
-			$this->flexi_auth->insert_privilege($privilege_name, $privilege_desc);
-				
-			// Save any public or admin status or error messages to CI's flash session data.
-			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-			
-			// Redirect user.
-			redirect('dashboard/manage_privileges');			
-		}
-	}
-	
-  	/**
-	 * update_privilege
-	 * Updates a specific privilege.
-	 */
-	function update_privilege($privilege_id)
-	{
-		$this->load->library('form_validation');
-
-		// Set validation rules.
-		$validation_rules = array(
-			array('field' => 'update_privilege_name', 'label' => 'Privilege Name', 'rules' => 'required')
-		);
-		
-		$this->form_validation->set_rules($validation_rules);
-		
-		if ($this->form_validation->run())
-		{
-			// Get privilege data from input.
-			$data = array(
-				$this->flexi_auth->db_column('user_privileges', 'name') => $this->input->post('update_privilege_name'),
-				$this->flexi_auth->db_column('user_privileges', 'description') => $this->input->post('update_privilege_description')
-			);			
-
-			$this->flexi_auth->update_privilege($privilege_id, $data);
-				
-			// Save any public or admin status or error messages to CI's flash session data.
-			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-			
-			// Redirect user.
-			redirect('dashboard/manage_privileges');			
-		}
-	}
-	
-   	/**
-	 * update_user_privileges
-	 * Updates the privileges for a specific user.
-	 */
-	function update_user_privileges($user_id)
-    {
-		// Update privileges.
-		foreach($this->input->post('update') as $row)
-		{
-			if ($row['current_status'] != $row['new_status'])
-			{
-				// Insert new user privilege.
-				if ($row['new_status'] == 1)
-				{
-					$this->flexi_auth->insert_privilege_user($user_id, $row['id']);	
-				}
-				// Delete existing user privilege.
-				else
-				{
-					$sql_where = array(
-						$this->flexi_auth->db_column('user_privilege_users', 'user_id') => $user_id,
-						$this->flexi_auth->db_column('user_privilege_users', 'privilege_id') => $row['id']
-					);
-					
-					$this->flexi_auth->delete_privilege_user($sql_where);
-				}
-			}
-		}
-
-		// Save any public or admin status or error messages to CI's flash session data.
-		$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-		$this->session->set_flashdata('message', '<p class="status_msg">You have successfully updated your user privileges.</p>');
-		
-		$user = $this->flexi_auth->get_user_id();
-		// Redirect user.
-		redirect('dashboard/update_user_account/'.$user);			
-	}
-
-   	/**
-	 * update_group_privileges
-	 * Updates the privileges for a specific user group.
-	 */
-	function update_group_privileges($group_id)
-    {
-		// Update privileges.
-		foreach($this->input->post('update') as $row)
-		{
-			if ($row['current_status'] != $row['new_status'])
-			{
-				// Insert new user privilege.
-				if ($row['new_status'] == 1)
-				{
-					$this->flexi_auth->insert_user_group_privilege($group_id, $row['id']);	
-				}
-				// Delete existing user privilege.
-				else
-				{
-					$sql_where = array(
-						$this->flexi_auth->db_column('user_privilege_groups', 'group_id') => $group_id,
-						$this->flexi_auth->db_column('user_privilege_groups', 'privilege_id') => $row['id']
-					);
-					
-					$this->flexi_auth->delete_user_group_privilege($sql_where);
-				}
-			}
-		}
-
-		// Save any public or admin status or error messages to CI's flash session data.
-		$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-		
-		// Redirect user.
-		redirect('dashboard/manage_user_groups');			
-    }
     
     public function get_uploaddata_for_assignment_of_student($assignment_id, $student_id)
 	{
@@ -562,73 +303,17 @@ class Demo_auth_admin_model extends CI_Model {
 		
 		return $upload;
 	}
-
-    function add_deadline()
-	{
-		$this->load->library('form_validation');
-
-		// Set validation rules.
-		$validation_rules = array(
-			array('field' => 'add_deadline_desc', 'label' => 'Deadline description', 'rules' => 'required'),
-			array('field' => 'add_deadline_enddate', 'label' => 'Deadline enddate', 'rules' => 'required')
-		);
-		
-		$this->form_validation->set_rules($validation_rules);
-		
-		if ($this->form_validation->run())
-		{
-			// Get deadline data from input.
-			$deadline_desc = $this->input->post('add_deadline_desc');
-			$deadline_enddate = $this->input->post('add_deadline_enddate');
-
-			$deadline_id = $this->flexi_auth->add_deadline($deadline_desc, $deadline_enddate);			
-			foreach($this->input->post('add') as $row)
-			{
-				if ($row['current_status'] != $row['new_status'])
-				{
-					// Assign deadline to class.
-					if ($row['new_status'] == 1)
-					{
-						$this->flexi_auth->assign_deadline($deadline_id, $row['id']);	
-					}
-				}
-			}
-			// Save any public or admin status or error messages to CI's flash session data.
-			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-			
-			// Redirect user.
-			redirect('dashboard/manage_deadlines');			
-		}
-	}
 	
-	
-	function delete_deadline()
-    {
-		// Get post data
-		
-		foreach($this->input->post('delete') as $row)
-		{
-			if ($row['current_status'] != $row['new_status'])
-			{
-				// Assign deadline to class.
-				if ($row['new_status'] == 1)
-				{
-					$this->flexi_auth->delete_deadline($row['id']);	
-					$this->flexi_auth->unassign_deadline($row['id']);
-				}
-			}
-		}	
-		redirect('dashboard/manage_deadlines');
-	}
 
 	function add_assignment()
 	{
 		$this->load->library('form_validation');
+		$linked_to_class = false;
 
 		// Set validation rules.
 		$validation_rules = array(
 			array('field' => 'add_assignment_name', 'label' => 'Assignment Name', 'rules' => 'required'),
-			array('field' => 'add_assignment_desc', 'label' => 'Assignment description', 'rules' => 'required'),
+			/* array('field' => 'add_assignment_desc', 'label' => 'Assignment description', 'rules' => 'required'), */
 			array('field' => 'add_assignment_enddate', 'label' => 'Assignment enddate', 'rules' => 'required')
 		);
 		
@@ -638,10 +323,9 @@ class Demo_auth_admin_model extends CI_Model {
 		{
 			// Get deadline data from input.
 			$assignment_name = $this->input->post('add_assignment_name');
-			$assignment_desc = $this->input->post('add_assignment_desc');
+			$assignment_desc = $this->input->post('add_assignment_desc'); 
 			$assignment_enddate = $this->input->post('add_assignment_enddate');
-
-			$assignment_id = $this->flexi_auth->add_assignment($assignment_name, $assignment_desc, $assignment_enddate);			
+		
 			foreach($this->input->post('add') as $row)
 			{
 				if ($row['current_status'] != $row['new_status'])
@@ -649,24 +333,47 @@ class Demo_auth_admin_model extends CI_Model {
 					// Assign deadline to class.
 					if ($row['new_status'] == 1)
 					{
+						$assignment_id = $this->flexi_auth->add_assignment($assignment_name, $assignment_desc, $assignment_enddate);
 						$this->flexi_auth->link_assignment_to_class($assignment_id, $row['id']);	
+						$linked_to_class = true;
 					}
 				}
 			}
-			// Save any public or admin status or error messages to CI's flash session data.
-			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
-			$this->session->set_flashdata('message', '<p class="status_msg">You heve succesfully added a new assignment.</p>');
+			if($linked_to_class)
+			{
+				// Save any public or admin status or error messages to CI's flash session data.
+				$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+				$this->session->set_flashdata('message', '<p class="status_msg">You have succesfully added a new assignment.</p>');
+				
+			}
+			else{
+				// Save any public or admin status or error messages to CI's flash session data.
+				$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
+				$this->session->set_flashdata('message', '<p class="error_msg">The Assignment Class is empty.</p>');
+			}
 			// Redirect user.
-			redirect('dashboard/assignments');			
+			redirect('dashboard/assignments');	
 		} else {
 			$this->load->model('flexi_auth_model');
 			$this->flexi_auth_model->set_error_message('add_assignment_unsuccessful', 'config');
+
+			if(!$this->input->post('add_assignment_name')) {
+				$this->flexi_auth_model->set_error_message('The Assignment Name is empty.', 'public', true);
+			}
+			if(!$this->input->post('add_assignment_enddate')) {
+				$this->flexi_auth_model->set_error_message('The Enddate Name is empty.', 'public', false);
+			}
+			
+			if(!$linked_to_class){
+				$this->flexi_auth_model->set_error_message('The Assignment Class is empty.', 'public', false);
+			}
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			redirect('dashboard/assignments');
 		}
 	}
 	
-function update_assignment($assignment_id)
+	
+	function update_assignment($assignment_id)
 	{	
 		
 		$this->load->library('form_validation');
@@ -674,7 +381,7 @@ function update_assignment($assignment_id)
 		// Set validation rules.
 		$validation_rules = array(
 			array('field' => 'update_assignment_name', 'label' => 'Assignment Name', 'rules' => 'required'),
-			array('field' => 'update_assignment_desc', 'label' => 'Assignment description', 'rules' => 'required'),
+			/* array('field' => 'update_assignment_desc', 'label' => 'Assignment description', 'rules' => 'required'), */
 			array('field' => 'update_assignment_enddate', 'label' => 'Assignment enddate', 'rules' => 'required')
 		);
 		
@@ -686,18 +393,11 @@ function update_assignment($assignment_id)
 			
 			$data = array(
 				$this->flexi_auth->db_column('assignment', 'name') => $this->input->post('update_assignment_name'),
-				$this->flexi_auth->db_column('assignment', 'desc') => $this->input->post('update_assignment_desc'),
+				$this->flexi_auth->db_column('assignment', 'desc') => $this->input->post('update_assignment_desc'), 
 				$this->flexi_auth->db_column('assignment', 'enddate') => $this->input->post('update_assignment_enddate')
 			);
 
 			$this->flexi_auth->update_assignment($assignment_id, $data);
-			
-			
-				
-			// Save any public or admin status or error messages to CI's flash session data.
-			
-			
-			// Redirect user.
 			
 			foreach($this->input->post('update') as $row)
 			{
@@ -719,44 +419,26 @@ function update_assignment($assignment_id)
 			
 			$this->session->set_flashdata('message', $this->flexi_auth->get_messages());
 			
-			
-			
 			redirect('dashboard/assignments/'. $assignment_id);			
 		} else {
 			$this->session->set_flashdata('message', '<p class="error_msg">Please fill in the correct information.</p>');
 			redirect('dashboard/assignments/'. $assignment_id);	
 		}
 	}
-
 	
-	public function archiveer_assignment() {
-		$this->input->post('');
-	}
 	public function getSubstractionOverview(){
-		return $this->db->get('UML_errors');
+		return $this->db->get('uml_errors');
 	}
 	public function getSubstraction($id){
 		$this->db->where('ue_id',$id);
-		return $this->db->get('UML_errors');
+		return $this->db->get('uml_errors');
 	}
 	public function editSubstraction($id,$newSubstraction){
 		$this->db->where('ue_id',$id);
 		$data = array ('ue_error_value' => $newSubstraction);
-		$this->db->update('UML_errors',$data);
+		$this->db->update('uml_errors',$data);
 	}
-	public function insertSubstractionPerAssignment($assignment_id,$uml_error_id,$error_value){
-		$data = array(
-		   'assignment_id' =>  $assignment_id,
-		   'uml_error_id' =>  $uml_error_id,
-		   'error_value' => $error_value
-		);
 
-		$this->db->insert('substraction_assignment_fk', $data); 
-	}
-	public function getSubstractionPerAssignment($assignment_id){
-		$this->db->where('assignment_id',$assignment_id);
-		return $this->db->get('substraction_assignment_fk');
-	}
 }
 
 /* End of file demo_auth_admin_model.php */

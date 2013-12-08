@@ -346,7 +346,7 @@ CREATE TABLE `uml_errors` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4;
 
 
-/** UE_ERROR_VALUE MOET HIER NOG WEG **/
+
 INSERT INTO `uml_errors` (`ue_id`, `ue_name`,`ue_desc`,`ue_error_value`) VALUES
 (1, 'Relatie naam anders', 'Relatie naam is anders' , '0.1'),
 (2, 'Relatie begin', 'Relatie heeft ander begin' , '0.3'),
@@ -365,13 +365,4 @@ INSERT INTO `uml_errors` (`ue_id`, `ue_name`,`ue_desc`,`ue_error_value`) VALUES
 (15, 'Class fout', 'Class is niet aanwezig' , '0.5'),
 (16, 'Relatie afwezig', 'Relatie is niet aanwezig' , '0.5'),
 (17, 'Te laat', 'Student heeft assignment te laat ingeleverd' , '0.5');
-
-CREATE TABLE IF NOT EXISTS `substraction_assignment_fk` (
-  `id` int(50) NOT NULL AUTO_INCREMENT,
-  `uml_error_id` int(50) NOT NULL,
-  `assignment_id` int(50) NOT NULL,
-  `error_value` double NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=86 ;
-
 
