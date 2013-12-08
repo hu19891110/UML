@@ -627,7 +627,7 @@
 	$config['email']['site_title'] = "UMLchecker";
 	
 	// Reply email shown as 'from' header on emails.
-	$config['email']['reply_email'] = "info@UMLchecker.com";
+	$config['email']['reply_email'] = "info@thomashelling.nl";
 	
 	/**
 	 * Type of email to send, options: 'html', 'text'.

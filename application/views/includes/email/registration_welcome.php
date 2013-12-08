@@ -12,7 +12,7 @@
 				<table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border: 1px solid #cccccc; border-collapse: collapse;">
 					<tr>
 						<td align="center" bgcolor="#302E2F" style="padding: 40px 0 30px 0; ">
-							<!-<img src="../includes/images/UMLchecker.png" alt="UML Checker" width="400" height="60" style="display: block;" />
+							<img src="http://umlchecker.thomashelling.nl/includes/images/UMLchecker.png" alt="UML Checker" width="400" height="60" style="display: block;" />
 						</td>
 					</tr>
 					<tr>
@@ -21,7 +21,7 @@
 							<table border="0" cellpadding="0" cellspacing="0" width="100%">
 								<tr>
 									<td style="color: #153643; font-family: Arial, sans-serif; font-size: 20px;">
-										<b>Welcome to UML Checker!</b>
+										<b>WELCOME to UML Checker!</b>
 									</td>
 								</tr>
 								<tr>
