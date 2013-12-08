@@ -505,6 +505,12 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		return TRUE;
 	}
 
+	public function get_deadlines_data() {
+
+
+
+	}
+
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
 
 	/**
@@ -541,7 +547,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	 * Inserts a new student class to the database.
 	 *
 	 * @return bool
-	 * Written by Thomas Prikkel
+	 *  customized by Thomas Prikkel
 	 */
 	public function insert_class($name, $description = NULL, $custom_data = array())
 	{
@@ -569,7 +575,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	 * Updates a student class with any submitted data.
 	 *
 	 * @return bool
-	 * Written by Thomas Prikkel
+	 *  customized by Thomas Prikkel
 	 */
 	public function update_class($class_id, $class_data)
 	{
@@ -619,7 +625,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	 * Deletes a class from the student class table.
 	 *
 	 * @return bool
-	 * Written by Thomas Prikkel
+	 *  customized by Thomas Prikkel
 	 */
 	public function delete_class($sql_where)
 	{
@@ -1364,6 +1370,117 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 		}
 	}
 
+
+	/**
+	 * get_unactivated_users
+	 * Cleanup function to get unactivated users from database within expiry period.
+	 * These can then be deleted using the library delete_unactivated_users() function.
+	 *
+	 * @return bool
+	 * @author Rob Hussey
+	 */
+	public function get_unactivated_users($inactive_days = 28, $sql_select = FALSE, $sql_where = FALSE)
+	{
+		if (!is_numeric($inactive_days))
+		{
+			return FALSE;
+		}
+
+		// SQL SELECT columns.
+		if (!empty($sql_select))
+		{
+			$this->db->select($sql_select);
+		}
+
+		// SQL WHERE columns.
+		if (!empty($sql_where))
+		{
+			$this->db->where($sql_where);
+		}
+
+		// Do not delete accounts added within set $inactive_days.
+		$inactive_days = (60 * 60 * $inactive_days);
+		$expire_date = $this->database_date_time(-$inactive_days);
+
+		$sql_where = array(
+			$this->login->tbl_col_user_account['active'] => 0,
+			$this->login->tbl_col_user_account['date_added'].' < ' => $expire_date
+		);
+
+		$this->db->where($sql_where);
+
+		return $this->get_users($sql_select);
+	}
+
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
+
+	/**
+	 * get_groups
+	 * Returns a list of user groups matching the $sql_where condition.
+	 *
+	 * @return object
+	 * @author Rob Hussey
+	 */
+	/*public function get_groups($sql_select = FALSE, $sql_where = FALSE)
+	{
+		// Set any custom defined SQL statements.
+		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
+
+		return $this->db->get($this->login->tbl_user_group);
+		//$class = $this->get_student_class($user_id);
+ 		//$class = $class->row_array();
+ 		//$class_id = $class['uacc_class_fk'];
+		$assignments = $this->get_assignments_for_class($class_id);
+		
+		$not_handed_in_assignments = array();
+		$assignment_ids2 = array();
+		
+		foreach($assignment_ids as $assignment_id) {
+			$assignment_id_fk = $assignment_id['deadline_id'];
+			array_push($assignment_ids2, $assignment_id_fk);
+			
+		}
+		
+		
+		foreach($assignments as $assignment) {
+			//print_r($assignment);
+			if(!in_array($assignment, $assignment_ids2)) {
+				array_push($not_handed_in_assignments, $assignment);
+			}
+		}
+		
+		$sql_where = '';
+		$i = 0;
+		
+		$assignments = array();
+		foreach($not_handed_in_assignments as $not_handed_in_assignment) {
+		
+			if($i > 0) {
+				$sql_where = $sql_where .= ' OR assignment_id = ' . $not_handed_in_assignment;
+			} else {
+				$sql_where = 'assignment_id = ' . $not_handed_in_assignment;
+			}
+			$i++;
+		}
+		
+		
+		$assignments = $this->get_assignments(FALSE, $sql_where);
+		$assignments = $assignments->result_array();
+		return $assignments;
+	}*/
+
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
+
+
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
+
+	/**
+	 * get_classes
+	 * Returns a list of user groups matching the $sql_where condition.
+	 *
+	 * @return object
+	 * @author Rob Hussey
+	 */
 	public function get_classes($sql_select = FALSE, $sql_where = FALSE)
 	{
 		// Set any custom defined SQL statements.
@@ -1375,16 +1492,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 	public function get_student_class($user_id) {
 
 		return $this->db->get_where('user_accounts', array('uacc_id' => $user_id));
-	}
 
-
-
-public function get_groups($sql_select = FALSE, $sql_where = FALSE)
-	{
-		// Set any custom defined SQL statements.
-		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
-
-		return $this->db->get($this->login->tbl_user_group);
 	}
 
 	public function get_deadlines_by_class($class_id) {
@@ -1398,6 +1506,68 @@ public function get_groups($sql_select = FALSE, $sql_where = FALSE)
 			array_push($array, $deadline[0]);
 		}
 		return $array;
+	}
+
+
+
+
+	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
+
+
+	/**
+	 * get_privileges
+	 * Returns a list of all privileges matching the $sql_where condition.
+	 *
+	 * @return void
+	 * @author Rob Hussey
+	 */
+	public function get_privileges($sql_select, $sql_where)
+	{
+		// Set any custom defined SQL statements.
+		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
+
+		return $this->db->get($this->login->tbl_user_privilege);
+	}
+
+	/**
+	 * get_user_privileges
+	 * Returns a list of user privileges matching the $sql_where condition.
+	 *
+	 * @return void
+	 * @author Rob Hussey
+	 */
+	public function get_user_privileges($sql_select, $sql_where)
+	{
+		// Set any custom defined SQL statements.
+		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
+
+		return $this->db->from($this->login->tbl_user_privilege)
+		->join($this->login->tbl_user_privilege_users, $this->login->tbl_col_user_privilege['id'].' = '.$this->login->tbl_col_user_privilege_users['privilege_id'])
+		->get();
+	}
+
+	/**
+	 * get_user_group_privileges
+	 * Returns a list of user group privileges matching the $sql_where condition.
+	 *
+	 * @return void
+	 * @author Rob Hussey / Filou Tschiemer
+	 */
+	public function get_user_group_privileges($sql_select, $sql_where)
+	{
+		// Set any custom defined SQL statements.
+		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
+
+		return $this->db->from($this->login->tbl_user_privilege)
+		->join($this->login->tbl_user_privilege_groups, $this->login->tbl_col_user_privilege['id'].' = '.$this->login->tbl_col_user_privilege_groups['privilege_id'])
+		->get();
+	}
+
+	public function get_deadlines($sql_select, $sql_where)
+	{
+		$this->flexi_auth_lite_model->set_custom_sql_to_db($sql_select, $sql_where);
+
+		return $this->db->get($this->login->tbl_deadline);
 	}
 
 	public function get_uploads_by_deadline($deadline_id)
@@ -1488,66 +1658,15 @@ public function get_groups($sql_select = FALSE, $sql_where = FALSE)
 		$class = $this->get_student_class($user_id);
 		$class = $class->row_array();
 		$class_id = $class['uacc_class_fk'];
-		$assignments = $this->get_assignments_for_class($class_id);
-		
-		$not_handed_in_assignments = array();
-		$assignment_ids2 = array();
-		
-		foreach($assignment_ids as $assignment_id) {
-			$assignment_id_fk = $assignment_id['deadline_id'];
-			array_push($assignment_ids2, $assignment_id_fk);
-			
-		}
-		
-		
-		foreach($assignments as $assignment) {
-			//print_r($assignment);
-			if(!in_array($assignment, $assignment_ids2)) {
-				array_push($not_handed_in_assignments, $assignment);
-			}
-		}
-		
-		$sql_where = '';
-		$i = 0;
-		
-		$assignments = array();
-		foreach($not_handed_in_assignments as $not_handed_in_assignment) {
-			
-			if($i > 0) {
-				$sql_where = $sql_where .= ' OR assignment_id = ' . $not_handed_in_assignment;
-			} else {
-				$sql_where = 'assignment_id = ' . $not_handed_in_assignment;
-			}
-			$i++;
-		}
-		
-		
-		$assignments = $this->get_assignments(FALSE, $sql_where);
-		$assignments = $assignments->result_array();
-		return $assignments;
-		
-		/*foreach($assignments as $assignment) {
-			foreach($assignment_ids as $assigment_id) {
-				$assignment_id_upl = $assignment_id['deadline_id'];
-			
-				if($assignment_id_upl != $assignment['assignment_id']) {
-					array_push($not_handed_in_assignments, $assignment);
-				}
-			
-			
-			}
-		}*/
-		
-		/*
 		$sql_where = '';
 		$i = 0;
 		foreach($assignment_ids as $assignment_id_array) {
 			$assignment_id = $assignment_id_array['deadline_id'];
 			if ($i > 0) {
-				$sql_where = $sql_where . " AND `assignment_id_fk` !=" . $assignment_id;
+				$sql_where = $sql_where . " AND `assignment_id_fk` != $assignment_id";
 			} else {
-				$sql_where = $sql_where . "class_id_fk = ". $class_id . " AND ";
-				$sql_where = $sql_where . "( `assignment_id_fk` != " . $assignment_id;
+				$sql_where = $sql_where . "class_id_fk = $class_id AND ";
+				$sql_where = $sql_where . "( `assignment_id_fk` != $assignment_id";
 			}
 
 			$i++;
@@ -1566,9 +1685,9 @@ public function get_groups($sql_select = FALSE, $sql_where = FALSE)
 		foreach ($assignments as $assignment) {
 			$assignment_id = $assignment['assignment_id_fk'];
 			if ($i > 0) {
-				$sql_where = $sql_where . " OR `assignment_id` = " . $assignment_id;
+				$sql_where = $sql_where . " OR `assignment_id` = $assignment_id";
 			} else {
-				$sql_where = $sql_where . "assignment_id =" . $assignment_id;
+				$sql_where = $sql_where . "assignment_id = $assignment_id";
 			}
 			$i++;
 		}
@@ -1579,7 +1698,7 @@ public function get_groups($sql_select = FALSE, $sql_where = FALSE)
 		} else {
 			$class_assignments = '';
 		}
-		return $class_assignments;*/
+		return $class_assignments;
 	}
 
 	public function get_checked_assignments_per_student($student_id) {
@@ -1634,6 +1753,7 @@ public function get_groups($sql_select = FALSE, $sql_where = FALSE)
 	{
 		$errors = $this->db->get_where('checker_errors', array('ce_student_id' => $student_id, 'ce_deadline_id' => $assignment_id));
 
+
 		return $errors;
 	}
 	public function get_uploaddata_for_assignment_of_student($assignment_id, $student_id)
@@ -1643,25 +1763,39 @@ public function get_groups($sql_select = FALSE, $sql_where = FALSE)
 		return $upload;
 	}
 
-	public function get_error_value($error_id)
+	public function get_error_value($error_id,$assignment_id)
 	{
-		$error_info = $this->db->get_where('uml_errors', array('ue_id' => $error_id));
-		$error_info = $error_info->row_array();
-		$error_value = $error_info['ue_error_value'];
+		$error_info = $this->db->get_where('substraction_assignment_fk', array(
+			'uml_error_id' => $error_id,
+			'assignment_id' => $assignment_id,
+			));
 
-		return $error_value;
+		$error_info = $error_info->row_array();
+
+		if(array_key_exists('error_value', $error_info)){
+			$error_value = $error_info['error_value'];
+			return $error_value;
+		}
+
+		//echo '<h1>' . $error_value . '</h1>';
+		
 	}
 
 	public function calculate_grade($student_id, $assignment_id)
 	{
 		$errors = $this->get_errors_for_assignment_of_student($assignment_id, $student_id);
+		
+		
 		$errors = $errors->result_array();
+		/*echo '<pre>';
+		print_r($errors);
+		echo '</pre>';*/
 		$substraction = 0;
 
 		foreach ($errors as $error) {
 			$error_id = $error['ce_error_id'];
 			if ($error_id != 16) {
-				$error_substraction = $this->get_error_value($error_id);
+				$error_substraction = $this->get_error_value($error_id,$assignment_id);
 				$substraction = $substraction + $error_substraction;
 			}
 		}
@@ -1781,7 +1915,6 @@ public function get_groups($sql_select = FALSE, $sql_where = FALSE)
 		$this->db->select('p.upro_first_name, p.upro_last_name, u.grade');
 		$this->db->from('uploads u, user_profiles p');
 		$this->db->where('u.deadline_id = ' . $assignment_id);
-		$this->db->where('u.Type = 1');
 		$this->db->where('u.student_id = p.upro_id');
 		$grades = $this->db->get();
 
@@ -2089,7 +2222,7 @@ public function get_groups($sql_select = FALSE, $sql_where = FALSE)
 			array($group->{$this->login->database_config['user_group']['columns']['id']} => $group->{$this->login->database_config['user_group']['columns']['name']});
 
 		###+++++++++++++++++++++++++++++++++###
-		/*
+
 		$privilege_sources = $this->login->auth_settings['privilege_sources'];
 		$privileges = array();
 
@@ -2141,7 +2274,7 @@ public function get_groups($sql_select = FALSE, $sql_where = FALSE)
 
 		// Set user privileges to session.
 		$this->login->session_data[$this->login->session_name['privileges']] = $privileges;
-		*/
+
 		###+++++++++++++++++++++++++++++++++###
 
 		$this->session->set_userdata(array($this->login->session_name['name'] => $this->login->session_data));
@@ -2889,26 +3022,13 @@ public function get_groups($sql_select = FALSE, $sql_where = FALSE)
 		return $substraction;
 	}
 
-	function get_assignments_for_class($class_id) {
-		$class_assignments = $this->db->get_where('class_assignments', array('class_id_fk' => $class_id));
-		$class_assignments = $class_assignments->result_array();
-		$assignments = array();
-		foreach ($class_assignments as $class_assignment) {
-			$assignment_id = $class_assignment['assignment_id_fk'];
-			array_push($assignments, $assignment_id);
-		}
-		return $assignments;
-	}
-	
-	public function archive_assignment($assignment_id)
+	public function archiveer_assignment($assignment_id)
 	{
 		$data = array('assignment_archief' => '1');
 
 		$sql_where = array('assignment_id' => $assignment_id );
 
 		$this->db->update('assignments', $data, $sql_where);
-		
-		return $this->db->affected_rows() == 1;
 	}
 
 	public function get_amount_students_not_handed_in($assignment_id) {
@@ -2918,7 +3038,7 @@ public function get_groups($sql_select = FALSE, $sql_where = FALSE)
       AND C.class_id_fk = A.uacc_class_fk
       AND A.uacc_id NOT IN (
        SELECT U.student_id
-       FROM uploads U
+       FROM Uploads U
        WHERE U.deadline_id = ' . $assignment_id . '
        )');
 		$amounts = $amounts->result_array();
@@ -2930,6 +3050,7 @@ public function get_groups($sql_select = FALSE, $sql_where = FALSE)
 	}
 
 }
+
 
 /* End of file flexi_auth_model.php */
 /* Location: ./application/controllers/flexi_auth_model.php */

@@ -27,6 +27,7 @@ global $AttribuutVariabelenFout; //(leaf/scope/unique/visibility/static) waarde 
 
 
 
+
 class Checker 
 {
 	public function __construct()
@@ -54,9 +55,10 @@ class Checker
 	}
 
 
-	function checkFile($correctfile, $handed_in_file) {
+	function checkFile($correctfile, $handed_in_file,$assignment_id) {
 		$config['upload_path'] = './uploads/';
 		$this->CI->load->model('flexi_auth_model');
+		$this->CI->load->model('demo_auth_admin_model');
 		$filename = $handed_in_file;
 		$info = explode("-", $filename);
 		$student_id = $info[0];
@@ -107,12 +109,11 @@ class Checker
 					
 						if($class1->ModelChildren->Attribute != NULL) {
 							$this->checkAttributes($class1, $class2, $filename);
-							$this->checkAttributesMissing($class1, $class2, $filename);
+							
 						} 
 						
 						if($class1->ModelChildren->Operations != NULL) {
 							$this->checkOperations($class1, $class2, $filename);
-							$this->checkOperationsMissing($class1, $class2, $filename);
 						}
 					}
 				}
@@ -129,9 +130,7 @@ class Checker
 			}
 		}
 		//echo 'NU GAAN WE RELATIES BEKIJKEN =D' . '<br /><br />';
-		
 		$this->checkRelations($xml, $xml2, $filename);
-		$this->checkRelationsMissing($xml, $xml2, $filename);
 	}
 
 	function checkOperations($class1, $class2, $filename) {
@@ -338,152 +337,6 @@ class Checker
 		}
 	}
 	
-	function checkOperationsMissing($class1, $class2, $filename) {
-		$modelChildren2 = $class1->ModelChildren;
-		$modelChildren1 = $class2->ModelChildren;
-		$arrayElements = array();
-		$i = 0;
-		foreach($modelChildren1->Operation as $operations1) { // gaat alle operations langs vaingevoerde file
-			$i = 0; // telt of element vaker dan een keer voor komt
-			if($this->oprExists($operations1, $modelChildren2)) { // operation bestaat ergens in $operations2(wellicht twee keer?) kotm ook 2 keer in
-				
-				foreach($modelChildren2->Operation as $operations2) { // alle operaties langs gaan van andere file, nu kijken of operation naam overeen komt? naam komt twee x overeen
-					
-					if((string)$operations1->attributes()->Name == (string)$operations2->attributes()->Name) { // De namene van deo peraties zijn hetzelfde, kijken voor parameters
-						$i++;
-						if($i > 1) {
-							if(!in_array((string)$operations1->attributes()->Name, $arrayElements)) {
-								array_push($arrayElements, (string)$operations1->attributes()->Name);
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		for($j = 0; $j < count($arrayElements); $j++) {
-			//echo $arrayElements[$j] . ' komt vaker voor! <br />';
-		}
-		
-
-		foreach($modelChildren1->Operation as $operations1) {	
-			if($this->oprExists($operations1, $modelChildren2)) { // operation bestaat ergens in $operations2(wellicht twee keer?) kotm ook 2 keer in
-				
-				foreach($modelChildren2->Operation as $operations2) { // alle operaties langs gaan van andere file, nu kijken of operation naam overeen komt? naam komt twee x overeen
-					
-					if((string)$operations1->attributes()->Name == (string)$operations2->attributes()->Name) { // De namene van deo peraties zijn hetzelfde, kijken voor parameters
-						
-						if(!empty($operations1->ModelChildren) && !empty($operations2->ModelChildren)) { // er zijn parameters
-						
-							if(!in_array((string)$operations1->attributes()->Name, $arrayElements)) { // Operatie komt maar een keer voor
-								foreach($operations1->ModelChildren->Parameter as $parameters1) { 
-									if($this->paramExists($parameters1, $operations2->ModelChildren)) {
-										
-									} else {
-										/*
-										$this->faults = $this->faults. 'Parameter: ' . (string)$parameters1->attributes()->Name . ' is missing in the operation ' . (string)$operations1->attributes()->Name . '.  <font color="red">*Puntenaftrek*</font>  <br />';
-										$this->GRADE = $this->GRADE - $this->ParameterMissing;
-										*/
-										$operation_name = (string)$operations1->attributes()->Name;
-										$parameter_name = (string)$parameters1->attributes()->Name;
-										$error_id = 19;
-										$this->add_error($filename, $error_id, '', $operation_name, '', $parameter_name, '', '', '');
-									}
-								}
-								
-							
-							} else { // Operatie komt vaker voor, maar hoe vaak?
-							/** OPERATIE NAMEN ZIJN HIER AL HETZELFDE GODVERDOMME dus generate elements
-							
-							
-							
-							
-							
-							
-							**/
-							
-							
-								$amountelements = 0;
-								foreach($modelChildren1->Operation as $operations3) {
-									foreach($modelChildren2->Operation as $operations4) { 
-										if( in_array( (string)$operations1->attributes()->Name, $arrayElements ) && in_array( (string)$operations2->attributes()->Name, $arrayElements ) ) {
-											$amountelements++;
-										}
-									}	
-								}
-								
-								
-								
-								
-								$array = array();
-								$i = 0;
-								$j = 0;
-								foreach($operations1->ModelChildren->Parameter as $parameters1) { // count parameters
-									$i++;
-								}
-								
-								foreach($operations2->ModelChildren->Parameter as $parameters2) { // count parameters
-									$j++;
-								}
-								
-								foreach($operations1->ModelChildren->Parameter as $parameters1) {
-									$k = 0;
-									if($this->paramExists($parameters1, $operations2->ModelChildren)) {	
-										foreach($operations2->ModelChildren->Parameter as $parameters2) { // count parameters
-											if((string)$parameters1->attributes()->Name == (string)$parameters2->attributes()->Name) {
-												if($this->sameTypeParam($parameters1, $parameters2)) {
-													$class_name = (string)$class1->attributes()->Name;
-													$amount = $this->checkOperation($operations1, $operations2, $class_name, $filename);
-													if($amount != 0) {
-														/*
-														$this->faults = $this->faults. ' zijn de waardes die niet overeenkomen met elkaar bij de operatie ' . (string)$operations1->attributes()->Name . ' van de klasse ' . (string)$class1->attributes()->Name . '.  <font color="red">*Puntenaftrek*</font>  <br />';
-														$this->GRADE = $this->GRADE - $this->OperatieVariabelenFout;
-														*/
-														//Error handling already done
-														} else {
-														//echo 'Parameter: <strong>' . (string)$parameters1->attributes()->Name . '</strong> From the operation <strong>' . (string)$operations1->attributes()->Name . '</strong> From the Class <strong>' . (string)$class1->attributes()->Name . '</strong> is Okay.<br />';
-													}
-												} else { // NOG EVEN DIEPER KIJKEN VOOR TYPE OF DATAYPE MY SHIZZLE DIZZLE NIZZLE
-													$k++;
-													break;
-												}
-
-											} 
-										
-										}
-										
-									}
-									//echo $k . '<br />';
-									if($k == 1) {
-	/*2x uitzondering*///					echo '<strong>'. (string)$parameters1->attributes()->Name . '</strong> is incorrect in the handed in file.  <font color="red">*Puntenaftrek*</font> <br />';
-									}
-
-								}
-								
-							}
-								
-							if($i == $j) {
-								
-							}
-							
-						} else { // geen kids
-						
-						}
-					}
-				}
-			} else {
-				/*
-				$this->faults = $this->faults. 'The operation: ' . (string)$operations1->attributes()->Name . ' From the Class ' . (string)$class1->attributes()->Name . ' is missing in the handed in file.  <font color="red">*Puntenaftrek*</font>  <br />';
-				$this->GRADE = $this->GRADE - $this->OperationMissing;
-				*/
-				$class_name = (string)$class1->attributes()->Name;
-				$operation_name = (string)$operations1->attributes()->Name;
-				$error_id = 20;
-				$this->add_error($filename, $error_id, $class_name, $operation_name, '', '', '', '', '');
-			}			
-		}
-	}
-	
 	function returnTypeExists($returntype1, $returntype2) {
 		if(isset($returntype1->DataType) && isset($returntype2->DataType)){
 			if((string)$returntype1->DataType->attributes()->Name == (string)$returntype2->DataType->attributes()->Name) {
@@ -588,71 +441,6 @@ class Checker
 								
 								$relation_name = $naam1;
 								$error_id = 16;
-								$this->add_error($filename, $error_id, '', '', '', '', '', $relation_name, '');
-								
-							}
-							$teller = 0;
-						}//isset
-					}//foreach xml
-				}//isset
-			}
-		}		
-	}
-	// /RELATIONS CHECKER
-	
-	//RELATIONS CHECKER
-	function checkRelationsMissing($xml, $xml2, $filename){
-		foreach($xml2->Models->ModelRelationshipContainer->ModelChildren->ModelRelationshipContainer as $container1) {
-			foreach($xml->Models->ModelRelationshipContainer->ModelChildren->ModelRelationshipContainer as $container2) {
-							
-				//relaties
-				$teller = 0;
-				if (isset ($container1->ModelChildren->Association)){
-					foreach($container1->ModelChildren->Association as $relatie1) {
-						$teller = 0;
-						if (isset ($container2->ModelChildren->Association)){
-							foreach($container2->ModelChildren->Association as $relatie2) {
-								
-								$naam1 = (string)$relatie1->attributes()->Name;
-								$naam2 = (string)$relatie2->attributes()->Name;
-								
-								
-								$from_end1 = $relatie1->FromEnd->AssociationEnd;
-								$from_end2 = $relatie2->FromEnd->AssociationEnd;
-								$to_end1 = $relatie1->ToEnd->AssociationEnd;
-								$to_end2 = $relatie2->ToEnd->AssociationEnd;
-								
-								//check of het om éénzelfde relatie gaat door de begin- en eindbestemmingen te vergelijken.
-								if($this->checkBestemming($from_end1, $from_end2, 'eindbestemming') && $this->checkBestemming($to_end1, $to_end2, 'beginbestemming')) {
-									//echo 'Deze relatie komt voor in xml2: <strong>'. $naam1 . '</strong><br />';
-									$teller = 1;
-									
-									//check het soort relatie
-									//$this->checkSoort($relatie1, $relatie2, $filename);
-												
-									//relatie komt voor in nakijkmodel dus we kijken verder
-									
-									//kijken of de relatie dezelfde multipliciteit heeft
-									//eindbestemming
-									//$this->checkMP($from_end1, $from_end2, 'eindbestemming', $filename);
-											
-									//beginbestemming
-									//$this->checkMP($to_end1, $to_end2, 'beginbestemming', $filename);
-												
-								}//if naamgelijkheid
-								else if($naam1 == $naam2) {
-			//						echo 'Deze relatienaam: "' . $naam1 . '" komt NIET voor in xml2! OF HET PROGRAMMA HEEFT HET VERGELEKEN MET EEN ANDERE RELATIE' . '<br />';
-									//check of de relatie dezelfde begin- en eindbestemming heeft
-
-								}// else naamgelijkheid
-							}//foreach xml2	
-							if ( $teller == 0 ){
-								//echo 'de relatie ' . $relatie1 . 'is niet aanwezig in het ingeleverde model' . '<br />';
-								//$naam1 NIET AANWEZIG IN INGELEVERD MODEL
-								
-								
-								$relation_name = $naam1;
-								$error_id = 21;
 								$this->add_error($filename, $error_id, '', '', '', '', '', $relation_name, '');
 								
 							}
@@ -814,30 +602,6 @@ class Checker
 		
 	}
 	
-	/**
-	Checks all attributes and compares them
-	**/
-	function checkAttributesMissing($class1, $class2, $filename) {
-		$modelChildren2 = $class1->ModelChildren; // Dieper gaan om attributen te checken
-		$modelChildren1 = $class2->ModelChildren; // Dieper gaan om attributen te checken
-			
-		foreach($modelChildren1->Attribute as $attributes1) {
-			if($this->attrExists($attributes1, $modelChildren2)) { // checken of attribuut bestaat
-							
-			} else {
-				/*
-				$this->faults = $this->faults. 'The attribute: ' . (string)$attributes1->attributes()->Name . ' From the Class ' . (string)$class1->attributes()->Name . ' is missing in the handed in file.  <font color="red">*Puntenaftrek*</font>  <br />';
-				$this->GRADE = $this->GRADE - $this->AttribuutMissing;
-				*/
-				$class_name = (string)$class2->attributes()->Name;
-				$attribute_name = (string)$attributes1->attributes()->Name;
-				$error_id = 18;
-				$this->add_error($filename, $error_id, $class_name, '', $attribute_name, '', '', '', '');
-			}
-						
-		}
-		
-	}
 	
 	function paramExists($parameter1, $modelChildren2) {
 		
@@ -993,6 +757,7 @@ class Checker
 		$info = explode("-", $filename);
 		$student_id = $info[0];
 		$deadline_id = $info[1]; 
+		
 		
 		$this->CI->flexi_auth_model->add_error($student_id, $deadline_id, $error_id, $class_name, $operation_name, $attribute_name, $parameter_name, $datatype, $relation_name, $eigenschappen);
 		

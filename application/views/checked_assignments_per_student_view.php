@@ -1,6 +1,6 @@
 <div class="large-12 columns" >
 
-	<div class="h2bg" style="height: 90px !important;">
+	<div class="h2bg">
 		<h2>
 			<?php 
 			if ($this->flexi_auth->is_admin()) {
@@ -15,6 +15,12 @@
 			?>
 			<span class="cijfer"><?php echo $assignment_grade;?> </span>
 	 		Student <?php echo $user_name; ?> 	
+	 		<?php if ($this->flexi_auth->is_admin()) { ?>
+	 		<span class="backtoass"><a
+	 			href="<?php echo $base_url.'dashboard/assignments_per_student/'.$user_id;?>"> 
+	 			Back to all assignments of the student</a>
+	 		</span>
+	 		<?php } ?>
 		</h2>
 	
 		<h4>
@@ -24,20 +30,13 @@
 	 		<span class="goedkeuren"> Approve all | Disapprove all </span>
 	 		<?php } ?>
 			
-		</h4>
-		<a href="<?php echo $refered_from; ?>">Back</a>	
+		</h4>	
 	</div>
-	<?php
-			if (! empty($message)) { ?>
-				<div id="message">
-					<?php echo $message; ?>
-				</div>
-			<?php } 
+	<? 
 	
 		foreach ($errors as $error) {
-			
 			 $error_id = $error[$this->flexi_auth->db_column('checker_error', 'error_id')];
-			 $error_value = $this->flexi_auth->get_error_value($error_id);
+			 $error_value = $this->flexi_auth->get_error_value($error_id,$assignment_id);
 			 $error_value = round($error_value, 1);
 			 ?>
 			 <?php if ($this->flexi_auth->is_admin()) { ?>
@@ -48,18 +47,18 @@
 	 		 $error_value = $this->flexi_auth->get_substraction_late($user_id, $assignment_id);
 			  } ?>
 			 <span class="mistake"><?php echo $error_value;?></span>
-			 <?php
+			 <?
 			 			 if ($error_id == 1) {
 				 ?>
-				 <p>Relationship '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': The relationship exists in the handed in model but has <strong>another</strong> name.</p>
+				 <p>Relationship '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': The relationship exists in the handed in model but has another name.</p>
 				 <?php
 			 } else if ($error_id == 2) {
 				 ?>
-				 <p>Relationship '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': This relationship does NOT have the same <strong>start</strong> destination.</p>
+				 <p>Relationship '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': This relationship does NOT have the same start destination. </p>
 				 <?php
 			 } else if ($error_id == 3) {
 				 ?>
-				 <p>Relationship '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': This relationship does NOT have the same <strong>destination</strong>.</p>
+				 <p>Relationship '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>': This relationship does NOT have the same destination. </p>
 				 <?php
 			 } else if ($error_id == 4) {
 				 ?>
@@ -114,25 +113,9 @@
 				 ?>
 				 <p>The relation '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>' is missing in the handed in model. </p>
 				 <?php
-			} else if ($error_id == 17) {
+			} else if ($error_id = 17) {
 				?>
 				<p>The student handed in his assignment <?php echo $error[$this->flexi_auth->db_column('checker_error', 'eigenschappen')];?> days after the deadline. </p>
-				<?php
-			} else if ($error_id == 18) {
-				?>
-				<p>The attribute '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'attribute')];?>' is too much in the handed in model. </p>
-				<?php
-			} else if ($error_id == 19) {
-				?>
-				<p>The parameter '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'parameter')];?>' is too much in the handed in model. </p>
-				<?php
-			} else if ($error_id == 20) {
-				?>
-				<p>The operation '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'operation')];?>' is too much in the handed in model. </p>
-				<?php
-			} else if ($error_id == 21) {
-				?>
-				<p>The relationship '<?php echo $error[$this->flexi_auth->db_column('checker_error', 'relatie')];?>' is too much in the handed in model. </p>
 				<?php
 			}
 			echo '<br/><br/>';		
@@ -144,16 +127,15 @@
 		 <?php if ($this->flexi_auth->is_admin()) { ?>
 		<!--Teacher comment section-->
 		<?php echo form_open(); ?>
-		
-			
+		<li>
+			<label for="comments">Comments:</label>
 			<textarea id="comment" name="comment" class="width_400 tooltip_trigger"
 				title="Optional comments on the handed in file for the student."><?php echo $comment;?></textarea>
-		
-		<br />
+		</li>
 		<?php if ($comment == '') { ?>
-			<input type="submit" name="add_comment" id="add_comment" value="Add" class="button small"/> 
+			<input type="submit" name="add_comment" id="add_comment" value="Add comment" class="button small"/> 
 		<?php } else { ?>
-			<input type="submit" name="add_comment" id="add_comment" value="Update" class="button small"/>
+			<input type="submit" name="add_comment" id="add_comment" value="Update comment" class="button small"/>
 		<?php } ?> 
 		<?php echo form_close(); ?>
 		<?php } else { ?>
