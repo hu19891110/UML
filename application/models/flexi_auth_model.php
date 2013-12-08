@@ -1488,15 +1488,66 @@ public function get_groups($sql_select = FALSE, $sql_where = FALSE)
 		$class = $this->get_student_class($user_id);
 		$class = $class->row_array();
 		$class_id = $class['uacc_class_fk'];
+		$assignments = $this->get_assignments_for_class($class_id);
+		
+		$not_handed_in_assignments = array();
+		$assignment_ids2 = array();
+		
+		foreach($assignment_ids as $assignment_id) {
+			$assignment_id_fk = $assignment_id['deadline_id'];
+			array_push($assignment_ids2, $assignment_id_fk);
+			
+		}
+		
+		
+		foreach($assignments as $assignment) {
+			//print_r($assignment);
+			if(!in_array($assignment, $assignment_ids2)) {
+				array_push($not_handed_in_assignments, $assignment);
+			}
+		}
+		
+		$sql_where = '';
+		$i = 0;
+		
+		$assignments = array();
+		foreach($not_handed_in_assignments as $not_handed_in_assignment) {
+			
+			if($i > 0) {
+				$sql_where = $sql_where .= ' OR assignment_id = ' . $not_handed_in_assignment;
+			} else {
+				$sql_where = 'assignment_id = ' . $not_handed_in_assignment;
+			}
+			$i++;
+		}
+		
+		
+		$assignments = $this->get_assignments(FALSE, $sql_where);
+		$assignments = $assignments->result_array();
+		return $assignments;
+		
+		/*foreach($assignments as $assignment) {
+			foreach($assignment_ids as $assigment_id) {
+				$assignment_id_upl = $assignment_id['deadline_id'];
+			
+				if($assignment_id_upl != $assignment['assignment_id']) {
+					array_push($not_handed_in_assignments, $assignment);
+				}
+			
+			
+			}
+		}*/
+		
+		/*
 		$sql_where = '';
 		$i = 0;
 		foreach($assignment_ids as $assignment_id_array) {
 			$assignment_id = $assignment_id_array['deadline_id'];
 			if ($i > 0) {
-				$sql_where = $sql_where . " AND `assignment_id_fk` != $assignment_id";
+				$sql_where = $sql_where . " AND `assignment_id_fk` !=" . $assignment_id;
 			} else {
-				$sql_where = $sql_where . "class_id_fk = $class_id AND ";
-				$sql_where = $sql_where . "( `assignment_id_fk` != $assignment_id";
+				$sql_where = $sql_where . "class_id_fk = ". $class_id . " AND ";
+				$sql_where = $sql_where . "( `assignment_id_fk` != " . $assignment_id;
 			}
 
 			$i++;
@@ -1515,9 +1566,9 @@ public function get_groups($sql_select = FALSE, $sql_where = FALSE)
 		foreach ($assignments as $assignment) {
 			$assignment_id = $assignment['assignment_id_fk'];
 			if ($i > 0) {
-				$sql_where = $sql_where . " OR `assignment_id` = $assignment_id";
+				$sql_where = $sql_where . " OR `assignment_id` = " . $assignment_id;
 			} else {
-				$sql_where = $sql_where . "assignment_id = $assignment_id";
+				$sql_where = $sql_where . "assignment_id =" . $assignment_id;
 			}
 			$i++;
 		}
@@ -1528,7 +1579,7 @@ public function get_groups($sql_select = FALSE, $sql_where = FALSE)
 		} else {
 			$class_assignments = '';
 		}
-		return $class_assignments;
+		return $class_assignments;*/
 	}
 
 	public function get_checked_assignments_per_student($student_id) {
